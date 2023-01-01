@@ -1,0 +1,61 @@
+{% extends 'home_site/base.html' %}
+{% load static %}
+{% block content %}
+
+<h3 class="text-center">Thank you for your order</h3>
+<br>
+<div class="col-12 col-md-8 mx-auto">
+<b>
+
+    Your order details are
+</b>
+<br>
+Email: {{order.email.email}} <br>
+Order number: {{order.order_number}} <br>
+Total: {{order.currency.currency_symbol}}{{order.order_total}} {{order.currency.currency_code}} <br>
+{% if order.product.type == 'user_chosen' %}
+Amount per month: {{order.currency.currency_symbol}}{{order.user_chosen_price_per_month}} {{order.currency.currency_code}}
+<br>
+Months: {{order.user_chosen_interval_months}} 
+<br>
+{% endif %}
+
+</div>
+
+<div class="text-center">
+    If you have any questions, please don't hesistate to get in touch.
+    <br>
+    We'll send you any updates via email so be sure to check your email regularly
+</div>
+<br>
+{% if site.site_email %}
+<div>
+Our email is {{site.site_email}}
+</div>
+{% endif %}
+
+{% endblock %}
+
+
+{% block scripts %}
+
+
+{% if enable_pixels_for_user %}
+
+{% if quiz.category.enable_pixels %}
+{% autoescape off %}
+
+{{quiz.category.analytics_base}}
+
+{% endautoescape %}
+<script>
+    {% comment %} fbq('track', 'PageView', {}, {eventID: '{{pv_event_unique_id}}'});
+    fbq('track', 'ViewContent', {}, {eventID: '{{vc_event_unique_id}}'}); {% endcomment %}
+    fbq('track', 'Purchase', {}, {eventID: '{{order.order_number}}'});    
+</script> 
+
+{% endif %}
+
+{% endif %}
+
+{% endblock scripts %}

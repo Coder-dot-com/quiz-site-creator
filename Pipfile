@@ -1,0 +1,25 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django-tinymce = "*"
+pillow = "*"
+python-decouple = "*"
+celery = "*"
+redis = "*"
+psycopg2-binary = "*"
+django-storages = "*"
+boto3 = "*"
+gunicorn = "*"
+stripe = "*"
+django-colorfield = "*"
+django = "*"
+wagtail = "*"
+
+[dev-packages]
+autopep8 = "*"
+
+[requires]
+python_version = "3.11"

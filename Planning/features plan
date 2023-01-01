@@ -1,0 +1,40 @@
+A/B testing of question page
+FB/tiktok CAPI
+Block builder
+Conditionally display blocks
+Logic on question level to display or not
+gdpr compliance (optional?)
+
+
+---
+
+Create 3 apps 
+
+1. Creation of quiz  
+    -block builder
+
+2. Rendering of quiz
+    -ab testing
+    -logic
+    -trigger page refresh boolean (adsense) with question passed via utm/cookie
+
+3. Post to quiz
+    -save response
+    -Fb/tiktok capi
+
+4. quiz analytics
+
+
+5. Lead management
+(add later)
+
+
+
+
+
+
+
+
+
+
+

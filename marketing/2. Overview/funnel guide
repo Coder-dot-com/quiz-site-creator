@@ -1,0 +1,38 @@
+
+Need to have a funnel
+TOF - make the first connection
+MOF - educate and lead
+BOF- Sale
+
+Don't try to close the sale on cold campaigns
+
+Also when optimizing e.g. for TOF can try something other than PageViews
+Try an event that  fb allows optimizing and demonstrates intent for
+    -fire this event once user has taken an action on the page that signals intent
+    e.g. click button etc...
+    as can't optimize for custom events
+    Check if possible to optimize for custom events and if yes tehn do this
+    but may still be better to use an fb event if exists as fb better at optimizing for this
+    (has more data)
+
+Plan funnel here:
+(start off with basic below)
+
+1. Cold
+
+-Goal is to educate them and get them to sign up
+
+2. Warm/hot
+
+-People who have signed up
+
+-Goal is to convert them to pauing customers
+
+3. 
+
+-People who subscribed
+
+-Goal is to purchase upsells
+    -get reviews
+    -referrer 
+    -renew

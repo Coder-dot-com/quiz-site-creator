@@ -1,0 +1,37 @@
+REMEMBER:
+-promise 
+-proof 
+-offer
+
+==== main page====
+
+-Headline-
+
+We help people struggling with their diet to a healthier lifestyle through
+our personalized mediterranean meal plan without giving up your favorite foods.
+
+
+--below headline--
+
+We are currently developing our Tailored Mediterranean Meal Plan
+
+
+--CTA--                          --CTA2--
+Learn more here                 View our blog
+--below CTA
+
+
+
+------------Next section: icons -----------
+
+
+- Tastes great`
+- Improves your health
+- Helps lose fat
+- Easy to follow
+
+
+
+
+
+

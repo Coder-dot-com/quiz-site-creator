@@ -1,0 +1,211 @@
+{% extends 'dashboard2/base.html' %}
+
+{% load static %}
+{% block content %}
+
+    <div class="row">
+        <div class="col-xl-6 col-xxl-12">
+            <h5>This week's daily averages</h5>
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="card avtivity-card">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+
+                                <div class="media-body">
+                                    <p class="fs-14 mb-2">Calories</p>
+                                    <span class="title text-black font-w600">2217 kcal</span>
+                                </div>
+                            </div>
+                            <div class="progress" style="height:5px;">
+                                <div class="progress-bar bg-success" style="width: 100%; height:5px;" role="progressbar">
+                                    <span class="sr-only"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="effect bg-success"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card avtivity-card">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+
+                                <div class="media-body">
+                                    <p class="fs-14 mb-2">Carbs</p>
+                                    <span class="title text-black font-w600">20 g</span>
+                                </div>
+                            </div>
+                            <div class="progress" style="height:5px;">
+                                <div class="progress-bar bg-secondary" style="width: 100%; height:5px;" role="progressbar">
+                                    <span class="sr-only"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="effect bg-secondary"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card avtivity-card">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+
+                                <div class="media-body">
+                                    <p class="fs-14 mb-2">Fats</p>
+                                    <span class="title text-black font-w600">17 g</span>
+                                </div>
+                            </div>
+                            <div class="progress" style="height:5px;">
+                                <div class="progress-bar bg-danger" style="width: 100%; height:5px;" role="progressbar">
+                                    <span class="sr-only"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="effect bg-danger"></div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="card avtivity-card">
+                        <div class="card-body">
+                            <div class="media align-items-center">
+
+                                <div class="media-body">
+                                    <p class="fs-14 mb-2">Protein</p>
+                                    <span class="title text-black font-w600">23 g</span>
+                                </div>
+                            </div>
+                            <div class="progress" style="height:5px;">
+                                <div class="progress-bar bg-warning" style="width: 100%; height:5px;" role="progressbar">
+                                    <span class="sr-only"></span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="effect bg-warning"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-6 col-xxl-12">
+            <div class="card">
+                <div class="card-header d-sm-flex d-block pb-0 border-0">
+                    <div class="mr-auto pr-3 mb-sm-0 mb-3">
+                        <h4 class="text-black fs-20">Quick access</h4>
+                        {% comment %} <p class="fs-13 mb-0 text-black">Lorem ipsum dolor sit amet, consectetur</p> {% endcomment %}
+                    </div>
+
+                </div>
+                <div class="card-body py-3 mt-2 justify-content-center">
+                    <div class="mx-auto justify-content-center text-center">
+
+
+                     
+                        <a href="" class="btn btn-secondary site-secondary-button col-12 col-sm-5 m-2">
+                            Weekly shopping list
+
+                        </a>
+                        <a href="" class="btn btn-secondary site-secondary-button col-12 col-sm-5 m-2">
+                            Today's overview
+
+                        </a>
+                        <a href="" class="btn btn-secondary site-secondary-button col-12 col-sm-5 m-2">
+                            Journal
+
+                        </a>
+                    </div>
+
+                    <a href="" class="btn btn-primary site-button col-12 m-2">
+                        Book 1 on 1 coaching
+
+                    </a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xl-12 col-xxl-12 col-12">
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <div class="card-header d-sm-flex d-block pb-0 border-0">
+                            <div class="mr-auto pr-3">
+                                <h4 class="text-black font-w600 fs-20">Your meal plan overview</h4>
+                                <p class="fs-13 mb-0 text-black">Click on a day to view more</p>
+                            </div>
+                        </div>
+                        <div class="card-body pt-2">
+                            <div class="testimonial-one owl-carousel">
+                                <div class="items">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <h5 class="fs-16 font-w500 mb-3"><a href="" class="btn light btn-light text-black">Monday</a></h5>
+                                            <p class="fs-14">Cake</p>
+                                            <p class="fs-14">Pizza</p>
+                                            <p class="fs-14">Triple cheese burger</p>
+
+                                            <div class="d-flex align-items-center justify-content-center">
+
+                                                <a href="app-profile.html" class="btn-link fs-14">View more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="items">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <h5 class="fs-16 font-w500 mb-3"><a href="app-profile.html" class="btn light btn-light text-black">Tuesday</a></h5>
+                                            <p class="fs-14">Cake</p>
+                                            <p class="fs-14">Pizza</p>
+                                            <p class="fs-14">Triple cheese burger</p>
+
+                                            <div class="d-flex align-items-center justify-content-center">
+
+                                                <a href="app-profile.html" class="btn-link fs-14">View more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="items">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <h5 class="fs-16 font-w500 mb-3"><a href="app-profile.html" class="btn light btn-light text-black">Wednesday</a></h5>
+                                            <p class="fs-14">Cake</p>
+                                            <p class="fs-14">Pizza</p>
+                                            <p class="fs-14">Triple cheese burger</p>
+
+                                            <div class="d-flex align-items-center justify-content-center">
+
+                                                <a href="app-profile.html" class="btn-link fs-14">View more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="items">
+                                    <div class="card text-center">
+                                        <div class="card-body">
+                                            <h5 class="fs-16 font-w500 mb-3"><a href="app-profile.html" class="btn light btn-light text-black">Thursday</a></h5>
+                                            <p class="fs-14">Cake</p>
+                                            <p class="fs-14">Pizza</p>
+                                            <p class="fs-14">Triple cheese burger</p>
+
+                                            <div class="d-flex align-items-center justify-content-center">
+
+                                                <a href="app-profile.html" class="btn-link fs-14">View more</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    </div>
+    </div>
+    <!--**********************************
+            Content body end
+        ***********************************-->
+
+{% endblock content %}

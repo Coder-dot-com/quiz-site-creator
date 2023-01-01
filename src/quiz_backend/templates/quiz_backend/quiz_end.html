@@ -1,0 +1,288 @@
+{% load static %}
+<div id="quizEnd" class="fade-me-in col-12 p-4 w-90 mx-auto my-2 fs-5needs-validation">
+    <form
+        {% if quiz.product.type == 'once_only' %}
+            hx-get={% url 'quiz_checkout' quiz.unique_id response_id %}
+        {% else %}
+            hx-post={% url 'quiz_checkout' quiz.unique_id response_id %}
+
+        {% endif %}
+        hx-target="#quizEnd"
+        hx-swap="outerHTML">
+        <style>
+            .card:hover {
+                box-shadow: 5px 5px #28a745 !important
+            }
+
+        </style>
+        
+
+        {% comment %} Currency converter {% endcomment %}
+        <div class="row dropdown  custom-dropdown my-1" style="float:right;">
+
+            <div class="">
+                {% for currency in currencies %}
+                    {% if session.currency.currency_code == currency.currency_code %}
+                        <button type="button" class="btn p-2" style="border:1px solid black;float:right;" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {% comment %} <img class="header-lang-img" src="{% static 'dashboard/assets/images/flags/us.jpg' %}" alt="Header Language" height="18"> {% endcomment %}
+                            {{session.currency.currency_symbol}}
+                            {{session.currency.currency_code}}
+                            <i class="mdi mdi-chevron-down"></i>
+                        </button>
+                    {% endif %}
+                {% endfor %}
+
+                <div class="dropdown-menu dropdown-menu-end">
+                    {% for currency in currencies %}
+                        {% if session.currency.currency_code != currency.currency_code %}
+                            <!-- item-->
+                            <a
+                                hx-post="{% url 'chosen_currency_quiz_end' currency.currency_code response_id %}"
+                                hx-target="#quizEnd"
+                                hx-swap="outerHTML"
+                                class="dropdown-item" data-lang="eng">
+
+                                {% comment %} <img src="assets/images/flags/us.jpg" alt="user-image" class="me-1" height="12">  {% endcomment %}
+                                {% comment %} <span class="align-middle">English</span> {% endcomment %}
+                                {{currency.currency_symbol}}
+                                {{currency.currency_code}}
+                            </a>
+
+                        {% endif %}
+                    {% endfor %}
+
+                </div>
+
+            </div>
+        </div>
+
+        {% comment %} End currency converter {% endcomment %}
+
+
+        {% autoescape off %}
+            {{quiz.ending}}
+        {% endautoescape %}
+
+        <div>
+            Help support the platform's development by preordering
+            <br><br>
+            This prepayment is 100% refundable and will be charged as soon as your credit card is processed.
+            <br><br>
+            If we can't deliver on your needs we'll refund you.
+            <br><br>
+            We want this to work for you.
+        </div>
+
+        {% if quiz.product.type == 'once_only' %}
+            <div>
+                <p>
+                    Price: {{session.currency.currency_symbol}}{{price}} {{session.currency.currency_code}}
+                </p>
+            </div>
+        {% else %}
+
+            <div class="mb-3">
+                <label for="" class="col-form-label">
+                    Select a fair price per month
+                </label>
+
+                <style>
+                    input[type="range"]::-webkit-slider-runnable-track {
+                        background: #28b765 !important;
+                        height: 5px;
+                       }
+                       
+                       input[type="range"]::-moz-range-track {
+                        background: #28b765 !important;
+                        height: 5px;
+                       }
+                       
+                       
+                </style>
+                <input onmousemove="updatePriceDisplay()" onclick="updatePriceDisplay();" onchange="updatePriceDisplay()" type="range"
+                    class="form-control" required
+                    id="selected_price" name="user_selected_price"
+                    min="10" value=20 max="100">
+                <span id="" style="float:right;">
+
+                    {{session.currency.currency_symbol}}
+                    <span id="priceDisplay">
+                        20.00
+                    </span>
+                    {{session.currency.currency_code}}
+
+                </span>
+
+
+                <div class="invalid-feedback">
+                    Please check your message
+                </div>
+                <div class="valid-feedback">
+                    Looks good!
+                </div>
+
+
+
+            </div>
+
+            <div class="mb-3 mx-auto">
+                <label for="" class="col-form-label">Select how many months to preorder
+                </label>
+                <select  name="interval" id="option_prepurchase" class="form-select d-none"
+                    required >
+                    <option value=""></option>
+                    <option value="1" id="option_1month">1month</option>
+                    <option value="2" id="option_2month">2month</option>
+                    <option value="3" id="option_3month">3month</option>
+                    <option value="6" id="option_6month">6month</option>
+
+
+                </select>
+
+                <div class="row p-2 m-2" style="gap: 1.5rem !important;">
+                    <div role="button" onclick="SelectDeselect(this);" id="card_1month"
+                        class="card border-3 col-12 col-sm-5" data-option="1month"  style="min-width:8rem;border:3px solid white;">
+                        <div class="text-center py-4">
+                            <h4 class="card-title">1 month</h4>
+                        </div>
+                    </div>
+
+                    <div role="button" onclick="SelectDeselect(this);" id="card_2month"
+                    class="card border-3 col-12 col-sm-5" data-option="2month" style="min-width:8rem;border:3px solid white;">
+                        <div class="text-center py-4">
+                            <h4 class="card-title">2 months</h4>
+                        </div>
+                    </div>
+
+                    <div role="button" onclick="SelectDeselect(this);" id="card_3month"
+                        class="card border-3 col-12 col-sm-5" data-option="3month" style="min-width:8rem;border:3px solid white;">
+                        <div class="text-center py-4">
+                            <h4 class="card-title">3 months</h4>
+                        </div>
+                    </div>
+                    <div role="button" onclick="SelectDeselect(this);" id="card_6month"
+                        class="card border-3 col-12 col-sm-5" data-option="6month" style="min-width:8rem;border:3px solid white;">
+                        <div class="text-center py-4">
+                            <h4 class="card-title">6 months</h4>
+                        </div>
+                    </div>
+
+
+                    <div>
+                        Total: <span id="totalPriceUser">{{session.currency.currency_symbol}}10.00 {{session.currency.currency_code}}</span>
+                    </div>
+
+                </div>
+                <script>
+                    function SelectDeselect(e) {
+                        console.log("SelectDeselect")
+                        option_id = "#option_" + e.getAttribute('data-option')
+                        optionToSelect = document.querySelector(option_id)
+                        select_field = document.querySelector('#option_prepurchase')
+                        if (optionToSelect.selected){
+                            e.classList.remove('border-success')
+                            e.classList.add('border-white')
+                            optionToSelect.selected = false;
+                            select_field.value = ''
+                        } else {
+                            e.classList.add('border-success')
+                            e.classList.remove('border-white')
+                            //Remove borders from others not selected
+                            options_cards = Array.from(e.parentNode.querySelectorAll('.card'))
+                            for (let i = 0; i < options_cards.length; i++) {
+                                if (options_cards[i] != e){
+                                    options_cards[i].classList.remove('border-success')
+                                    options_cards[i].classList.add('border-white')
+                                }
+
+                            }
+                            optionToSelect.selected = true;
+
+                        }
+                        updatePriceDisplay()
+                    };
+
+                </script>
+            </div>
+
+
+        {% endif %}
+
+<div>
+    After the platform has been developed and you've been onboarded, 
+    we will give your free access to the platform and work
+    through any issues to make sure we meet your needs.
+    
+    <br><br>
+    Once everything's ready, we'll apply your prepayment as a credit to your account
+    <br><br>
+    Until then, thank you for your support
+    <br><br>
+</div>
+
+
+
+
+
+
+
+<div class="d-flex flex-row-reverse align-items-center">
+
+        {% if quiz.product %}
+            <button
+                type="submit"
+                class="btn btn-primary site-button" style="float:right;">Continue to payment</button>
+
+        {% endif %}
+        <a  class="light small ml-0 mr-auto"
+        hx-get="{% url 'go_back_quiz_end' quiz.unique_id response_id %}"
+        hx-trigger="click once"
+        hx-target="#quizEnd"
+        hx-swap="outerHTML"
+        role="button"
+    >
+
+
+        < Go back</a>
+</div>
+
+    </form>
+</div>
+
+
+<script>
+    function updatePriceDisplay(){
+        price = document.getElementById('selected_price').value
+        document.querySelector('#priceDisplay').innerText = String((parseFloat(price)).toFixed(2))
+        select_field = document.querySelector('#option_prepurchase')
+        total_price_display = document.getElementById('totalPriceUser')
+        total_price_display.textContent = "{{session.currency.currency_symbol}}" + String(parseFloat(select_field.value * price).toFixed(2)) + " {{session.currency.currency_code}}"
+    }
+
+</script>
+{% comment %} <script src="{% static 'site/assets/js/hammer.min.js' %}"></script> {% endcomment %}
+
+
+<script>
+    {% comment %} function hammerLoad(){
+
+        var myElement = document.getElementById('selected_price');
+
+        // create a simple instance
+        // by default, it only adds horizontal recognizers
+        var sliderManager = new Hammer(myElement);
+
+        // listen to events...
+
+        sliderManager.add( new Hammer.Pan({ threshold: 0, pointers: 0 }) );
+        sliderManager.on( 'pan', function( e ) {
+            var percentage =  e.deltaX / window.innerWidth * 100/20; // NEW: our % calc
+            current_value = document.getElementById('selected_price').value
+            current_value + (percentage)
+            new_value = parseFloat(current_value) + parseFloat(percentage)
+            document.getElementById('selected_price').value =  new_value
+        });
+        clearInterval(hammerinterval)
+    }
+    hammerinterval = setInterval(hammerLoad, 500) {% endcomment %}
+</script>
