@@ -2,6 +2,11 @@
 To do:
 
 
+Select an element to add:
+-opens modal with swatches for user to select element
+
+
+
 User clicks add quiz page and is redirected to block editor
 
 there is a checkered border with text in middle saying Click to select an element to add

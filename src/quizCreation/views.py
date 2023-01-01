@@ -37,7 +37,8 @@ def quiz_page_add(request, quiz_id):
             quiz_page_number = 1
         quiz_page =  QuizPage.objects.create(quiz=user_quiz, number=(quiz_page_number+1))
         context = {
-            'user_quiz': user_quiz, 
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page, 
         }
         return render(request, 'quiz_page_edit.html', context=context)
 
@@ -45,7 +46,7 @@ def quiz_page_add(request, quiz_id):
 
 
 @login_required
-def quiz_page_edit(request, quiz_id, question_id):
+def quiz_page_edit(request, quiz_id, page_id):
 
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     
@@ -56,3 +57,4 @@ def quiz_page_edit(request, quiz_id, question_id):
         return render(request, 'quiz_page_edit.html', context=context)
 
     redirect('dashboard_home')
+

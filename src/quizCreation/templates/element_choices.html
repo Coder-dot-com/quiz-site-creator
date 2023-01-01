@@ -1,0 +1,49 @@
+<select  name="element" id="multiC" class="form-select d-none">
+    <option value=""></option>
+        <option value="title" id="option_title">title</option>
+</select>
+
+<div class="row p-1" style="gap: 1.5rem !important;">
+        <div role="button" onclick="SelectDeselect(this);" id="card_title"
+            class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=title style="min-width:8rem;border:3px solid white;">
+            <div class="text-center py-4">
+                <h4 class="card-title">Title element</h4>
+                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+            </div>
+        </div>
+</div>
+
+<script>
+    function SelectDeselect(e) {
+        option_id = "#option_" + e.getAttribute('data-option')
+        optionToSelect = document.querySelector(option_id)
+        select_field = optionToSelect.parentNode
+        if (optionToSelect.selected){
+                e.classList.remove('border-dark')
+                e.classList.add('border-white')
+                optionToSelect.selected = false;
+                select_field.value = ''
+        } else {
+                e.classList.add('border-dark')
+                e.classList.remove('border-white')
+                //Remove borders from others not selected
+            
+                options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice'))
+                for (let i = 0; i < options_cards.length; i++) {
+                    if (options_cards[i] != e){
+                        options_cards[i].classList.remove('border-dark')
+                        options_cards[i].classList.add('border-white')
+                    }
+
+            }
+            optionToSelect.selected = true;
+            classes = e.classList
+            {% comment %} if skip to next then submit form {% endcomment %}
+            if (classes.contains('skip_to_next') && !(previous_answers)) {
+                document.querySelector('#submitQuestionBtn').click()
+            }
+
+        }
+    };
+
+</script>

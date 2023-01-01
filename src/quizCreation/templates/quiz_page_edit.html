@@ -3,8 +3,42 @@
 {% load static %}
 {% block content %}
 
-    <div class="row">
-        
+    <div class="row px-5">
+    <form action=""
+    hx-post={% url '' %}
+    >
+
+
+        <div class="mx-auto w-100 border border-dark p-4 text-center" style="border-style:dashed !important">
+            <button type="button" class="btn btn-primary site-button mb-2" 
+            data-toggle="modal" data-target="#exampleModalCenter">
+                Select an element to add
+                <i class="fa fa-plus"></i>        
+            </button>
+            <div class="modal fade" id="exampleModalCenter" style="display: none;" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Select an element to add</h5>
+                            <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            {% include 'element_choices.html' %}
+                            <p>Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-danger light" data-dismiss="modal">Cancel</button>
+                            <button type="button" class="btn btn-primary site-button">Continue</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </form>
+
     
     </div>
 
