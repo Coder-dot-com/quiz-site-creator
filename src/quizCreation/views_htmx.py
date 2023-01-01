@@ -12,9 +12,5 @@ def htmx_create_quiz(request):
         'hx_url': f"/create_quiz/edit/{user_quiz.id}",
     }
 
+    return render(request, 'questions_page.html', context=context)
 
-    response =  render(request, 'questions_page.html', context=context)
-
-
-
-    return response

@@ -1,6 +1,20 @@
 
 To do:
 
+
+User clicks add quiz page and is redirected to block editor
+
+there is a checkered border with text in middle saying Click to select an element to add
+which opens model with swatches for all possible elements
+User chooses elements and this is swapped into position
+
+(each element has delete option, arrows to move it up or down relative to others, relevant details,
+preview page option,
+
+)
+
+
+
 -Fork/clone repo and start creating for new project
 
 -create apps for quiz: quizCreate, quizRender etc....
@@ -13,6 +27,7 @@ To do:
 
 -Workthrough and create all functionality and then deploy
 
+-Move footer priv policy, copyright to sidebar
 -Then iterate
 
 Improve UserSession display, make sure/ensure pixel is being added to page

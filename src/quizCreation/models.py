@@ -12,5 +12,21 @@ class UserQuiz(models.Model):
 
 class QuizPage(models.Model):
     quiz = models.ForeignKey(UserQuiz, on_delete=models.CASCADE)
-    name = models.CharField(max_length=300)
+    number = models.IntegerField()
     time_created = models.DateTimeField(auto_now_add=True)
+
+
+class QuizPageElement(models.Model):
+    position = models.IntegerField()
+
+
+class TitlePageElement(models.Model):
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    text = models.CharField(max_length=300)
+    size = models.IntegerField(default=20)
+
+
+
+
+
+
