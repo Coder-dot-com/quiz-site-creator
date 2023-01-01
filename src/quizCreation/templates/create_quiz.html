@@ -1,0 +1,35 @@
+{% extends 'dashboard2/base.html' %}
+
+{% load static %}
+{% block content %}
+
+    <div class="row">
+
+        <form class="my-2 mx-auto" action="" method="POST"
+        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+        hx-post={% url 'htmx_create_quiz' %}
+        hx-replace-url="/create_quiz/edit"
+        hx-swap=outerHTML
+        >
+            
+
+            <div class="mb-3">
+                <label class="form-label" for="">Enter a name for your quiz</label>
+                <input type="text" name="quiz_name"
+                 class="form-control" id="name" placeholder="Enter here" 
+                  required="" maxlength=300>
+            </div>
+
+
+            
+            <div class="mt-3">
+                <button class="btn btn-primary site-button w-100 waves-effect waves-light" type="submit">Create</button>
+            </div>
+        </form>      
+    </div>
+
+    <!--**********************************
+            Content body end
+        ***********************************-->
+
+{% endblock content %}

@@ -59,7 +59,7 @@ def register_view(request):
             # Create user emaillist object
             UserEmail.objects.create(user=user, email=email, promo_consent=promo_consent)
             
-            messages.success(request, "Welcome, get started by using the menu")
+            # messages.success(request, "Welcome, get started by using the menu")
             return redirect(reverse('dashboard_home') + f"?nu=1")
 
         else:

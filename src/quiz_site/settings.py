@@ -176,6 +176,11 @@ INSTALLED_APPS = [
     'colorfield',
     'tiers',
     'quiz_backend',
+
+    'quizCreation',
+    'quizRender',
+    'quizPost',
+    'quizAnalytics',
 ]
 
 MIDDLEWARE = [

@@ -42,6 +42,9 @@ urlpatterns = [
     path('session/', include('session_management.urls')),
     path('quiz/', include('quiz_backend.urls')),
 
+
+    path('create_quiz/', include('quizCreation.urls')),
+
     path('currency', include('multicurrency.urls')),
     path('accounts/', include('accounts.urls')),
     path('dashboard/', include('dashboard.urls')),
