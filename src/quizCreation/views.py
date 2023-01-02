@@ -52,7 +52,8 @@ def quiz_page_edit(request, quiz_id, page_id):
     
     if user_quiz.exists():
         context = {
-            'user_quiz': user_quiz[0], 
+            'user_quiz': user_quiz[0],
+            'page_id': page_id
         }
         return render(request, 'quiz_page_edit.html', context=context)
 

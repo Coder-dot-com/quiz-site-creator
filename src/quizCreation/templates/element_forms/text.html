@@ -1,0 +1,25 @@
+<div class="modal-header">
+    <h5 class="modal-title">Add text element</h5>
+    <button type="button" class="close" data-dismiss="modal"><span>×</span>
+    </button>
+</div>
+<div class="modal-body">
+    <form action="" 
+    hx-post={% url 'add_text_element' user_quiz.id quiz_page.id %}
+    hx-target='#modalContent'
+    hx-swap=outerHTML
+    >
+    {{form.media}}
+    {% for field in form %}
+    {{field}}
+    {% endfor %}
+
+    <div class="">
+        <button hx-get={% url 'all_element_swatches' user_quiz.id quiz_page.id %} hx-trigger=click
+         hx-target='#modalContent' hx-swap=outerHTML class="btn btn-danger light" 
+         data-dismiss="modal">Cancel</button>
+        <button type="submit" class="btn btn-primary site-button">Add</button>  
+    </div>
+    </form>
+
+</div>

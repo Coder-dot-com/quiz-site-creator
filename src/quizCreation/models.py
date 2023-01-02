@@ -1,5 +1,7 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from ckeditor.fields import RichTextField
+
 
 User = get_user_model()
 # Create your models here.
@@ -17,13 +19,15 @@ class QuizPage(models.Model):
 
 
 class QuizPageElement(models.Model):
+    page = models.ForeignKey(QuizPage, on_delete=models.CASCADE)
     position = models.IntegerField()
 
 
-class TitlePageElement(models.Model):
+class TextElement(models.Model):
+    #change to html field
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
-    text = models.CharField(max_length=300)
-    size = models.IntegerField(default=20)
+    content= RichTextField()
+
 
 
 
