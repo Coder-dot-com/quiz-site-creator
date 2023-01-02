@@ -36,10 +36,16 @@ def quiz_page_add(request, quiz_id):
         else:
             quiz_page_number = 1
         quiz_page =  QuizPage.objects.create(quiz=user_quiz, number=(quiz_page_number+1))
+        quiz_page_elements = quiz_page.get_quiz_page_elements()
+        print(quiz_page_elements)
+        quiz_page_elements = [element.get_element_type() for element in quiz_page_elements]
+
         context = {
             'user_quiz': user_quiz,
-            'quiz_page': quiz_page, 
+            'quiz_page': quiz_page,
+            'quiz_page_elements': quiz_page_elements,
         }
+        print(quiz_page_elements)
         return render(request, 'quiz_page_edit.html', context=context)
 
     return redirect('dashboard_home')

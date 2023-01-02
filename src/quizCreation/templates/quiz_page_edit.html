@@ -5,6 +5,12 @@
 
     <div class="row px-5">
     <div class="mx-auto w-100 border border-dark p-4 text-center"  style="border-style:dashed !important">
+        
+        {% for element in quiz_page_elements %}
+        <div>
+            {{element.id}}
+        </div>
+        {% endfor %}
       
             <div class="">
                 <button type="button" class="btn btn-primary site-button mb-2" 
