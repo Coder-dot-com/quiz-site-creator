@@ -4,10 +4,11 @@
     </button>
 </div>
 <div class="modal-body">
-    <form action="" 
+    <form  
     hx-post={% url 'add_text_element' user_quiz.id quiz_page.id %}
     hx-target='#modalContent'
     hx-swap=outerHTML
+    hx-encoding="multipart/form-data"
     >
     {{form.media}}
     {% for field in form %}

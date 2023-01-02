@@ -3,8 +3,13 @@ To do:
 
 
 Select an element to add:
--opens modal with swatches for user to select element
 
+-Create text element
+    -modify ckeditor config to only display relevant fields
+    -create view to handle post
+    (creates the element)
+    -On page load, load elements in correct order
+    -swap in element on creation via htmx
 
 
 User clicks add quiz page and is redirected to block editor

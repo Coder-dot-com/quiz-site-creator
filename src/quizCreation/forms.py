@@ -7,5 +7,4 @@ class TextElementForm(forms.ModelForm):
     content = forms.CharField(widget=CKEditorWidget())
     class Meta:
         model = TextElement
-        fields = ('content',)
-
+        fields = ['content', ]

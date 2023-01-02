@@ -17,6 +17,7 @@ stripe = "*"
 django-colorfield = "*"
 django = "*"
 wagtail = "*"
+django-ckeditor = "*"
 
 [dev-packages]
 autopep8 = "*"

@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
-from .models import UserQuiz, QuizPage
+from .models import UserQuiz, QuizPage, QuizPageElement, TextElement
 from .forms import TextElementForm
 
 @login_required
@@ -58,21 +58,25 @@ def add_text_element(request, quiz_id, page_id):
     if user_quiz.exists():
         quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
         if quiz_page.exists():
-
             if request.method == 'POST':
                 # Bind data from request.POST into a PostForm
                 form = TextElementForm(request.POST)
-                # If data is valid, proceeds to create a new post
+
                 if form.is_valid():
+                    quiz_page = quiz_page[0]
                     text_element = form.save(commit=False)
-                    text_element.page_element = ""
+                    try:
+                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('position')[0].position
+                    except IndexError:
+                        position = 0
+                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position+1)
+                    text_element.page_element = quiz_page_element
+                    text_element.save()
                     
+
                     #determine position and create element objects
-
-          
-
-            context = {
-                'user_quiz': user_quiz[0], 
-                'quiz_page': quiz_page[0],
-            }
-            return render(request, 'element_forms/all_elements_swatches.html', context=context)
+                    context = {
+                        'user_quiz': user_quiz[0], 
+                        'quiz_page': quiz_page,
+                    }
+                    return render(request, 'element_forms/all_elements_swatches.html', context=context)
