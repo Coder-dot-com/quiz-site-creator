@@ -27,14 +27,10 @@ def quiz_edit(request, quiz_id):
 
 @login_required
 def quiz_page_add(request, quiz_id):
-
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
-    
     if user_quiz.exists():
         user_quiz = user_quiz[0]
-
         quiz_page_number = QuizPage.objects.filter(quiz=user_quiz).order_by('number')
-
         if quiz_page_number.exists():
             quiz_page_number = quiz_page_number[0].number
         else:

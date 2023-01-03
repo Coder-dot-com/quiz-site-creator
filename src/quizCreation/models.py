@@ -15,6 +15,7 @@ class UserQuiz(models.Model):
 class QuizPage(models.Model):
     quiz = models.ForeignKey(UserQuiz, on_delete=models.CASCADE)
     number = models.IntegerField()
+    name = models.CharField(max_length=300)
     time_created = models.DateTimeField(auto_now_add=True)
 
     def get_quiz_page_elements(self):
