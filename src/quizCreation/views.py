@@ -15,7 +15,7 @@ def quiz_edit(request, quiz_id):
 
     if user_quiz.exists():
         user_quiz = user_quiz[0]
-        quiz_pages = QuizPage.objects.filter(quiz=user_quiz)
+        quiz_pages = QuizPage.objects.filter(quiz=user_quiz).order_by('number')
         context = {
             'user_quiz': user_quiz, 
             'quiz_pages': quiz_pages,
@@ -30,12 +30,12 @@ def quiz_page_add(request, quiz_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
         user_quiz = user_quiz[0]
-        quiz_page_number = QuizPage.objects.filter(quiz=user_quiz).order_by('number')
+        quiz_page_number = QuizPage.objects.filter(quiz=user_quiz).order_by('-number')
         if quiz_page_number.exists():
             quiz_page_number = quiz_page_number[0].number
         else:
             quiz_page_number = 0
-        quiz_page =  QuizPage.objects.create(quiz=user_quiz, number=(quiz_page_number+1))
+        quiz_page =  QuizPage.objects.create(quiz=user_quiz, number=(quiz_page_number+1), name=request.POST['name'])
         quiz_page_elements = quiz_page.get_quiz_page_elements()
         print(quiz_page_elements)
         quiz_page_elements = [element.get_element_type() for element in quiz_page_elements]
