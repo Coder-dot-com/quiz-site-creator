@@ -62,32 +62,60 @@
                     <div class="tab-pane active show fade" id="Unifinshed">
                         {% for page in quiz_pages %}
                        
-                        <div class="d-flex border-bottom flex-wrap pt-3 list-row align-items-center mb-2">
+                        <div style="background-color:rgba(0, 125, 136, 0.1)" class="d-flex border-bottom flex-wrap py-3 list-row align-items-center mb-2">
                             
                             <div class="col-xl-5 col-xxl-8 col-lg-6 col-sm-8 d-flex align-items-center">
-                                <div class="list-icon bgl-primary mr-3 mb-3">
-                                    <p type="button" 
+                                <div class="list-icon mr-3 mb-3">
+                                <p type="button" 
                                     hx-get={% url 'move_page_up' user_quiz.id page.id %}
                                     hx-target='#pagesList'
                                     hx-swap=outerHTML
-                                    class="fs-24 text-primary mb-0 mt-2"><i class="fa fa-chevron-up"></i></p>
-                                    <p type="button"
+                                    class="fs-24 text-dark mb-0 mt-2"><i class="fa fa-chevron-up"></i></p>
+                                <p type="button"
                                     hx-get={% url 'move_page_down' user_quiz.id page.id %}
                                     hx-target='#pagesList'
                                     hx-swap=outerHTML       
-                                    class="fs-24 text-primary mb-0 mt-2"><i class="fa fa-chevron-down"></i></p>
+                                    class="fs-24 text-dark mb-0 mt-2"><i class="fa fa-chevron-down"></i></p>
+
+                              
                                 </div>
-                                <div class="info mb-3">
-                                    <h4 class="fs-20 "><p class="text-black">({{page.number}}) {{page.name}}</p></h4>
+                                <div class="info ">
+                                    <h4 class="fs-20 "><p class="text-black">{{page.number}}. {{page.name}}</p></h4>
+                                    <p>This page will always be shown as it has no conditions attached</p>
                                 </div>
                             </div>
-                            <a href="{% url 'quiz_page_edit' user_quiz.id page.id %}">
+                            <div>
+
+                            <a class="d-block " href="{% url 'quiz_page_edit' user_quiz.id page.id %}">
                                 <div class="float-right fs-24 text-dark">Edit <i class="fa fa-edit"></i></div>
                             </a>
+                            
+                            <a href="#" class="d-block "
+                            hx-delete={% url 'delete_quiz_page' user_quiz.id page.id %}
+                            hx-target='#pagesList'
+                            hx-swap=outerHTML
+                            hx-confirm="Are you sure you wish to delete the page {{page.name}}"
+                            >
+                            <div class="float-right fs-24 text-dark">Delete <i class="fa fa-trash"></i></div>
+                            </div>
+                            
+                        </a>
 
                         </div>
 
-                        <div id="accordion-{{page.id}}" class="accordion accordion-danger-solid w-75 mx-auto">
+                        <style>
+                           
+                            .accordion-bg1-solid .accordion__header {
+                                background-color:rgba(0, 125, 136, 0.6)!important";
+                                border-color:rgba(0, 125, 136, 0.6)!important";
+                                color: #fff;
+                                box-shadow:rgba(0, 125, 136, 0.6)!important";
+                                border-bottom-left-radius: 0;
+                                border-bottom-right-radius: 0;
+                            }
+                        </style>
+
+                        <div id="accordion-{{page.id}}" class="accordion accordion-bg1-solid w-75 mx-auto">
                             <div class="accordion__item">
                                 <div class="accordion__header collapsed" data-toggle="collapse" data-target="#bordered_collapse{{page.id}}" > <span class="accordion__header--text">View details</span>
                                     <span class="accordion__header--indicator"></span>
@@ -105,6 +133,34 @@
                     </div>
                    
                 </div>
+
+                    {% if quiz_pages.count > 2 %}
+                    <div class="card-header d-sm-flex flex-wrap d-block pb-0 border-0">
+                        <div class="mr-auto pr-3 mb-3">
+                            <h4 class="text-black fs-20"></h4>
+                            <p class="fs-13 mb-0 text-black">Editing quiz: {{user_quiz.name}}</p>
+                        </div>
+                        {% comment %} <div class="card-action card-tabs mr-4 mt-3 mt-sm-0 mb-3">
+                            <ul class="nav nav-tabs" role="tablist">
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#All" role="tab" aria-selected="false">All</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link active" data-toggle="tab" href="#Unifinshed" role="tab" aria-selected="true">Unifinshed</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" data-toggle="tab" href="#Finished" role="tab">Finished</a>
+                                </li>
+                            </ul>
+                        </div> {% endcomment %}
+                        
+    
+                        <button type="button" class="btn btn-primary site-button mb-2" data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
+    
+                       
+                      
+                    </div>
+                    {% endif %}
             </div>
         </div>
     </div>

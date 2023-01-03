@@ -138,3 +138,29 @@ def move_page_down(request, quiz_id, page_id):
         }
     
     return render(request, 'questions_page.html', context=context)
+
+@login_required
+def delete_quiz_page(request, quiz_id, page_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        quiz_page_number = quiz_page.number
+        quiz_pages = QuizPage.objects.filter(quiz=user_quiz, number__gt=quiz_page_number)
+
+        quiz_page.delete()
+        for page in quiz_pages:
+            page_number  = page.number
+            page.number = page_number -1
+            page.save()
+
+
+    quiz_pages = QuizPage.objects.filter(quiz=user_quiz).order_by('number')
+
+    context = {
+            'user_quiz': user_quiz, 
+            'quiz_pages': quiz_pages,
+
+        }
+    
+    return render(request, 'questions_page.html', context=context)
