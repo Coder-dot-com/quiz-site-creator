@@ -14,8 +14,12 @@ def quiz_edit(request, quiz_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
 
     if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_pages = QuizPage.objects.filter(quiz=user_quiz)
         context = {
-            'user_quiz': user_quiz[0], 
+            'user_quiz': user_quiz, 
+            'quiz_pages': quiz_pages,
+
         }
         return render(request, 'quiz_edit.html', context=context)
 
@@ -34,7 +38,7 @@ def quiz_page_add(request, quiz_id):
         if quiz_page_number.exists():
             quiz_page_number = quiz_page_number[0].number
         else:
-            quiz_page_number = 1
+            quiz_page_number = 0
         quiz_page =  QuizPage.objects.create(quiz=user_quiz, number=(quiz_page_number+1))
         quiz_page_elements = quiz_page.get_quiz_page_elements()
         print(quiz_page_elements)

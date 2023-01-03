@@ -12,6 +12,9 @@ urlpatterns = [
     path('quiz_page_element_add/<quiz_id>/<page_id>', views_htmx.quiz_page_element_add, name="quiz_page_element_add"),
 
     path('add_text_element/<quiz_id>/<page_id>', views_htmx.add_text_element, name="add_text_element"),
+    path('move_page_up/<quiz_id>/<page_id>', views_htmx.move_page_up, name="move_page_up"),
+    path('move_page_down/<quiz_id>/<page_id>', views_htmx.move_page_down, name="move_page_down"),
+
 
 
 ]

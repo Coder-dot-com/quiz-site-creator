@@ -18,6 +18,7 @@ class QuizPage(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
 
     def get_quiz_page_elements(self):
+        return QuizPageElement.objects.filter(page=self).order_by('position')
         return self.quizpageelement_set.all().order_by('position')
 
 

@@ -6,7 +6,7 @@
     </div>
     <div class="modal-body">
         <form action="" 
-        hx-post={% url 'quiz_page_element_add' user_quiz.id quiz_page.number %}
+        hx-post={% url 'quiz_page_element_add' user_quiz.id quiz_page.id %}
         hx-target='#modalContent'
         hx-swap=innerHTML
         >

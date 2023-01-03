@@ -5,6 +5,8 @@ To do:
 Select an element to add:
 
 -Create text element
+    -plan quiz page display
+    -render quiz pages
 
     -On page load, load elements in correct order
     -swap in element on creation via htmx
