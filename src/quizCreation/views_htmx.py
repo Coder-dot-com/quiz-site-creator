@@ -114,4 +114,27 @@ def move_page_up(request, quiz_id, page_id):
 
 @login_required
 def move_page_down(request, quiz_id, page_id):
-    pass   
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page = QuizPage.objects.filter(quiz=user_quiz, id=page_id)
+        if quiz_page.exists():
+            quiz_page = quiz_page[0]
+            quiz_page_after  = QuizPage.objects.filter(quiz=user_quiz, number__gt=quiz_page.number).order_by('number')
+            if quiz_page_after.exists():
+                quiz_page_after = quiz_page_after[0]
+                quiz_page_number = quiz_page.number
+                quiz_page.number = quiz_page_after.number
+                quiz_page.save()
+                quiz_page_after.number = quiz_page_number
+                quiz_page_after.save()
+    
+    
+    quiz_pages = QuizPage.objects.filter(quiz=user_quiz).order_by('number')
+    context = {
+            'user_quiz': user_quiz, 
+            'quiz_pages': quiz_pages,
+
+        }
+    
+    return render(request, 'questions_page.html', context=context)

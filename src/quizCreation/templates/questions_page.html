@@ -34,6 +34,7 @@
                         {% for page in quiz_pages %}
                        
                         <div class="d-flex border-bottom flex-wrap pt-3 list-row align-items-center mb-2">
+                            
                             <div class="col-xl-5 col-xxl-8 col-lg-6 col-sm-8 d-flex align-items-center">
                                 <div class="list-icon bgl-primary mr-3 mb-3">
                                     <p type="button" 
@@ -41,14 +42,21 @@
                                     hx-target='#pagesList'
                                     hx-swap=outerHTML
                                     class="fs-24 text-primary mb-0 mt-2"><i class="fa fa-chevron-up"></i></p>
-                                    <p type="button" class="fs-24 text-primary mb-0 mt-2"><i class="fa fa-chevron-down"></i></p>
+                                    <p type="button"
+                                    hx-get={% url 'move_page_down' user_quiz.id page.id %}
+                                    hx-target='#pagesList'
+                                    hx-swap=outerHTML       
+                                    class="fs-24 text-primary mb-0 mt-2"><i class="fa fa-chevron-down"></i></p>
                                 </div>
                                 <div class="info mb-3">
                                     <h4 class="fs-20 "><a href="workout-statistic.html" class="text-black">Page {{page.number}} {{page.id}}</a></h4>
                                     {% comment %} <span class="text-danger font-w600">UNFINISHED</span> {% endcomment %}
                                 </div>
                             </div>
-                           
+                            <a href="{% url 'quiz_page_edit' user_quiz.id page.id %}">
+                                <div class="float-right fs-24 text-dark">Edit <i class="fa fa-edit"></i></div>
+                            </a>
+
                         </div>
 
                         <div id="accordion-{{page.id}}" class="accordion accordion-danger-solid w-75 mx-auto">

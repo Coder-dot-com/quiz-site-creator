@@ -61,9 +61,11 @@ def quiz_page_edit(request, quiz_id, page_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     
     if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
         context = {
-            'user_quiz': user_quiz[0],
-            'page_id': page_id
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
         }
         return render(request, 'quiz_page_edit.html', context=context)
 
