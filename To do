@@ -6,8 +6,7 @@ Select an element to add:
 
 -Create text element
 
-    -swap in new elements on creation via htmx
-
+    -Add ability to change position of elements
     -add page name to edit elements page
 
     -improve edit elements page/elements display/plan   

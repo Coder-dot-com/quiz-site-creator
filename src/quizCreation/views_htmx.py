@@ -67,10 +67,11 @@ def add_text_element(request, quiz_id, page_id):
                     quiz_page = quiz_page[0]
                     text_element = form.save(commit=False)
                     try:
-                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('position')[0].position
+                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('-position')[0].position
                     except IndexError:
                         position = 0
-                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position+1)
+                    position = position + 1
+                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position)
                     text_element.page_element = quiz_page_element
                     text_element.save()
                     
@@ -197,4 +198,42 @@ def delete_page_element(request, quiz_id, page_id, element_id):
         quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id).delete()
         return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)
     return HttpResponse("An error occured")
+
+@login_required
+def move_element_up(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
+        quiz_page_element_before = QuizPageElement.objects.filter(page=quiz_page_element.page, position__lt=quiz_page_element.position).order_by('position')
+        if quiz_page_element_before.exists():
+            quiz_page_element_before = quiz_page_element_before[0]
+            element_number  = quiz_page_element.position
+            element_before_number = quiz_page_element_before.position
+
+            quiz_page_element.position = element_before_number
+            quiz_page_element.save()
+            quiz_page_element_before.position = element_number
+            quiz_page_element_before.save()
+        return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)
+    return HttpResponse("An error occured")
     
+
+@login_required
+def move_element_down(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
+        quiz_page_element_after = QuizPageElement.objects.filter(page=quiz_page_element.page, position__gt=quiz_page_element.position).order_by('position')
+        if quiz_page_element_after.exists():
+            quiz_page_element_after = quiz_page_element_after[0]
+            element_number  = quiz_page_element.position
+            element_before_number = quiz_page_element_after.position
+
+            quiz_page_element.position = element_before_number
+            quiz_page_element.save()
+            quiz_page_element_after.position = element_number
+            quiz_page_element_after.save()
+        return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)
+    return HttpResponse("An error occured")
