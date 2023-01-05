@@ -1,0 +1,38 @@
+<div id="page_elements">
+    {% if elements_count > 2 %}
+    <div class="row px-5">
+        <div class="mx-auto w-100 border border-dark p-4 text-center"  style="border-style:dashed !important">
+                <div class="">
+                    <button type="button" class="btn btn-primary site-button mb-2" 
+                    data-toggle="modal" data-target="#exampleModalCenter">
+                        Select an element to add
+                        <i class="fa fa-plus"></i>        
+                    </button>
+                </div>
+        </div>
+    </div>
+    {% endif %}
+
+    {% for element in quiz_page_elements %}
+    <div class="row px-5 my-3">
+        <i class="py-1">
+            {{element.type}}
+        </i> 
+        
+        <div class="mx-auto w-100 border border-dark p-2"  style="border-style:dashed !important">
+            <span 
+            hx-confirm="Are you sure you want to delete this {{element.type}}?"
+            hx-target='#page_elements'
+            hx-delete={% url 'delete_page_element' user_quiz.id quiz_page.id element.element.page_element.id %} class="float-right ml-auto d-flex"><i class="mdi mdi-close"></i></span>
+            <div class="p-4">
+                <br>
+                {% autoescape off %}
+                {{element.element.content}}
+                {% endautoescape %}
+            
+                {{element.id}}
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>

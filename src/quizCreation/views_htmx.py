@@ -17,7 +17,6 @@ def htmx_create_quiz(request):
 
 @login_required
 def quiz_page_element_add(request, quiz_id, page_id):
-
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
         quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
@@ -31,7 +30,6 @@ def quiz_page_element_add(request, quiz_id, page_id):
                 'form': form,
             }
             
-
             #get element using request.post
             return render(request, 'element_forms/text.html', context=context)
 
@@ -81,6 +79,7 @@ def add_text_element(request, quiz_id, page_id):
                     context = {
                         'user_quiz': user_quiz[0], 
                         'quiz_page': quiz_page,
+                        'element_added': True,
                     }
                     return render(request, 'element_forms/all_elements_swatches.html', context=context)
 
@@ -164,3 +163,38 @@ def delete_quiz_page(request, quiz_id, page_id):
         }
     
     return render(request, 'questions_page.html', context=context)
+
+
+@login_required
+def get_quiz_page_elements(request, quiz_id, page_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+
+        quiz_page_elements = quiz_page.get_quiz_page_elements()
+        quiz_page_elements = [element.get_element_type() for element in quiz_page_elements]
+        
+        elements_count = (len(quiz_page_elements))
+
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'quiz_page_elements': quiz_page_elements,
+            'elements_count': elements_count,
+        }
+
+        return render(request, 'quiz_page_elements.html', context=context)
+
+    return HttpResponse("An error occured")
+
+@login_required
+def delete_page_element(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id).delete()
+        return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)
+    return HttpResponse("An error occured")
+    

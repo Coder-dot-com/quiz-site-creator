@@ -1,7 +1,7 @@
 <div id="modalContent" class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title">Select an element to add</h5>
-        <button type="button" class="close" data-dismiss="modal"><span>×</span>
+        <button type="button" id="closeModalElement" class="close" data-dismiss="modal"><span>×</span>
         </button>
     </div>
     <div class="modal-body">
@@ -9,6 +9,7 @@
         hx-post={% url 'quiz_page_element_add' user_quiz.id quiz_page.id %}
         hx-target='#modalContent'
         hx-swap=innerHTML
+        
         >
         {% include 'element_choices.html' %}
         <div class="">
@@ -19,3 +20,19 @@
 
     </div>
 </div>
+
+
+{% if element_added %}
+<script>
+    document.querySelector('#closeModalElement').click()
+</script>
+
+<div
+
+hx-target="#page_elements"
+hx-swap=outerHTML
+hx-trigger=load
+hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+>
+        {% comment %} Refresh list  {% endcomment %}        
+{% endif %}

@@ -5,7 +5,7 @@
 
     <div class="row">
 
-        <form class="my-2 mx-auto" action="" method="POST"
+        <form class="my-2 mx-auto" 
         hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
         hx-post={% url 'htmx_create_quiz' %}
         hx-replace-url="/create_quiz/edit"

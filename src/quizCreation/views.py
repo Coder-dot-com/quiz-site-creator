@@ -37,16 +37,16 @@ def quiz_page_add(request, quiz_id):
             quiz_page_number = 0
         quiz_page =  QuizPage.objects.create(quiz=user_quiz, number=(quiz_page_number+1), name=request.POST['name'])
         quiz_page_elements = quiz_page.get_quiz_page_elements()
-        print(quiz_page_elements)
+        print('quiz_page_elements', quiz_page_elements)
         quiz_page_elements = [element.get_element_type() for element in quiz_page_elements]
+
 
         context = {
             'user_quiz': user_quiz,
             'quiz_page': quiz_page,
             'quiz_page_elements': quiz_page_elements,
         }
-        print(quiz_page_elements)
-        return render(request, 'quiz_page_edit.html', context=context)
+        return redirect('quiz_page_edit', quiz_id=user_quiz.id, page_id=quiz_page.id)
 
     return redirect('dashboard_home')
 
@@ -59,10 +59,20 @@ def quiz_page_edit(request, quiz_id, page_id):
     if user_quiz.exists():
         user_quiz = user_quiz[0]
         quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+
+        quiz_page_elements = quiz_page.get_quiz_page_elements()
+        print('quiz_page_elements', quiz_page_elements)
+        quiz_page_elements = [element.get_element_type() for element in quiz_page_elements]
+
+        elements_count = (len(quiz_page_elements))
+
         context = {
             'user_quiz': user_quiz,
             'quiz_page': quiz_page,
+            'quiz_page_elements': quiz_page_elements,
+            'elements_count': elements_count,
         }
+
         return render(request, 'quiz_page_edit.html', context=context)
 
     redirect('dashboard_home')
