@@ -6,9 +6,17 @@
 <div class="modal-body">
     <form  
     id="addTextElementForm "
+
+    {% if edit %}
+    hx-post={% url 'edit_text_element' user_quiz.id quiz_page.id quiz_page_element.id %}
+    hx-target='#page_elements'
+    hx-swap=innerHTML
+    hx-
+    {% else %}
     hx-post={% url 'add_text_element' user_quiz.id quiz_page.id %}
     hx-target='#modalContent'
     hx-swap=outerHTML
+    {% endif %}
     hx-sync="closest form:abort"
 
     >
@@ -17,10 +25,22 @@
     {{field}}
     {% endfor %}
 
-    <div class="my-3">
-        <button hx-get={% url 'all_element_swatches' user_quiz.id quiz_page.id %} hx-trigger=click
-         hx-target='#modalContent' hx-swap=outerHTML class="btn btn-danger light" 
-         data-dismiss="modal">Cancel</button>
+    <div class="my-3 text-center">
+        <button 
+        {% if not edit %}
+        hx-get={% url 'all_element_swatches' user_quiz.id quiz_page.id %} hx-trigger=click
+        hx-target='#modalContent' hx-swap=outerHTML 
+        {% else %}
+        data-dismiss="modal"
+        {% endif %}
+        class="btn btn-danger light" 
+        >
+        {% if edit %}
+        Cancel
+        {% else %}
+        Go back
+        {% endif %}
+    </button>
         <button type="submit" onclick="for ( instance in CKEDITOR.instances ) {
                 CKEDITOR.instances[instance].updateElement();
             }" class="btn btn-primary site-button">{% if edit %}Save{% else %}Add{% endif %}</button>  

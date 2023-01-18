@@ -267,35 +267,21 @@ def edit_element_modal(request, quiz_id, page_id, element_id):
 
 
 @login_required
-def add_text_element(request, quiz_id, page_id):
+def edit_text_element(request, quiz_id, page_id, element_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
-        quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
-        if quiz_page.exists():
-            if request.method == 'POST':
-                # Bind data from request.POST into a PostForm
-                form = TextElementForm(request.POST)
-                print(request.POST)
-                # If data is valid, proceeds to create a new post
-                print("Adding text element")
-                print(form.errors)
-                if form.is_valid():
-                    quiz_page = quiz_page[0]
-                    text_element = form.save(commit=False)
-                    try:
-                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('-position')[0].position
-                    except IndexError:
-                        position = 0
-                    position = position + 1
-                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position)
-                    text_element.page_element = quiz_page_element
-                    text_element.save()
-                    
+        user_quiz = user_quiz[0]
+        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
+        element = quiz_page_element.get_element_type()
+        element_type = element['type']
+        text_element = element['element']
+        form = TextElementForm(request.POST, instance=text_element)
 
-                    #determine position and create element objects
-                    context = {
-                        'user_quiz': user_quiz[0], 
-                        'quiz_page': quiz_page,
-                        'element_added': True,
-                    }
-                    return render(request, 'element_forms/all_elements_swatches.html', context=context)
+        if form.is_valid():
+            form.save()
+
+            return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)
+
+        print(form.errors)
+    
+    return HttpResponse(500, content="An error occured")
