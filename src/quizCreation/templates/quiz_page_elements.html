@@ -22,7 +22,13 @@
         </i> 
         
         <div class="mx-auto w-100 border border-dark p-2"  style="border-style:dashed !important">
-            <span type="button" class="float-right ml-auto fs-24 text-dark mb-0 mt-2 align-items-center">Edit <i class="fa fa-edit"></i></span>
+            <a hx-get={% url 'edit_element_modal' user_quiz.id quiz_page.id element.element.page_element.id %}
+                hx-target='#editModalContent'
+                hx-swap=innerHTML
+             data-toggle="modal" data-target="#editModal">
+                <span type="button" class="float-right ml-auto fs-24 text-dark mb-0 mt-2 align-items-center">Edit <i class="fa fa-edit"></i></span>
+            </a>
+            
             <div class="p-4 d-flex align-items-center ">
                 <div class="list-icon mr-3 mb-3">
                     <p type="button" 
@@ -50,3 +56,5 @@
     </div>
     {% endfor %}
 </div>
+
+{% include 'quiz_page_element_edit_modal.html' %}

@@ -22,5 +22,7 @@ urlpatterns = [
     path('move_element_up/<quiz_id>/<page_id>/<element_id>', views_htmx.move_element_up, name="move_element_up"),
     path('move_element_down/<quiz_id>/<page_id>/<element_id>', views_htmx.move_element_down, name="move_element_down"),
 
+    path('edit_element_modal/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_element_modal, name="edit_element_modal"),
+
 ]
 

@@ -1,11 +1,8 @@
-
 To do:
-
 
 Select an element to add:
 
 -Create text element
-
     -add edit ability to text element
         -add edit modal
             -request sent on click of button with quiz and element id and relevant form swapped in with previous content 
