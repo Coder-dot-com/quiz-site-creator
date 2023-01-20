@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
 from .models import UserQuiz, QuizPage, QuizPageElement, TextElement
-from .forms import TextElementForm
+from .forms import TextElementForm, CharInputElementForm, TextInputElementForm
 
 @login_required
 def htmx_create_quiz(request):
@@ -19,19 +19,42 @@ def htmx_create_quiz(request):
 def quiz_page_element_add(request, quiz_id, page_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
-        quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
+        user_quiz = user_quiz[0]
+        quiz_page = QuizPage.objects.filter(quiz=user_quiz, id=page_id)
         if quiz_page.exists():
+            quiz_page = quiz_page[0]
         #don't create the object yet just determine which element the user selected
         #  and pass the required form
-            form = TextElementForm()
-            context = {
-                'user_quiz': user_quiz[0], 
-                'quiz_page': quiz_page[0],
-                'form': form,
-            }
-            
-            #get element using request.post
-            return render(request, 'element_forms/text.html', context=context)
+            element = request.POST['element']
+
+            if element == "text":
+                form = TextElementForm()
+                context = {
+                    'user_quiz': user_quiz, 
+                    'quiz_page': quiz_page,
+                    'form': form,
+                }
+                
+                return render(request, 'element_forms/text.html', context=context)
+
+            elif element == "CharInput":
+                
+                form = CharInputElementForm()
+                context = {
+                    'user_quiz': user_quiz, 
+                    'quiz_page': quiz_page,
+                    'form': form,
+                }
+                return render(request, 'element_forms/CharInput.html', context=context)
+                
+            elif element == "TextInput":
+                form = TextInputElementForm()
+                context = {
+                    'user_quiz': user_quiz, 
+                    'quiz_page': quiz_page,
+                    'form': form,
+                }
+                return render(request, 'element_forms/TextInput.html', context=context)
 
         return HttpResponse("An error occured")
 
@@ -83,6 +106,65 @@ def add_text_element(request, quiz_id, page_id):
                         'element_added': True,
                     }
                     return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
+@login_required
+def add_text_input_element(request, quiz_id, page_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
+        if quiz_page.exists():
+            if request.method == 'POST':
+                # Bind data from request.POST into a PostForm
+                form = TextInputElementForm(request.POST)
+                # If data is valid, proceeds to create a new post
+                if form.is_valid():
+                    quiz_page = quiz_page[0]
+                    element = form.save(commit=False)
+                    try:
+                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('-position')[0].position
+                    except IndexError:
+                        position = 0
+                    position = position + 1
+                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position)
+                    element.page_element = quiz_page_element
+                    element.save()
+                    #determine position and create element objects
+                    context = {
+                        'user_quiz': user_quiz[0], 
+                        'quiz_page': quiz_page,
+                        'element_added': True,
+                    }
+                    return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
+@login_required
+def add_char_input_element(request, quiz_id, page_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
+        if quiz_page.exists():
+            if request.method == 'POST':
+                # Bind data from request.POST into a PostForm
+                form = CharInputElementForm(request.POST)
+                # If data is valid, proceeds to create a new post
+                if form.is_valid():
+                    quiz_page = quiz_page[0]
+                    element = form.save(commit=False)
+                    try:
+                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('-position')[0].position
+                    except IndexError:
+                        position = 0
+                    position = position + 1
+                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position)
+                    element.page_element = quiz_page_element
+                    element.save()
+                    #determine position and create element objects
+                    context = {
+                        'user_quiz': user_quiz[0], 
+                        'quiz_page': quiz_page,
+                        'element_added': True,
+                    }
+                    return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
 
 @login_required
 def move_page_up(request, quiz_id, page_id):
@@ -258,9 +340,6 @@ def edit_element_modal(request, quiz_id, page_id, element_id):
                 'form': form,
                 'edit': True,
             }
-
-
-
             return render(request, 'element_forms/text.html', context=context)
 
 
@@ -281,7 +360,35 @@ def edit_text_element(request, quiz_id, page_id, element_id):
             form.save()
 
             return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)
+    return HttpResponse(500, content="An error occured")
 
-        print(form.errors)
-    
+@login_required
+def edit_text_input_element(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
+        element = quiz_page_element.get_element_type()
+        element_type = element['type']
+        text_element = element['element']
+        form = TextInputElementForm(request.POST, instance=text_element)
+
+        if form.is_valid():
+            form.save()
+            return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)    
+    return HttpResponse(500, content="An error occured")
+
+@login_required
+def edit_char_input_element(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
+        element = quiz_page_element.get_element_type()
+        element_type = element['type']
+        text_element = element['element']
+        form = CharInputElementForm(request.POST, instance=text_element)
+        if form.is_valid():
+            form.save()
+            return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)    
     return HttpResponse(500, content="An error occured")

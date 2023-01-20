@@ -1,6 +1,10 @@
 <select  name="element" id="multiC" class="form-select d-none">
     <option value=""></option>
         <option value="text" id="option_text">text</option>
+        <option value="CharInput" id="option_CharInput">text</option>
+        <option value="TextInput" id="option_TextInput"></option>
+
+
 </select>
 
 <div class="row p-1" style="gap: 1.5rem !important;">
@@ -11,6 +15,24 @@
                     <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
             </div>
         </div>
+
+        <div role="button" onclick="SelectDeselect(this);" id="card_CharInput"
+            class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=CharInput style="min-width:8rem;border:3px solid white;">
+            <div class="text-center py-4">
+                <h4 class="card-title">Character input</h4>
+                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+            </div>
+        </div>
+
+        <div role="button" onclick="SelectDeselect(this);" id="card_TextInput"
+            class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=TextInput style="min-width:8rem;border:3px solid white;">
+            <div class="text-center py-4">
+                <h4 class="card-title">Text input</h4>
+                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+            </div>
+        </div>
+
+        
 </div>
 
 <script>

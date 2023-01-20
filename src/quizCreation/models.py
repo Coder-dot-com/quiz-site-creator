@@ -30,15 +30,24 @@ class QuizPageElement(models.Model):
         text_element = TextElement.objects.filter(page_element=self)
         if text_element.exists():
             return {'type': 'Text element', 'element': text_element[0]}
-
+        char_input_element = CharInputElement.objects.filter(page_element=self)
+        if char_input_element.exists():
+            return {'type': 'Char input element', 'element': char_input_element[0]}
+        text_input_element = TextInputElement.objects.filter(page_element=self)
+        if text_input_element.exists():
+            return {'type': 'Text input element', 'element': text_input_element[0]}
 
 class TextElement(models.Model):
-    #change to html field
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
-    content= RichTextField()
+    content = RichTextField()
 
+class CharInputElement(models.Model):
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    title = models.CharField(max_length=300)
 
-
+class TextInputElement(models.Model):
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    title = models.CharField(max_length=300)
 
 
 

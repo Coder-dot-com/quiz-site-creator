@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">{% if edit %}Edit {% else %} Add {% endif %} text element</h5>
+    <h5 class="modal-title">{% if edit %}Edit {% else %} Add {% endif %} character input field</h5>
     <button type="button" class="close" data-dismiss="modal"><span>×</span>
     </button>
 </div>
@@ -7,12 +7,11 @@
     <form  
 
     {% if edit %}
-    hx-post={% url 'edit_text_element' user_quiz.id quiz_page.id quiz_page_element.id %}
+    hx-post={% url 'edit_char_input_element' user_quiz.id quiz_page.id quiz_page_element.id %}
     hx-target='#page_elements'
     hx-swap=innerHTML
-    hx-
     {% else %}
-    hx-post={% url 'add_text_element' user_quiz.id quiz_page.id %}
+    hx-post={% url 'add_char_input_element' user_quiz.id quiz_page.id %}
     hx-target='#modalContent'
     hx-swap=outerHTML
     {% endif %}
@@ -21,6 +20,7 @@
     >
     {{form.media}}
     {% for field in form %}
+    {{field.field.widget.attrs.field_title}}
     {{field}}
     {% endfor %}
 
@@ -40,9 +40,7 @@
         Go back
         {% endif %}
     </button>
-        <button type="submit" onclick="for ( instance in CKEDITOR.instances ) {
-                CKEDITOR.instances[instance].updateElement();
-            }" class="btn btn-primary site-button">{% if edit %}Save{% else %}Add{% endif %}</button>  
+        <button type="submit" class="btn btn-primary site-button">{% if edit %}Save{% else %}Add{% endif %}</button>  
     </div>
     </form>
 
