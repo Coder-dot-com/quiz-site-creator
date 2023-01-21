@@ -3,7 +3,7 @@
         <option value="text" id="option_text">text</option>
         <option value="CharInput" id="option_CharInput">text</option>
         <option value="TextInput" id="option_TextInput"></option>
-
+        <option value="EmailInput" id="option_EmailInput"></option>
 
 </select>
 
@@ -11,7 +11,8 @@
         <div role="button" onclick="SelectDeselect(this);" id="card_text"
             class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=text style="min-width:8rem;border:3px solid white;">
             <div class="text-center py-4">
-                <h4 class="card-title">Text element</h4>
+                <h4 class="card-title">Your text</h4>
+                <p class="text-small">Great for sales copy, instructions and information</p>
                     <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
             </div>
         </div>
@@ -32,6 +33,15 @@
             </div>
         </div>
 
+        <div role="button" onclick="SelectDeselect(this);" id="card_EmailInput"
+            class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=EmailInput style="min-width:8rem;border:3px solid white;">
+            <div class="text-center py-4">
+                <h4 class="card-title">Email input</h4>
+                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+            </div>
+        </div>
+
+        
         
 </div>
 

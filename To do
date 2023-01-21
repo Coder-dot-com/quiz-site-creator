@@ -9,11 +9,11 @@ Select an element to add:
         (core functionality)
 
      
-
-
-        -email input (later has a boolean which is by default checked to use this for conversion tracking)
-        -pass input?
         -number input
+        -Multiple choice
+        -Single choice
+
+        -pass input?
 
     -Handle rendering 
 

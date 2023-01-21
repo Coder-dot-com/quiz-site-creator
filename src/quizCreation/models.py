@@ -36,6 +36,9 @@ class QuizPageElement(models.Model):
         text_input_element = TextInputElement.objects.filter(page_element=self)
         if text_input_element.exists():
             return {'type': 'Text input element', 'element': text_input_element[0]}
+        email_input_element = EmailInputElement.objects.filter(page_element=self)
+        if email_input_element.exists():
+            return {'type': 'Email input element', 'element': email_input_element[0]}
 
 class TextElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
@@ -49,6 +52,7 @@ class TextInputElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
 
-
-
+class EmailInputElement(models.Model):
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    title = models.CharField(max_length=300)
 
