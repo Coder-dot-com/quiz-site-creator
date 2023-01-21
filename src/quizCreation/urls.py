@@ -29,8 +29,8 @@ urlpatterns = [
     path('edit_element_modal/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_element_modal, name="edit_element_modal"),
 
     path('edit_text_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_text_element, name="edit_text_element"),
-    path('edit_text_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_text_element, name="edit_text_element"),
-    path('edit_text_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_text_element, name="edit_text_element"),
+    path('edit_text_input_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_text_input_element, name="edit_text_input_element"),
+    path('edit_char_input_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_char_input_element, name="edit_char_input_element"),
 
 
 ]

@@ -2,6 +2,7 @@ from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
 from .models import UserQuiz, QuizPage, QuizPageElement, TextElement
 from .forms import TextElementForm, CharInputElementForm, TextInputElementForm
+from django.urls import reverse
 
 @login_required
 def htmx_create_quiz(request):
@@ -268,6 +269,13 @@ def get_quiz_page_elements(request, quiz_id, page_id):
             'elements_count': elements_count,
         }
 
+        try:
+            edit = request.GET['edit']
+            if edit:
+                context['edit'] = True
+        except:
+            pass
+
         return render(request, 'quiz_page_elements.html', context=context)
 
     return HttpResponse("An error occured")
@@ -341,7 +349,30 @@ def edit_element_modal(request, quiz_id, page_id, element_id):
                 'edit': True,
             }
             return render(request, 'element_forms/text.html', context=context)
+        elif element_type == 'Char input element':
+            element = element['element']
+            form = CharInputElementForm(initial={'title': element.title})
 
+            context = {
+                'user_quiz': user_quiz,
+                'quiz_page': quiz_page_element.page,
+                'quiz_page_element': quiz_page_element,
+                'form': form,
+                'edit': True,
+            }
+            return render(request, 'element_forms/CharInput.html', context=context)           
+        elif element_type == 'Text input element':
+            element = element['element']
+            form = TextInputElementForm(initial={'title': element.title})
+
+            context = {
+                'user_quiz': user_quiz,
+                'quiz_page': quiz_page_element.page,
+                'quiz_page_element': quiz_page_element,
+                'form': form,
+                'edit': True,
+            }
+            return render(request, 'element_forms/TextInput.html', context=context)
 
 
 
@@ -358,8 +389,9 @@ def edit_text_element(request, quiz_id, page_id, element_id):
 
         if form.is_valid():
             form.save()
+            url = reverse('get_quiz_page_elements', kwargs={'quiz_id': quiz_id, 'page_id':page_id})
+            return redirect(f"{request.build_absolute_uri(url)}?edit=True")
 
-            return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)
     return HttpResponse(500, content="An error occured")
 
 @login_required
@@ -375,7 +407,9 @@ def edit_text_input_element(request, quiz_id, page_id, element_id):
 
         if form.is_valid():
             form.save()
-            return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)    
+            url = reverse('get_quiz_page_elements', kwargs={'quiz_id': quiz_id, 'page_id':page_id})
+            return redirect(f"{request.build_absolute_uri(url)}?edit=True")
+  
     return HttpResponse(500, content="An error occured")
 
 @login_required
@@ -390,5 +424,7 @@ def edit_char_input_element(request, quiz_id, page_id, element_id):
         form = CharInputElementForm(request.POST, instance=text_element)
         if form.is_valid():
             form.save()
-            return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)    
+            url = reverse('get_quiz_page_elements', kwargs={'quiz_id': quiz_id, 'page_id':page_id})
+            return redirect(f"{request.build_absolute_uri(url)}?edit=True")
+    
     return HttpResponse(500, content="An error occured")

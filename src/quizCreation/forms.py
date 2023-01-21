@@ -17,7 +17,7 @@ class TextElementForm(forms.ModelForm):
 class CharInputElementForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['title'].widget = forms.TextInput(attrs={'field_title': "Enter a title for your question"},)
+        self.fields['title'].widget = forms.TextInput(attrs={'field_title': "Enter a title for your question", 'maxlength': 100},)
 
     class Meta:
         model = CharInputElement

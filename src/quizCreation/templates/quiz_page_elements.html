@@ -15,10 +15,10 @@
 
     {% for element in quiz_page_elements %}
 
-
+    
     <div class="row px-5 my-3">
         <i class="py-1">
-            {{element.type}}
+            {{element.element.page_element.position}}. {{element.type}}
         </i> 
         
         <div class="mx-auto w-100 border border-dark p-2"  style="border-style:dashed !important">
@@ -49,6 +49,12 @@
                     {{element.element.content}}
                 </div>
                 {% endautoescape %}
+                <div>
+                    {% if element.type == 'Text input element' or  element.type == 'Char input element' %}
+                    <i>Question title:</i> <b>{{element.element.title}}</b>
+                    {% endif %}
+
+                </div>
                 
             </div>
             <span type="button" hx-confirm="Are you sure you want to delete this {{element.type}}?" hx-target='#page_elements' hx-delete={% url 'delete_page_element' user_quiz.id quiz_page.id element.element.page_element.id %} class="float-right ml-auto d-flex fs-24 text-dark mb-0 mt-2">Delete <i class="mdi mdi-close"></i></span>
@@ -58,3 +64,13 @@
 </div>
 
 {% include 'quiz_page_element_edit_modal.html' %}
+
+<script>
+    document.querySelector('#editModalContent > div.modal-header > button').click()
+</script>
+
+{% if edit %}
+
+<script>
+    document.querySelector('#editModalContent > div.modal-body > form > div > button.btn.btn-danger.light').click()</script>
+{% endif %}

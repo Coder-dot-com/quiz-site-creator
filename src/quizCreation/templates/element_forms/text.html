@@ -9,7 +9,7 @@
     {% if edit %}
     hx-post={% url 'edit_text_element' user_quiz.id quiz_page.id quiz_page_element.id %}
     hx-target='#page_elements'
-    hx-swap=innerHTML
+    hx-swap=outerHTML
     hx-
     {% else %}
     hx-post={% url 'add_text_element' user_quiz.id quiz_page.id %}

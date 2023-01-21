@@ -3,36 +3,42 @@ To do:
 Select an element to add:
 
 -Create text element
-    -add edit ability to text element
-        -add edit modal
-            -request sent on click of button with quiz and element id and relevant form swapped in with previous content 
-
-
-    -improve edit elements page/elements display/design   
-
     -create and add more elements
         
-        -text input
-        -char input
+        Start here: 
+        (core functionality)
+
+     
+
+
         -email input (later has a boolean which is by default checked to use this for conversion tracking)
         -pass input?
         -number input
+
+    -Handle rendering 
+
+
+    -Handle post
+    -Basic analytics
+
+    -ensure all core functionality is working 
+
+    
+    Add in more elements later
+        
+
         later:
+        -convert views to class based views and reduce duplicated code for add/edit etc...
+        -Image (upload and link)
         -phone number
+        -Youtube video
+        -Vimeo
+        -Upload video
 
         -Others/plan
 
     
-User clicks add quiz page and is redirected to block editor
 
-there is a checkered border with text in middle saying Click to select an element to add
-which opens model with swatches for all possible elements
-User chooses elements and this is swapped into position
-
-(each element has delete option, arrows to move it up or down relative to others, relevant details,
-preview page option,
-
-)
 
 
 
