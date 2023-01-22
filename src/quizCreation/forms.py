@@ -2,7 +2,7 @@ from django import forms
 from ckeditor.widgets import CKEditorWidget
 from uuid import uuid4
 
-from .models import TextElement, CharInputElement, TextInputElement, EmailInputElement
+from .models import TextElement, CharInputElement, TextInputElement, EmailInputElement, NumberInputElement
 
 
 class TextElementForm(forms.ModelForm):
@@ -33,4 +33,10 @@ class TextInputElementForm(CharInputElementForm):
 class EmailInputElementForm(CharInputElementForm):
     class Meta:
         model = EmailInputElement
+        fields = ['title', ]
+
+
+class NumberInputElementForm(CharInputElementForm):
+    class Meta:
+        model = NumberInputElement
         fields = ['title', ]

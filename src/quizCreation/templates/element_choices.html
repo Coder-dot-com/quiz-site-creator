@@ -4,6 +4,8 @@
         <option value="CharInput" id="option_CharInput">text</option>
         <option value="TextInput" id="option_TextInput"></option>
         <option value="EmailInput" id="option_EmailInput"></option>
+        <option value="NumberInput" id="option_NumberInput"></option>
+
 
 </select>
 
@@ -41,7 +43,14 @@
             </div>
         </div>
 
-        
+
+        <div role="button" onclick="SelectDeselect(this);" id="card_NumberInput"
+            class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=NumberInput style="min-width:8rem;border:3px solid white;">
+            <div class="text-center py-4">
+                <h4 class="card-title">Number input</h4>
+                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+            </div>
+        </div>     
         
 </div>
 

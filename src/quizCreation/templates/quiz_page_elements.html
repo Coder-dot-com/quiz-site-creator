@@ -50,7 +50,7 @@
                 </div>
                 {% endautoescape %}
                 <div>
-                    {% if element.type == 'Text input element' or  element.type == 'Char input element' or  element.type == 'Email input element' %}
+                    {% if element.type == 'Text input element' or  element.type == 'Char input element' or  element.type == 'Email input element' or element.type == 'Number input element' %}
                     <i>Question title:</i> <b>{{element.element.title}}</b>
                     {% endif %}
 

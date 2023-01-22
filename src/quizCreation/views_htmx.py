@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
 from .models import UserQuiz, QuizPage, QuizPageElement, TextElement
-from .forms import TextElementForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm
+from .forms import TextElementForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm
 from django.urls import reverse
 
 @login_required
@@ -65,6 +65,15 @@ def quiz_page_element_add(request, quiz_id, page_id):
                     'form': form,
                 }
                 return render(request, 'element_forms/EmailInput.html', context=context)
+
+            elif element == "NumberInput":
+                form = NumberInputElementForm()
+                context = {
+                    'user_quiz': user_quiz, 
+                    'quiz_page': quiz_page,
+                    'form': form,
+                }
+                return render(request, 'element_forms/NumberInput.html', context=context)
 
         return HttpResponse("An error occured")
 
@@ -203,6 +212,36 @@ def add_email_input_element(request, quiz_id, page_id):
                         'element_added': True,
                     }
                     return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
+@login_required
+def add_number_input_element(request, quiz_id, page_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
+        if quiz_page.exists():
+            if request.method == 'POST':
+                # Bind data from request.POST into a PostForm
+                form = NumberInputElementForm(request.POST)
+                # If data is valid, proceeds to create a new post
+                if form.is_valid():
+                    quiz_page = quiz_page[0]
+                    element = form.save(commit=False)
+                    try:
+                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('-position')[0].position
+                    except IndexError:
+                        position = 0
+                    position = position + 1
+                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position)
+                    element.page_element = quiz_page_element
+                    element.save()
+                    #determine position and create element objects
+                    context = {
+                        'user_quiz': user_quiz[0], 
+                        'quiz_page': quiz_page,
+                        'element_added': True,
+                    }
+                    return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
 
 @login_required
 def move_page_up(request, quiz_id, page_id):
@@ -487,6 +526,23 @@ def edit_email_input_element(request, quiz_id, page_id, element_id):
         element_type = element['type']
         text_element = element['element']
         form = EmailInputElementForm(request.POST, instance=text_element)
+        if form.is_valid():
+            form.save()
+            url = reverse('get_quiz_page_elements', kwargs={'quiz_id': quiz_id, 'page_id':page_id})
+            return redirect(f"{request.build_absolute_uri(url)}?edit=True")
+    
+    return HttpResponse(500, content="An error occured")
+
+@login_required
+def edit_number_input_element(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
+        element = quiz_page_element.get_element_type()
+        element_type = element['type']
+        text_element = element['element']
+        form = NumberInputElementForm(request.POST, instance=text_element)
         if form.is_valid():
             form.save()
             url = reverse('get_quiz_page_elements', kwargs={'quiz_id': quiz_id, 'page_id':page_id})
