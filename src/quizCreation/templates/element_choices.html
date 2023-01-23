@@ -5,6 +5,7 @@
         <option value="TextInput" id="option_TextInput"></option>
         <option value="EmailInput" id="option_EmailInput"></option>
         <option value="NumberInput" id="option_NumberInput"></option>
+        <option value="MultipleChoice" id="option_MultipleChoice"></option>
 
 
 </select>
@@ -50,7 +51,15 @@
                 <h4 class="card-title">Number input</h4>
                     <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
             </div>
-        </div>     
+        </div>    
+        
+        <div role="button" onclick="SelectDeselect(this);" id="card_MultipleChoice"
+            class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=MultipleChoice style="min-width:8rem;border:3px solid white;">
+            <div class="text-center py-4">
+                <h4 class="card-title">Multiple Choice</h4>
+                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+            </div>
+        </div>  
         
 </div>
 

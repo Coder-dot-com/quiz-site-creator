@@ -9,9 +9,13 @@ Select an element to add:
         (core functionality)
 
         -Multiple choice
+            -Plan 
+                -Choices forienkeyed to main question/element type and model method to get choices
+                -create as usual
+                -then add ability to add and delete choices in another modal with before and next
+
         -Single choice
 
-        -pass input?
 
     -Handle rendering 
 

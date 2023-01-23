@@ -16,6 +16,7 @@ urlpatterns = [
     path('add_char_input_element/<quiz_id>/<page_id>', views_htmx.add_char_input_element, name="add_char_input_element"),
     path('add_email_input_element/<quiz_id>/<page_id>', views_htmx.add_email_input_element, name="add_email_input_element"),
     path('add_number_input_element/<quiz_id>/<page_id>', views_htmx.add_number_input_element, name="add_number_input_element"),
+    path('add_multiple_choice_element/<quiz_id>/<page_id>', views_htmx.add_multiple_choice_element, name="add_multiple_choice_element"),
 
 
 
@@ -36,6 +37,7 @@ urlpatterns = [
     path('edit_char_input_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_char_input_element, name="edit_char_input_element"),
     path('edit_email_input_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_email_input_element, name="edit_email_input_element"),
     path('edit_number_input_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_number_input_element, name="edit_number_input_element"),
+    path('edit_multiple_choice_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_multiple_choice_element, name="edit_multiple_choice_element"),
 
 
 
