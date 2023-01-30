@@ -2,7 +2,7 @@ from django import forms
 from ckeditor.widgets import CKEditorWidget
 from uuid import uuid4
 
-from .models import TextElement, CharInputElement, TextInputElement, EmailInputElement, NumberInputElement, MultipleChoiceElement
+from .models import TextElement, CharInputElement, TextInputElement, EmailInputElement, NumberInputElement, MultipleChoiceElement, MultipleChoiceChoice
 
 
 class TextElementForm(forms.ModelForm):
@@ -45,3 +45,12 @@ class MultipleChoiceElementForm(CharInputElementForm):
     class Meta:
         model = MultipleChoiceElement
         fields = ['title', ]
+
+class MultipleChoiceChoiceForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['choice'].widget = forms.TextInput(attrs={'field_title': "Enter a name for your choice", 'maxlength': 100, 'class': 'w-100'},)
+
+    class Meta:
+        model = MultipleChoiceChoice
+        fields = ['choice', ]

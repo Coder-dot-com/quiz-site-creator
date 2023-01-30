@@ -24,9 +24,17 @@ urlpatterns = [
     path('move_page_down/<quiz_id>/<page_id>', views_htmx.move_page_down, name="move_page_down"),
     path('delete_quiz_page/<quiz_id>/<page_id>', views_htmx.delete_quiz_page, name="delete_quiz_page"),
 
+
+
     path('get_quiz_page_elements/<quiz_id>/<page_id>', views_htmx.get_quiz_page_elements, name="get_quiz_page_elements"),
     path('delete_page_element/<quiz_id>/<page_id>/<element_id>', views_htmx.delete_page_element, name="delete_page_element"),
     
+
+    path('add_choice_to_multiple_choice_element/<quiz_id>/<page_id>/<element_id>', views_htmx.add_choice_to_multiple_choice_element, name="add_choice_to_multiple_choice_element"),
+
+    path('delete_choice_multiple_choice_element/<quiz_id>/<page_id>/<element_id>/<choice_id>', views_htmx.delete_choice_multiple_choice_element, name="delete_choice_multiple_choice_element"),
+
+
     path('move_element_up/<quiz_id>/<page_id>/<element_id>', views_htmx.move_element_up, name="move_element_up"),
     path('move_element_down/<quiz_id>/<page_id>/<element_id>', views_htmx.move_element_down, name="move_element_down"),
 

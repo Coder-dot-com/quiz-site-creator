@@ -9,23 +9,21 @@ Select an element to add:
         (core functionality)
 
         -Multiple choice
-            -Plan 
-                -Choices forienkeyed to main question/element type and model method to get choices
-                -create as usual
-                -then add ability to add and delete choices in another modal with before and next
+            -create the htmx swap element            
 
         -Single choice
 
 
     -Handle rendering 
-
+    -Imrpoe form fields for elemnet choices see the theme's example
 
     -Handle post
     -Basic analytics
 
     -ensure all core functionality is working 
 
-    
+    -Where models are reset when button is pressed change to listen for modal closing and then reset as can close modal without clicking button
+
     Add in more elements later
         
 

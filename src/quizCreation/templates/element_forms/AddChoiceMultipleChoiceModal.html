@@ -1,0 +1,77 @@
+<div id="modalContent" class="modal-content">
+    <div class="modal-header">
+        <h5 class="modal-title">Add choices to your multiple choice question</h5>
+        <button type="button" id="closeModalElement" class="close" data-dismiss="modal"><span>×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+        {% if not choices %}
+        <div class="text-center my-5">No choices added yet</div>
+        {% else %}
+        <div class="table-responsive my-2">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th>Choice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for choice in choices %}
+                    <tr>
+                       
+                        <td><div class="d-flex align-items-left">{{choice.choice}}</div></td>
+                        <td style="justify-content: right;" class="d-flex">
+							<div class="d-flex align-items-right">
+								<a 
+                                hx-delete="{% url 'delete_choice_multiple_choice_element' user_quiz.id quiz_page.id element.id choice.id %}"
+                                hx-target='#modalContent'
+                                hx-swap=outerHTML 
+                                >Delete <div class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></div></a>
+							</div>
+						</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        {% endif %}
+
+        
+
+        
+    <form   
+        hx-post={% url 'add_choice_to_multiple_choice_element' user_quiz.id quiz_page.id element.id %}
+        hx-target='#modalContent'
+        hx-swap=outerHTML
+        hx-encoding="multipart/form-data"
+        >
+        <div class="input-group my-2">
+            <input type="text" name="choice_name" class="form-control" maxlength="50" placeholder="Enter a name for your choice">
+            <div class="input-group-append">
+                <button style="top:-3px" class="btn btn-primary site-button" type="submit">Add</button>
+            </div>
+        </div>
+
+        <div class="my-2">
+            <button type="" class="btn btn-primary site-button" data-dismiss="modal">Finished adding choices</button>
+        </div>
+        </form>
+
+    </div>
+</div>
+
+
+{% if element_added %}
+<script>
+    {% comment %} document.querySelector('#closeModalElement').click() {% endcomment %}
+</script>
+
+<div
+
+hx-target="#page_elements"
+hx-swap=outerHTML
+hx-trigger=load
+hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+>
+        {% comment %} Refresh list  {% endcomment %}        
+{% endif %}
