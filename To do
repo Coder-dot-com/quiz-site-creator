@@ -1,5 +1,9 @@
 To do:
 
+-Set everything up
+    -env variables
+    -not aws
+
 Select an element to add:
 
 -Create text element
@@ -42,12 +46,8 @@ Select an element to add:
 
 
 
--Fork/clone repo and start creating for new project
 
--create apps for quiz: quizCreate, quizRender etc....
--Then create quizcreate page and functionality
 
--Then plan others
 
 -Create layout/pages with content to display and use as mockups
 -then use this is asset for prepurchases

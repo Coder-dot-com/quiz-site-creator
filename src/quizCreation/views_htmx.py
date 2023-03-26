@@ -406,7 +406,13 @@ def delete_page_element(request, quiz_id, page_id, element_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
         user_quiz = user_quiz[0]
-        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id).delete()
+        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
+        elements_to_move_up = QuizPageElement.objects.filter(page__quiz=user_quiz, position__gt=quiz_page_element.position).order_by('-position')
+        quiz_page_element.delete()
+        if elements_to_move_up.exists():
+            for i in elements_to_move_up:
+                i.position -= 1
+                i.save()
         return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)
     return HttpResponse("An error occured")
 

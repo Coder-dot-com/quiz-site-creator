@@ -58,7 +58,17 @@
                     {% if element.type == 'Multiple choice question'  %}
                     <br> <br>
                     Question choices: 
-                    
+                    <br>
+
+                    <ul class="list-group list-group-horizontal-sm">
+                        {% for e in element.element.get_multiple_choice_choices %}
+                        <li class="list-group-item">
+                            {{e.choice}}
+                        </li >
+                        <li>
+                            {% endfor %}
+                        </li>
+                    </ul>
                     {% endif %}
 
                 </div>

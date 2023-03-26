@@ -16,6 +16,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                    
                     {% for choice in choices %}
                     <tr>
                        
@@ -61,7 +62,6 @@
 </div>
 
 
-{% if element_added %}
 <script>
     {% comment %} document.querySelector('#closeModalElement').click() {% endcomment %}
 </script>
@@ -74,4 +74,3 @@ hx-trigger=load
 hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
 >
         {% comment %} Refresh list  {% endcomment %}        
-{% endif %}

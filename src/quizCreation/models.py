@@ -71,6 +71,11 @@ class MultipleChoiceElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
 
+
+    def get_multiple_choice_choices(self):
+        return MultipleChoiceChoice.objects.filter(multiple_choice_element=self)
+
+
 class MultipleChoiceChoice(models.Model):
     multiple_choice_element = models.ForeignKey(MultipleChoiceElement, on_delete=models.CASCADE)
     choice = models.CharField(max_length=300)

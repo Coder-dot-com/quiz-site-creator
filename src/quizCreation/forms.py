@@ -8,16 +8,17 @@ from .models import TextElement, CharInputElement, TextInputElement, EmailInputE
 class TextElementForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['content'].widget = CKEditorWidget(attrs={'id': uuid4()})
     class Meta:
         model = TextElement
         fields = ['content', ]
 
 
+
 class CharInputElementForm(forms.ModelForm):
+
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['title'].widget = forms.TextInput(attrs={'field_title': "Enter a title for your question", 'maxlength': 100, 'class': 'w-100'},)
+        self.fields['title'].widget = forms.TextInput(attrs={'field_title': "Enter a title for your question", 'maxlength': 100, 'class': 'w-100 form-control border-dark '},)
 
     class Meta:
         model = CharInputElement
@@ -49,7 +50,7 @@ class MultipleChoiceElementForm(CharInputElementForm):
 class MultipleChoiceChoiceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
-        self.fields['choice'].widget = forms.TextInput(attrs={'field_title': "Enter a name for your choice", 'maxlength': 100, 'class': 'w-100'},)
+        self.fields['choice'].widget = forms.TextInput(attrs={'field_title': "Enter a name for your choice", 'maxlength': 100, 'class': 'w-100 form-control border-dark'},)
 
     class Meta:
         model = MultipleChoiceChoice
