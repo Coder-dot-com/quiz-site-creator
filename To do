@@ -4,22 +4,10 @@ To do:
     -env variables
     -not aws
 
-Select an element to add:
-
--Create text element
-    -create and add more elements
-        
-        Start here: 
-        (core functionality)
-
-        -Multiple choice
-            -create the htmx swap element            
-
-        -Single choice
-
+    -handle multiplpe quiz creation yes
+    and list of quizes
 
     -Handle rendering 
-    -Imrpoe form fields for elemnet choices see the theme's example
 
     -Handle post
     -Basic analytics

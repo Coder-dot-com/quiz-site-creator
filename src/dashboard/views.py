@@ -12,6 +12,7 @@ from quiz_site.settings import STRIPE_SECRET_KEY
 from session_management.views import _session
 from quiz_backend.models import Answer, Quiz, Response
 from django.db.models import Q
+from quizCreation.models import UserQuiz
 
 stripe.api_key = STRIPE_SECRET_KEY
 
@@ -31,6 +32,10 @@ def dashboard_home(request):
             # context['lead_event_id'] = lead_event_id
             # print("lead")
             # conversion_tracking.delay(event_name="Lead", event_id=lead_event_id, event_source_url=event_source_url, category_id=quiz.category.id, session_id=session.session_id)  
+
+    
+    quizes = UserQuiz.objects.filter(user=request.user)
+    context['quizes'] = quizes
 
     return render(request, "dashboard2/index.html", context=context)
 

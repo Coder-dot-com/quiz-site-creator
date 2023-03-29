@@ -44,6 +44,8 @@ urlpatterns = [
 
 
     path('create_quiz/', include('quizCreation.urls')),
+    path('render_quiz/', include('quizRender.urls')),
+
 
     path('currency', include('multicurrency.urls')),
     path('accounts/', include('accounts.urls')),

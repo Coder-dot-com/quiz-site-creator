@@ -24,6 +24,7 @@
                         </ul>
                     </div> {% endcomment %}
                     
+                    <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'preview_quiz' user_quiz.id %}" type="button" class="btn btn-primary site-button mb-2 mr-2">View quiz preview</a>
 
                     <button type="button" class="btn btn-primary site-button mb-2" data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
 
@@ -83,7 +84,7 @@
                                     <p>This page will always be shown as it has no conditions attached</p>
                                 </div>
                             </div>
-                            <div>
+                            <div class="ml-auto mr-4 pr-1">
 
                             <a class="d-block " href="{% url 'quiz_page_edit' user_quiz.id page.id %}">
                                 <div class="float-right fs-24 text-dark">Edit <i class="fa fa-edit"></i></div>
@@ -120,8 +121,18 @@
                                     <span class="accordion__header--indicator"></span>
                                 </div>
                                 <div id="bordered_collapse{{page.id}}" class="accordion__body collapse" data-parent="#accordion-{{page.id}}" style="">
-                                    <div class="accordion__body--text">
-                                        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod.
+                                    <div class="accordion__body--text px-5">
+                                        {% for e in page.get_quiz_page_elements %}
+                                        {{e.position}}. {{e.get_element_type.element.title}}
+                                        <br>
+                                        <small class="text-align-right ml-auto" style="float: right !important;">
+
+                                            <i class="text-small">
+                                                
+                                                ({{e.get_element_type.type}})
+                                            </i>
+                                        </small>
+                                        {% endfor %}
                                     </div>
                                 </div>
                             </div>
