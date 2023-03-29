@@ -77,8 +77,8 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width,initial-scale=1">
         <!-- Favicon icon -->
-        <link rel="icon" type="image/png" sizes="16x16" href="{% static 'site_2/assets/images/favicon.png' %}">
-        <link rel="stylesheet" href="{% static 'site_2/assets/vendor/chartist/css/chartist.min.css' %}">
+        <link rel="shortcut icon" href="{% if site.site_icon %}{{site.site_icon.url}}{% endif %}" type="image/x-icon" />
+        {% comment %} <link rel="stylesheet" href="{% static 'site_2/assets/vendor/chartist/css/chartist.min.css' %}"> {% endcomment %}
         <link href="{% static 'site_2/assets/vendor/bootstrap-select/dist/css/bootstrap-select.min.css' %}" rel="stylesheet">
         <link href="{% static 'site_2/assets/vendor/owl-carousel/owl.carousel.css' %}" rel="stylesheet">
         <link href="{% static 'site_2/assets/css/style.css' %}" rel="stylesheet">
@@ -87,14 +87,15 @@
         <script src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous"></script>
 
 
+
         {% autoescape off %}
-        {% if site.site_meta_tags %}{{site_meta_tags}}{% endif %}
-    {% endautoescape %}
-    {% if enable_pixels_for_user %}
-        {% autoescape off %}
-            {% if site.site_global_analytics %}{{site_global_analytics}}{% endif %}
+            {% if site.site_meta_tags %}{{site.site_meta_tags}}{% endif %}
         {% endautoescape %}
-    {% endif %}
+        {% if enable_pixels_for_user %}
+            {% autoescape off %}
+                {% if site.site_global_analytics %}{{site.site_global_analytics}}{% endif %}
+            {% endautoescape %}
+        {% endif %}
 
     </head>
     <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>
@@ -169,16 +170,29 @@
                                         Blog
                                     </a>
                                 </li>
+                                {% if not user.is_authenticated %}
+
                                 <li class="nav-item ">
-                                    <a class="nav-link" href="{% url 'login_user' %}" >
+                                    <a class="nav-link" href="{% url 'login_user'  %}" >
                                         Login
                                     </a>
                                 </li>
+
                                 <li class="nav-item ">
                                     <a class="nav-link" href="{% url 'register_user' %}" >
                                         Register
                                     </a>
                                 </li>
+
+                             
+
+                                {% else %}
+                                <li class="nav-item">
+                                    <a style="width:100%;" href="{% url 'dashboard_home' %}" type="button" class="btn btn-primary site-button"
+                                        role="button" data-toggle="" aria-haspopup="true"
+                                        aria-expanded="false">Dashboard </a>
+                                </li>
+                                {% endif %}
 
 
                             </ul>
@@ -209,6 +223,7 @@
                             </a>
                         </li>
                     </ul>
+                    
                     <div class="copyright">
                         <div class="copyright">
                             <p>Copyright © {{site.site_name}} <script>document.write(new Date().getFullYear())</script>.
@@ -233,7 +248,7 @@
                                     <p>{{message}}</p>
                                 </center>
                                 <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
-                            </div>
+                                </div>
                         {% endfor %}
 
                     {% endautoescape %}
@@ -245,15 +260,15 @@
                     <div class="alert alert-warning alert-dismissible fade show mx-auto  text-dark"  role="alert">
                         <center>
                             <p>{% if user_payment_status.status == "free" %}
-                                Subscription expired. <a href='{{subscribe_url}}'>Subscribe</a>
-                                today to activate more features
+                                You don't have an active membership. Find out the benefits of a membership here<a href='{{subscribe_url}}'></a>
+
 
                             {% elif user_payment_status.status == "free_trial_expired" %}
                                 Free trial expired. <a href='{{subscribe_url}}'>Subscribe</a>
                                 today to activate more features
 
                             {% elif user_payment_status.status == "free_trial" %}
-                                Free trial active. Expires on: {{expiry_date}}. <a href='{{subscribe_url}}'>Subscribe</a>
+                                Free trial active. Expires on: {{user_payment_status.subscription_expiry|date:"l dS M Y"}}. <a href='{{subscribe_url}}'>Subscribe</a>
                                 today to activate more features
                             {% endif %}
                             </p>
