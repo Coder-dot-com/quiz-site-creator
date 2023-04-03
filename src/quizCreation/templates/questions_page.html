@@ -123,7 +123,12 @@
                                 <div id="bordered_collapse{{page.id}}" class="accordion__body collapse" data-parent="#accordion-{{page.id}}" style="">
                                     <div class="accordion__body--text px-5">
                                         {% for e in page.get_quiz_page_elements %}
-                                        {{e.position}}. {{e.get_element_type.element.title}}
+                                        <br>
+                                        {{e.position}}. {% if e.get_element_type.element.title %}
+                                        {{e.get_element_type.element.title}}
+                                        {% else %}
+                                        No title added to page element
+                                        {% endif %}
                                         <br>
                                         <small class="text-align-right ml-auto" style="float: right !important;">
 

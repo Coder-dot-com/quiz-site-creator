@@ -1,0 +1,78 @@
+<form id="quizRenderPreview"
+{% comment %} hx-post={% url '' %} {% endcomment %}
+hx-swap=outerHTML
+class="d-flex">
+
+    <div class="col-lg-9 mx-auto p-3 bg-white border-2 bg-shadow">
+
+        {% for element in quiz_page.get_quiz_page_elements %}
+        <br><br>
+        {% if element.get_element_type.type == 'Text element' or  element.get_element_type.type == 'Char element' or  element.get_element_type.type == 'Email element' or element.get_element_type.type == 'Number element' or element.get_element_type.type == 'Multiple choice question' %}
+        <b>{{element.get_element_type.element.title}}</b>
+            {% autoescape off %}
+            <b>{{element.get_element_type.element.content}}</b>
+                {% endautoescape %}
+
+        {% endif %}
+
+        <label class="text-label" for="">
+            {{element.get_element_type.element.title}}
+        </label>
+
+
+        {% if element.get_element_type.type == 'Char input element'  %}
+
+            <input class="form-control" type="text">
+        {% elif element.get_element_type.type == 'Text input element'  %}
+
+            <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+        {% elif element.get_element_type.type == 'Email input element'  %}
+                <input class="form-control" type="email">
+        {% elif element.get_element_type.type == 'Number input element'  %}
+                <input class="form-control" type="number">
+        {% elif element.get_element_type.type == 'Multiple choice question'  %}
+        <div class="row mx-auto justify-content-center p-1" style="gap: 1.5rem !important;">
+            {% for option in element.get_element_type.element.get_multiple_choice_choices %}
+
+                <div role="button" onclick="SelectDeselect(this);" id="card_{{option.id}}"
+                    class="card border-3 col-12 col-sm-5" data-option={{option.id}} style="min-width:8rem;border:3px solid white;margin-bottom: 0.5rem !important;">
+                    <div style="" class="text-center py-4">
+                        <h4 class="card-title">{{option.choice}}</h4>
+                        {% comment %} {% if option.option_image_icon %}
+                            <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+                        {% endif %} {% endcomment %}
+                    </div>
+                </div>
+
+            {% endfor %}
+        </div>
+
+        <script>
+            function SelectDeselect(e) {
+                console.log("SelectDeselect")
+                option_id = "#card_" + e.getAttribute('data-option')
+                console.log(option_id)
+                optionToSelect = document.querySelector(option_id)
+                if (optionToSelect.selected){
+                    e.classList.remove('border-success')
+                    e.classList.add('border-white')
+
+                    optionToSelect.selected = false;
+                } else {
+                    e.classList.add('border-success')
+                    e.classList.remove('border-white')
+
+                    optionToSelect.selected = true;
+                }
+            };
+
+        </script>
+
+        {% endif %}
+
+        {% endfor %}
+        <div>
+            <button type="submit" class="btn btn-primary float-right">Continue</button>
+        </div>
+    </div>
+</form>
