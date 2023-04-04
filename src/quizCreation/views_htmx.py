@@ -298,7 +298,7 @@ def move_page_up(request, quiz_id, page_id):
             quiz_page = quiz_page[0]
             quiz_page_before  = QuizPage.objects.filter(quiz=user_quiz, number__lt=quiz_page.number).order_by('number')
             if quiz_page_before.exists():
-                quiz_page_before = quiz_page_before[0]
+                quiz_page_before = quiz_page_before.last()
                 quiz_page_number = quiz_page.number
                 quiz_page.number = quiz_page_before.number
                 quiz_page.save()
@@ -326,7 +326,7 @@ def move_page_down(request, quiz_id, page_id):
             quiz_page = quiz_page[0]
             quiz_page_after  = QuizPage.objects.filter(quiz=user_quiz, number__gt=quiz_page.number).order_by('number')
             if quiz_page_after.exists():
-                quiz_page_after = quiz_page_after[0]
+                quiz_page_after = quiz_page_after.first()
                 quiz_page_number = quiz_page.number
                 quiz_page.number = quiz_page_after.number
                 quiz_page.save()
@@ -424,7 +424,7 @@ def move_element_up(request, quiz_id, page_id, element_id):
         quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
         quiz_page_element_before = QuizPageElement.objects.filter(page=quiz_page_element.page, position__lt=quiz_page_element.position).order_by('position')
         if quiz_page_element_before.exists():
-            quiz_page_element_before = quiz_page_element_before[0]
+            quiz_page_element_before = quiz_page_element_before.last()
             element_number  = quiz_page_element.position
             element_before_number = quiz_page_element_before.position
 
@@ -444,7 +444,7 @@ def move_element_down(request, quiz_id, page_id, element_id):
         quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
         quiz_page_element_after = QuizPageElement.objects.filter(page=quiz_page_element.page, position__gt=quiz_page_element.position).order_by('position')
         if quiz_page_element_after.exists():
-            quiz_page_element_after = quiz_page_element_after[0]
+            quiz_page_element_after = quiz_page_element_after.first()
             element_number  = quiz_page_element.position
             element_before_number = quiz_page_element_after.position
 

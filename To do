@@ -1,9 +1,9 @@
 To do:
 
 
-
     -Handle rendering 
-        -hide previous btn if first page on preview
+        -display quiz in new tab, response id based on 
+        
 
     -Handle post
     -Basic analytics

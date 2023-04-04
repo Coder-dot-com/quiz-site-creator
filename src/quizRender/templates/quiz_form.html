@@ -27,14 +27,14 @@ TEST  {{quiz_page.number}} {{quiz_page.id}}
 
         {% if element.get_element_type.type == 'Char input element'  %}
 
-            <input class="form-control" type="text">
+            <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="text">
         {% elif element.get_element_type.type == 'Text input element'  %}
 
-            <textarea class="form-control" name="" id="" cols="30" rows="10"></textarea>
+            <textarea class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  name="" id="" cols="30" rows="10"></textarea>
         {% elif element.get_element_type.type == 'Email input element'  %}
-                <input class="form-control" type="email">
+                <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="email">
         {% elif element.get_element_type.type == 'Number input element'  %}
-                <input class="form-control" type="number">
+                <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="number">
         {% elif element.get_element_type.type == 'Multiple choice question'  %}
  
 
@@ -124,11 +124,11 @@ TEST  {{quiz_page.number}} {{quiz_page.id}}
     {% endfor %}
 
     {% if not first_page %}
-    <a class="float-left"
+    <a class="float-left my-3"
      hx-get={% url 'previous_page_preview' quiz_page.quiz.id quiz_page.number %}
     hx-swap=outerHTML
     hx-target=#quizRenderPreview
-    
+    type="button"
     >
       Previous page
     </a>
@@ -137,7 +137,7 @@ TEST  {{quiz_page.number}} {{quiz_page.id}}
 
     {% if not quiz_page.is_last_page %}
     <div>
-        <button type="submit" class="btn btn-primary float-right">Continue</button>
+        <button type="submit" class="btn btn-primary float-right my-3">Continue</button>
     </div>
     {% else %}
     <h6 class="text-center">End of quiz</h6>
