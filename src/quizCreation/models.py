@@ -11,6 +11,17 @@ class UserQuiz(models.Model):
     name = models.CharField(max_length=300)
     time_created = models.DateTimeField(auto_now_add=True)
 
+    def first_quiz_page(self):
+        return QuizPage.objects.filter(quiz=self).order_by('number').first()
+    
+    def next_quiz_page(self, number):
+        return QuizPage.objects.filter(quiz=self, number__gt=number).order_by('number').first()
+
+    def previous_quiz_page(self, number):
+        a =  QuizPage.objects.filter(quiz=self, number__lt=number).order_by('number')
+        print(a)
+
+        return a.last()
 
 class QuizPage(models.Model):
     quiz = models.ForeignKey(UserQuiz, on_delete=models.CASCADE)
@@ -20,6 +31,13 @@ class QuizPage(models.Model):
 
     def get_quiz_page_elements(self):
         return QuizPageElement.objects.filter(page=self).order_by('position')
+    
+    @property
+    def is_last_page(self):
+        if not QuizPage.objects.filter(quiz=self.quiz, number__gt=self.number).order_by('number').exists():
+            return True
+        else:
+            return False
 
 
 class QuizPageElement(models.Model):

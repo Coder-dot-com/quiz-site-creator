@@ -1,13 +1,9 @@
 To do:
 
--Set everything up
-    -env variables
-    -not aws
 
-    -handle multiplpe quiz creation yes
-    and list of quizes
 
     -Handle rendering 
+        -hide previous btn if first page on preview
 
     -Handle post
     -Basic analytics

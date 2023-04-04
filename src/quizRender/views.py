@@ -11,7 +11,8 @@ def preview_quiz(request, quiz_id):
     if quiz.exists():
         
         context = {}
-        context['quiz_page'] = QuizPage.objects.get(number=1, quiz=quiz[0])
+        context['quiz_page'] = quiz[0].first_quiz_page()
+        context['first_page'] = True
         return render(request, 'preview_quiz.html', context=context)
     
     else:
