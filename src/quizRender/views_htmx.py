@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse
-from quizCreation.models import UserQuiz, QuizPage
+from quizCreation.models import UserQuiz, QuizPage, MultipleChoiceChoice
 from uuid import uuid4
 from .models import Response, Answer
 
@@ -56,30 +56,38 @@ def take_next_page(request, quiz_id, number, response_id):
     current_quiz_page = QuizPage.objects.get(number=number, quiz=quiz)
     elements = current_quiz_page.get_quiz_page_elements()
 
-    response_object = Response.objects.get_or_create()
+    response_object = Response.objects.get_or_create(response_id=response_id)[0]
+
+
 
     for e in elements:
-        answer_obj = Answer
+        answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
+
         if e.get_element_type()['type'] == 'Multiple choice question':
-            answers_list = request.POST.getlist(question_id)
+            answers_list = request.POST.getlist(str(e.id))
             answer = ", ".join(answers_list)
             answer_obj.answer = answer
             answer_obj.question_choice.clear()
             answer_obj.save()
             for i in answers_list:
-                try:
-                    question_choice = QuestionChoice.objects.get(
-                        question=question, option=i)
-                    answer_obj.question_choice.add(question_choice)
-                except Exception as e:
-                    print(e)
-                    pass
+                element = e.get_element_type()['element']
+                question_choice = MultipleChoiceChoice.objects.get(
+                        id=i)
+                answer_obj.question_choice.add(question_choice)
+           
             answer_obj.save()
         elif not e.get_element_type()['type'] == 'Text element':
+            answer = request.POST[str(e.id)]
+            answer_obj.answer = answer
+            answer_obj.save()    
         
-            answer = (request.POST)[str(e.id)]
-            print(answer)
+        
+        elif e.get_element_type()['type'] == 'Text element':
+            answer_obj.delete()    
 
+    
+    response_object.steps_completed = number
+    response_object.save()
 
     next_quiz_page = quiz.next_quiz_page(number=number)
     context = {}
@@ -104,6 +112,7 @@ def take_previous_page(request, quiz_id, number, response_id):
     prev_quiz_page = quiz.previous_quiz_page(number=number)
     context = {}
     context['quiz_page']  = prev_quiz_page
+    context['response_id'] = response_id
 
     try:
         quiz.previous_quiz_page(number=prev_quiz_page.number)

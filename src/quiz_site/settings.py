@@ -141,9 +141,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.sites',  
-    'django.contrib.sitemaps',   #add Django sitemaps to installed apps
+    'django.contrib.sitemaps', 
+    
+    'nested_admin',
+    
     'blog',
-
 
     #wagtail apps
     'wagtail',
@@ -162,6 +164,8 @@ INSTALLED_APPS = [
     'modelcluster',
     'taggit',
     #end wagtail
+
+    
     'accounts',
     'session_management',
     'tinymce',

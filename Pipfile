@@ -15,9 +15,9 @@ boto3 = "*"
 gunicorn = "*"
 stripe = "*"
 django-colorfield = "*"
-django = "*"
 wagtail = "*"
 django-ckeditor = "*"
+django = "*"
 
 [dev-packages]
 autopep8 = "*"
