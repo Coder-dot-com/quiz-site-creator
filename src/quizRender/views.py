@@ -35,7 +35,7 @@ def take_quiz(request, quiz_id):
         context['response_id'] = response_id
 
         
-        return render(request, 'preview_quiz.html', context=context)
+        return render(request, 'take_quiz.html', context=context)
     
     else:
         return HttpResponse(500)

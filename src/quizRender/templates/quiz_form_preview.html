@@ -1,6 +1,6 @@
 <form id="quizRenderPreview"
 
-hx-post={% url 'take_next_page' quiz_page.quiz.id quiz_page.number response_id %}
+hx-post={% url 'next_page_quiz_preview' quiz_page.quiz.id quiz_page.number %}
 hx-swap=outerHTML
 hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
 hx-encoding="multipart/form-data"
@@ -23,22 +23,22 @@ TEST  {{quiz_page.number}} {{quiz_page.id}}
         <label class="text-label" for="">
             {{element.get_element_type.element.title}}
         </label>
-        {{element.id}}
+
 
         {% if element.get_element_type.type == 'Char input element'  %}
 
-            <input name="{{element.id}}" class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="text">
+            <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="text">
         {% elif element.get_element_type.type == 'Text input element'  %}
 
-            <textarea name="{{element.id}}" class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  name="" id="" cols="30" rows="10"></textarea>
+            <textarea class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  name="" id="" cols="30" rows="10"></textarea>
         {% elif element.get_element_type.type == 'Email input element'  %}
-                <input name="{{element.id}}" class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="email">
+                <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="email">
         {% elif element.get_element_type.type == 'Number input element'  %}
-                <input name="{{element.id}}" class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="number">
+                <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="number">
         {% elif element.get_element_type.type == 'Multiple choice question'  %}
  
 
-        <select  name="{{element.id}}" id="multiC_{{element.id}}" class="form-select d-none" multiple 
+        <select  name="{{question.id}}" id="multiC_{{element.get_element_type.element.id}}" class="form-select d-none" multiple 
          >
         {% for option in element.get_element_type.element.get_multiple_choice_choices %}
         <option value="{{option.id}}" id="option_{{option.id}}">{{option.choice}}</option>
@@ -125,7 +125,7 @@ TEST  {{quiz_page.number}} {{quiz_page.id}}
 
     {% if not first_page %}
     <a class="float-left my-3"
-     hx-get={% url 'take_previous_page' quiz_page.quiz.id quiz_page.number response_id %}
+     hx-get={% url 'previous_page_preview' quiz_page.quiz.id quiz_page.number %}
     hx-swap=outerHTML
     hx-target=#quizRenderPreview
     type="button"

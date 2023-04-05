@@ -3,7 +3,9 @@
 {% load static %}
 {% block content %}
 
-<p class="fs-13 mb-3 text-black">Editing quiz page: {{quiz_page.title}}</p>
+<a href="{% url 'edit_quiz' quiz_page.quiz.id %}">
+    <p class="fs-13 mb-3 text-black">< Editing quiz page: {{quiz_page.title}}</p>
+</a>
 
 
 <div
