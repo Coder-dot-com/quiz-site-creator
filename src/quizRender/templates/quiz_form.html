@@ -5,6 +5,8 @@ hx-swap=outerHTML
 hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
 hx-encoding="multipart/form-data"
 class="d-flex">
+
+
 TEST  {{quiz_page.number}} {{quiz_page.id}}
 
 
@@ -25,20 +27,22 @@ TEST  {{quiz_page.number}} {{quiz_page.id}}
         </label>
         {{element.id}}
 
+  
+
+
         {% if element.get_element_type.type == 'Char input element'  %}
-
-            <input name="{{element.id}}" class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="text">
+            {% include 'take_quiz_elements/char_input_element.html' %}
         {% elif element.get_element_type.type == 'Text input element'  %}
-
-            <textarea name="{{element.id}}" class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  name="" id="" cols="30" rows="10"></textarea>
+            {% include 'take_quiz_elements/text_input_element.html' %}
         {% elif element.get_element_type.type == 'Email input element'  %}
-                <input name="{{element.id}}" class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="email">
+            {% include 'take_quiz_elements/email_input_element.html' %}
         {% elif element.get_element_type.type == 'Number input element'  %}
-                <input name="{{element.id}}" class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="number">
+            {% include 'take_quiz_elements/number_input_element.html' %}
+
         {% elif element.get_element_type.type == 'Multiple choice question'  %}
  
 
-        <select  name="{{element.id}}" id="multiC_{{element.id}}" class="form-select d-none" multiple 
+        <select  id="question_{{element.id}}" name="{{element.id}}" id="multiC_{{element.id}}" class="form-select d-none" multiple 
          >
         {% for option in element.get_element_type.element.get_multiple_choice_choices %}
         <option value="{{option.id}}" id="option_{{option.id}}">{{option.choice}}</option>

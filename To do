@@ -1,27 +1,28 @@
 To do:
 
 
-    -Handle rendering 
-        -display quiz in new tab, response id based on 
-        
+    -Handle post 
+        -handle rpevious and display previous answer
+        -handle completion 
 
-    -Handle post
     -Basic analytics
 
     -ensure all core functionality is working 
 
-    -Where models are reset when button is pressed change to listen for modal closing and then reset as can close modal without clicking button
+    -iframe
 
-    Add in more elements later
+    -add in other elements:
+        -Add image to page (AWS resize) 2000px (enter percentage of width to cover, and also center )
+    
+        -User image upload (same size just clean)
+        -pdf file ipload (clean using AWS lambda) (convert to image then image to pdf)
+        -Embed video link
+        -Upload video as quiz owner (AWS )
+
         
-
         later:
         -convert views to class based views and reduce duplicated code for add/edit etc...
-        -Image (upload and link)
-        -phone number
-        -Youtube video
-        -Vimeo
-        -Upload video
+
 
         -Others/plan
 

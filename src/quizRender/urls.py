@@ -14,5 +14,9 @@ urlpatterns = [
     path('take_next_page_quiz/<quiz_id>/<number>/<response_id>', views_htmx.take_next_page, name="take_next_page"),
     path('take_previous_page/<quiz_id>/<number>/<response_id>', views_htmx.take_previous_page, name="take_previous_page"),
     
+    
+    path('get_value_stored_in_db/<quiz_id>/<element_id>/<response_id>', views_htmx.get_value_stored_in_db, name="get_value_stored_in_db"),
+
+
 
 ]
