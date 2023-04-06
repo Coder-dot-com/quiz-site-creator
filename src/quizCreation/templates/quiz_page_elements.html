@@ -45,7 +45,7 @@
 
                 <br>
                 {% autoescape off %}
-                <div>
+                <div {% if element.type == "Text element" %} class="w-100" {% endif %}>
                     {{element.element.content}}
                 </div>
                 {% endautoescape %}

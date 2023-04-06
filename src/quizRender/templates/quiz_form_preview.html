@@ -5,9 +5,7 @@ hx-swap=outerHTML
 hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
 hx-encoding="multipart/form-data"
 class="d-flex">
-TEST  {{quiz_page.number}} {{quiz_page.id}}
-
-
+    
     <div class="col-lg-9 mx-auto p-3 bg-white border-2 bg-shadow">
 
     {% for element in quiz_page.get_quiz_page_elements %}
@@ -15,7 +13,7 @@ TEST  {{quiz_page.number}} {{quiz_page.id}}
         {% if element.get_element_type.type == 'Text element' or  element.get_element_type.type == 'Char element' or  element.get_element_type.type == 'Email element' or element.get_element_type.type == 'Number element' or element.get_element_type.type == 'Multiple choice question' %}
         <b>{{element.get_element_type.element.title}}</b>
             {% autoescape off %}
-            <b>{{element.get_element_type.element.content}}</b>
+            {{element.get_element_type.element.content}}
                 {% endautoescape %}
 
         {% endif %}

@@ -1,0 +1,174 @@
+{% load static %}
+</div>
+</div>
+
+
+<!--**********************************
+            Footer start
+        ***********************************-->
+<div class="footer px-2">
+    <nav class="navbar navbar-expand d-none d-sm-block">
+        <div class="collapse navbar-collapse justify-content-center text-center">
+            <div class="header-left">
+
+            </div>
+            <ul class="navbar-nav header-right">
+
+
+                {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'deliveryinfo' %}"> Delivery Info</li></a> {% endcomment %}
+                {% comment %} <li class="nav-item"><a class="nav-link" href="{% url 'refundpolicy' %}"> Refund and Returns</a></li> {% endcomment %}
+                <li class="nav-item"><a class="nav-link" href="{% url 'privpolicy' %}"> Privacy Policy</a></li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'tandc' %}"> Terms and Conditions</a></li>
+
+
+
+            </ul>
+        </div>
+    </nav>
+    <div class="copyright">
+        <p>Copyright © {{site.site_name}} <script>document.write(new Date().getFullYear())</script>.
+        </p>
+            {% if site.site_logo %}
+            <a class="text-center justify-content-center text-center d-flex mx-auto" href="{% url 'dashboard_home' %}" class="logo " style="max-width:20rem;max-height:5rem;">
+                    <span class="">
+                        <img src="{{site.site_logo.url}}" alt="" style="max-width:80%;max-height:5rem;">
+                    </span>             
+            </a>
+            {% endif %}
+
+
+        {% if site.site_email %}
+
+            <p>
+                <b class="text-uppercase fw-bold mb-4">
+                    Contact:
+                </b>
+                {{site.site_email}}
+            </p>
+        {% endif %}
+    </div>
+</div>
+<!--**********************************
+            Footer end
+        ***********************************-->
+
+<!--**********************************
+           Support ticket button start
+        ***********************************-->
+
+<!--**********************************
+           Support ticket button end
+        ***********************************-->
+
+
+</div>
+<!--**********************************
+        Main wrapper end
+    ***********************************-->
+
+<!--**********************************
+        Scripts
+    ***********************************-->
+<!-- Required vendors -->
+<script src="{% static 'site_2/assets/vendor/global/global.min.js' %}"></script>
+<script src="{% static 'site_2/assets/vendor/bootstrap-select/dist/js/bootstrap-select.min.js' %}"></script>
+<script src="{% static 'site_2/assets/vendor/chart.js/Chart.bundle.min.js' %}"></script>
+<script src="{% static 'site_2/assets/js/custom.min.js' %}"></script>
+<script src="{% static 'site_2/assets/js/deznav-init.js' %}"></script>
+<script src="{% static 'site_2/assets/vendor/owl-carousel/owl.carousel.js' %}"></script>
+
+<!-- Chart piety plugin files -->
+<script src="{% static 'site_2/assets/vendor/peity/jquery.peity.min.js' %}"></script>
+
+<!-- Apex Chart -->
+<script src="{% static 'site_2/assets/vendor/apexchart/apexchart.js' %}"></script>
+
+<!-- Dashboard 1 -->
+<script src="{% static 'site_2/assets/js/dashboard/dashboard-1.js' %}"></script>
+<script>
+    function carouselReview(){
+        /*  testimonial one function by = owl.carousel.js */
+        jQuery('.testimonial-one').owlCarousel({
+            loop:true,
+            autoplay:true,
+            margin:30,
+            nav:false,
+            dots: false,
+            left:true,
+            navText: ['<i class="fa fa-chevron-left" aria-hidden="true"></i>', '<i class="fa fa-chevron-right" aria-hidden="true"></i>'],
+            responsive:{
+                0:{
+                    items:1
+                },
+                484:{
+                    items:2
+                },
+                882:{
+                    items:3
+                },
+                1200:{
+                    items:2
+                },
+
+                1540:{
+                    items:3
+                },
+                1740:{
+                    items:4
+                }
+            }
+        })
+    }
+    jQuery(window).on('load',function(){
+        setTimeout(function(){
+            carouselReview();
+        }, 1000);
+    });
+</script>
+
+<script>
+
+    function handle_response_to_fbp(){
+        console.log("Post data success")
+        clearInterval(checkFBPInterval)
+    }
+
+
+    function post_fbp(fbp) {
+        $.ajax({
+            headers: { "X-CSRFToken": '{{csrf_token}}' },
+            type: 'POST',
+            url: "{% url 'postfbpdata' %}",
+            data: {fbp: String(fbp)},
+            success: handle_response_to_fbp(),
+            error: function(xhr, status, error) {
+                console.log(status)
+                console.log(error)
+                // check status && error
+            },
+            dataType: 'text'
+        });
+
+    }
+
+    function checkforFBP() {
+        let name = '_fbp' + "=";
+        let decodedCookie = decodeURIComponent(document.cookie);
+        let ca = decodedCookie.split(';');
+        for(let i = 0; i <ca.length; i++) {
+            let c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                post_fbp(c.substring(name.length, c.length));
+                return ""
+
+            }
+        }
+        return "";
+    }
+
+    checkFBPInterval = setInterval(checkforFBP, 500);
+
+</script>
