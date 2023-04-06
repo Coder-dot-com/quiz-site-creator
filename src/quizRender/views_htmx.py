@@ -149,3 +149,5 @@ def get_value_stored_in_db(request, quiz_id, element_id, response_id):
         return render(request, 'take_quiz_elements/number_input_element.html', context=context)
     elif element.get_element_type()['type'] == "Email input element":
         return render(request, 'take_quiz_elements/email_input_element.html', context=context)
+    elif element.get_element_type()['type'] == "Multiple choice question":
+        return render(request, 'take_quiz_elements/multiple_choice_input_element.html', context=context)
