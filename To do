@@ -1,15 +1,19 @@
 To do:
 
-
-    -Handle post 
-        -handle rpevious and display previous answer
-        -handle completion 
+    -change quiz delete to htmx
+ 
+    -display quiz results
+        -on quiz owner page
+            -https://datatables.net/manual/data/#Objects
 
     -Basic analytics
+        -fb pixel code js code
+        -google analytics js code
+        -UTM tracking
 
     -ensure all core functionality is working 
 
-    -iframe
+    -test everything and plan more features before launch
 
     -add in other elements:
         -Add image to page (AWS resize) 2000px (enter percentage of width to cover, and also center )

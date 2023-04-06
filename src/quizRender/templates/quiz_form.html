@@ -4,12 +4,13 @@ hx-post={% url 'take_next_page' quiz_page.quiz.id quiz_page.number response_id %
 hx-swap=outerHTML
 hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
 hx-encoding="multipart/form-data"
-class="d-flex">
+class="d-flex mt-5">
 
 
 
 
-    <div class="col-lg-9 mx-auto p-3 bg-white border-2 bg-shadow">
+    <div class="col-lg-9 mx-auto p-5
+    5 bg-white border-2 bg-shadow">
 
     {% for element in quiz_page.get_quiz_page_elements %}
         <br><br>
@@ -54,13 +55,18 @@ class="d-flex">
     </a>
     {% endif %}
 
+    {{quiz_page.is_last_page}}
 
     {% if not quiz_page.is_last_page %}
     <div>
         <button type="submit" class="btn btn-primary float-right my-3">Continue</button>
     </div>
     {% else %}
-    <h6 class="text-center">End of quiz</h6>
-    {% endif %}
+
+    <div>
+        <a type="button"
+        href="{% url 'complete_quiz' response_id %}"
+        class="btn btn-primary float-right my-3">Complete quiz</a>
+    </div>    {% endif %}
 </div>
     </form>

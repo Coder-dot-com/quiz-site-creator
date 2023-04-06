@@ -45,3 +45,18 @@ def take_quiz(request, quiz_id):
     
     else:
         return HttpResponse(500)
+    
+def complete_quiz(request, response_id):
+    try:
+        session = _session(request)
+        response = Response.objects.filter(session=session, response_id=response_id).latest('last_modified')
+    except Response.DoesNotExist:
+        return HttpResponse(500)
+    
+
+    response.completed = True
+    response.save()
+    return render(request, 'quiz_completed.html')
+                            
+
+    

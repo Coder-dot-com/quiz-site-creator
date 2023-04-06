@@ -32,12 +32,12 @@ class QuizPage(models.Model):
     def get_quiz_page_elements(self):
         return QuizPageElement.objects.filter(page=self).order_by('position')
     
-    @property
+
     def is_last_page(self):
-        if not QuizPage.objects.filter(quiz=self.quiz, number__gt=self.number).order_by('number').exists():
-            return True
-        else:
+        if QuizPage.objects.filter(quiz=self.quiz, number__gt=self.number).exists():
             return False
+        else:
+            return True
 
 
 class QuizPageElement(models.Model):

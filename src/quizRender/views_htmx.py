@@ -93,6 +93,7 @@ def take_next_page(request, quiz_id, number, response_id):
     context['quiz_page']  = next_quiz_page
     context['first_page'] = False
     context['response_id'] = response_id
+    
 
     if request.user == quiz.user: #is preview
         

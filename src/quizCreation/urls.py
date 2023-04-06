@@ -4,7 +4,7 @@ from . import views, views_htmx
 urlpatterns = [
     path('', views.create_quiz, name="create_quiz"),
     path('edit/<quiz_id>/', views.quiz_edit, name="edit_quiz"),
-    path('delete/<quiz_id>/', views.quiz_delete, name="quiz_delete"),
+    path('delete/<quiz_id>/', views_htmx.htmx_quiz_delete, name="htmx_quiz_delete"),
 
 
     path('quiz_page_add/<quiz_id>/', views.quiz_page_add, name="quiz_page_add"),

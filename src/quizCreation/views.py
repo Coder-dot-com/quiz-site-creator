@@ -25,12 +25,7 @@ def quiz_edit(request, quiz_id):
 
     return redirect('dashboard_home')
 
-@login_required
-def quiz_delete(request, quiz_id):
 
-    user_quiz = UserQuiz.objects.get(user=request.user, id=quiz_id).delete()
-
-    return redirect('dashboard_home')
 
 @login_required
 def quiz_page_add(request, quiz_id):

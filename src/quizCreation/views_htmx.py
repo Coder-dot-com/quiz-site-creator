@@ -17,6 +17,17 @@ def htmx_create_quiz(request):
     return render(request, 'questions_page.html', context=context)
 
 @login_required
+def htmx_quiz_delete(request, quiz_id):
+
+    user_quiz = UserQuiz.objects.get(user=request.user, id=quiz_id).delete()
+
+    user_quizes_list = UserQuiz.objects.filter(user=request.user)
+    context = {
+        'quizes': user_quizes_list,
+    }
+    return render(request, 'quiz_creation/quizes_list.html', context=context)
+
+@login_required
 def quiz_page_element_add(request, quiz_id, page_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
