@@ -11,6 +11,7 @@ def view_quiz_results(request, quiz_id):
     quiz = UserQuiz.objects.get(user=request.user, id=quiz_id)
 
     responses = Response.objects.filter(quiz=quiz)
+    print(responses)
     context = {
         'responses': responses,
     }

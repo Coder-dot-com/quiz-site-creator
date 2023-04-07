@@ -1,7 +1,8 @@
 To do:
  
     -display quiz results
-        -dispaly multiple choice results
+        -fix order display latest first
+        -addback button to respons edetails
         -add save results as pdf (link to files and display iamges)
         -download csv (link to image and also pdf)
 
@@ -13,6 +14,7 @@ To do:
         -UTM tracking
     -design/logo
 
+    -header
 
     -test everything and plan more features before launch
 

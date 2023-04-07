@@ -59,9 +59,9 @@
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
 <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            let table = new DataTable('#table_id');
-        });
+    window.$('#table_id').dataTable( {
+        "order": [[ 0, 'desc' ],]
+    } );
     
 {% if deleted %}
 
