@@ -1,0 +1,27 @@
+{% extends 'dashboard2/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+<script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+
+{% include 'quizData/response_table.html' %}
+
+<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+<style>
+    div.container {
+        width: 100%;
+    }
+
+    #table_id_previous:hover, .current, #table_id_next:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+        color: white !important;
+    }
+
+    
+</style>
+{% endblock content %}
+
+
+

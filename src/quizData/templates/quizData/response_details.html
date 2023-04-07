@@ -1,0 +1,66 @@
+{% extends 'dashboard2/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+<div class="row">
+
+
+
+    <div class="col-xl-12 col-lg-12">
+        <div class="card">
+            <div class="card-header border-0 pb-0">
+                <h4 class="card-title">Response details</h4>
+            </div>
+            <div class="card-body pb-0">
+                <div class="widget-media">
+                    <ul class="timeline">
+                        {% for i in response.get_all_answers %}
+                        {% for x in i %}
+
+                        <li>
+                            <div class="timeline-panel">
+                              
+                                <div class="media-body">
+                                    <small class="d-block">{{x.question.get_element_type.element.title}}</small>
+                                    
+                                    
+                                    <h5 class="mb-1">
+                                        
+                                        {% if not x.question.get_element_type.type == 'Multiple choice question' %}
+                                        {{x.question.get_element_type.type}}
+                                        {{x.answer}}
+                                        
+
+                                        {% else %}
+                                        {% for i in x.question_choice.all %}
+                                        {{i.choice}} <br>
+                                        {% endfor %}
+
+                                        {% endif %}
+                                    
+                                    </h5>
+                                </div>
+                       
+                            </div>
+                        </li>
+                        <br>
+                        {% endfor %}
+                        {% endfor %}
+                    </ul>	
+                </div>
+            </div>
+            <div class="chart-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
+                <canvas id="chart_widget_10" style="display: block; height: 250px; width: 879px;" class="chartjs-render-monitor" width="1098" height="312"></canvas>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+{% endblock content %}
+
+
+

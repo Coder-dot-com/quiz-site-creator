@@ -1,17 +1,18 @@
 To do:
-
-    -change quiz delete to htmx
  
     -display quiz results
-        -on quiz owner page
-            -https://datatables.net/manual/data/#Objects
+        -dispaly multiple choice results
+        -add save results as pdf (link to files and display iamges)
+        -download csv (link to image and also pdf)
 
+-quiz settings
+    -email results automatically per quiz (settings)
     -Basic analytics
         -fb pixel code js code
         -google analytics js code
         -UTM tracking
+    -design/logo
 
-    -ensure all core functionality is working 
 
     -test everything and plan more features before launch
 

@@ -1,5 +1,5 @@
 <input  
-{% if not answer %}
+{% if not checked_db %}
 hx-trigger = 'load'
 hx-swap=outerHTML
 hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id%}

@@ -4,6 +4,9 @@ from quizCreation.models import UserQuiz, QuizPage, QuizPageElement, MultipleCho
 from uuid import uuid4
 from .models import Response, Answer
 from session_management.views import _session
+from django.utils.datastructures import MultiValueDictKeyError
+
+
 
 @login_required 
 def next_page_preview(request, quiz_id, number):
@@ -50,8 +53,6 @@ def previous_page_preview(request, quiz_id, number):
 
 def take_next_page(request, quiz_id, number, response_id):
     quiz = UserQuiz.objects.get(id=quiz_id)
-    print(request.POST)
-    print('take_next_page')
     current_quiz_page = QuizPage.objects.get(number=number, quiz=quiz)
     elements = current_quiz_page.get_quiz_page_elements()
 
@@ -76,7 +77,10 @@ def take_next_page(request, quiz_id, number, response_id):
            
             answer_obj.save()
         elif not e.get_element_type()['type'] == 'Text element':
-            answer = request.POST[str(e.id)]
+            try:
+                answer = request.POST[str(e.id)]
+            except MultiValueDictKeyError:
+                answer = ""            
             answer_obj.answer = answer
             answer_obj.save()    
         
@@ -95,14 +99,12 @@ def take_next_page(request, quiz_id, number, response_id):
     context['response_id'] = response_id
     
 
-    if request.user == quiz.user: #is preview
         
-        return render(request, 'quiz_form.html', context=context)
+    return render(request, 'quiz_form.html', context=context)
     
 
     
-    else:
-        return HttpResponse(500)
+
     
 def take_previous_page(request, quiz_id, number, response_id):
     quiz = UserQuiz.objects.get(id=quiz_id)
@@ -130,10 +132,13 @@ def take_previous_page(request, quiz_id, number, response_id):
     
 
 def get_value_stored_in_db(request, quiz_id, element_id, response_id):
-    response = Response.objects.get(session=_session(request), response_id=response_id)
+    try:
+        response = Response.objects.get(session=_session(request), response_id=response_id)
+        answer = Answer.objects.get(question=element, response=response)
+    except Response.DoesNotExist:
+        answer = False
     element = QuizPageElement.objects.get(id=element_id)
 
-    answer = Answer.objects.get(question=element, response=response)
 
     context = {}
 
@@ -141,6 +146,7 @@ def get_value_stored_in_db(request, quiz_id, element_id, response_id):
     context['response_id'] = response_id
     context['element']  = element
     context['answer'] = answer
+    context['checked_db'] = True
 
     if element.get_element_type()['type'] == "Char input element":
         return render(request, 'take_quiz_elements/char_input_element.html', context=context)
