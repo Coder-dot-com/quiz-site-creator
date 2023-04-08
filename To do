@@ -1,10 +1,19 @@
 To do:
  
     -display quiz results
-        -fix order display latest first
-        -addback button to respons edetails
-        -add save results as pdf (link to files and display iamges)
-        -download csv (link to image and also pdf)
+        -download csv (link to image and also pdf) (to download csv of all answers
+        -make link easier to copy
+        -add qrcode scan btn link(modal with image that has a print button), 
+        structure
+
+        list [{response_id: {qustion:answer, ....}}, {response_id: {question:answer....}}
+        ]
+        https://www.codingforentrepreneurs.com/blog/django-queryset-to-csv-files-datasets/
+        
+        )
+
+        
+        -add save/print response details as pdf (link to files and display iamges)
 
 -quiz settings
     -email results automatically per quiz (settings)

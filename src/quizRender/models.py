@@ -21,8 +21,6 @@ class Response(models.Model):
         for i in list_of_pages:
             a = Answer.objects.filter(response=self, question__page=i).order_by('question__position')
             ordered_questions.append(a)
-
-        
         return ordered_questions
   
 class Answer(models.Model):

@@ -2,6 +2,14 @@
 
 
 <div id="table">
+    <a type="button" href="{% url 'dashboard_home' %}">< Back</a>
+    
+    <a type="button" class="float-right btn btn-primary my-4" 
+    
+    target="_blank"
+    
+    href="{% url 'download_csv_of_responses' quiz.id %}"> Download all responses as CSV <i class="fa fa-download"></i></a>
+    
 
 <table id="table_id" class="display" style="width:100%">
         <thead>
@@ -58,16 +66,17 @@
 
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
-<script>
-    window.$('#table_id').dataTable( {
-        "order": [[ 0, 'desc' ],]
-    } );
+<script defer>
     
-{% if deleted %}
-
-location.reload();
-
-
+    {% if deleted %}
+    
+    location.reload();
+    
+    setTimeout(location.reload(), 750)
+{% else %}    
+    window.$('#table_id').dataTable( {
+        "order": [[ 0, 'desc' ],],
+    } );
 {% endif %}
 
 </script>

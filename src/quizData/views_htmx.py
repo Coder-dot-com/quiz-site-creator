@@ -18,6 +18,7 @@ def delete_response(request, quiz_id, response_id):
     context = {
         'responses': responses,
         'deleted': True,
+        'quiz': quiz,
     }
 
     return render(request, 'quizData/response_table.html', context=context)
