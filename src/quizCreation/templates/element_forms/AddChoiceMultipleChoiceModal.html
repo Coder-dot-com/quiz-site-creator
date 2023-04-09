@@ -23,7 +23,7 @@
                         <td><div class="d-flex align-items-left">{{choice.choice}}</div></td>
                         <td style="justify-content: right;" class="d-flex">
 							<div class="d-flex align-items-right">
-								<a 
+								<a type="button"
                                 hx-delete="{% url 'delete_choice_multiple_choice_element' user_quiz.id quiz_page.id element.id choice.id %}"
                                 hx-target='#modalContent'
                                 hx-swap=outerHTML 
@@ -54,7 +54,19 @@
         </div>
 
         <div class="my-2">
-            <button type="" class="btn btn-primary site-button" data-dismiss="modal">Finished adding choices</button>
+            <a type="button" class="btn btn-primary site-button" 
+            data-dismiss="modal"
+            hx-trigger="click"
+            hx-target="#page_elements"
+            hx-swap=outerHTML
+            hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+            {% if not edit %}
+            hx-target="#modalContent"
+            hx-swap=outerHTML
+            hx-get="{% url 'all_element_swatches' user_quiz.id quiz_page.id  %}"
+            {% endif %}
+            
+            >Finished adding choices</a>
         </div>
         </form>
 
@@ -66,11 +78,11 @@
     {% comment %} document.querySelector('#closeModalElement').click() {% endcomment %}
 </script>
 
-<div
+{% comment %} <div
 
 hx-target="#page_elements"
 hx-swap=outerHTML
 hx-trigger=load
 hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
->
+> {% endcomment %}
         {% comment %} Refresh list  {% endcomment %}        

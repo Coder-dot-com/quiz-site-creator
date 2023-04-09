@@ -467,192 +467,6 @@ def move_element_down(request, quiz_id, page_id, element_id):
     return HttpResponse("An error occured")
 
 
-@login_required
-def edit_element_modal(request, quiz_id, page_id, element_id):
-    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
-    if user_quiz.exists():
-        user_quiz = user_quiz[0]
-        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
-        element = quiz_page_element.get_element_type()
-        element_type = element['type']
-        if element_type == 'Text element':
-            text_element = element['element']
-            form = TextElementForm(initial={'content': text_element.content})
-
-            context = {
-                'user_quiz': user_quiz,
-                'quiz_page': quiz_page_element.page,
-                'quiz_page_element': quiz_page_element,
-                'form': form,
-                'edit': True,
-            }
-            return render(request, 'element_forms/text.html', context=context)
-        elif element_type == 'Char input element':
-            element = element['element']
-            form = CharInputElementForm(initial={'title': element.title})
-
-            context = {
-                'user_quiz': user_quiz,
-                'quiz_page': quiz_page_element.page,
-                'quiz_page_element': quiz_page_element,
-                'form': form,
-                'edit': True,
-            }
-            return render(request, 'element_forms/CharInput.html', context=context)           
-        elif element_type == 'Text input element':
-            element = element['element']
-            form = TextInputElementForm(initial={'title': element.title})
-
-            context = {
-                'user_quiz': user_quiz,
-                'quiz_page': quiz_page_element.page,
-                'quiz_page_element': quiz_page_element,
-                'form': form,
-                'edit': True,
-            }
-            return render(request, 'element_forms/TextInput.html', context=context)
-        elif element_type == 'Email input element':
-            element = element['element']
-            form = EmailInputElementForm(initial={'title': element.title})
-
-            context = {
-                'user_quiz': user_quiz,
-                'quiz_page': quiz_page_element.page,
-                'quiz_page_element': quiz_page_element,
-                'form': form,
-                'edit': True,
-            }
-            return render(request, 'element_forms/EmailInput.html', context=context)
-        elif element_type == 'Number input element':
-            element = element['element']
-            form = NumberInputElementForm(initial={'title': element.title})
-
-            context = {
-                'user_quiz': user_quiz,
-                'quiz_page': quiz_page_element.page,
-                'quiz_page_element': quiz_page_element,
-                'form': form,
-                'edit': True,
-            }
-            return render(request, 'element_forms/NumberInput.html', context=context)
-        elif element_type == 'Multiple choice question':
-            element = element['element']
-            form = MultipleChoiceElementForm(initial={'title': element.title})
-
-            context = {
-                'user_quiz': user_quiz,
-                'quiz_page': quiz_page_element.page,
-                'quiz_page_element': quiz_page_element,
-                'form': form,
-                'edit': True,
-            }
-            return render(request, 'element_forms/MultipleChoice.html', context=context)
-            
-@login_required
-def edit_text_element(request, quiz_id, page_id, element_id):
-    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
-    if user_quiz.exists():
-        user_quiz = user_quiz[0]
-        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
-        element = quiz_page_element.get_element_type()
-        element_type = element['type']
-        text_element = element['element']
-        form = TextElementForm(request.POST, instance=text_element)
-
-        if form.is_valid():
-            form.save()
-            url = reverse('get_quiz_page_elements', kwargs={'quiz_id': quiz_id, 'page_id':page_id})
-            return redirect(f"{request.build_absolute_uri(url)}?edit=True")
-
-    return HttpResponse(500, content="An error occured")
-
-@login_required
-def edit_text_input_element(request, quiz_id, page_id, element_id):
-    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
-    if user_quiz.exists():
-        user_quiz = user_quiz[0]
-        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
-        element = quiz_page_element.get_element_type()
-        element_type = element['type']
-        text_element = element['element']
-        form = TextInputElementForm(request.POST, instance=text_element)
-
-        if form.is_valid():
-            form.save()
-            url = reverse('get_quiz_page_elements', kwargs={'quiz_id': quiz_id, 'page_id':page_id})
-            return redirect(f"{request.build_absolute_uri(url)}?edit=True")
-  
-    return HttpResponse(500, content="An error occured")
-
-@login_required
-def edit_char_input_element(request, quiz_id, page_id, element_id):
-    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
-    if user_quiz.exists():
-        user_quiz = user_quiz[0]
-        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
-        element = quiz_page_element.get_element_type()
-        element_type = element['type']
-        text_element = element['element']
-        form = CharInputElementForm(request.POST, instance=text_element)
-        if form.is_valid():
-            form.save()
-            url = reverse('get_quiz_page_elements', kwargs={'quiz_id': quiz_id, 'page_id':page_id})
-            return redirect(f"{request.build_absolute_uri(url)}?edit=True")
-    
-    return HttpResponse(500, content="An error occured")
-
-@login_required
-def edit_email_input_element(request, quiz_id, page_id, element_id):
-    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
-    if user_quiz.exists():
-        user_quiz = user_quiz[0]
-        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
-        element = quiz_page_element.get_element_type()
-        element_type = element['type']
-        text_element = element['element']
-        form = EmailInputElementForm(request.POST, instance=text_element)
-        if form.is_valid():
-            form.save()
-            url = reverse('get_quiz_page_elements', kwargs={'quiz_id': quiz_id, 'page_id':page_id})
-            return redirect(f"{request.build_absolute_uri(url)}?edit=True")
-    
-    return HttpResponse(500, content="An error occured")
-
-@login_required
-def edit_number_input_element(request, quiz_id, page_id, element_id):
-    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
-    if user_quiz.exists():
-        user_quiz = user_quiz[0]
-        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
-        element = quiz_page_element.get_element_type()
-        element_type = element['type']
-        text_element = element['element']
-        form = NumberInputElementForm(request.POST, instance=text_element)
-        if form.is_valid():
-            form.save()
-            url = reverse('get_quiz_page_elements', kwargs={'quiz_id': quiz_id, 'page_id':page_id})
-            return redirect(f"{request.build_absolute_uri(url)}?edit=True")
-    
-    return HttpResponse(500, content="An error occured")
-
-
-@login_required
-def edit_multiple_choice_element(request, quiz_id, page_id, element_id):
-    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
-    if user_quiz.exists():
-        user_quiz = user_quiz[0]
-        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
-        element = quiz_page_element.get_element_type()
-        element_type = element['type']
-        text_element = element['element']
-        form = MultipleChoiceElementForm(request.POST, instance=text_element)
-        if form.is_valid():
-            form.save()
-            url = reverse('get_quiz_page_elements', kwargs={'quiz_id': quiz_id, 'page_id':page_id})
-            return redirect(f"{request.build_absolute_uri(url)}?edit=True")
-    
-    return HttpResponse(500, content="An error occured")
-
 
 @login_required
 def get_multiple_choice_choices(request, quiz_id, page_id, element_id):
@@ -729,7 +543,47 @@ def delete_choice_multiple_choice_element(request, quiz_id, page_id, element_id,
                     }
                     #Here render the modal ability to add choices
         return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
-    
+
+@login_required
+def edit_element_title(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        
+        element = QuizPageElement.objects.get(id=element_id, page__quiz=user_quiz).get_element_type()
+        element_type =  QuizPageElement.objects.get(id=element_id, page__quiz=user_quiz).get_element_type()['type']
+        element = element['element']
+
+        element.title = request.POST['title']
+        element.save()
+
+        quiz_page_elements = quiz_page.get_quiz_page_elements()
+        quiz_page_elements = [element.get_element_type() for element in quiz_page_elements]
+        
+        elements_count = (len(quiz_page_elements))
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'quiz_page_elements': quiz_page_elements,
+            'elements_count': elements_count,
+        }
+
+        if not element_type  == "Multiple choice question":
+            print("NOT MULTIPLE CHOICE")
+            return render(request, 'quiz_page_elements.html', context=context) 
+        else:
+            context['element'] = element
+            context['choices'] = MultipleChoiceChoice.objects.filter(multiple_choice_element=element)
+            context['edit'] = True
+            return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context) 
+
+
+
+
+
+
+
 # @login_required
 # def duplicate_quiz(request, quiz_id):
 #     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)

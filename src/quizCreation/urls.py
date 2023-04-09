@@ -24,6 +24,7 @@ urlpatterns = [
 
 
 
+
     path('move_page_up/<quiz_id>/<page_id>', views_htmx.move_page_up, name="move_page_up"),
     path('move_page_down/<quiz_id>/<page_id>', views_htmx.move_page_down, name="move_page_down"),
     path('delete_quiz_page/<quiz_id>/<page_id>', views_htmx.delete_quiz_page, name="delete_quiz_page"),
@@ -42,16 +43,7 @@ urlpatterns = [
     path('move_element_up/<quiz_id>/<page_id>/<element_id>', views_htmx.move_element_up, name="move_element_up"),
     path('move_element_down/<quiz_id>/<page_id>/<element_id>', views_htmx.move_element_down, name="move_element_down"),
 
-    path('edit_element_modal/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_element_modal, name="edit_element_modal"),
-
-    path('edit_text_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_text_element, name="edit_text_element"),
-    path('edit_text_input_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_text_input_element, name="edit_text_input_element"),
-    path('edit_char_input_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_char_input_element, name="edit_char_input_element"),
-    path('edit_email_input_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_email_input_element, name="edit_email_input_element"),
-    path('edit_number_input_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_number_input_element, name="edit_number_input_element"),
-    path('edit_multiple_choice_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_multiple_choice_element, name="edit_multiple_choice_element"),
-
-
+    path('edit_element_title/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_element_title, name="edit_element_title"),
 
 
 

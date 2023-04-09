@@ -27,9 +27,9 @@
                         </ul>
                     </div> {% endcomment %}
                     
+                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
                     <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'preview_quiz' user_quiz.id %}" type="button" class="btn  mb-2 mr-2">View quiz preview</a>
 
-                    <button type="button" class="btn mb-2" data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
 
                     <div class="modal fade" id="exampleModalCenter">
                         <div class="modal-dialog modal-dialog-centered" role="document">

@@ -22,13 +22,69 @@
         </i> 
         
         <div class="mx-auto w-100 border border-dark p-2"  style="border-style:dashed !important">
-            <a hx-get={% url 'edit_element_modal' user_quiz.id quiz_page.id element.element.page_element.id %}
-                hx-target='#editModalContent'
-                hx-swap=innerHTML
-             data-toggle="modal" data-target="#editModal">
+            <a type="button" class="" data-toggle="modal" data-target="#editModal_{{element.element.id}}">
+
                 <span type="button" class="float-right ml-auto fs-24 text-dark mb-0 mt-2 align-items-center">Edit <i class="fa fa-edit"></i></span>
             </a>
-            
+
+            <div class="modal fade" id="editModal_{{element.element.id}}">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content" id="editModalContent{{element.element.id}}">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Editing element</h5>
+                            <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                            </button>
+                        </div>
+                        <form id="edit_element_form{{element.element.id}}" 
+                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                        hx-post="{% url 'edit_element_title' element.element.page_element.page.quiz.id element.element.page_element.page.id element.element.page_element.id %}"
+                        
+                        {% if element.type == "Multiple choice question" %}
+                        hx-target="#editModalContent{{element.element.id}}"
+                        {% else %}
+                        hx-target="#page_elements"
+                        {% endif %}
+
+
+
+                        hx-swap="outerHTML"
+                        hx-encoding="multipart/form-data"
+
+                                                
+                        >
+                            <div class="modal-body">
+                                <span >
+
+                                    Editing {{element.type|lower}}: {{element.element.title}}
+                                </span>
+                                <Input
+                                name="title"
+                                type="text" value="{{element.element.title}}" placeholder="Enter a new title here"
+                                class="form-control border-dark text-dark mx-auto w-75 mt-4" required maxlength="1000">
+                            </div>
+                            
+
+                            
+                            <div class="modal-footer">
+                                <a type="button" class="btn btn-danger light" data-dismiss="modal">Cancel</a>
+                                <button                        
+                                
+                                {% if not element.type == "Multiple choice question" %}
+
+                                onclick="document.querySelector('#editModal_{{element.element.id}} > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)').click()"
+                                 {% endif %}
+                                type="submit" 
+                                
+                                class="btn btn-primary">Save changes</button>
+                            </div>
+
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+
+
             <div class="p-4 d-flex align-items-center ">
                 <div class="list-icon mr-3 mb-3">
                     <p type="button" 
@@ -80,14 +136,4 @@
     {% endfor %}
 </div>
 
-{% include 'quiz_page_element_edit_modal.html' %}
 
-<script>
-    document.querySelector('#editModalContent > div.modal-header > button').click()
-</script>
-
-{% if edit %}
-
-<script>
-    document.querySelector('#editModalContent > div.modal-body > form > div > button.btn.btn-danger.light').click()</script>
-{% endif %}
