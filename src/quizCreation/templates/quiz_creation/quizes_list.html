@@ -1,5 +1,14 @@
+{% load static %}
 <div id="quizesList">
 {% if quizes %}
+<script src="{% static 'dashboard/assets/js/clipboard.min.js' %}"></script>
+
+<style>
+
+    .dropleft .dropdown-toggle::before, .dropright .dropdown-toggle::before, .dropup .dropdown-toggle::after, .dropdown-toggle::after {
+        display: none;
+    }
+</style>
 
 <div class="card-body py-0 ">
     <div class="mx-auto ">
@@ -20,38 +29,67 @@
             
             <div class="col-xl-5 col-xxl-8 col-lg-6 col-sm-8 d-flex align-items-center">
                 <div class="list-icon mr-3 mb-3">
+               
 
 
               
                 </div>
                 <div class="info ">
                     <h4 class="fs-20 "><p class="text-black">{{quiz.name}}</p></h4>
+
+                    <a class="mx-1   " href="{% url 'view_quiz_results' quiz.id %}">
+                        View responses</i>
+                    </a> |
+                    
+                                            <a    href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}" target="_blank"
+                                            type="button" class="mx-1"  >Open quiz in new tab</a> |
+                    
+                    
+                                            <div class="btn-group" role="group">
+                        <a           id="copy-button{{quiz.id}}"          data-clipboard-target="#linkToQuiz{{quiz.id}}"
+                        type="button" class=" dropdown-toggle mx-1" data-toggle="dropdown">Copy link to quiz</a> |
+                        <div class="dropdown-menu">
+                            <span class="dropdown-item" href="javascript:void()">Link successfully copied!</span>
+                        </div>
+                    </div>
+
+                    <input type="hidden" id="linkToQuiz{{quiz.id}}" value="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}">
+
+                    <script>                                new ClipboardJS('#copy-button{{quiz.id}}');</script>
+                    
+{% comment %}                     
+                    <a class="mx-1   " href="{% url 'duplicate_quiz' quiz.id %}">
+                        Duplicate quiz</i>
+                    </a> | {% endcomment %}
+
+                    
+  
+
+                    <a type="button"
+                    hx-confirm="Are you sure you want to delete this quiz"
+                    hx-delete  ="{% url 'htmx_quiz_delete' quiz.id %}" class="mx-1"
+                    hx-target="#quizesList"
+       
+                  
+                   > 
+                   Delete
+                   
+                   
+                   
+               </a>
+                  
                 </div>
+
             </div>
-            <div class="ml-auto mr-4 pr-1">
-            <a class="d-block " href="{% url 'view_quiz_results' quiz.id %}">
-                <div class="float-right fs-24 text-dark">View responses <i class="fa fa-eye"></i></div>
-            </a>
             <br>
 
             <a class="d-block " href="{% url 'edit_quiz' quiz.id %}">
-                <div class="float-right fs-24 text-dark">Edit <i class="fa fa-edit"></i></div>
+                <div class="float-right fs-24 text-dark">Manage <i class="fa fa-edit"></i></div>
             </a>
             <br>
             <br>
             
-             <a type="button"
-             hx-confirm="Are you sure you want to delete this quiz"
-             hx-delete  ="{% url 'htmx_quiz_delete' quiz.id %}" class="d-block"
-             hx-target="#quizesList"
 
-           
-            > 
-            
-            <div class="float-right fs-24 text-dark">Delete <i class="fa fa-trash"></i></div>
-            </div>
-            
-        </a>
 
         </div>
 

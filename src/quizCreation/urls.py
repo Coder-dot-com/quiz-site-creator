@@ -5,6 +5,7 @@ urlpatterns = [
     path('', views.create_quiz, name="create_quiz"),
     path('edit/<quiz_id>/', views.quiz_edit, name="edit_quiz"),
     path('delete/<quiz_id>/', views_htmx.htmx_quiz_delete, name="htmx_quiz_delete"),
+    # path('duplicate_quiz/<quiz_id>/', views_htmx.duplicate_quiz, name="duplicate_quiz"),
 
 
     path('quiz_page_add/<quiz_id>/', views.quiz_page_add, name="quiz_page_add"),
@@ -49,6 +50,7 @@ urlpatterns = [
     path('edit_email_input_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_email_input_element, name="edit_email_input_element"),
     path('edit_number_input_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_number_input_element, name="edit_number_input_element"),
     path('edit_multiple_choice_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_multiple_choice_element, name="edit_multiple_choice_element"),
+
 
 
 

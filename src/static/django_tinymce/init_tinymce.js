@@ -29,14 +29,13 @@
         }
       });
 
-      const id = el.id;
-      if ('elements' in mce_conf && mce_conf['mode'] == 'exact') {
-        mce_conf['elements'] = id;
+      if (!'selector' in mce_conf) {
+        mce_conf['target'] = el;
       }
       if (el.dataset.mceGzConf) {
         tinyMCE_GZ.init(JSON.parse(el.dataset.mceGzConf));
       }
-      if (!tinyMCE.get(id)) {
+      if (!tinyMCE.get(el.id)) {
         tinyMCE.init(mce_conf);
       }
     }
@@ -44,7 +43,7 @@
 
   // Call function fn when the DOM is loaded and ready. If it is already
   // loaded, call the function now.
-  // http://youmightnotneedjquery.com/#ready
+  // https://youmightnotneedjquery.com/#ready
   function ready(fn) {
     if (document.readyState !== 'loading') {
       fn();
@@ -58,6 +57,9 @@
   }
 
   ready(function() {
+    if (!tinyMCE) {
+      throw 'tinyMCE is not loaded. If you customized TINYMCE_JS_URL, double-check its content.';
+    }
     // initialize the TinyMCE editors on load
     initializeTinyMCE(document);
 

@@ -18,6 +18,7 @@ django-colorfield = "*"
 wagtail = "*"
 django-ckeditor = "*"
 django = "*"
+qrcode = "*"
 
 [dev-packages]
 autopep8 = "*"

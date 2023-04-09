@@ -729,3 +729,13 @@ def delete_choice_multiple_choice_element(request, quiz_id, page_id, element_id,
                     }
                     #Here render the modal ability to add choices
         return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
+    
+# @login_required
+# def duplicate_quiz(request, quiz_id):
+#     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+
+#     context = {
+#         'quiz': user_quiz
+#     }
+
+#     return render(request, 'quiz_creation/quizes_list.html', context=context)

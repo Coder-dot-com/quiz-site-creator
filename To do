@@ -1,22 +1,9 @@
 To do:
  
-    -display quiz results
-        -make link easier to copy
-        -add qrcode scan btn link(modal with image that has a print button), 
-        structure
-
-        list [{response_id: {qustion:answer, ....}}, {response_id: {question:answer....}}
-        ]
-        https://www.codingforentrepreneurs.com/blog/django-queryset-to-csv-files-datasets/
         
-        )
 
-        -duplicate quiz 
-
-        
-        -add save/print response details as pdf (link to files and display iamges)
-
-    -header
+    -header (also no-print)
+    -footer
     -make site more responsive
 
 
@@ -48,11 +35,14 @@ To do:
 
 
 
+        -duplicate quiz  (started)
 
 
 
+     -add qrcode scan btn link(modal with image that has a print button), 
+        structure
 
-
+    -add links to header
 
 -Create layout/pages with content to display and use as mockups
 -then use this is asset for prepurchases

@@ -94,11 +94,9 @@
         
     </table> 
 
-    <a type="button" class="float-left btn btn-primary my-4" 
-    
-target="_blank"
-
-href="{% url 'download_csv_of_responses' quiz.id %}"> Download all responses as CSV <i class="fa fa-download"></i></a>
+    <a type="button" class="float-right btn btn-primary my-4" 
+    target="_blank" href="{% url 'download_csv_of_responses' quiz.id %}"> 
+    Download all responses as CSV <i class="fa fa-download"></i></a>
 
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
