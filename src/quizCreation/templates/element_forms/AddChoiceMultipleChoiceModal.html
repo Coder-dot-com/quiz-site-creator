@@ -66,7 +66,14 @@
             hx-get="{% url 'all_element_swatches' user_quiz.id quiz_page.id  %}"
             {% endif %}
             
-            >Finished adding choices</a>
+            >
+            {% if not edit %}
+
+            Finished adding choices
+            {% else %}
+            Finished editing
+            {% endif %}
+        </a>
         </div>
         </form>
 
