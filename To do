@@ -1,7 +1,6 @@
 To do:
  
     -display quiz results
-        -download csv (link to image and also pdf) (to download csv of all answers
         -make link easier to copy
         -add qrcode scan btn link(modal with image that has a print button), 
         structure
@@ -12,8 +11,14 @@ To do:
         
         )
 
+        -duplicate quiz 
+
         
         -add save/print response details as pdf (link to files and display iamges)
+
+    -header
+    -make site more responsive
+
 
 -quiz settings
     -email results automatically per quiz (settings)
@@ -22,9 +27,6 @@ To do:
         -google analytics js code
         -UTM tracking
     -design/logo
-
-    -header
-
     -test everything and plan more features before launch
 
     -add in other elements:
@@ -34,6 +36,8 @@ To do:
         -pdf file ipload (clean using AWS lambda) (convert to image then image to pdf)
         -Embed video link
         -Upload video as quiz owner (AWS )
+        -1-10 (use single choice? and auto create)
+        - 1-5 stars( use single choice)
 
         
         later:
@@ -42,7 +46,7 @@ To do:
 
         -Others/plan
 
-    
+
 
 
 

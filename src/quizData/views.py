@@ -12,7 +12,7 @@ from django.core.files import File
 from django.http import HttpResponse, StreamingHttpResponse
 from django.utils.text import slugify
 from django.views.generic import View
-
+import math
 # Create your views here.
 
 @login_required
@@ -21,10 +21,17 @@ def view_quiz_results(request, quiz_id):
     quiz = UserQuiz.objects.get(user=request.user, id=quiz_id)
 
     responses = Response.objects.filter(quiz=quiz)
+    response_count = responses.count()
+
+    responses_completed = responses.filter(completed=True).count()
+
+    percentage_completed = math.floor(responses_completed/response_count * 100)
     print(responses)
     context = {
         'responses': responses,
         'quiz': quiz,
+        'response_count': response_count,
+        'percentage_completed': percentage_completed,
     }
     return render(request, 'quizData/quiz_data.html', context=context)
                   
@@ -50,7 +57,7 @@ class Echo:
         """Write the value by returning it, instead of storing in a buffer."""
         return value
 
-
+@login_required
 def download_csv_of_responses(request, quiz_id):
     quiz = UserQuiz.objects.get(user=request.user, id=quiz_id)
 

@@ -22,6 +22,8 @@ class UserQuiz(models.Model):
         print(a)
 
         return a.last()
+    
+
 
 class QuizPage(models.Model):
     quiz = models.ForeignKey(UserQuiz, on_delete=models.CASCADE)

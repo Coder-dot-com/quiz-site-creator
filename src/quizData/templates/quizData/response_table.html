@@ -1,15 +1,46 @@
-<script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
-
-
 <div id="table">
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+    
+    
     <a type="button" href="{% url 'dashboard_home' %}">< Back</a>
     
-    <a type="button" class="float-right btn btn-primary my-4" 
+    <div class="row mt-4 " style="gap:1.5rem;justify-content: center;">
+
+    <div class="col-6 col-sm-12 mx-3" style="display: contents;">
+        <div class="widget-stat card bg-primary p-1">
+            <div class="card-body ">
+                <div class="media">
+                    <span class="mr-3">
+                        <i class="la la-users"></i>
+                    </span>
+                    <div class=" text-white ">
+                        <p class="mb-1">Total Respondants</p>
+                        <h3 class="text-white">{{response_count}}</h3>
+                    
+                        {% comment %} <small>80% Increase in 20 Days</small> {% endcomment %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
     
-    target="_blank"
-    
-    href="{% url 'download_csv_of_responses' quiz.id %}"> Download all responses as CSV <i class="fa fa-download"></i></a>
-    
+    <div class="col-6 col-sm-12 mx-3" style="display: contents;">
+        <div class="widget-stat card bg-info p-1" >
+            <div class="card-body ">
+                <div class="media">
+                    <span class="mr-3">
+                        <i class="flaticon-381-calendar-1"></i>
+                    </span>
+                    <div class=" text-white ">
+                        <p class="mb-1">% Completed</p>
+                        <h3 class="text-white">{{percentage_completed}}</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
 
 <table id="table_id" class="display" style="width:100%">
         <thead>
@@ -63,6 +94,11 @@
         
     </table> 
 
+    <a type="button" class="float-left btn btn-primary my-4" 
+    
+target="_blank"
+
+href="{% url 'download_csv_of_responses' quiz.id %}"> Download all responses as CSV <i class="fa fa-download"></i></a>
 
 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 

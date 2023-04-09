@@ -8,7 +8,7 @@
 <div class="row">
 
 
-<a type="button" href="{% url 'view_quiz_results' quiz.id %}">< Back</a>
+<a type="button"  href="{% url 'view_quiz_results' quiz.id %}">< Back</a>
     <div class="col-xl-12 col-lg-12">
         <div class="card">
             <div class="card-header border-0 pb-0">
@@ -21,16 +21,14 @@
                         {% for x in i %}
 
                         <li>
-                            <div class="timeline-panel">
+                            <div class="timeline-panel p-0 m-0">
                               
                                 <div class="media-body">
                                     <small class="d-block">{{x.question.get_element_type.element.title}}</small>
                                     
-                                    
-                                    <h5 class="mb-1">
+                                    <h5 >
                                         
                                         {% if not x.question.get_element_type.type == 'Multiple choice question' %}
-                                        {{x.question.get_element_type.type}}
                                         {{x.answer}}
                                         
 
