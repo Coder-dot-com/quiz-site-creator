@@ -7,6 +7,7 @@
           hx-swap=outerHTML
           hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
           hx-encoding="multipart/form-data"
+          hx-push-url="{{request.url}}?page={{quiz_page.number|add:1}}"
       {% else %}
           action={% url 'complete_quiz'  quiz_page.quiz.id quiz_page.number response_id %}
           method=post
@@ -22,7 +23,11 @@
         <img style="max-height:7% ;"  src="{% if quiz_page.quiz.logo %}
                                                {{quiz_page.quiz.logo.url}}
                                            {% endif %}"
+
+
         >
+
+
     </div>
     <div >
 
@@ -85,4 +90,9 @@
 
     </div>
 </div>
+
+{% autoescape off %}
+        
+{{quiz_page.analytics_scripts}}
+{% endautoescape %}
 </form>
