@@ -24,7 +24,7 @@ hx-post="{% url 'upload_quiz_logo' user_quiz.id %}"
                             </small>
                         </a> 
                         <div class="userImageUpload">
-                            <img class="" src="{{user_quiz.logo.url}}" alt="">
+                            <img class="" src="{% if user_quiz.logo %}{{user_quiz.logo.url}}{% endif %}" alt="">
                         </div>
                     </center>
                 </div>

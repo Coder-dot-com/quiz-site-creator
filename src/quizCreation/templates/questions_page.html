@@ -74,9 +74,16 @@
                                 </div>
                                 <div class="modal-body">
                                    {% include 'element_forms/logo_upload_form.html' %}
-                                   {% include 'element_forms/analytics_script_form.html' %}
 
-
+                                   <form action="
+                                   ">
+                                   <label for="" class="my-1">
+                                        Copy and paste any analytics scripts (javascript) here (e.g. Facebook pixel or Google analytics)
+                                    <textarea name="analytics_script" class="form-control border-dark"
+                                    
+                                    id="analytics_script" cols="30" rows="10" maxleg></textarea>
+                                </label>
+                                </form>
                                     <div class="form-group">
                                         <label class="text-black font-w600">Enter a name for your quiz page<span class="required">*</span></label>
                                         <input type="text" class="form-control" name="name" required maxlength='300' placeholder="Enter name here">
@@ -114,8 +121,8 @@
                               
                                 </div>
                                 <div class="info ">
-                                    <h4 class="fs-20 "><p class="text-black">{{page.number}}. {{page.title}}</p></h4>
-                                    <p>This page will always be shown as it has no conditions attached</p>
+                                    <h4 class=""><p class="text-black">{{page.number}}. {{page.title}}</p></h4>
+                                    {% comment %} <p>This page will always be shown as it has no conditions attached</p> {% endcomment %}
                                 </div>
                             </div>
                             <div class="ml-auto mr-4 pr-1">
@@ -156,22 +163,29 @@
                                 </div>
                                 <div id="bordered_collapse{{page.id}}" class="accordion__body collapse" data-parent="#accordion-{{page.id}}" style="">
                                     <div class="accordion__body--text px-5">
-                                        {% for e in page.get_quiz_page_elements %}
-                                        <br>
-                                        {{e.position}}. {% if e.get_element_type.element.title %}
-                                        {{e.get_element_type.element.title}}
-                                        {% else %}
-                                        No title added to page element
-                                        {% endif %}
-                                        <br>
-                                        <small class="text-align-right ml-auto" style="float: right !important;">
 
-                                            <i class="text-small">
-                                                
-                                                ({{e.get_element_type.type}})
-                                            </i>
-                                        </small>
+                                        {% if page.get_quiz_page_elements %}
+                                        {% for e in page.get_quiz_page_elements %}
+                                            <br>
+                                            {{e.position}}. {% if e.get_element_type.element.title %}
+                                            {{e.get_element_type.element.title}}
+                                            {% else %}
+                                            No title added to page element
+                                            {% endif %}
+                                            <br>
+                                            <small class="text-align-right ml-auto" style="float: right !important;">
+
+                                                <i class="text-small">
+                                                    
+                                                    ({{e.get_element_type.type}})
+                                                </i>
+                                            </small>
                                         {% endfor %}
+                                        {% else %}
+                                        No page elements added. Add an element
+                                        
+                                        {% endif %}
+                                        
                                     </div>
                                 </div>
                             </div>
