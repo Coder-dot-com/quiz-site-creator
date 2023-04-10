@@ -1,75 +1,88 @@
+
 <form id="quizRenderPreview"
-{% if not quiz_page.is_last_page %}
 
-hx-post={% url 'take_next_page' quiz_page.quiz.id quiz_page.number response_id %}
-hx-swap=outerHTML
-hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-hx-encoding="multipart/form-data"
-{% else %}
-action={% url 'complete_quiz'  quiz_page.quiz.id quiz_page.number response_id %}
-method=post
-{% endif %}
-class="d-flex mt-5">
+      {% if not quiz_page.is_last_page %}
 
-{% csrf_token %}
+          hx-post={% url 'take_next_page' quiz_page.quiz.id quiz_page.number response_id %}
+          hx-swap=outerHTML
+          hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+          hx-encoding="multipart/form-data"
+      {% else %}
+          action={% url 'complete_quiz'  quiz_page.quiz.id quiz_page.number response_id %}
+          method=post
+      {% endif %}
+      class=" mt-5">
 
+    {% csrf_token %}
 
-    <div class="col-lg-9 mx-auto p-5
-    5 bg-white border-2 bg-shadow">
+<div class="col-lg-9 mx-auto p-5
+5 bg-white border-2 bg-shadow">
+    <div class="row d-flex justify-content-center">
 
-    {% for element in quiz_page.get_quiz_page_elements %}
-        <br><br>
-        {% if element.get_element_type.type == 'Text element' or  element.get_element_type.type == 'Char element' or  element.get_element_type.type == 'Email element' or element.get_element_type.type == 'Number element' or element.get_element_type.type == 'Multiple choice question' %}
-        <b>{{element.get_element_type.element.title}}</b>
-            {% autoescape off %}
-            {{element.get_element_type.element.content}}
+        <img style="max-height:7% ;"  src="{% if quiz_page.quiz.logo %}
+                                               {{quiz_page.quiz.logo.url}}
+                                           {% endif %}"
+        >
+    </div>
+    <div >
+
+        {% for element in quiz_page.get_quiz_page_elements %}
+            <br><br>
+            {% if element.get_element_type.type == 'Text element' or  element.get_element_type.type == 'Char element' or  element.get_element_type.type == 'Email element' or element.get_element_type.type == 'Number element' or element.get_element_type.type == 'Multiple choice question' %}
+                <b>{{element.get_element_type.element.title}}</b>
+                {% autoescape off %}
+                    {{element.get_element_type.element.content}}
                 {% endautoescape %}
 
+            {% endif %}
+
+            <label class="text-label" for="">
+                {{element.get_element_type.element.title}}
+            </label>
+            {{element.id}}
+
+
+
+
+            {% if element.get_element_type.type == 'Char input element'  %}
+                {% include 'take_quiz_elements/char_input_element.html' %}
+            {% elif element.get_element_type.type == 'Text input element'  %}
+                {% include 'take_quiz_elements/text_input_element.html' %}
+            {% elif element.get_element_type.type == 'Email input element'  %}
+                {% include 'take_quiz_elements/email_input_element.html' %}
+            {% elif element.get_element_type.type == 'Number input element'  %}
+                {% include 'take_quiz_elements/number_input_element.html' %}
+            {% elif element.get_element_type.type == 'Multiple choice question'  %}
+                {% include 'take_quiz_elements/multiple_choice_input_element.html' %}
+            {% endif %}
+
+        {% endfor %}
+
+        {% if not first_page %}
+            <a class="float-left my-3"
+               hx-get={% url 'take_previous_page' quiz_page.quiz.id quiz_page.number response_id %}
+               hx-swap=outerHTML
+               hx-target=#quizRenderPreview
+               type="button"
+            >
+                Previous page
+            </a>
         {% endif %}
 
-        <label class="text-label" for="">
-            {{element.get_element_type.element.title}}
-        </label>
-        {{element.id}}
 
-  
+        {% if not quiz_page.is_last_page %}
+            <div>
+                <button type="submit" class="btn btn-primary float-right my-3">Continue</button>
+            </div>
+        {% else %}
 
-
-        {% if element.get_element_type.type == 'Char input element'  %}
-            {% include 'take_quiz_elements/char_input_element.html' %}
-        {% elif element.get_element_type.type == 'Text input element'  %}
-            {% include 'take_quiz_elements/text_input_element.html' %}
-        {% elif element.get_element_type.type == 'Email input element'  %}
-            {% include 'take_quiz_elements/email_input_element.html' %}
-        {% elif element.get_element_type.type == 'Number input element'  %}
-            {% include 'take_quiz_elements/number_input_element.html' %}
-        {% elif element.get_element_type.type == 'Multiple choice question'  %}
-            {% include 'take_quiz_elements/multiple_choice_input_element.html' %}
+            <div>
+                <button type="submit"
+                        class="btn btn-primary float-right my-3">Complete quiz</button>
+            </div>
         {% endif %}
-            
-    {% endfor %}
-
-    {% if not first_page %}
-    <a class="float-left my-3"
-     hx-get={% url 'take_previous_page' quiz_page.quiz.id quiz_page.number response_id %}
-    hx-swap=outerHTML
-    hx-target=#quizRenderPreview
-    type="button"
-    >
-      Previous page
-    </a>
-    {% endif %}
 
 
-    {% if not quiz_page.is_last_page %}
-    <div>
-        <button type="submit" class="btn btn-primary float-right my-3">Continue</button>
     </div>
-    {% else %}
-
-    <div>
-        <button type="submit"
-        class="btn btn-primary float-right my-3">Complete quiz</button>
-    </div>    {% endif %}
 </div>
-    </form>
+</form>
