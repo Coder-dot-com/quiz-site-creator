@@ -11,31 +11,32 @@
 </style>
 
 <div class="card-body py-0 ">
+    <div class="text-center">
+        <a style="float:right;" href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-end my-1">
+            Create quiz  <i class="fa fa-plus mx-1"></i>
+        </a>
+    </div>    
     <div class="mx-auto ">
         Your quizes                     
     </div>
-    <div class="tab-pane active show fade" id="Unifinshed"
-    >
+    
+    
+    
+    <div class="tab-pane active show fade d-inline" id="Unifinshed">
+    
         {% for quiz in quizes %}
        
-        <div style="background-color:rgba(0, 125, 136, 0.1);
+        <div style="background-color:rgba(227, 227, 204, 0.3);
             border-radius: 1.25rem;
             -webkit-transition: all 0.5s;
             -ms-transition: all 0.5s;
             transition: all 0.5s;
-            " 
-        
-        class="plan-list list-row d-sm-flex d-block  py-3 list-row align-items-center mb-2 col-lg-9 mx-auto justify-content-center">
+            " class="plan-list list-row d-sm-flex d-block  py-3 list-row align-items-center my-5 col-lg-9 mx-auto justify-content-center">
             
             <div class="col-xl-5 col-xxl-8 col-lg-6 col-sm-8 d-flex align-items-center">
-                <div class="list-icon mr-3 mb-3">
                
-
-
-              
-                </div>
                 <div class="info ">
-                    <h4 class="fs-20 "><p class="text-black">{{quiz.name}}</p></h4>
+                    <h4 class=" "><p class="">{{quiz.name}}</p></h4>
 
                     <a class="mx-1   " href="{% url 'view_quiz_results' quiz.id %}">
                         View responses</i>
@@ -57,10 +58,7 @@
 
                     <script>                                new ClipboardJS('#copy-button{{quiz.id}}');</script>
                     
-{% comment %}                     
-                    <a class="mx-1   " href="{% url 'duplicate_quiz' quiz.id %}">
-                        Duplicate quiz</i>
-                    </a> | {% endcomment %}
+
 
                     
   
@@ -83,8 +81,8 @@
             </div>
             <br>
 
-            <a class="d-block " href="{% url 'edit_quiz' quiz.id %}">
-                <div class="float-right fs-24 text-dark">Manage <i class="fa fa-edit"></i></div>
+            <a class="btn btn-primary site-button " href="{% url 'edit_quiz' quiz.id %}">
+                <div class="float-right">Manage <i class="fa fa-edit"></i></div>
             </a>
             <br>
             <br>
@@ -93,19 +91,22 @@
 
         </div>
 
-       
-
-   
+        
         {% endfor %}
+        {% for quiz in quizes %}
 
+        {% if forloop.counter == 4 %}
+        
+        <div class="text-center">
+            <a style="float:right;" href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-end my-1">
+                Create quiz  <i class="fa fa-plus mx-1"></i>
+            </a>
+        </div>                 
+        {% endif %}
+        {% endfor %}
 
     </div>
 
-    <div class="text-center">
-        <a style="float:right;" href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-end my-1">
-            Create quiz
-        </a>
-    </div>                 
 </div>
 {% else %}
 
@@ -115,7 +116,7 @@
     </div>
     <div class="text-center">
         <a href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-center my-1">
-            Create quiz
+            Create quiz  <i class="fa fa-plus mx-1"></i>
         </a>
     </div>                
 </div>

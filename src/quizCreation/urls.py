@@ -44,7 +44,10 @@ urlpatterns = [
     path('move_element_down/<quiz_id>/<page_id>/<element_id>', views_htmx.move_element_down, name="move_element_down"),
 
     path('edit_element_title/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_element_title, name="edit_element_title"),
-
+    
+    path('upload_quiz_logo/<quiz_id>/', views_htmx.upload_quiz_logo, name="upload_quiz_logo"),
+    path('delete_logo_from_quiz/<quiz_id>/', views_htmx.delete_logo_from_quiz, name="delete_logo_from_quiz"),
+    path('update_quiz_analytic_scripts/<quiz_id>/', views_htmx.update_quiz_analytic_scripts, name="update_quiz_analytic_scripts"),
 
 
 ]

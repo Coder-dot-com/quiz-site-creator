@@ -1,0 +1,30 @@
+<form 
+id="analyticsScriptForm"
+hx-post={% url 'update_quiz_analytic_scripts' user_quiz.id %}
+hx-swap="outerHTML"
+hx-target="#analyticsScriptForm"
+hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+
+>
+
+{% if added %}
+<p class="text-center">
+
+    Successfully added your code! (refresh to modify again)
+</p>
+<br>
+<code>
+{{user_quiz.analytics_scripts}}
+</code>
+{% else %}
+
+<label for="" class="my-1">
+     Copy and paste any analytics scripts (javascript) here (e.g. Facebook pixel or Google analytics)
+ <textarea name="analytics_script" "{{user_quiz.analytics_scripts}}" class="form-control border-dark"
+ 
+ id="analytics_script" cols="30" rows="10" maxlength="9000" required></textarea>
+</label>
+
+<button type="submit" class="btn btn-primary site-button">Save analytics scripts</button>
+{% endif %}
+</form>

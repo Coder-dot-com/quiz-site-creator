@@ -3,6 +3,9 @@ from django.shortcuts import render, redirect, HttpResponse
 from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement
 from .forms import TextElementForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm
 from django.urls import reverse
+import os
+from uuid import uuid4
+
 
 @login_required
 def htmx_create_quiz(request):
@@ -16,6 +19,7 @@ def htmx_create_quiz(request):
 
     return render(request, 'questions_page.html', context=context)
 
+
 @login_required
 def htmx_quiz_delete(request, quiz_id):
 
@@ -27,6 +31,7 @@ def htmx_quiz_delete(request, quiz_id):
     }
     return render(request, 'quiz_creation/quizes_list.html', context=context)
 
+
 @login_required
 def quiz_page_element_add(request, quiz_id, page_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
@@ -35,43 +40,43 @@ def quiz_page_element_add(request, quiz_id, page_id):
         quiz_page = QuizPage.objects.filter(quiz=user_quiz, id=page_id)
         if quiz_page.exists():
             quiz_page = quiz_page[0]
-        #don't create the object yet just determine which element the user selected
+        # don't create the object yet just determine which element the user selected
         #  and pass the required form
             element = request.POST['element']
 
             if element == "text":
                 form = TextElementForm()
                 context = {
-                    'user_quiz': user_quiz, 
+                    'user_quiz': user_quiz,
                     'quiz_page': quiz_page,
                     'form': form,
                 }
-                
+
                 return render(request, 'element_forms/text.html', context=context)
 
             elif element == "CharInput":
-                
+
                 form = CharInputElementForm()
                 context = {
-                    'user_quiz': user_quiz, 
+                    'user_quiz': user_quiz,
                     'quiz_page': quiz_page,
                     'form': form,
                 }
                 return render(request, 'element_forms/CharInput.html', context=context)
-                
+
             elif element == "TextInput":
                 form = TextInputElementForm()
                 context = {
-                    'user_quiz': user_quiz, 
+                    'user_quiz': user_quiz,
                     'quiz_page': quiz_page,
                     'form': form,
                 }
                 return render(request, 'element_forms/TextInput.html', context=context)
-            
+
             elif element == "EmailInput":
                 form = EmailInputElementForm()
                 context = {
-                    'user_quiz': user_quiz, 
+                    'user_quiz': user_quiz,
                     'quiz_page': quiz_page,
                     'form': form,
                 }
@@ -80,7 +85,7 @@ def quiz_page_element_add(request, quiz_id, page_id):
             elif element == "NumberInput":
                 form = NumberInputElementForm()
                 context = {
-                    'user_quiz': user_quiz, 
+                    'user_quiz': user_quiz,
                     'quiz_page': quiz_page,
                     'form': form,
                 }
@@ -89,13 +94,14 @@ def quiz_page_element_add(request, quiz_id, page_id):
             elif element == "MultipleChoice":
                 form = MultipleChoiceElementForm()
                 context = {
-                    'user_quiz': user_quiz, 
+                    'user_quiz': user_quiz,
                     'quiz_page': quiz_page,
                     'form': form,
                 }
                 return render(request, 'element_forms/MultipleChoice.html', context=context)
 
         return HttpResponse("An error occured")
+
 
 @login_required
 def all_element_swatches(request, quiz_id, page_id):
@@ -106,7 +112,7 @@ def all_element_swatches(request, quiz_id, page_id):
         if quiz_page.exists():
 
             context = {
-                'user_quiz': user_quiz[0], 
+                'user_quiz': user_quiz[0],
                 'quiz_page': quiz_page[0],
             }
             return render(request, 'element_forms/all_elements_swatches.html', context=context)
@@ -129,22 +135,24 @@ def add_text_element(request, quiz_id, page_id):
                     quiz_page = quiz_page[0]
                     text_element = form.save(commit=False)
                     try:
-                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('-position')[0].position
+                        position = QuizPageElement.objects.filter(
+                            page=quiz_page).order_by('-position')[0].position
                     except IndexError:
                         position = 0
                     position = position + 1
-                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position)
+                    quiz_page_element = QuizPageElement.objects.create(
+                        page=quiz_page, position=position)
                     text_element.page_element = quiz_page_element
                     text_element.save()
-                    
 
-                    #determine position and create element objects
+                    # determine position and create element objects
                     context = {
-                        'user_quiz': user_quiz[0], 
+                        'user_quiz': user_quiz[0],
                         'quiz_page': quiz_page,
                         'element_added': True,
                     }
                     return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
 
 @login_required
 def add_text_input_element(request, quiz_id, page_id):
@@ -160,20 +168,23 @@ def add_text_input_element(request, quiz_id, page_id):
                     quiz_page = quiz_page[0]
                     element = form.save(commit=False)
                     try:
-                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('-position')[0].position
+                        position = QuizPageElement.objects.filter(
+                            page=quiz_page).order_by('-position')[0].position
                     except IndexError:
                         position = 0
                     position = position + 1
-                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position)
+                    quiz_page_element = QuizPageElement.objects.create(
+                        page=quiz_page, position=position)
                     element.page_element = quiz_page_element
                     element.save()
-                    #determine position and create element objects
+                    # determine position and create element objects
                     context = {
-                        'user_quiz': user_quiz[0], 
+                        'user_quiz': user_quiz[0],
                         'quiz_page': quiz_page,
                         'element_added': True,
                     }
                     return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
 
 @login_required
 def add_char_input_element(request, quiz_id, page_id):
@@ -189,20 +200,23 @@ def add_char_input_element(request, quiz_id, page_id):
                     quiz_page = quiz_page[0]
                     element = form.save(commit=False)
                     try:
-                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('-position')[0].position
+                        position = QuizPageElement.objects.filter(
+                            page=quiz_page).order_by('-position')[0].position
                     except IndexError:
                         position = 0
                     position = position + 1
-                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position)
+                    quiz_page_element = QuizPageElement.objects.create(
+                        page=quiz_page, position=position)
                     element.page_element = quiz_page_element
                     element.save()
-                    #determine position and create element objects
+                    # determine position and create element objects
                     context = {
-                        'user_quiz': user_quiz[0], 
+                        'user_quiz': user_quiz[0],
                         'quiz_page': quiz_page,
                         'element_added': True,
                     }
                     return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
 
 @login_required
 def add_email_input_element(request, quiz_id, page_id):
@@ -218,20 +232,23 @@ def add_email_input_element(request, quiz_id, page_id):
                     quiz_page = quiz_page[0]
                     element = form.save(commit=False)
                     try:
-                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('-position')[0].position
+                        position = QuizPageElement.objects.filter(
+                            page=quiz_page).order_by('-position')[0].position
                     except IndexError:
                         position = 0
                     position = position + 1
-                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position)
+                    quiz_page_element = QuizPageElement.objects.create(
+                        page=quiz_page, position=position)
                     element.page_element = quiz_page_element
                     element.save()
-                    #determine position and create element objects
+                    # determine position and create element objects
                     context = {
-                        'user_quiz': user_quiz[0], 
+                        'user_quiz': user_quiz[0],
                         'quiz_page': quiz_page,
                         'element_added': True,
                     }
                     return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
 
 @login_required
 def add_number_input_element(request, quiz_id, page_id):
@@ -247,20 +264,23 @@ def add_number_input_element(request, quiz_id, page_id):
                     quiz_page = quiz_page[0]
                     element = form.save(commit=False)
                     try:
-                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('-position')[0].position
+                        position = QuizPageElement.objects.filter(
+                            page=quiz_page).order_by('-position')[0].position
                     except IndexError:
                         position = 0
                     position = position + 1
-                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position)
+                    quiz_page_element = QuizPageElement.objects.create(
+                        page=quiz_page, position=position)
                     element.page_element = quiz_page_element
                     element.save()
-                    #determine position and create element objects
+                    # determine position and create element objects
                     context = {
-                        'user_quiz': user_quiz[0], 
+                        'user_quiz': user_quiz[0],
                         'quiz_page': quiz_page,
                         'element_added': True,
                     }
                     return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
 
 @login_required
 def add_multiple_choice_element(request, quiz_id, page_id):
@@ -276,19 +296,22 @@ def add_multiple_choice_element(request, quiz_id, page_id):
                     quiz_page = quiz_page[0]
                     element = form.save(commit=False)
                     try:
-                        position = QuizPageElement.objects.filter(page=quiz_page).order_by('-position')[0].position
+                        position = QuizPageElement.objects.filter(
+                            page=quiz_page).order_by('-position')[0].position
                     except IndexError:
                         position = 0
                     position = position + 1
-                    quiz_page_element = QuizPageElement.objects.create(page=quiz_page, position=position)
+                    quiz_page_element = QuizPageElement.objects.create(
+                        page=quiz_page, position=position)
                     element.page_element = quiz_page_element
                     element.save()
-                    #determine position and create element objects
+                    # determine position and create element objects
                     form = MultipleChoiceChoiceForm()
-                    choices = MultipleChoiceChoice.objects.filter(multiple_choice_element=element)
+                    choices = MultipleChoiceChoice.objects.filter(
+                        multiple_choice_element=element)
 
                     context = {
-                        'user_quiz': user_quiz[0], 
+                        'user_quiz': user_quiz[0],
                         'quiz_page': quiz_page,
                         'element_added': True,
                         'element': element,
@@ -296,8 +319,9 @@ def add_multiple_choice_element(request, quiz_id, page_id):
                         'choices': choices,
                     }
 
-                    #Here render the modal ability to add choices
+                    # Here render the modal ability to add choices
                     return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
+
 
 @login_required
 def move_page_up(request, quiz_id, page_id):
@@ -307,7 +331,8 @@ def move_page_up(request, quiz_id, page_id):
         quiz_page = QuizPage.objects.filter(quiz=user_quiz, id=page_id)
         if quiz_page.exists():
             quiz_page = quiz_page[0]
-            quiz_page_before  = QuizPage.objects.filter(quiz=user_quiz, number__lt=quiz_page.number).order_by('number')
+            quiz_page_before = QuizPage.objects.filter(
+                quiz=user_quiz, number__lt=quiz_page.number).order_by('number')
             if quiz_page_before.exists():
                 quiz_page_before = quiz_page_before.last()
                 quiz_page_number = quiz_page.number
@@ -315,15 +340,14 @@ def move_page_up(request, quiz_id, page_id):
                 quiz_page.save()
                 quiz_page_before.number = quiz_page_number
                 quiz_page_before.save()
-    
-    
+
     quiz_pages = QuizPage.objects.filter(quiz=user_quiz).order_by('number')
     context = {
-            'user_quiz': user_quiz, 
-            'quiz_pages': quiz_pages,
+        'user_quiz': user_quiz,
+        'quiz_pages': quiz_pages,
 
-        }
-    
+    }
+
     return render(request, 'questions_page.html', context=context)
 
 
@@ -335,7 +359,8 @@ def move_page_down(request, quiz_id, page_id):
         quiz_page = QuizPage.objects.filter(quiz=user_quiz, id=page_id)
         if quiz_page.exists():
             quiz_page = quiz_page[0]
-            quiz_page_after  = QuizPage.objects.filter(quiz=user_quiz, number__gt=quiz_page.number).order_by('number')
+            quiz_page_after = QuizPage.objects.filter(
+                quiz=user_quiz, number__gt=quiz_page.number).order_by('number')
             if quiz_page_after.exists():
                 quiz_page_after = quiz_page_after.first()
                 quiz_page_number = quiz_page.number
@@ -343,16 +368,16 @@ def move_page_down(request, quiz_id, page_id):
                 quiz_page.save()
                 quiz_page_after.number = quiz_page_number
                 quiz_page_after.save()
-    
-    
+
     quiz_pages = QuizPage.objects.filter(quiz=user_quiz).order_by('number')
     context = {
-            'user_quiz': user_quiz, 
-            'quiz_pages': quiz_pages,
+        'user_quiz': user_quiz,
+        'quiz_pages': quiz_pages,
 
-        }
-    
+    }
+
     return render(request, 'questions_page.html', context=context)
+
 
 @login_required
 def delete_quiz_page(request, quiz_id, page_id):
@@ -361,37 +386,38 @@ def delete_quiz_page(request, quiz_id, page_id):
         user_quiz = user_quiz[0]
         quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
         quiz_page_number = quiz_page.number
-        quiz_pages = QuizPage.objects.filter(quiz=user_quiz, number__gt=quiz_page_number)
+        quiz_pages = QuizPage.objects.filter(
+            quiz=user_quiz, number__gt=quiz_page_number)
 
         quiz_page.delete()
         for page in quiz_pages:
-            page_number  = page.number
-            page.number = page_number -1
+            page_number = page.number
+            page.number = page_number - 1
             page.save()
-
 
     quiz_pages = QuizPage.objects.filter(quiz=user_quiz).order_by('number')
 
     context = {
-            'user_quiz': user_quiz, 
-            'quiz_pages': quiz_pages,
+        'user_quiz': user_quiz,
+        'quiz_pages': quiz_pages,
 
-        }
-    
+    }
+
     return render(request, 'questions_page.html', context=context)
 
 
 @login_required
 def get_quiz_page_elements(request, quiz_id, page_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
-    
+
     if user_quiz.exists():
         user_quiz = user_quiz[0]
         quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
 
         quiz_page_elements = quiz_page.get_quiz_page_elements()
-        quiz_page_elements = [element.get_element_type() for element in quiz_page_elements]
-        
+        quiz_page_elements = [element.get_element_type()
+                              for element in quiz_page_elements]
+
         elements_count = (len(quiz_page_elements))
 
         context = {
@@ -412,13 +438,16 @@ def get_quiz_page_elements(request, quiz_id, page_id):
 
     return HttpResponse("An error occured")
 
+
 @login_required
 def delete_page_element(request, quiz_id, page_id, element_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
         user_quiz = user_quiz[0]
-        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
-        elements_to_move_up = QuizPageElement.objects.filter(page__quiz=user_quiz, position__gt=quiz_page_element.position).order_by('-position')
+        quiz_page_element = QuizPageElement.objects.get(
+            page__quiz=user_quiz, id=element_id)
+        elements_to_move_up = QuizPageElement.objects.filter(
+            page__quiz=user_quiz, position__gt=quiz_page_element.position).order_by('-position')
         quiz_page_element.delete()
         if elements_to_move_up.exists():
             for i in elements_to_move_up:
@@ -427,16 +456,19 @@ def delete_page_element(request, quiz_id, page_id, element_id):
         return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)
     return HttpResponse("An error occured")
 
+
 @login_required
 def move_element_up(request, quiz_id, page_id, element_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
         user_quiz = user_quiz[0]
-        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
-        quiz_page_element_before = QuizPageElement.objects.filter(page=quiz_page_element.page, position__lt=quiz_page_element.position).order_by('position')
+        quiz_page_element = QuizPageElement.objects.get(
+            page__quiz=user_quiz, id=element_id)
+        quiz_page_element_before = QuizPageElement.objects.filter(
+            page=quiz_page_element.page, position__lt=quiz_page_element.position).order_by('position')
         if quiz_page_element_before.exists():
             quiz_page_element_before = quiz_page_element_before.last()
-            element_number  = quiz_page_element.position
+            element_number = quiz_page_element.position
             element_before_number = quiz_page_element_before.position
 
             quiz_page_element.position = element_before_number
@@ -445,18 +477,20 @@ def move_element_up(request, quiz_id, page_id, element_id):
             quiz_page_element_before.save()
         return redirect('get_quiz_page_elements', quiz_id=quiz_id, page_id=page_id)
     return HttpResponse("An error occured")
-    
+
 
 @login_required
 def move_element_down(request, quiz_id, page_id, element_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
         user_quiz = user_quiz[0]
-        quiz_page_element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
-        quiz_page_element_after = QuizPageElement.objects.filter(page=quiz_page_element.page, position__gt=quiz_page_element.position).order_by('position')
+        quiz_page_element = QuizPageElement.objects.get(
+            page__quiz=user_quiz, id=element_id)
+        quiz_page_element_after = QuizPageElement.objects.filter(
+            page=quiz_page_element.page, position__gt=quiz_page_element.position).order_by('position')
         if quiz_page_element_after.exists():
             quiz_page_element_after = quiz_page_element_after.first()
-            element_number  = quiz_page_element.position
+            element_number = quiz_page_element.position
             element_before_number = quiz_page_element_after.position
 
             quiz_page_element.position = element_before_number
@@ -467,33 +501,32 @@ def move_element_down(request, quiz_id, page_id, element_id):
     return HttpResponse("An error occured")
 
 
-
 @login_required
 def get_multiple_choice_choices(request, quiz_id, page_id, element_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
         user_quiz = user_quiz[0]
 
-        element = MultipleChoiceElement.objects.get(page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
-        choices = MultipleChoiceChoice.objects.filter(multiple_choice_element=element)
+        element = MultipleChoiceElement.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+        choices = MultipleChoiceChoice.objects.filter(
+            multiple_choice_element=element)
         form = MultipleChoiceChoiceForm()
         quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
 
         context = {
-                        'user_quiz': user_quiz, 
-                        'quiz_page': quiz_page,
-                        'element_added': False,
-                        'element': element,
-                        'form': form,
-                        'choices': choices,
-                    }
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
 
-                    #Here render the modal ability to add choices
+        # Here render the modal ability to add choices
         return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
 
-
     return HttpResponse("An error occured")
-
 
 
 @login_required
@@ -501,23 +534,26 @@ def add_choice_to_multiple_choice_element(request, quiz_id, page_id, element_id)
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
         user_quiz = user_quiz[0]
-        element = MultipleChoiceElement.objects.get(page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+        element = MultipleChoiceElement.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
 
         choice_name = request.POST['choice_name']
 
-        choice = MultipleChoiceChoice.objects.create(multiple_choice_element=element, choice=choice_name)
-        choices = MultipleChoiceChoice.objects.filter(multiple_choice_element=element)
+        choice = MultipleChoiceChoice.objects.create(
+            multiple_choice_element=element, choice=choice_name)
+        choices = MultipleChoiceChoice.objects.filter(
+            multiple_choice_element=element)
         form = MultipleChoiceChoiceForm()
         quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
         context = {
-                        'user_quiz': user_quiz, 
-                        'quiz_page': quiz_page,
-                        'element_added': False,
-                        'element': element,
-                        'form': form,
-                        'choices': choices,
-                    }
-                    #Here render the modal ability to add choices
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
         return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
 
 
@@ -526,23 +562,26 @@ def delete_choice_multiple_choice_element(request, quiz_id, page_id, element_id,
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
         user_quiz = user_quiz[0]
-        element = MultipleChoiceElement.objects.get(page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+        element = MultipleChoiceElement.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
 
-
-        choice = MultipleChoiceChoice.objects.get(multiple_choice_element=element, id=choice_id).delete()
-        choices = MultipleChoiceChoice.objects.filter(multiple_choice_element=element)
+        choice = MultipleChoiceChoice.objects.get(
+            multiple_choice_element=element, id=choice_id).delete()
+        choices = MultipleChoiceChoice.objects.filter(
+            multiple_choice_element=element)
         form = MultipleChoiceChoiceForm()
         quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
         context = {
-                        'user_quiz': user_quiz, 
-                        'quiz_page': quiz_page,
-                        'element_added': False,
-                        'element': element,
-                        'form': form,
-                        'choices': choices,
-                    }
-                    #Here render the modal ability to add choices
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
         return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
+
 
 @login_required
 def edit_element_title(request, quiz_id, page_id, element_id):
@@ -550,17 +589,20 @@ def edit_element_title(request, quiz_id, page_id, element_id):
     if user_quiz.exists():
         user_quiz = user_quiz[0]
         quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
-        
-        element = QuizPageElement.objects.get(id=element_id, page__quiz=user_quiz).get_element_type()
-        element_type =  QuizPageElement.objects.get(id=element_id, page__quiz=user_quiz).get_element_type()['type']
+
+        element = QuizPageElement.objects.get(
+            id=element_id, page__quiz=user_quiz).get_element_type()
+        element_type = QuizPageElement.objects.get(
+            id=element_id, page__quiz=user_quiz).get_element_type()['type']
         element = element['element']
 
         element.title = request.POST['title']
         element.save()
 
         quiz_page_elements = quiz_page.get_quiz_page_elements()
-        quiz_page_elements = [element.get_element_type() for element in quiz_page_elements]
-        
+        quiz_page_elements = [element.get_element_type()
+                              for element in quiz_page_elements]
+
         elements_count = (len(quiz_page_elements))
         context = {
             'user_quiz': user_quiz,
@@ -569,18 +611,64 @@ def edit_element_title(request, quiz_id, page_id, element_id):
             'elements_count': elements_count,
         }
 
-        if not element_type  == "Multiple choice question":
+        if not element_type == "Multiple choice question":
             print("NOT MULTIPLE CHOICE")
-            return render(request, 'quiz_page_elements.html', context=context) 
+            return render(request, 'quiz_page_elements.html', context=context)
         else:
             context['element'] = element
-            context['choices'] = MultipleChoiceChoice.objects.filter(multiple_choice_element=element)
+            context['choices'] = MultipleChoiceChoice.objects.filter(
+                multiple_choice_element=element)
             context['edit'] = True
-            return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context) 
+            return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
 
 
+@login_required
+def upload_quiz_logo(request, quiz_id):
+    print(request)
+    print(request.POST)
+    images = request.FILES.getlist('logo')
 
+    for image in images:
+        if image.size < 20000000 and image.size > 100:
+            file_name = image.name
+            file_ext = os.path.splitext(file_name)[1]
+            if file_ext == '.jpeg':
+                file_ext = '.jpg'
 
+            image.name = f"{uuid4()}{file_ext}"
+            user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)[0]
+            user_quiz.logo = image
+            user_quiz.save()
+
+    context = {
+        'user_quiz': user_quiz
+    }
+
+    return render(request, 'element_forms/logo_upload_form.html', context=context)
+
+@login_required
+def delete_logo_from_quiz(request, quiz_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)[0]
+    user_quiz.logo = None
+    user_quiz.save()
+    
+    context = {
+        'user_quiz': user_quiz
+    }
+
+    return render(request, 'element_forms/logo_upload_form.html', context=context)
+
+@login_required
+def update_quiz_analytic_scripts(request, quiz_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)[0]
+    user_quiz.analytics_scripts = request.POST['analytics_script']
+    user_quiz.save()
+    context = {
+        'user_quiz': user_quiz,
+        'added': True,
+    }
+
+    return render(request, 'element_forms/analytics_script_form.html', context=context)
 
 
 

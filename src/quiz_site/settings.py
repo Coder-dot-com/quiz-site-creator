@@ -14,6 +14,7 @@ from pathlib import Path
 from decouple import config
 
 
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 #set base_dir proper;y
@@ -23,7 +24,6 @@ STATIC_ROOT = BASE_DIR /'static'
 STATICFILES_DIRS = [
     'quiz_site/static',
 ]
-
 
 #S3 config
 DEFAULT_FILE_STORAGE = 'storages.backends.s3boto3.S3Boto3Storage'
@@ -74,12 +74,17 @@ if str(BASE_DIR) == "/APP/src":
     CELERY_BROKER_URL = 'redis://redis:6379'
     CELERY_RESULT_BACKEND = 'redis://redis:6379'
 
+
+
+
     STRIPE_SECRET_KEY = config('STRIPE_SECRET_KEY')
     STRIPE_PUBLIC_KEY = config('STRIPE_PUBLIC_KEY')
     STRIPE_ENDPOINT_SECRET = config('STRIPE_ENDPOINT')
 
+
     SITE_ID = int(config('PRODUCTION_SITE_ID'))
     CURRENT_ENVIRONMENT = "production"
+
 
     DATABASES = {
     "default": {
@@ -89,24 +94,31 @@ if str(BASE_DIR) == "/APP/src":
         "PASSWORD": config("SQL_PASSWORD"),
         "HOST": config("SQL_HOST"),
         "PORT": config("SQL_PORT"),
-        # 'DISABLE_SERVER_SIDE_CURSORS': True,   # <------ Only for PostgreSQL
     }
 }
 
-    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/static/'
+    STATIC_URL = f'https://{AWS_S3_CUSTOM_DOMAIN}/'
     STATICFILES_STORAGE = 'storages.backends.s3boto3.S3StaticStorage'
 
+
+
+
+  
 else:
     DEBUG = True       
 
     # Local
-    CELERY_BROKER_URL = 'redis://127.0.0.1:6379'
-    CELERY_RESULT_BACKEND = 'redis://127.0.0.1:6379'
+    CELERY_BROKER_URL = 'redis://localhost:6379'
+    CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
+
 
     STRIPE_SECRET_KEY = config('TEST_STRIPE_SECRET_KEY')
     STRIPE_PUBLIC_KEY = config('TEST_STRIPE_PUBLIC_KEY')
-    STRIPE_ENDPOINT_SECRET = config('STRIPE_ENDPOINT_SECRET')
+    STRIPE_ENDPOINT_SECRET = config('STRIPE_ENDPOINT')
     
+
+
     SITE_ID = int(config('LOCAL_SITE_ID'))
     CURRENT_ENVIRONMENT = "local"
     
@@ -121,7 +133,6 @@ else:
     STATIC_URL = 'static/'
 
 
-
 # Email SMTP
 
 EMAIL_HOST = config('EMAIL_HOST')
@@ -132,7 +143,6 @@ EMAIL_USE_TLS = True
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -300,22 +310,3 @@ EMAIL_HOST_PASSWORD = config('EMAIL_SMTP_PASS')
 EMAIL_USE_TLS = True
 
 
-
-
-CKEDITOR_CONFIGS = {
-
-'default': {
-    'toolbar': [
-            ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
-            # ['Link', 'Unlink', 'Anchor'],
-            # ['Image', 'Flash', 'Table', 'HorizontalRule'],
-            ['TextColor', 'BGColor'],
-            ['Smiley', 'SpecialChar'], ['Source'],
-            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
-            ['NumberedList','BulletedList'],
-            ['Indent','Outdent'],
-            ], #You can change this based on your requirements.
-    'width': 'auto',
-
-        },
-    }

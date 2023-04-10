@@ -1,16 +1,11 @@
 To do:
  
-    -make site more responsive
-
 
 -quiz settings
-    -email results automatically per quiz (settings)
-    -Basic analytics
-        -fb pixel code js code
-        -google analytics js code
-        -UTM tracking
-    -design/logo
-    -test everything and plan more features before launch
+
+    -   render logo in quiz and also analytic scripts
+
+ 
 
     -add in other elements:
         -Add image to page (AWS resize) 2000px (enter percentage of width to cover, and also center )
@@ -22,43 +17,38 @@ To do:
         -1-10 (use single choice? and auto create)
         - 1-5 stars( use single choice)
 
+       -test everything and plan more features before launch
+
         
-        later:
-        -convert views to class based views and reduce duplicated code for add/edit etc...
+    -Create landing pages
+    -Home page
+    
+    ================================================
+    
+    later:
+        -change bg color quiz and 
 
-
-        -Others/plan
-
-
+        -email results automatically per quiz (settings)
 
         -duplicate quiz  (started)
 
+         -add links to header
 
 
-     -add qrcode scan btn link(modal with image that has a print button), 
+        -add qrcode scan btn link(modal with image that has a print button), 
         structure
 
-    -add links to header
 
 -Create layout/pages with content to display and use as mockups
--then use this is asset for prepurchases
+-then use this is asset for purchases/landing page
 
--Workthrough and create all functionality and then deploy
+-deploy
 
--Move footer priv policy, copyright to sidebar
--Then iterate
-
-Improve UserSession display, make sure/ensure pixel is being added to page
+Improve UserSession display, make sure/ensure pixel is being added to page (copy from allmed)
 
 Later:
     -Change blog link header to dropdown with 3 posts and link to all posts
 
-    -use old order to prefill values if user goes back
-    -don't create new order but update old if user goes back
-    -Handle quiz password and signups
-        -add success copy field to product?
-
-    -add hammerjs for mobile slider
 
 -ensure all susbcriptions/payments   have email passed to stripe 
 use metadata
@@ -67,17 +57,16 @@ use metadata
             -Guarantee
             -Reviews
             -Customer video reviews
-            -Before/After images
             -FAQ
-            -Exit intent
+            -Exit intent popup
 
 -got through UX, design, CRO and improve again
 
 
 To do blog:
-            -Improve intro
+            -Improve intro, create new template for blogpage
             
-            -Then add email sign up etc...
+            -Then add email sign up etc... (copy from diet site)
             -email capture?
                 -Sidebar of blog
                 -home page
@@ -85,20 +74,16 @@ To do blog:
             
         -Imrpove design. go through home site
             
-        -update header design 
-        add link to blog (and dropdown), remove login/logout/dashboard/register
-
 
 ===Todo Blog Later ====
 -autogenerate posts
 
 ===User session====
-Update session to user email object and delete email field
-(looks to just be conv tracking that uses this field)
+Update conv tracking (copy from diet site)
 
 
 ===== Deployment scripts ========
--finish flatten migrations script
+-finish flatten migrations script (before deploying)
 
 
 ==== Quiz ========

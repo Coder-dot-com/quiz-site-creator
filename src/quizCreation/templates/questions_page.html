@@ -73,10 +73,10 @@
                                     </button>
                                 </div>
                                 <div class="modal-body">
-                                    <form action="{% url 'quiz_page_add' user_quiz.id %}" 
-                                     method="POST"
-                                    >
-                                    {% csrf_token %}
+                                   {% include 'element_forms/logo_upload_form.html' %}
+                                   {% include 'element_forms/analytics_script_form.html' %}
+
+
                                     <div class="form-group">
                                         <label class="text-black font-w600">Enter a name for your quiz page<span class="required">*</span></label>
                                         <input type="text" class="form-control" name="name" required maxlength='300' placeholder="Enter name here">
@@ -87,7 +87,6 @@
                                         <button type="button" class="btn btn-danger light" data-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-primary site-button">Continue</button>
                                     </div>
-                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -97,7 +96,7 @@
                     <div class="tab-pane active show fade" id="Unifinshed">
                         {% for page in quiz_pages %}
                        
-                        <div style="background-color:rgba(0, 125, 136, 0.1)" class="d-flex border-bottom flex-wrap py-3 list-row align-items-center mb-2">
+                        <div style="background-color:rgba(227, 227, 204, 0.3)" class="d-flex border-bottom flex-wrap py-3 list-row align-items-center mb-2">
                             
                             <div class="col-xl-5 col-xxl-8 col-lg-6 col-sm-8 d-flex align-items-center">
                                 <div class="list-icon mr-3 mb-3">

@@ -10,6 +10,8 @@ class UserQuiz(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=300)
     time_created = models.DateTimeField(auto_now_add=True)
+    logo = models.ImageField(upload_to='user_quiz_logos/', null=True, blank=True)
+    analytics_scripts = models.TextField(max_length=10000, null=True, blank=True)
 
     def first_quiz_page(self):
         return QuizPage.objects.filter(quiz=self).order_by('number').first()
@@ -82,7 +84,7 @@ class TextInputElement(models.Model):
 class EmailInputElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
-
+    use_as_email_for_conversion_tracking = models.BooleanField(default=False)  
 class NumberInputElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
