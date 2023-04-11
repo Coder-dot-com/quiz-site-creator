@@ -67,6 +67,9 @@ class QuizPageElement(models.Model):
         multiple_choice = MultipleChoiceElement.objects.filter(page_element=self)
         if multiple_choice.exists():
             return {'type': 'Multiple choice question', 'element': multiple_choice[0]}
+        single_choice = SingleChoiceElement.objects.filter(page_element=self)
+        if single_choice.exists():
+            return {'type': 'Single choice question', 'element': single_choice[0]}
 
 
 class TextElement(models.Model):

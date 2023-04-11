@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h5 class="modal-title">{% if edit %}Edit {% else %} Add {% endif %}multiple choice field</h5>
+    <h5 class="modal-title">{% if edit %}Edit {% else %} Add {% endif %}single choice field</h5>
     <button type="button" class="close" data-dismiss="modal"><span>×</span>
     </button>
 </div>
@@ -7,11 +7,11 @@
     <form  
 
     {% if edit %}
-    hx-post={% url 'edit_multiple_choice_element' user_quiz.id quiz_page.id quiz_page_element.id %}
+    hx-post={% url 'edit_single_choice_element' user_quiz.id quiz_page.id quiz_page_element.id %}
     hx-target='#modalContent'
     hx-swap=outerHTML
     {% else %}
-    hx-post={% url 'add_multiple_choice_element' user_quiz.id quiz_page.id %}
+    hx-post={% url 'add_single_choice_element' user_quiz.id quiz_page.id %}
     hx-target='#modalContent'
     hx-swap=outerHTML
     {% endif %}

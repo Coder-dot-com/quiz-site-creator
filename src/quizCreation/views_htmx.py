@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
-from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement
-from .forms import TextElementForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm
+from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement, SingleChoiceChoice, SingleChoiceElement
+from .forms import TextElementForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm, SingleChoiceElementForm, SingleChoiceChoiceForm
 from django.urls import reverse
 import os
 from uuid import uuid4
@@ -99,6 +99,15 @@ def quiz_page_element_add(request, quiz_id, page_id):
                     'form': form,
                 }
                 return render(request, 'element_forms/MultipleChoice.html', context=context)
+            
+            elif element == "SingleChoice":
+                form = SingleChoiceElementForm()
+                context = {
+                    'user_quiz': user_quiz,
+                    'quiz_page': quiz_page,
+                    'form': form,
+                }
+                return render(request, 'element_forms/SingleChoice.html', context=context)
 
         return HttpResponse("An error occured")
 
@@ -323,6 +332,47 @@ def add_multiple_choice_element(request, quiz_id, page_id):
                     return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
 
 
+
+@login_required
+def add_single_choice_element(request, quiz_id, page_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
+        if quiz_page.exists():
+            if request.method == 'POST':
+                # Bind data from request.POST into a PostForm
+                form = SingleChoiceElementForm(request.POST)
+                # If data is valid, proceeds to create a new post
+                if form.is_valid():
+                    quiz_page = quiz_page[0]
+                    element = form.save(commit=False)
+                    try:
+                        position = QuizPageElement.objects.filter(
+                            page=quiz_page).order_by('-position')[0].position
+                    except IndexError:
+                        position = 0
+                    position = position + 1
+                    quiz_page_element = QuizPageElement.objects.create(
+                        page=quiz_page, position=position)
+                    element.page_element = quiz_page_element
+                    element.save()
+                    # determine position and create element objects
+                    form = SingleChoiceChoiceForm()
+                    choices = SingleChoiceChoice.objects.filter(
+                        single_choice_element=element)
+
+                    context = {
+                        'user_quiz': user_quiz[0],
+                        'quiz_page': quiz_page,
+                        'element_added': True,
+                        'element': element,
+                        'form': form,
+                        'choices': choices,
+                    }
+
+                    # Here render the modal ability to add choices
+                    return render(request, 'element_forms/AddChoiceSingleChoiceModal.html', context=context)
+
 @login_required
 def move_page_up(request, quiz_id, page_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
@@ -528,6 +578,33 @@ def add_choice_to_multiple_choice_element(request, quiz_id, page_id, element_id)
         # Here render the modal ability to add choices
         return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
 
+@login_required
+def add_choice_to_single_choice_element(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        element = SingleChoiceElement.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+
+        choice_name = request.POST['choice_name']
+
+        choice = SingleChoiceChoice.objects.create(
+            single_choice_element=element, choice=choice_name)
+        choices = SingleChoiceChoice.objects.filter(
+            single_choice_element=element)
+        form = SingleChoiceChoiceForm()
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
+        return render(request, 'element_forms/AddChoiceSingleChoiceModal.html', context=context)
+
 
 @login_required
 def delete_choice_multiple_choice_element(request, quiz_id, page_id, element_id, choice_id):
@@ -553,6 +630,31 @@ def delete_choice_multiple_choice_element(request, quiz_id, page_id, element_id,
         }
         # Here render the modal ability to add choices
         return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
+
+@login_required
+def delete_choice_single_choice_element(request, quiz_id, page_id, element_id, choice_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        element = SingleChoiceElement.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+
+        choice = SingleChoiceChoice.objects.get(
+            single_choice_element=element, id=choice_id).delete()
+        choices = SingleChoiceChoice.objects.filter(
+            single_choice_element=element)
+        form = SingleChoiceChoiceForm()
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
+        return render(request, 'element_forms/AddChoiceSingleChoiceModal.html', context=context)
 
 
 
@@ -587,10 +689,7 @@ def edit_element_title(request, quiz_id, page_id, element_id):
             'elements_count': elements_count,
         }
 
-        if not element_type == "Multiple choice question":
-            print("NOT MULTIPLE CHOICE")
-            return render(request, 'quiz_page_elements.html', context=context)
-        else:
+        if  element_type == "Multiple choice question":
             context['element'] = element
             context['choices'] = MultipleChoiceChoice.objects.filter(
                 multiple_choice_element=element)
@@ -598,6 +697,18 @@ def edit_element_title(request, quiz_id, page_id, element_id):
             return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
 
 
+        elif element_type == "Single choice question":
+            context['element'] = element
+            context['choices'] = SingleChoiceChoice.objects.filter(
+                single_choice_element=element)
+            context['edit'] = True
+            return render(request, 'element_forms/AddChoiceSingleChoiceModal.html', context=context)
+
+
+        else:
+            print("NOT MULTIPLE CHOICE")
+            return render(request, 'quiz_page_elements.html', context=context)
+  
 @login_required
 def upload_quiz_logo(request, quiz_id):
     print(request)

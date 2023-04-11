@@ -19,7 +19,12 @@ hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
     <div class="mx-auto w-100 border border-dark border-1 p-4 text-center"  style="border-style:dashed !important">
             <div class="">
                 <button type="button" class="btn btn-primary site-button mb-2" 
-                data-toggle="modal" data-target="#exampleModalCenter">
+                data-toggle="modal" data-target="#exampleModalCenter"
+                hx-target="#modalContent"
+                hx-swap=outerHTML
+                hx-get="{% url 'all_element_swatches' user_quiz.id quiz_page.id  %}"
+                
+                >
                     Select an element to add
                     <i class="fa fa-plus"></i>        
                 </button> 
