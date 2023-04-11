@@ -7,7 +7,7 @@
           hx-swap=outerHTML
           hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
           hx-encoding="multipart/form-data"
-          hx-push-url="{{request.url}}?page={{quiz_page.number|add:1}}"
+          {% comment %} hx-push-url="{{request.url}}?page={{quiz_page.number|add:1}}" {% endcomment %}
       {% else %}
           action={% url 'complete_quiz'  quiz_page.quiz.id quiz_page.number response_id %}
           method=post
@@ -42,7 +42,7 @@
             {% endif %}
 
             <label class="text-label" for="">
-                {{element.get_element_type.element.title}}
+                {{element.get_element_type.element.title}} {{element.get_element_type.type}}
             </label>
             {{element.id}}
 
@@ -59,6 +59,9 @@
                 {% include 'take_quiz_elements/number_input_element.html' %}
             {% elif element.get_element_type.type == 'Multiple choice question'  %}
                 {% include 'take_quiz_elements/multiple_choice_input_element.html' %}
+            {% elif element.get_element_type.type == 'Single choice question'  %}
+                {% include 'take_quiz_elements/single_choice_input_element.html' %}
+                                
             {% endif %}
 
         {% endfor %}

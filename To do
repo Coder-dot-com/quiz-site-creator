@@ -4,12 +4,13 @@ To do:
 
     -add in other elements:
     
-        -Single choice
 
         -Add image to page (AWS resize to max 2000px otherwise just clean) (enter percentage of width to cover, and also center )
         -User image upload (same size just clean)
 
         -edit text element
+
+        -Add icons to element swatches
        -test everything and plan more features before launch
         
         -Deploy
