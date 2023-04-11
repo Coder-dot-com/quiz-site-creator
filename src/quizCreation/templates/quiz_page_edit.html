@@ -4,7 +4,7 @@
 {% block content %}
 
 <a href="{% url 'edit_quiz' quiz_page.quiz.id %}">
-    <p class="fs-13 mb-3 text-black">< Editing quiz page: {{quiz_page.title}}</p>
+    <p class="mb-3">< Editing quiz page: {{quiz_page.title}}</p>
 </a>
 
 
@@ -16,7 +16,7 @@ hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
 </div>
 
     <div class="row px-5">
-    <div class="mx-auto w-100 border border-dark p-4 text-center"  style="border-style:dashed !important">
+    <div class="mx-auto w-100 border border-dark border-1 p-4 text-center"  style="border-style:dashed !important">
             <div class="">
                 <button type="button" class="btn btn-primary site-button mb-2" 
                 data-toggle="modal" data-target="#exampleModalCenter">

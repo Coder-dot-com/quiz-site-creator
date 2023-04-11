@@ -1,7 +1,7 @@
 <div id="page_elements">
     {% if elements_count > 1 %}
     <div class="row px-5">
-        <div class="mx-auto w-100 border border-dark p-4 text-center"  style="border-style:dashed !important">
+        <div class="mx-auto w-100 border border-dark border-1 p-4 text-center"  style="border-style:dashed !important">
                 <div class="">
                     <button type="button" class="btn btn-primary site-button mb-2" 
                     data-toggle="modal" data-target="#exampleModalCenter">
@@ -17,11 +17,16 @@
 
     
     <div class="row px-5 my-3">
-        <i class="py-1">
-            {{element.element.page_element.position}}. {{element.type}}
-        </i> 
+        <div class="py-1 w-100 p-3" style="background-color:rgba(227, 227, 204, 0.3)">
+            <strong>
+
+                {{element.element.page_element.position}}. 
+            </strong>
+            
+            {{element.type}}
+        </div> 
         
-        <div class="mx-auto w-100 border border-dark p-2"  style="border-style:dashed !important">
+        <div class="mx-auto w-100 border border-1 border-dark p-2"  style="border-style:dashed !important">
             <a type="button" class="btn btn-primary site-button float-right text-right" data-toggle="modal" data-target="#editModal_{{element.element.id}}">
 
                 <span type="button" class="">
@@ -88,7 +93,7 @@
 
 
             <div class="p-4 d-flex align-items-center ">
-                <div class="list-icon mr-3 mb-3">
+                <div class="list-icon mr-3 border border-1 border-dark rounded ">
                     <p type="button" 
                         hx-get={% url 'move_element_up' user_quiz.id quiz_page.id element.element.page_element.id %}
                         hx-target='#page_elements'
@@ -103,11 +108,12 @@
 
                 <br>
                 {% autoescape off %}
-                <div {% if element.type == "Text element" %} class="w-100" {% endif %}>
+                <div {% if element.type == "Text element" %} class="w-100 my-5" {% endif %}>
                     {{element.element.content}}
                 </div>
                 {% endautoescape %}
                 <div>
+                    <br><br>
                     {% if element.type == 'Text input element' or  element.type == 'Char input element' or  element.type == 'Email input element' or element.type == 'Number input element' or element.type == 'Multiple choice question' %}
                     Question title:      
                     <ul class="list-group list-group-horizontal-sm">

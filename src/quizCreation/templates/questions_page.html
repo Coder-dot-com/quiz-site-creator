@@ -5,7 +5,7 @@
 <div class="row d-block col-lg-9 mx-auto" id="pagesList">
     <a class="my-5" href="{% url 'dashboard_home' %}">
 
-        <p class="fs-13 mb-0 text-black">< Editing quiz: {{user_quiz.name}}</p>
+        <p class="">< Editing quiz: {{user_quiz.name}}</p>
     </a>
         <div class="col-xl-12 my-3">
             <div class="card plan-list">
@@ -170,7 +170,7 @@
                                             </small>
                                         {% endfor %}
                                         {% else %}
-                                        No page elements added. Add an element
+                                        No page elements added. Click edit to add an element!
                                         
                                         {% endif %}
                                         
