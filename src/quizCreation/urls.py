@@ -40,7 +40,9 @@ urlpatterns = [
     path('add_choice_to_single_choice_element/<quiz_id>/<page_id>/<element_id>', views_htmx.add_choice_to_single_choice_element, name="add_choice_to_single_choice_element"),
 
 
+    path('get_text_element_edit_form/<quiz_id>/<element_id>', views_htmx.get_text_element_edit_form, name="get_text_element_edit_form"),
 
+    path('edit_text_input_element/<quiz_id>/<element_id>', views_htmx.edit_text_input_element, name="edit_text_input_element"),
 
 
 

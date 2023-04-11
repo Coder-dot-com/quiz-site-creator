@@ -32,12 +32,14 @@
         </div> 
         
         <div class="mx-auto w-100 border border-1 border-dark p-2"  style="border-style:dashed !important">
+            {% if not element.type == "Text element" %}
+            
             <a type="button" class="btn btn-primary site-button float-right text-right" data-toggle="modal" data-target="#editModal_{{element.element.id}}">
-
                 <span type="button" class="">
                     Edit <i class="fa fa-edit"></i>
                 </span>
             </a>
+            {% endif %}
 
             <div class="modal fade" id="editModal_{{element.element.id}}">
                 <div class="modal-dialog" role="document">
@@ -69,11 +71,29 @@
 
                                     Editing {{element.type|lower}}: {{element.element.title}}
                                 </span>
-                                <Input
-                                name="title"
-                                type="text" value="{{element.element.title}}" placeholder="Enter a new title here"
-                                class="form-control border-dark text-dark mx-auto w-75 mt-4" required maxlength="1000">
-                            </div>
+
+                            {% if element.type == "Text element" %}
+                            
+                                <div 
+                                hx-trigger="load"
+                                hx-get={% url 'get_text_element_edit_form' user_quiz.id element.element.page_element.id %}
+                                hx-target="#editModalContent{{element.element.id}}"
+                                hx-swap="innerHTML"
+                                
+                                
+                                ></div>
+                       
+                            
+                            {% else %}
+
+
+                            
+                            <Input
+                            name="title"
+                            type="text" value="{{element.element.title}}" placeholder="Enter a new title here"
+                            class="form-control border-dark text-dark mx-auto w-75 mt-4" required maxlength="1000">
+                            {% endif %}
+                        </div>
                             
 
                             

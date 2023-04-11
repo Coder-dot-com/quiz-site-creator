@@ -2,20 +2,9 @@ To do:
 
 -quiz settings
 
-    -add in other elements:
-    
-        -handle single choice post
-        -Add icons to element swatches
 
-        -edit text element
 
         -subscriptions
-        
-        later:
-
-            -Add image to page (AWS resize to max 2000px otherwise just clean) (enter percentage of width to cover, and also center )
-            -User image upload (same size just clean)
-
 
        -test everything and plan more features before launch
         
@@ -25,6 +14,16 @@ To do:
         -Ready with some audiences to test emails
 
         -Complete job coding project
+
+
+        later:
+
+            -Add image to page (AWS resize to max 2000px otherwise just clean) (enter percentage of width to cover, and also center )
+            -User image upload (same size just clean)
+            -Add icons to element swatches
+
+             -edit text element
+
         
         -When first creating quiz select quiz goal (use swatches with modal)
         

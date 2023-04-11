@@ -484,6 +484,8 @@ def get_quiz_page_elements(request, quiz_id, page_id):
         except:
             pass
 
+        
+
         return render(request, 'quiz_page_elements.html', context=context)
 
     return HttpResponse("An error occured")
@@ -707,6 +709,7 @@ def edit_element_title(request, quiz_id, page_id, element_id):
 
         else:
             print("NOT MULTIPLE CHOICE")
+            print(element_type)
             return render(request, 'quiz_page_elements.html', context=context)
   
 @login_required
@@ -757,8 +760,24 @@ def update_quiz_analytic_scripts(request, quiz_id):
 
     return render(request, 'quiz_settings/analytics_script_form.html', context=context)
 
+@login_required
+def get_text_element_edit_form(request, quiz_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)[0]
+    element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
+
+    context = {
+        'edit': True,
+        'user_quiz': user_quiz,
+        'quiz_page': element.page,
+        'quiz_page_element': element,
+        'form': TextElementForm(element.get_element_type()['element'], prefix=uuid4())
+    }
+
+    return render(request, 'element_forms/TextInput.html', context=context)
 
 
+def edit_text_input_element(request):
+    return
 # @login_required
 # def duplicate_quiz(request, quiz_id):
 #     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)

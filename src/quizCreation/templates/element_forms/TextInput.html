@@ -7,7 +7,7 @@
     <form  
 
     {% if edit %}
-    hx-post={% url 'edit_text_input_element' user_quiz.id quiz_page.id quiz_page_element.id %}
+    hx-post={% url 'edit_text_input_element' user_quiz.id  quiz_page_element.id %}
     hx-target='#page_elements'
     hx-swap=outerHTML
     {% else %}
