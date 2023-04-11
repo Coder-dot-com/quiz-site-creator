@@ -38,9 +38,7 @@
                 <div class="info ">
                     <h4 class=" "><p class="">{{quiz.name}}</p></h4>
 
-                    <a class="mx-1   " href="{% url 'view_quiz_results' quiz.id %}">
-                        View responses</i>
-                    </a> |
+                
                     
                                             <a    href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}" target="_blank"
                                             type="button" class="mx-1"  >Open quiz in new tab</a> |
@@ -80,10 +78,17 @@
 
             </div>
             <br>
+            <div class="g-4 text-right">
 
-            <a class="btn btn-primary site-button " href="{% url 'edit_quiz' quiz.id %}">
-                <div class="float-right">Manage <i class="fa fa-edit"></i></div>
-            </a>
+                <a class="btn btn-primary site-button my-1" href="{% url 'edit_quiz' quiz.id %}">
+                    <div class="float-right">Manage <i class="fa fa-edit"></i></div>
+                </a>
+
+                <a class="btn btn-primary site-secondary-button my-1 " href="{% url 'view_quiz_results' quiz.id %}">
+                    <div class="float-right">View responses
+                    <i class="fa fa-eye"></i></div>                
+                </a>
+            </div>
             <br>
             <br>
             

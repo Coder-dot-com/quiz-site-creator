@@ -6,6 +6,7 @@
         <option value="EmailInput" id="option_EmailInput"></option>
         <option value="NumberInput" id="option_NumberInput"></option>
         <option value="MultipleChoice" id="option_MultipleChoice"></option>
+        <option value="SingleChoice" id="option_SingleChoice"></option>
 
 
 </select>
@@ -61,6 +62,14 @@
             </div>
         </div>  
         
+        
+        <div role="button" onclick="SelectDeselect(this);" id="card_SingleChoice"
+        class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=SingleChoice style="min-width:8rem;border:3px solid white;">
+        <div class="text-center py-4">
+            <h4 class="card-title">Single Choice</h4>
+                <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+        </div>
+    </div>  
 </div>
 
 <script>

@@ -502,34 +502,6 @@ def move_element_down(request, quiz_id, page_id, element_id):
 
 
 @login_required
-def get_multiple_choice_choices(request, quiz_id, page_id, element_id):
-    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
-    if user_quiz.exists():
-        user_quiz = user_quiz[0]
-
-        element = MultipleChoiceElement.objects.get(
-            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
-        choices = MultipleChoiceChoice.objects.filter(
-            multiple_choice_element=element)
-        form = MultipleChoiceChoiceForm()
-        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
-
-        context = {
-            'user_quiz': user_quiz,
-            'quiz_page': quiz_page,
-            'element_added': False,
-            'element': element,
-            'form': form,
-            'choices': choices,
-        }
-
-        # Here render the modal ability to add choices
-        return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
-
-    return HttpResponse("An error occured")
-
-
-@login_required
 def add_choice_to_multiple_choice_element(request, quiz_id, page_id, element_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
@@ -581,6 +553,10 @@ def delete_choice_multiple_choice_element(request, quiz_id, page_id, element_id,
         }
         # Here render the modal ability to add choices
         return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
+
+
+
+
 
 
 @login_required
@@ -644,7 +620,7 @@ def upload_quiz_logo(request, quiz_id):
         'user_quiz': user_quiz
     }
 
-    return render(request, 'element_forms/logo_upload_form.html', context=context)
+    return render(request, 'quiz_settings/logo_upload_form.html', context=context)
 
 @login_required
 def delete_logo_from_quiz(request, quiz_id):
@@ -656,7 +632,7 @@ def delete_logo_from_quiz(request, quiz_id):
         'user_quiz': user_quiz
     }
 
-    return render(request, 'element_forms/logo_upload_form.html', context=context)
+    return render(request, 'quiz_settings/logo_upload_form.html', context=context)
 
 @login_required
 def update_quiz_analytic_scripts(request, quiz_id):
@@ -668,7 +644,7 @@ def update_quiz_analytic_scripts(request, quiz_id):
         'added': True,
     }
 
-    return render(request, 'element_forms/analytics_script_form.html', context=context)
+    return render(request, 'quiz_settings/analytics_script_form.html', context=context)
 
 
 

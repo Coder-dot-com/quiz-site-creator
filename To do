@@ -1,30 +1,58 @@
 To do:
- 
 
 -quiz settings
 
-    -   render logo in quiz and also analytic scripts
-
- 
-
     -add in other elements:
-        -Add image to page (AWS resize) 2000px (enter percentage of width to cover, and also center )
     
+        -Single choice
+
+        -Add image to page (AWS resize to max 2000px otherwise just clean) (enter percentage of width to cover, and also center )
         -User image upload (same size just clean)
+
+        -edit text element
+       -test everything and plan more features before launch
+        
+        -Deploy
+
+
+        -Ready with some audiences to test emails
+
+        -Complete job coding project
+        
+        -When first creating quiz select quiz goal (use swatches with modal)
+        
+            -if trivia:
+                -Add ability for quiz to be marked (multiple choice and single choice questions only)
+                    -have to get all multiple choice answers to count
+                    -calculate score for end of quiz
+            -if leads
+                -CAPI
+                -TikTok, Facebook
+                -with data enrichment options
+
+            -Prouct customization
+                -product page at end/ability to choose variant and pay
+
+            -No goal/general quiz
+
+
+    -Create landing pages
+    -Home page
+
+        -introjs onboarding tutorial
+            -different tutorial for each audience
+        
+    
+    ================================================
+    
+    <iframe embed> create
+
+    Later add these elements:
         -pdf file ipload (clean using AWS lambda) (convert to image then image to pdf)
         -Embed video link
         -Upload video as quiz owner (AWS )
         -1-10 (use single choice? and auto create)
         - 1-5 stars( use single choice)
-
-       -test everything and plan more features before launch
-
-        
-    -Create landing pages
-    -Home page
-    
-    ================================================
-    
     later:
         -change bg color quiz and 
 

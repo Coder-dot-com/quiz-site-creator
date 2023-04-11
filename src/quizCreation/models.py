@@ -97,7 +97,18 @@ class MultipleChoiceElement(models.Model):
     def get_multiple_choice_choices(self):
         return MultipleChoiceChoice.objects.filter(multiple_choice_element=self)
 
-
 class MultipleChoiceChoice(models.Model):
     multiple_choice_element = models.ForeignKey(MultipleChoiceElement, on_delete=models.CASCADE)
+    choice = models.CharField(max_length=300)
+
+class SingleChoiceElement(models.Model):
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    title = models.CharField(max_length=300)
+
+
+    def get_single_choice_choices(self):
+        return SingleChoiceChoice.objects.filter(single_choice_element=self)
+
+class SingleChoiceChoice(models.Model):
+    single_choice_element = models.ForeignKey(SingleChoiceElement, on_delete=models.CASCADE)
     choice = models.CharField(max_length=300)

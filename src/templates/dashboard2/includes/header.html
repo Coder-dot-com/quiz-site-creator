@@ -1,66 +1,5 @@
 {% load static %}
 
-<style>
-    {% autoescape off %}
-        .site-button, button.site-button {
-            {{site.site_button_css}}
-        }
-        .site-button:hover, button.site-button:hover {
-            {{site.site_button_hover_css}}
-
-        }
-        .site-button.focus, .site-button:focus, button.site-button:focus,
-        button.site-button.focus {
-            {% if site.site_button_focus_css %}
-                {{site.site_button_focus_css}}
-            {% else %}
-                {{site.site_button_css}}
-            {% endif %}
-
-        }
-        .site-secondary-button, button.site-secondary-button {
-            {{site.site_secondary_button_css}}
-        }
-        .site-secondary-button:hover, button.site-secondary-button:hover {
-            {{site.site_secondary_button_hover_css}}
-
-        }
-        .site-secondary-button.focus, .site-secondary-button:focus, button.site-secondary-button:focus,
-        button.site-secondary-button {
-            {% if site.site_secondary_button_focus_css %}
-                {{site.site_secondary_button_focus_css}}
-            {% else %}
-                {{site.site_secondary_button_css}}
-            {% endif %}
-
-        }
-
-
-        
-        .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
-            {{site.site_headings_css}}
-        }
-    {% endautoescape %}
-
-    :root {
-        --bs-body-bg: #ffffff;
-    }
-</style>
-
-<style>
-    @media print
-    {    
-        .no-print
-        {
-            display: none !important;
-        }
-    }
-
-    body {
-        color: #302929 !important;
-    }
-</style>
-
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -109,6 +48,77 @@
                 {% if site.site_global_analytics %}{{site_global_analytics}}{% endif %}
             {% endautoescape %}
         {% endif %}
+
+
+
+
+        <style>
+            {% autoescape off %}
+                .site-button, button.site-button {
+                    {{site.site_button_css}}
+                }
+                .site-button:hover, button.site-button:hover {
+                    {{site.site_button_hover_css}}
+        
+                }
+                .site-button.focus, .site-button:focus, button.site-button:focus,
+                button.site-button.focus {
+                    {% if site.site_button_focus_css %}
+                        {{site.site_button_focus_css}}
+                    {% else %}
+                        {{site.site_button_css}}
+                    {% endif %}
+        
+                }
+                .site-secondary-button, button.site-secondary-button {
+                    {{site.site_secondary_button_css}}
+                }
+                .site-secondary-button:hover, button.site-secondary-button:hover {
+                    {{site.site_secondary_button_hover_css}}
+        
+                }
+                .site-secondary-button.focus, .site-secondary-button:focus, button.site-secondary-button:focus,
+                button.site-secondary-button {
+                    {% if site.site_secondary_button_focus_css %}
+                        {{site.site_secondary_button_focus_css}}
+                    {% else %}
+                        {{site.site_secondary_button_css}}
+                    {% endif %}
+        
+                }
+        
+        
+                
+                .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+                    {{site.site_headings_css}}
+                }
+            {% endautoescape %}
+        
+            :root {
+                --bs-body-bg: #ffffff;
+            }
+        </style>
+        
+        <style>
+            @media print
+            {    
+                .no-print
+                {
+                    display: none !important;
+                }
+            }
+        
+            body {
+                color: #302929 !important;
+            }
+
+            .site-color {
+                color: #0b2a97 !important;
+            }
+        </style>
+        
+
+
 
     </head>
     <body hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'>

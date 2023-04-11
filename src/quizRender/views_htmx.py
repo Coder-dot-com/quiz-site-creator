@@ -134,6 +134,7 @@ def take_previous_page(request, quiz_id, number, response_id):
 def get_value_stored_in_db(request, quiz_id, element_id, response_id):
     try:
         response = Response.objects.get(session=_session(request), response_id=response_id)
+        element = QuizPageElement.objects.get(id=element_id)
         answer = Answer.objects.get(question=element, response=response)
     except Response.DoesNotExist:
         answer = False

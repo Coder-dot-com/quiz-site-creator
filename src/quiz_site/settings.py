@@ -310,3 +310,20 @@ EMAIL_HOST_PASSWORD = config('EMAIL_SMTP_PASS')
 EMAIL_USE_TLS = True
 
 
+CKEDITOR_CONFIGS = {
+
+'default': {
+    'toolbar': [
+            ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
+            # ['Link', 'Unlink', 'Anchor'],
+            # ['Image', 'Flash', 'Table', 'HorizontalRule'],
+            ['TextColor', 'BGColor'],
+            ['Smiley', 'SpecialChar'], ['Source'],
+            ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
+            ['NumberedList','BulletedList'],
+            ['Indent','Outdent'],
+            ], #You can change this based on your requirements.
+    'width': 'auto',
+
+        },
+    }
