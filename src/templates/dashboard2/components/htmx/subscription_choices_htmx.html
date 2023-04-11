@@ -29,7 +29,7 @@
                         {% for currency in currencies %}
                             {% if session.currency.currency_code != currency.currency_code %}
                                 <!-- item-->
-                                <a
+                                <a type="button"
                                     hx-post="{% url 'chosen_currency_subscription' currency.currency_code %}"
                                     hx-target=".subscriptionChoices"
                                     hx-swap="outerHTML"
@@ -189,16 +189,15 @@
                                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
                                     {% if option.tier.type == "professional" %}
                                         <div class="row text-center">
-                                            <span class=" badge-soft-primary text-white my-3  mx-auto float-right" style="font-size:1.1rem;background-color:lightgrey">Recommended</span>
+                                            {% comment %} <span class=" badge-soft-primary text-white my-3  mx-auto float-right" style="font-size:1.1rem;background-color:lightgrey">Recommended</span> {% endcomment %}
                                         </div>
                                     {% endif %}
                                     <div class="card plan-box overflow-hidden p-2 {% if option.tier.type == "professional" %} shadow-lg border-5 {% else %} border-1 my-3{% endif %}">
+                                        {% if option.has_badge %}
                                         <div class="card-header">
-
-                                            {% if option.has_badge %}
                                                 <span class="badge badge-soft-primary text-black ms-auto float-end" style="font-size:1.1rem;background-color:{{option.badge_color}};color:{{option.badge_text_color}} !important">{{option.badge_text}}</span>
+                                            </div>
                                             {% endif %}
-                                        </div>
                                         <div class="card-body">
 
                                             <h3 class="mt-2">{{option.subscription_name}}</h5>
@@ -273,16 +272,15 @@
                                 <div class="col-xl-3 col-lg-3 col-md-3 col-sm-12">
                                     {% if option.tier.type == "professional" %}
                                         <div class="row text-center">
-                                            <span class=" badge-soft-primary text-white my-3  mx-auto float-right" style="font-size:1.1rem;background-color:lightgrey">Recommended</span>
+                                            {% comment %} <span class=" badge-soft-primary text-white my-3  mx-auto float-right" style="font-size:1.1rem;background-color:lightgrey">Recommended</span> {% endcomment %}
                                         </div>
                                     {% endif %}
                                     <div class="card plan-box overflow-hidden p-2 {% if option.tier.type == "professional" %} shadow-lg border-5 {% else %} border-1 my-3{% endif %}">
-                                        <div class="card-header">
-
-                                            {% if option.has_badge %}
+                                        {% if option.has_badge %}
+                                            <div class="card-header">
                                                 <span class="badge badge-soft-primary text-black ms-auto float-end" style="font-size:1.1rem;background-color:{{option.badge_color}};color:{{option.badge_text_color}} !important">{{option.badge_text}}</span>
+                                            </div>
                                             {% endif %}
-                                        </div>
                                         <div class="card-body">
 
                                             <h3 class="mt-2">{{option.subscription_name}}</h5>

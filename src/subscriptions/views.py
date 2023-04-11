@@ -5,6 +5,7 @@ import stripe
 from accounts.models import Profile
 from emails.tasks import subscription_cancelled, subscription_confirmed_email
 from quiz_backend.models import Response
+from session_management.models import Category
 from .models import UserPaymentStatus, UserSubscriptions, SubscriptionChoices, UserPaymentStatus, UserSubscriptions
 from quiz_site.settings import STRIPE_ENDPOINT_SECRET, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY
 from django.contrib.auth.decorators import login_required
@@ -15,7 +16,7 @@ from session_management.views import _session
 from django.http import HttpResponse
 from django.shortcuts import  render
 from django.db.models import Q
-
+import math
 # from emails.tasks import subscription_confirmed_email
 
 
@@ -103,7 +104,7 @@ def stripe_payment_subscibe(request, option_id):
                         user_payment_status=user_payment_status,
                         status="cancelled"),
                         next_due__gt= datetime.now(),
-                        subscription_choice__tier__tier_ranking__gte=user_subscription.subscription_choice.tier.tier_ranking).order_by((
+                        subscription_choice__tier__tier_ranking__gt=user_subscription.subscription_choice.tier.tier_ranking).order_by((
                             'subscription_choice__tier__tier_ranking')).reverse()[0]
             if user_subscription_with_greater_tier.next_due.replace(tzinfo=None)  > datetime.now().replace(tzinfo=None):
                     user_subscription = user_subscription_with_greater_tier
@@ -121,13 +122,14 @@ def stripe_payment_subscibe(request, option_id):
 
 
         # Need to delay days even if user is resubscribing to ensure new susbcription only starts after
-        days_left = int((start_date - current_time).days)
+        days_left = math.floor((start_date - current_time).days)
         print('days_left', days_left)
 
         # Here need to convert days to new plan only if tier gte to current 
         if subscription_choice.tier.tier_ranking >= user_subscription.subscription_choice.tier.tier_ranking:
             
             print("Subscription greater")
+            #Todo Fix glitch need to use same currency convert to usd equivalent
 
             if user_subscription.subscription_choice.stripe_renewal_frequency == "month":
                 print("month")
@@ -135,14 +137,19 @@ def stripe_payment_subscibe(request, option_id):
             elif user_subscription.subscription_choice.stripe_renewal_frequency == "year":
                 print("year")
                 total_value_of_days_left = (user_subscription.subscription_choice.price/365) * days_left
+            currency_code_of_current_user_subscription = user_subscription.subscription_choice.currency
+
+            total_value_of_days_left_converted_to_usd = float(total_value_of_days_left) / currency_code_of_current_user_subscription.one_usd_to_currency_rate
 
             print(total_value_of_days_left)
             if subscription_choice.stripe_renewal_frequency == "month":
                 cost_per_day_new_plan = (subscription_choice.price/30)
             elif subscription_choice.stripe_renewal_frequency == "year":
                 cost_per_day_new_plan = (subscription_choice.price/365)
-            print(cost_per_day_new_plan)   
-            days_left = int(total_value_of_days_left/cost_per_day_new_plan)
+            print(cost_per_day_new_plan)
+
+            cost_per_day_new_plan_converted_to_usd = float(cost_per_day_new_plan) / subscription_choice.currency.one_usd_to_currency_rate
+            days_left = math.floor(total_value_of_days_left_converted_to_usd/cost_per_day_new_plan_converted_to_usd)
             context['remaining_days'] = True
 
         else:
@@ -151,6 +158,8 @@ def stripe_payment_subscibe(request, option_id):
 
         #round days down
         if days_left > 0:
+            print(days_left)
+            print('trial_period_days', trial_period_days)
 
             trial_period_days += days_left
         
@@ -259,8 +268,6 @@ def _post_subscription_success(subscription_id=None, request=None, stripe_custom
     subscriptions = stripe.Subscription.list(
      customer=stripe_customer_id,
     )
-    print('post subscription success', )
-    print(subscriptions)
     
     subscription_id = (subscriptions['data'][0]['id'])
     user_subscription.subscription_id = subscription_id
@@ -350,11 +357,11 @@ def _post_subscription_success(subscription_id=None, request=None, stripe_custom
     print("Source URL for product view")
     print(event_source_url)
 
-
+    category = Category.objects.all()[0]
 
     try:
         session = _session(request)
-        conversion_tracking.delay(request=request, event_name="Subscribe", event_id=event_unique_id, event_source_url=event_source_url, category_id=context['quiz'].category.id, session_id=session.session_id)
+        conversion_tracking.delay(request=request, event_name="Subscribe", event_id=event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)
         print("tracking conversion")
     
     except Exception as e:
@@ -370,6 +377,7 @@ def _post_subscription_success(subscription_id=None, request=None, stripe_custom
        
         }
 
+    context['category'] = category
 
 
     return context

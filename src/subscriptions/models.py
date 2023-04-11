@@ -18,6 +18,7 @@ choices = [
     ("free_trial", "free_trial"),
     ("active", "active"),
     ("free", "free"),
+    ("beta_tester", "beta_tester")
 ]
 
 def default_date_time():
@@ -34,25 +35,28 @@ class UserPaymentStatus(models.Model):
     date_created = models.DateTimeField(auto_now_add=True)
     last_synced = models.DateTimeField(default=default_date_time)
     # has_had_free_trial = models.BooleanField(default=False)
+
+    @property
+    def is_active(self):
+        if self.status == "free":
+            return False
+        else:
+            return True
     
     def save(self, *args, **kwargs):
         if not self.subscription_expiry and self.status == "free_trial":
-            self.subscription_expiry = datetime.utcnow() + timedelta(days = 7)
+            self.subscription_expiry = datetime.utcnow() + timedelta(days = 14)
         super(UserPaymentStatus, self).save(*args, **kwargs)
     
 
-    #For now manually set page_expiry for renewed subscription
     
 
     def sync_subscription_expiry(self):
         print("Syncing subscription...")
         #Call stripe api using subscription id from latest
-
-
-        
         # Add if statement to only run below if not true
         # I.e,. check if current time greater than subscription_expiry
-        if self.subscription_expiry.replace(tzinfo=None) <  datetime.now().replace(tzinfo=None):
+        if self.subscription_expiry and self.subscription_expiry.replace(tzinfo=None) <  datetime.now().replace(tzinfo=None):
             try:
                 user_subscription = UserSubscriptions.objects.filter(Q(
                     user_payment_status=self,

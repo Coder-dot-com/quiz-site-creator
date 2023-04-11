@@ -38,7 +38,7 @@ def take_quiz(request, quiz_id):
             response_id = uuid4()
 
         context['response_id'] = response_id
-
+        
         print("TAKE UQUIZ")
         
         return render(request, 'take_quiz.html', context=context)

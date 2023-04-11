@@ -2,13 +2,14 @@ To do:
 
 -quiz settings
 
+        -test everything 
 
+        -create landing pages
+        -Create home page
 
-        -subscriptions
-
-       -test everything and plan more features before launch
-        
         -Deploy
+
+
 
  
         -Ready with some audiences to test emails
@@ -41,6 +42,7 @@ To do:
 
             -No goal/general quiz
 
+        -schedule currency rate update celery beat task
 
     -Create landing pages
     -Home page

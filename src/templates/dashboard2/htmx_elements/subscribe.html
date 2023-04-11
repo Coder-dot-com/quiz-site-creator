@@ -4,7 +4,7 @@
 {% if remaining_days %}
   {% if trial_period_days %}
 <div class="mx-auto my-3 text-center">
-  Any remaining days on your old plan or free trial have successfully been converted to your new plan giving you {{trial_period_days}} days. <br>
+  Any remaining days on your old plan or free trial have successfully been added to your new plan giving you {{trial_period_days}} days. <br>
   Payment for your new plan will start after these converted days run out on {{user_subscription.next_due |date:'d-M-y' }}.
 </div>
   {% endif %}
@@ -21,7 +21,23 @@
 
 {% endif %}
 
+<style>
+  @media screen and (max-width: 768px) {
+  .responsiveModal {
 
+      min-width: 100%;
+
+
+
+  }
+}
+@media screen and (min-width: 768px) {
+
+.responsiveModal {
+  min-width: 500px;
+}
+}
+</style>
 <div class="container-fluid" id="subscribeNow">
 
     {% comment %} <div class="row justify-content-center">
@@ -38,28 +54,43 @@
     <div class="row justify-content-center">
 
   <script src="https://js.stripe.com/v3/"></script>
-  <div class="col-xl-3 col-md-6">
+  <div class="col-10 mx-auto p-1 responsiveModal">
     <h4>
-      What you get when you subscribe to the {{subscription_choice.tier}} plan
+      What you get when you subscribe to the {{subscription_choice.subscription_name}} 
   
     </h4>
   {% autoescape off %}
   {{subscription_choice.feature_list}}
   {% endautoescape %}
 
-  <h4>Only
+  {% if subscription_choice.renewal_frequency == 'annually' %}
+  <h4>
+    Works out rounded to {{subscription_choice.currency.currency_symbol}}<span id="subscriptionPrice_">{{subscription_choice.price}}</span> per month
 
-    ${{subscription_choice.price}} {{subscription_choice.renewal_frequency}}
-
+    
   </h4>
 
+  <h6>
+    By choosing annual you're getting 3 months free compared to a monthly subscription    
+  </h6>
+  {% endif %}
+  <small>
+    Billed at {{subscription_choice.currency.currency_symbol}}{{subscription_choice.price}} {{subscription_choice.renewal_frequency}}
+  </small>
 
+  <script>
 
+    var subscription_price = document.querySelector('#subscriptionPrice_')
+    {% if subscription_choice.renewal_frequency == 'annually' %}
+        new_price = (Math.round({{subscription_choice.price}} / 12))
+        subscription_price.textContent = new_price
+    {% endif %}
+</script>
 
 
   </div>
 
-  <div class="col-xl-3 col-md-6">
+  <div class="col-10 mx-auto p-1 responsiveModal mt-2">
     <form id="payment-form" data-secret="{{ client_secret }}">
         <div id="payment-element">
           <!-- Elements will create form elements here -->

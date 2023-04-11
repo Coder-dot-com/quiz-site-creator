@@ -34,13 +34,7 @@ def register_view(request):
             promo_consent = False
 
 
-        try:
-            user = UserModel.objects.create_user(username=username, email=email, password=password)
-        except Exception as e:
-            print("registration error")
-            messages.error(request, "An error occured, please try again")
-            print(e)
-            user = None
+        user = UserModel.objects.create_user(username=username, email=email, password=password)
 
         if user != None:
             old_session = _session(request)

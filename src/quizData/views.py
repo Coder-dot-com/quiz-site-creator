@@ -25,7 +25,10 @@ def view_quiz_results(request, quiz_id):
 
     responses_completed = responses.filter(completed=True).count()
 
-    percentage_completed = math.floor(responses_completed/response_count * 100)
+    try:
+        percentage_completed = math.floor(responses_completed/response_count * 100)
+    except ZeroDivisionError:
+        percentage_completed = 0
     print(responses)
     context = {
         'responses': responses,

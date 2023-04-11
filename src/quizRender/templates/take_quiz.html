@@ -3,7 +3,30 @@
 {% load static %}
 {% block content %}
 
-{% include 'quiz_form.html' %}
+{% if user_payment_status and  user_payment_status.status == "active"  %}
+
+    {% if quiz_page %}
+
+
+    {% include 'quiz_form.html' %}
+
+    {% else %}
+
+    <center class="m-5">
+
+        No pages have been added to this quiz yet.
+    </center>
+
+    {% endif %}
+
+{% else %}
+<center class="m-5">
+
+Quiz owner's subscription has expired. Please contact them.
+</center>
+{% endif %}
+
+
 
 
 {% endblock content %}

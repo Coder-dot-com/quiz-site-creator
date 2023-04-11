@@ -19,7 +19,7 @@ def save_profile(sender, instance, created, **kwargs):
         profile.save()
         #Also create user payment status
         if not user.is_staff:
-            tier = Tier.objects.get(type='free_tier')
+            tier = Tier.objects.get(type='professional')
             UserPaymentStatus.objects.create(user=user, status="free_trial", tier=tier)
 
 

@@ -51,8 +51,7 @@ class Currency(models.Model):
        #Later on switch to celery beat and schedule daily
         if not self.currency_code == "USD":
 
-            api_key = config('CURRENCY_CONV_API_KEY1')
-            print(api_key)
+            api_key = config('CURRENCY_CONV_API_KEY')
 
             try:
 
