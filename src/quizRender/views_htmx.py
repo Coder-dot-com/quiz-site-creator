@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse
-from quizCreation.models import UserQuiz, QuizPage, QuizPageElement, MultipleChoiceChoice
+from quizCreation.models import UserQuiz, QuizPage, QuizPageElement, MultipleChoiceChoice, SingleChoiceChoice
 from uuid import uuid4
 from .models import Response, Answer
 from session_management.views import _session
@@ -24,9 +24,6 @@ def next_page_preview(request, quiz_id, number):
     
 
     
-    else:
-        return HttpResponse(500)
-    
 @login_required 
 def previous_page_preview(request, quiz_id, number):
     quiz = UserQuiz.objects.get(id=quiz_id)
@@ -46,10 +43,6 @@ def previous_page_preview(request, quiz_id, number):
     if request.user == quiz.user: #is preview
         
         return render(request, 'quiz_form.html', context=context)
-    
-    else:
-        return HttpResponse(500)
-    
 
 def take_next_page(request, quiz_id, number, response_id):
     quiz = UserQuiz.objects.get(id=quiz_id)
@@ -123,12 +116,9 @@ def take_previous_page(request, quiz_id, number, response_id):
         context['first_page'] = True
         
 
-    if request.user == quiz.user: #is preview
         
-        return render(request, 'quiz_form.html', context=context)
+    return render(request, 'quiz_form.html', context=context)
     
-    else:
-        return HttpResponse(500)
     
 
 def get_value_stored_in_db(request, quiz_id, element_id, response_id):

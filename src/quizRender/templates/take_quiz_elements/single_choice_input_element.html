@@ -10,7 +10,7 @@ hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id
     <select 
  
 
-    id="question_{{element.id}}" name="{{element.id}}" id="multiC_{{element.id}}" class="form-select d-none"  
+    id="question_{{element.id}}" name="{{element.id}}" id="singleC_{{element.id}}" class="form-select d-none"  
     >
     {% for option in element.get_element_type.element.get_single_choice_choices %}
 
@@ -85,20 +85,23 @@ hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id
 
 
 
+        {% if answer %}
+        
+        {% if answer.answer %}
+        card_id = "#card_" + '{{answer.answer}}'
+        console.log(card_id)
+        
+        a = document.querySelector(card_id)
+        a.classList.add('border-success')
+        option_id = "#option_" + '{{answer.answer}}'
+        optionToSelect = document.querySelector(option_id)
+
+        optionToSelect.selected = true
+        {% endif %}
+    
+    
+        {% endif %}
     </script>
 
-    {% if answer %}
-    
-    <script>
-    
-        answers = [{% for choice in answer.question_choice.all %}"{{choice.id}}",{% endfor %}]
-    
-        for (let i = 0; i < (answers.length); i++) {
-            card_id = "#card_" + answers[i]
-            document.querySelector(card_id).click()
-    
-        }
-     </script>
-    {% endif %}
 </div>
 
