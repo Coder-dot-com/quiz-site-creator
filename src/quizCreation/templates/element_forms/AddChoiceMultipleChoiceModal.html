@@ -1,6 +1,6 @@
 <div id="modalContent" class="modal-content">
     <div class="modal-header">
-        <h5 class="modal-title">Add choices to your single choice question</h5>
+        <h5 class="modal-title">Add choices to your multiple choice question</h5>
         <button type="button" id="closeModalElement" class="close" data-dismiss="modal"><span>×</span>
         </button>
     </div>
@@ -8,6 +8,8 @@
         {% if not choices %}
             <div class="text-center my-5">No choices added yet</div>
         {% else %}
+
+
             <div class="table-responsive my-2">
                 <table class="table">
                     <thead>
@@ -17,6 +19,7 @@
                             <th>Image</th>
                             <th>Delete</th>
                         </tr>
+
                     </thead>
                     <tbody>
 
@@ -26,7 +29,7 @@
                                     hx-trigger="change"
                                     name="correct"
                                     {% if choice.is_correct_choice  %}checked="true"{% endif %}
-                                    hx-post="{% url 'mark_as_correct_single_choice' user_quiz.id quiz_page.id element.id choice.id  %}"
+                                    hx-post="{% url 'mark_as_correct_multiple_choice' user_quiz.id quiz_page.id element.id choice.id  %}"
                                     type="checkbox"
 
                                 >
@@ -37,7 +40,7 @@
 
                                     <form id="user_image_{{choice.id}}"
                                           hx-encoding='multipart/form-data'
-                                          hx-post="{% url 'upload_image_for_single_choice' user_quiz.id quiz_page.id element.id choice.id %}"
+                                          hx-post="{% url 'upload_image_for_multiple_choice' user_quiz.id quiz_page.id element.id choice.id %}"
                                           hx-trigger="change"
                                           hx-target='#modalContent'
                                           hx-swap=outerHTML
@@ -63,7 +66,7 @@
                                             />
                                         </label>
 
-                                       
+                                     
 
                                         <center id="spinner_{{choice.id}}">
 
@@ -131,8 +134,11 @@
                                                         <img class="" src="{% if choice.image %}{{choice.image.url}}{% endif %}" alt="">
                                                     </div>
                                                     <a href="#"
-                                                       hx-post="{% url 'delete_logo_from_quiz' user_quiz.id %}"
-                                                       hx-target="#user_image_{{user_quiz.id}}" hx-swap="outerHTML" hx-trigger="click">
+                                                       hx-post="{% url 'delete_image_from_multiple_choice' user_quiz.id quiz_page.id element.id choice.id %}"
+                                                       hx-target='#modalContent'
+                                                       hx-swap=outerHTML
+                                                       hx-indicator="#spinner_{{choice.id}}"
+                                                        hx-trigger="click">
                                                         <small class="text-muted ">
                                                             Remove?
                                                         </small>
@@ -153,7 +159,7 @@
                                 <td style="justify-content: right;" class="d-flex">
                                     <div class="d-flex align-items-right">
                                         <a type="button"
-                                           hx-delete="{% url 'delete_choice_single_choice_element' user_quiz.id quiz_page.id element.id choice.id %}"
+                                           hx-delete="{% url 'delete_choice_multiple_choice_element' user_quiz.id quiz_page.id element.id choice.id %}"
                                            hx-target='#modalContent'
                                            hx-swap=outerHTML
                                         >Delete <div class="btn btn-danger shadow btn-xs sharp"><i class="fa fa-trash"></i></div></a>
@@ -170,7 +176,7 @@
 
 
         <form
-            hx-post={% url 'add_choice_to_single_choice_element' user_quiz.id quiz_page.id element.id %}
+            hx-post={% url 'add_choice_to_multiple_choice_element' user_quiz.id quiz_page.id element.id %}
             hx-target='#modalContent'
             hx-swap=outerHTML
             hx-encoding="multipart/form-data"
@@ -210,11 +216,3 @@
     {% comment %} document.querySelector('#closeModalElement').click() {% endcomment %}
 </script>
 
-{% comment %} <div
-
-hx-target="#page_elements"
-hx-swap=outerHTML
-hx-trigger=load
-hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
-> {% endcomment %}
-        {% comment %} Refresh list  {% endcomment %}        

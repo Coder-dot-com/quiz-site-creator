@@ -1,129 +1,129 @@
 {% load static %}
 <div id="quizesList">
-{% if quizes %}
-<script src="{% static 'dashboard/assets/js/clipboard.min.js' %}"></script>
+    {% if quizes %}
+        <script src="{% static 'dashboard/assets/js/clipboard.min.js' %}"></script>
 
-<style>
+        <style>
 
-    .dropleft .dropdown-toggle::before, .dropright .dropdown-toggle::before, .dropup .dropdown-toggle::after, .dropdown-toggle::after {
-        display: none;
-    }
-</style>
+            .dropleft .dropdown-toggle::before, .dropright .dropdown-toggle::before, .dropup .dropdown-toggle::after, .dropdown-toggle::after {
+                display: none;
+            }
+        </style>
 
-<div class="card-body py-0 ">
-    <div class="text-center">
-        <a style="float:right;" href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-end my-1">
-            Create quiz  <i class="fa fa-plus mx-1"></i>
-        </a>
-    </div>    
-    <div class="mx-auto ">
-        Your quizes                     
-    </div>
-    
-    
-    
-    <div class="tab-pane active show fade d-inline" id="Unifinshed">
-    
-        {% for quiz in quizes %}
-       
-        <div style="background-color:rgba(227, 227, 204, 0.3);
-            border-radius: 1.25rem;
-            -webkit-transition: all 0.5s;
-            -ms-transition: all 0.5s;
-            transition: all 0.5s;
-            " class="plan-list list-row d-sm-flex d-block  py-3 list-row align-items-center my-5 col-lg-9 mx-auto justify-content-center">
-            
-            <div class="col-xl-5 col-xxl-8 col-lg-6 col-sm-8 d-flex align-items-center">
-               
-                <div class="info ">
-                    <h4 class=" "><p class="">{{quiz.name}}</p></h4>
+        <div class="card-body py-0 ">
+            <div class="text-center">
+                <a style="float:right;" href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-end my-1">
+                    Create quiz  <i class="fa fa-plus mx-1"></i>
+                </a>
+            </div>
+            <div class="mx-auto ">
+                Your quizes
+            </div>
 
-                
-                    
-                                            <a    href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}" target="_blank"
-                                            type="button" class="mx-1"  >Open quiz in new tab</a> |
-                    
-                    
-                                            <div class="btn-group" role="group">
-                        <a           id="copy-button{{quiz.id}}"          data-clipboard-target="#linkToQuiz{{quiz.id}}"
-                        type="button" class=" dropdown-toggle mx-1" data-toggle="dropdown">Copy link to quiz</a> |
-                        <div class="dropdown-menu">
-                            <span class="dropdown-item" href="javascript:void()">Link successfully copied!</span>
+
+
+            <div class="tab-pane active show fade d-inline" id="Unifinshed">
+
+                {% for quiz in quizes %}
+
+                    <div style="background-color:rgba(227, 227, 204, 0.3);
+                                border-radius: 1.25rem;
+                                -webkit-transition: all 0.5s;
+                                -ms-transition: all 0.5s;
+                                transition: all 0.5s;
+                               " class="plan-list list-row d-sm-flex d-block  py-3 list-row align-items-center my-5 col-lg-9 mx-auto justify-content-center">
+
+                        <div class="col-xl-5 col-xxl-8 col-lg-6 col-sm-8 d-flex align-items-center">
+
+                            <div class="info ">
+                                <h4 class=" "><p class="">{{quiz.name}}</p></h4>
+
+
+
+                                <a    href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}" target="_blank"
+                                   type="button" class="mx-1"  >Open quiz in new tab</a> |
+
+
+                                <div class="btn-group" role="group">
+                                    <a           id="copy-button{{quiz.id}}"          data-clipboard-target="#linkToQuiz{{quiz.id}}"
+                                       type="button" class=" dropdown-toggle mx-1" data-toggle="dropdown">Copy link to quiz</a> |
+                                    <div class="dropdown-menu">
+                                        <span class="dropdown-item" href="javascript:void()">Link successfully copied!</span>
+                                    </div>
+                                </div>
+
+                                <input type="hidden" id="linkToQuiz{{quiz.id}}" value="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}">
+
+                                <script>                                new ClipboardJS('#copy-button{{quiz.id}}');</script>
+
+
+
+
+
+
+                                <a type="button"
+                                   hx-confirm="Are you sure you want to delete this quiz"
+                                   hx-delete  ="{% url 'htmx_quiz_delete' quiz.id %}" class="mx-1"
+                                   hx-target="#quizesList"
+
+
+                                >
+                                    Delete
+
+
+
+                                </a>
+
+                            </div>
+
                         </div>
+                        <br>
+                        <div class="g-4 text-right">
+
+                            <a class="btn btn-primary site-button my-1" href="{% url 'edit_quiz' quiz.id %}">
+                                <div class="float-right">Manage <i class="fa fa-edit"></i></div>
+                            </a>
+
+                            <a class="btn btn-primary site-secondary-button my-1 " href="{% url 'view_quiz_results' quiz.id %}">
+                                <div class="float-right">View responses
+                                    <i class="fa fa-eye"></i></div>
+                            </a>
+                        </div>
+                        <br>
+                        <br>
+
+
+
                     </div>
 
-                    <input type="hidden" id="linkToQuiz{{quiz.id}}" value="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}">
 
-                    <script>                                new ClipboardJS('#copy-button{{quiz.id}}');</script>
-                    
+                {% endfor %}
+                {% for quiz in quizes %}
 
+                    {% if forloop.counter == 3 %}
 
-                    
-  
-
-                    <a type="button"
-                    hx-confirm="Are you sure you want to delete this quiz"
-                    hx-delete  ="{% url 'htmx_quiz_delete' quiz.id %}" class="mx-1"
-                    hx-target="#quizesList"
-       
-                  
-                   > 
-                   Delete
-                   
-                   
-                   
-               </a>
-                  
-                </div>
+                        <div class="text-center">
+                            <a style="float:right;" href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-end my-1">
+                                Create quiz  <i class="fa fa-plus mx-1"></i>
+                            </a>
+                        </div>
+                    {% endif %}
+                {% endfor %}
 
             </div>
-            <br>
-            <div class="g-4 text-right">
-
-                <a class="btn btn-primary site-button my-1" href="{% url 'edit_quiz' quiz.id %}">
-                    <div class="float-right">Manage <i class="fa fa-edit"></i></div>
-                </a>
-
-                <a class="btn btn-primary site-secondary-button my-1 " href="{% url 'view_quiz_results' quiz.id %}">
-                    <div class="float-right">View responses
-                    <i class="fa fa-eye"></i></div>                
-                </a>
-            </div>
-            <br>
-            <br>
-            
-
 
         </div>
+    {% else %}
 
-        
-        {% endfor %}
-        {% for quiz in quizes %}
-
-        {% if forloop.counter == 3 %}
-        
-        <div class="text-center">
-            <a style="float:right;" href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-end my-1">
-                Create quiz  <i class="fa fa-plus mx-1"></i>
-            </a>
-        </div>                 
-        {% endif %}
-        {% endfor %}
-
-    </div>
-
-</div>
-{% else %}
-
-<div class="card-body py-4 mt-2 justify-content-center">
-    <div class="mx-auto justify-content-center text-center">
-        Get started by creating your first quiz                     
-    </div>
-    <div class="text-center">
-        <a href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-center my-1">
-            Create quiz  <i class="fa fa-plus mx-1"></i>
-        </a>
-    </div>                
-</div>
-{% endif %}
+        <div class="card-body py-4 mt-2 justify-content-center">
+            <div class="mx-auto justify-content-center text-center">
+                Get started by creating your first quiz
+            </div>
+            <div class="text-center">
+                <a href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-center my-1">
+                    Create quiz  <i class="fa fa-plus mx-1"></i>
+                </a>
+            </div>
+        </div>
+    {% endif %}
 </div>

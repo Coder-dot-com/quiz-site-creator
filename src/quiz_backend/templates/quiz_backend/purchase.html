@@ -17,7 +17,7 @@
         <form id="payment-form">
             <h5>Complete your order</h5>
             <br><br>
-            
+
             <div id="payment-element">
                 <!-- Elements will create form elements here -->
             </div>
@@ -28,17 +28,17 @@
             <div class="d-flex flex-row-reverse align-items-center">
 
 
-            <button class="btn site-button btn-primary  ms-auto float-end "  id="submit">Pay now</button>
-        
-            <a  class="light small ml-0 mr-auto"
-            hx-get="{% url 'go_back_purchase' response_id %}"
-                hx-trigger="click once"
-                hx-target="#purchaseQuiz"
-                hx-encoding="multipart/form-data"
-                hx-swap="outerHTML"
-                role="button"
-            >
-                < Go back</a>
+                <button class="btn site-button btn-primary  ms-auto float-end "  id="submit">Pay now</button>
+
+                <a  class="light small ml-0 mr-auto"
+                   hx-get="{% url 'go_back_purchase' response_id %}"
+                   hx-trigger="click once"
+                   hx-target="#purchaseQuiz"
+                   hx-encoding="multipart/form-data"
+                   hx-swap="outerHTML"
+                   role="button"
+                >
+                    < Go back</a>
             </div>
         </form>
         <script>

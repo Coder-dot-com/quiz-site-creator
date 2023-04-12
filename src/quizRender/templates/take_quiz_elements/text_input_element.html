@@ -1,10 +1,10 @@
-<textarea  
-{% if not checked_db %}
-hx-trigger = 'load'
-hx-swap=outerHTML
-hx-target="#question_{{element.id}}"
-hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id%}
-{% endif %}
-{% if answer %}value="{{answer.answer}}"{% endif %}
-id="question_{{element.id}}" name="{{element.id}}" class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  cols="30" rows="5" maxlength=2000>
+<textarea
+    {% if not checked_db %}
+        hx-trigger = 'load'
+        hx-swap=outerHTML
+        hx-target="#question_{{element.id}}"
+        hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id%}
+    {% endif %}
+    {% if answer %}value="{{answer.answer}}"{% endif %}
+    id="question_{{element.id}}" name="{{element.id}}" class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  cols="30" rows="5" maxlength=2000>
 </textarea>

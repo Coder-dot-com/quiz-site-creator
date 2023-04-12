@@ -6,7 +6,7 @@ from common.util.functions import event_id
 from conversion_tracking.tasks import conversion_tracking
 from session_management.models import Category
 from session_management.views import _session
-# from blog.models import BlogPage
+from blog.models import BlogPage
 
 def home(request):
 
@@ -41,6 +41,10 @@ def deliveryinfo(request):
 
 def refundpolicy(request):
     return render(request, 'home_site2/pages/refundpolicy.html')
+
+def pricing(request):
+    return render(request, 'home_site2/pages/pricing.html')
+
 
 def redirect_old_blog(request, slug):
     page = BlogPage.objects.get(slug=slug)

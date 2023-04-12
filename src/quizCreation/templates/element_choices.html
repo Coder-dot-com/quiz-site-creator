@@ -1,88 +1,88 @@
 <select  name="element" id="multiC" class="form-select d-none" required>
     <option value=""></option>
-        <option value="text" id="option_text">text</option>
-        <option value="CharInput" id="option_CharInput">text</option>
-        <option value="TextInput" id="option_TextInput"></option>
-        <option value="EmailInput" id="option_EmailInput"></option>
-        <option value="NumberInput" id="option_NumberInput"></option>
-        <option value="MultipleChoice" id="option_MultipleChoice"></option>
-        <option value="SingleChoice" id="option_SingleChoice"></option>
+    <option value="text" id="option_text">text</option>
+    <option value="CharInput" id="option_CharInput">text</option>
+    <option value="TextInput" id="option_TextInput"></option>
+    <option value="EmailInput" id="option_EmailInput"></option>
+    <option value="NumberInput" id="option_NumberInput"></option>
+    <option value="MultipleChoice" id="option_MultipleChoice"></option>
+    <option value="SingleChoice" id="option_SingleChoice"></option>
 
 
 </select>
 
 <div class="row p-1" style="gap: 1.5rem !important;">
-        <div role="button" onclick="SelectDeselect(this);" id="card_text"
-            class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=text style="min-width:8rem;border:3px solid white;">
-            <div class="text-center py-4">
-                <h4 class="card-title">Your text</h4>
-                <p class="text-small">Great for sales copy, instructions and information</p>
-                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
-            </div>
+    <div role="button" onclick="SelectDeselect(this);" id="card_text"
+         class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=text style="min-width:8rem;border:3px solid white;">
+        <div class="text-center py-4">
+            <h4 class="card-title">Your text</h4>
+            <p class="text-small">Great for sales copy, instructions and information</p>
+            <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
         </div>
+    </div>
 
-        <div role="button" onclick="SelectDeselect(this);" id="card_CharInput"
-            class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=CharInput style="min-width:8rem;border:3px solid white;">
-            <div class="text-center py-4">
-                <h4 class="card-title">Character input</h4>
-                <p class="text-small">Useful to get short text information from users</p>
+    <div role="button" onclick="SelectDeselect(this);" id="card_CharInput"
+         class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=CharInput style="min-width:8rem;border:3px solid white;">
+        <div class="text-center py-4">
+            <h4 class="card-title">Character input</h4>
+            <p class="text-small">Useful to get short text information from users</p>
 
-                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
-            </div>
+            <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
         </div>
+    </div>
 
-        <div role="button" onclick="SelectDeselect(this);" id="card_TextInput"
-            class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=TextInput style="min-width:8rem;border:3px solid white;">
-            <div class="text-center py-4">
-                <h4 class="card-title">Text input</h4>
-                <p class="text-small">Useful to get long text information from users</p>
+    <div role="button" onclick="SelectDeselect(this);" id="card_TextInput"
+         class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=TextInput style="min-width:8rem;border:3px solid white;">
+        <div class="text-center py-4">
+            <h4 class="card-title">Text input</h4>
+            <p class="text-small">Useful to get long text information from users</p>
 
-                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
-            </div>
+            <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
         </div>
+    </div>
 
-        <div role="button" onclick="SelectDeselect(this);" id="card_EmailInput"
-            class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=EmailInput style="min-width:8rem;border:3px solid white;">
-            <div class="text-center py-4">
-                <h4 class="card-title">Email input</h4>
-                <p class="text-small">Capture email addresses easily with this element</p>
+    <div role="button" onclick="SelectDeselect(this);" id="card_EmailInput"
+         class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=EmailInput style="min-width:8rem;border:3px solid white;">
+        <div class="text-center py-4">
+            <h4 class="card-title">Email input</h4>
+            <p class="text-small">Capture email addresses easily with this element</p>
 
-                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
-            </div>
+            <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
         </div>
+    </div>
 
 
-        <div role="button" onclick="SelectDeselect(this);" id="card_NumberInput"
-            class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=NumberInput style="min-width:8rem;border:3px solid white;">
-            <div class="text-center py-4">
-                <h4 class="card-title">Number input</h4>
-                <p class="text-small">A simple number input field</p>
+    <div role="button" onclick="SelectDeselect(this);" id="card_NumberInput"
+         class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=NumberInput style="min-width:8rem;border:3px solid white;">
+        <div class="text-center py-4">
+            <h4 class="card-title">Number input</h4>
+            <p class="text-small">A simple number input field</p>
 
-                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
-            </div>
-        </div>    
-        
-        <div role="button" onclick="SelectDeselect(this);" id="card_MultipleChoice"
-            class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=MultipleChoice style="min-width:8rem;border:3px solid white;">
-            <div class="text-center py-4">
-                <h4 class="card-title">Multiple Choice</h4>
-                <p class="text-small">Swatches for multiple choice questions</p>
+            <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+        </div>
+    </div>
 
-                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
-            </div>
-        </div>  
-        
-        
-        <div role="button" onclick="SelectDeselect(this);" id="card_SingleChoice"
-        class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=SingleChoice style="min-width:8rem;border:3px solid white;">
+    <div role="button" onclick="SelectDeselect(this);" id="card_MultipleChoice"
+         class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=MultipleChoice style="min-width:8rem;border:3px solid white;">
+        <div class="text-center py-4">
+            <h4 class="card-title">Multiple Choice</h4>
+            <p class="text-small">Swatches for multiple choice questions</p>
+
+            <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+        </div>
+    </div>
+
+
+    <div role="button" onclick="SelectDeselect(this);" id="card_SingleChoice"
+         class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=SingleChoice style="min-width:8rem;border:3px solid white;">
         <div class="text-center py-4">
             <h4 class="card-title">Single Choice</h4>
             <p class="text-small">Swatches where there is only a single choice</p>
 
 
-                <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+            <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
         </div>
-    </div>  
+    </div>
 </div>
 
 <script>
@@ -91,21 +91,21 @@
         optionToSelect = document.querySelector(option_id)
         select_field = optionToSelect.parentNode
         if (optionToSelect.selected){
-                e.classList.remove('border-dark')
-                e.classList.add('border-white')
-                optionToSelect.selected = false;
-                select_field.value = ''
+            e.classList.remove('border-dark')
+            e.classList.add('border-white')
+            optionToSelect.selected = false;
+            select_field.value = ''
         } else {
-                e.classList.add('border-dark')
-                e.classList.remove('border-white')
+            e.classList.add('border-dark')
+            e.classList.remove('border-white')
                 //Remove borders from others not selected
-            
-                options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice'))
-                for (let i = 0; i < options_cards.length; i++) {
-                    if (options_cards[i] != e){
-                        options_cards[i].classList.remove('border-dark')
-                        options_cards[i].classList.add('border-white')
-                    }
+
+            options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice'))
+            for (let i = 0; i < options_cards.length; i++) {
+                if (options_cards[i] != e){
+                    options_cards[i].classList.remove('border-dark')
+                    options_cards[i].classList.add('border-white')
+                }
 
             }
             optionToSelect.selected = true;

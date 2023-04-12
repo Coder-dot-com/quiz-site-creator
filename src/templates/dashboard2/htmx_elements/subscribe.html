@@ -1,44 +1,44 @@
 {% if user.is_authenticated %}
 
-{% if not existing_higher_tier_subscription %}
-{% if remaining_days %}
-  {% if trial_period_days %}
-<div class="mx-auto my-3 text-center">
-  Any remaining days on your old plan or free trial have successfully been added to your new plan giving you {{trial_period_days}} days. <br>
-  Payment for your new plan will start after these converted days run out on {{user_subscription.next_due |date:'d-M-y' }}.
-</div>
+  {% if not existing_higher_tier_subscription %}
+    {% if remaining_days %}
+      {% if trial_period_days %}
+        <div class="mx-auto my-3 text-center">
+          Any remaining days on your old plan or free trial have successfully been added to your new plan giving you {{trial_period_days}} days. <br>
+          Payment for your new plan will start after these converted days run out on {{user_subscription.next_due |date:'d-M-y' }}.
+        </div>
+      {% endif %}
+    {% endif %}
   {% endif %}
-{% endif %}
-{% endif %}
 
 
-{% if existing_higher_tier_subscription %}
-<div class="mx-auto my-3 text-center">
-  Don't worry, we noticed you had an old plan of a higher tier so this will remain active until it expires then your new plan will start on 
-  {{user_subscription.next_due |date:'d-M-y' }}
+  {% if existing_higher_tier_subscription %}
+    <div class="mx-auto my-3 text-center">
+      Don't worry, we noticed you had an old plan of a higher tier so this will remain active until it expires then your new plan will start on
+      {{user_subscription.next_due |date:'d-M-y' }}
 
-</div>
+    </div>
 
-{% endif %}
+  {% endif %}
 
-<style>
-  @media screen and (max-width: 768px) {
-  .responsiveModal {
+  <style>
+    @media screen and (max-width: 768px) {
+      .responsiveModal {
 
-      min-width: 100%;
+        min-width: 100%;
 
 
 
-  }
-}
-@media screen and (min-width: 768px) {
+      }
+    }
+    @media screen and (min-width: 768px) {
 
-.responsiveModal {
-  min-width: 500px;
-}
-}
-</style>
-<div class="container-fluid" id="subscribeNow">
+      .responsiveModal {
+        min-width: 500px;
+      }
+    }
+  </style>
+  <div class="container-fluid" id="subscribeNow">
 
     {% comment %} <div class="row justify-content-center">
       <div class="col-lg-6">
@@ -53,123 +53,123 @@
 
     <div class="row justify-content-center">
 
-  <script src="https://js.stripe.com/v3/"></script>
-  <div class="col-10 mx-auto p-1 responsiveModal">
-    <h4>
-      What you get when you subscribe to the {{subscription_choice.subscription_name}} 
-  
-    </h4>
-  {% autoescape off %}
-  {{subscription_choice.feature_list}}
-  {% endautoescape %}
+      <script src="https://js.stripe.com/v3/"></script>
+      <div class="col-10 mx-auto p-1 responsiveModal">
+        <h4>
+          What you get when you subscribe to the {{subscription_choice.subscription_name}}
 
-  {% if subscription_choice.renewal_frequency == 'annually' %}
-  <h4>
-    Works out rounded to {{subscription_choice.currency.currency_symbol}}<span id="subscriptionPrice_">{{subscription_choice.price}}</span> per month
+        </h4>
+        {% autoescape off %}
+          {{subscription_choice.feature_list}}
+        {% endautoescape %}
 
-    
-  </h4>
-
-  <h6>
-    By choosing annual you're getting 3 months free compared to a monthly subscription    
-  </h6>
-  {% endif %}
-  <small>
-    Billed at {{subscription_choice.currency.currency_symbol}}{{subscription_choice.price}} {{subscription_choice.renewal_frequency}}
-  </small>
-
-  <script>
-
-    var subscription_price = document.querySelector('#subscriptionPrice_')
-    {% if subscription_choice.renewal_frequency == 'annually' %}
-        new_price = (Math.round({{subscription_choice.price}} / 12))
-        subscription_price.textContent = new_price
-    {% endif %}
-</script>
+        {% if subscription_choice.renewal_frequency == 'annually' %}
+          <h4>
+            Works out rounded to {{subscription_choice.currency.currency_symbol}}<span id="subscriptionPrice_">{{subscription_choice.price}}</span> per month
 
 
-  </div>
+          </h4>
 
-  <div class="col-10 mx-auto p-1 responsiveModal mt-2">
-    <form id="payment-form" data-secret="{{ client_secret }}">
-        <div id="payment-element">
+          <h6>
+            By choosing annual you're getting 3 months free compared to a monthly subscription
+          </h6>
+        {% endif %}
+        <small>
+          Billed at {{subscription_choice.currency.currency_symbol}}{{subscription_choice.price}} {{subscription_choice.renewal_frequency}}
+        </small>
+
+        <script>
+
+          var subscription_price = document.querySelector('#subscriptionPrice_')
+          {% if subscription_choice.renewal_frequency == 'annually' %}
+            new_price = (Math.round({{subscription_choice.price}} / 12))
+              subscription_price.textContent = new_price
+          {% endif %}
+        </script>
+
+
+      </div>
+
+      <div class="col-10 mx-auto p-1 responsiveModal mt-2">
+        <form id="payment-form" data-secret="{{ client_secret }}">
+          <div id="payment-element">
           <!-- Elements will create form elements here -->
-        </div>
-        <br>
-        <div id="error-message">
+          </div>
+          <br>
+          <div id="error-message">
           <!-- Display error message to your customers here -->
-        </div>
-        <div class="text-center plan-btn mt-4 pt-2">
-          <button class="btn btn-primary site-button waves-effect waves-light w-100" id="submit_payment">Subscribe</button>
-        </div>
-        <br>
-        <div style="font-size:0.9rem;">
+          </div>
+          <div class="text-center plan-btn mt-4 pt-2">
+            <button class="btn btn-primary site-button waves-effect waves-light w-100" id="submit_payment">Subscribe</button>
+          </div>
+          <br>
+          <div style="font-size:0.9rem;">
 
 
-        </div>
-    </form>
-  </div>
-    <style>
-      .methods-of-payment img { padding: 0.2em; margin-top:0.2em; }
-      .lt-ie9 .methods-of-payment, .ie8 .methods-of-payment, .oldie .methods-of-payment { display: none; }
-    </style>
-    
+          </div>
+        </form>
+      </div>
+      <style>
+        .methods-of-payment img { padding: 0.2em; margin-top:0.2em; }
+        .lt-ie9 .methods-of-payment, .ie8 .methods-of-payment, .oldie .methods-of-payment { display: none; }
+      </style>
 
-    <script>
-      const stripe = Stripe('{{stripe_pub_key}}');
-      const stripeOptions = {
-        clientSecret: '{{client_secret}}',
+
+      <script>
+        const stripe = Stripe('{{stripe_pub_key}}');
+        const stripeOptions = {
+          clientSecret: '{{client_secret}}',
         // Fully customizable with appearance API.
-        appearance: {/*...*/},
-      };
-      
+          appearance: {/*...*/},
+        };
+
       // Set up Stripe.js and Elements to use in checkout form, passing the client secret obtained in step 2
-      const elements = stripe.elements(stripeOptions);
-      
+        const elements = stripe.elements(stripeOptions);
+
       // Create and mount the Payment Element
-      const paymentElement = elements.create('payment');
-      paymentElement.mount('#payment-element');
-      
-      
-      
-  const form = document.getElementById('payment-form');
+        const paymentElement = elements.create('payment');
+        paymentElement.mount('#payment-element');
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
 
-    {% if trial_period_days != 0 %}
 
-    const {error} = await stripe.confirmSetup({
+        const form = document.getElementById('payment-form');
+
+        form.addEventListener('submit', async (event) => {
+          event.preventDefault();
+
+          {% if trial_period_days != 0 %}
+
+            const {error} = await stripe.confirmSetup({
       //`Elements` instance that was used to create the Payment Element
-      elements,
-      confirmParams: {
-        return_url: '{{return_url}}',
-      }
-    });
-    {% else %}
+              elements,
+              confirmParams: {
+                return_url: '{{return_url}}',
+              }
+            });
+          {% else %}
 
-    const {error} = await stripe.confirmPayment({
+            const {error} = await stripe.confirmPayment({
       //`Elements` instance that was used to create the Payment Element
-      elements,
-      confirmParams: {
-        return_url: '{{return_url}}',
-      },
-    }); 
-    {% endif %}
+              elements,
+              confirmParams: {
+                return_url: '{{return_url}}',
+              },
+            });
+          {% endif %}
 
-    if (error) {
+          if (error) {
       // This point will only be reached if there is an immediate error when
       // confirming the payment. Show error to your customer (for example, payment
       // details incomplete)
-      const messageContainer = document.querySelector('#error-message');
-      messageContainer.textContent = error.message;
-    } else {
+            const messageContainer = document.querySelector('#error-message');
+            messageContainer.textContent = error.message;
+          } else {
       // Your customer will be redirected to your `return_url`. For some payment
       // methods like iDEAL, your customer will be redirected to an intermediate
       // site first to authorize the payment, then redirected to the `return_url`.
-    }
-  });
-      
+          }
+        });
+
       </script>
 
     </div>
@@ -181,13 +181,13 @@
 
 {% else %}
 
-<div>
+  <div>
 
-  <div class="text-center plan-btn mt-4 pt-2">
-    <a href="{% url 'login_user' %}" class="btn btn-primary site-button waves-effect waves-light w-100" id="submit_payment">Please login again</a>
+    <div class="text-center plan-btn mt-4 pt-2">
+      <a href="{% url 'login_user' %}" class="btn btn-primary site-button waves-effect waves-light w-100" id="submit_payment">Please login again</a>
+    </div>
+
   </div>
 
-</div>
 
-
-  {% endif %}
+{% endif %}

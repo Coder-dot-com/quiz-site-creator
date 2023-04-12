@@ -5,17 +5,17 @@
         </button>
     </div>
     <div class="modal-body">
-        <form action="" 
-        hx-post={% url 'quiz_page_element_add' user_quiz.id quiz_page.id %}
-        hx-target='#modalContent'
-        hx-swap=innerHTML
-        
+        <form action=""
+              hx-post={% url 'quiz_page_element_add' user_quiz.id quiz_page.id %}
+              hx-target='#modalContent'
+              hx-swap=innerHTML
+
         >
-        {% include 'element_choices.html' %}
-        <div class="">
-            <button type="button" class="btn btn-danger light" data-dismiss="modal">Cancel</button>
-            <button type="submit" class="btn btn-primary site-button">Continue</button>
-        </div>
+            {% include 'element_choices.html' %}
+            <div class="">
+                <button type="button" class="btn btn-danger light" data-dismiss="modal">Cancel</button>
+                <button type="submit" class="btn btn-primary site-button">Continue</button>
+            </div>
         </form>
 
     </div>
@@ -23,16 +23,16 @@
 
 
 {% if element_added %}
-<script>
-    document.querySelector('#closeModalElement').click()
-</script>
+    <script>
+        document.querySelector('#closeModalElement').click()
+    </script>
 
-<div
+    <div
 
-hx-target="#page_elements"
-hx-swap=outerHTML
-hx-trigger=load
-hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
->
+        hx-target="#page_elements"
+        hx-swap=outerHTML
+        hx-trigger=load
+        hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+    >
         {% comment %} Refresh list  {% endcomment %}        
 {% endif %}

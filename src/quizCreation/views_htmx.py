@@ -5,7 +5,7 @@ from .forms import TextElementForm, CharInputElementForm, TextInputElementForm, 
 from django.urls import reverse
 import os
 from uuid import uuid4
-
+from django.utils.datastructures import MultiValueDictKeyError
 
 @login_required
 def htmx_create_quiz(request):
@@ -719,7 +719,7 @@ def upload_quiz_logo(request, quiz_id):
     images = request.FILES.getlist('logo')
 
     for image in images:
-        if image.size < 20000000 and image.size > 100:
+        if image.size < 2000000 and image.size > 100:
             file_name = image.name
             file_ext = os.path.splitext(file_name)[1]
             if file_ext == '.jpeg':
@@ -776,6 +776,7 @@ def get_text_element_edit_form(request, quiz_id, element_id):
     return render(request, 'element_forms/TextInput.html', context=context)
 
 
+@login_required
 def edit_text_input_element(request):
     return
 # @login_required
@@ -787,3 +788,208 @@ def edit_text_input_element(request):
 #     }
 
 #     return render(request, 'quiz_creation/quizes_list.html', context=context)
+
+
+
+
+
+@login_required
+def upload_image_for_multiple_choice(request, quiz_id, page_id, element_id, choice_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        element = MultipleChoiceElement.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+
+        choice = MultipleChoiceChoice.objects.get(id=choice_id, multiple_choice_element=element)
+
+        images = request.FILES.getlist('choice_image')
+
+        for image in images:
+            if image.size < 2000000 and image.size > 100:
+                file_name = image.name
+                file_ext = os.path.splitext(file_name)[1]
+                if file_ext == '.jpeg':
+                    file_ext = '.jpg'
+
+                image.name = f"{uuid4()}{file_ext}"
+                choice.image = image
+                choice.save()
+
+        choices = MultipleChoiceChoice.objects.filter(
+            multiple_choice_element=element)
+        form = MultipleChoiceChoiceForm()
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
+        return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
+
+@login_required
+def upload_image_for_single_choice(request, quiz_id, page_id, element_id, choice_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        element = SingleChoiceElement.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+
+        choice = SingleChoiceChoice.objects.get(id=choice_id, single_choice_element=element)
+
+        images = request.FILES.getlist('choice_image')
+
+        for image in images:
+            if image.size < 2000000 and image.size > 100:
+                file_name = image.name
+                file_ext = os.path.splitext(file_name)[1]
+                if file_ext == '.jpeg':
+                    file_ext = '.jpg'
+
+                image.name = f"{uuid4()}{file_ext}"
+                choice.image = image
+                choice.save()
+
+        choices = SingleChoiceChoice.objects.filter(
+            single_choice_element=element)
+        form = SingleChoiceChoiceForm()
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
+        return render(request, 'element_forms/AddChoiceSingleChoiceModal.html', context=context)
+    
+
+@login_required
+def mark_as_correct_multiple_choice(request, quiz_id, page_id, element_id, choice_id):
+    
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        element = MultipleChoiceElement.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+
+        choice = MultipleChoiceChoice.objects.get(id=choice_id, multiple_choice_element=element)
+
+        try:
+            if request.POST['correct']:
+                choice.is_correct_choice = True
+                choice.save()
+        except MultiValueDictKeyError:
+                choice.is_correct_choice = False
+                choice.save()           
+
+        choices = MultipleChoiceChoice.objects.filter(
+            multiple_choice_element=element)
+        form = MultipleChoiceChoiceForm()
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
+        return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
+
+@login_required
+def mark_as_correct_single_choice(request, quiz_id, page_id, element_id, choice_id):
+    
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        element = SingleChoiceElement.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+
+        choice = SingleChoiceChoice.objects.get(id=choice_id, single_choice_element=element)
+        print(request.POST)
+        try:
+            if request.POST['correct']:
+                choice.is_correct_choice = True
+                choice.save()
+                
+        except MultiValueDictKeyError:
+                choice.is_correct_choice = False
+                choice.save()           
+
+        choices = SingleChoiceChoice.objects.filter(
+            single_choice_element=element)
+        form = SingleChoiceChoiceForm()
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
+        return render(request, 'element_forms/AddChoiceSingleChoiceModal.html', context=context)
+    
+def delete_image_from_multiple_choice(request, quiz_id, page_id, element_id, choice_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        element = MultipleChoiceElement.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+
+        choice = MultipleChoiceChoice.objects.get(id=choice_id, multiple_choice_element=element)
+
+        choice.image = None
+        choice.save()          
+
+        choices = MultipleChoiceChoice.objects.filter(
+            multiple_choice_element=element)
+        form = MultipleChoiceChoiceForm()
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
+        return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
+    
+
+def delete_image_from_single_choice(request, quiz_id, page_id, element_id, choice_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        element = SingleChoiceElement.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+
+        choice = SingleChoiceChoice.objects.get(id=choice_id, single_choice_element=element)
+
+        choice.image = None
+        choice.save()         
+
+        choices = SingleChoiceChoice.objects.filter(
+            single_choice_element=element)
+        form = SingleChoiceChoiceForm()
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
+        return render(request, 'element_forms/AddChoiceSingleChoiceModal.html', context=context)

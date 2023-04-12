@@ -59,6 +59,16 @@ urlpatterns = [
     path('delete_logo_from_quiz/<quiz_id>/', views_htmx.delete_logo_from_quiz, name="delete_logo_from_quiz"),
     path('update_quiz_analytic_scripts/<quiz_id>/', views_htmx.update_quiz_analytic_scripts, name="update_quiz_analytic_scripts"),
 
+    path('upload_image_for_multiple_choice/<quiz_id>/<page_id>/<element_id>/<choice_id>/', views_htmx.upload_image_for_multiple_choice, name="upload_image_for_multiple_choice"),
+    path('upload_image_for_single_choice/<quiz_id>/<page_id>/<element_id>/<choice_id>/', views_htmx.upload_image_for_single_choice, name="upload_image_for_single_choice"),
+
+
+    path('mark_as_correct_multiple_choice/<quiz_id>/<page_id>/<element_id>/<choice_id>/', views_htmx.mark_as_correct_multiple_choice, name="mark_as_correct_multiple_choice"),
+    path('mark_as_correct_single_choice/<quiz_id>/<page_id>/<element_id>/<choice_id>/', views_htmx.mark_as_correct_single_choice, name="mark_as_correct_single_choice"),
+    
+    path('delete_image_from_multiple_choice/<quiz_id>/<page_id>/<element_id>/<choice_id>/', views_htmx.delete_image_from_multiple_choice, name="delete_image_from_multiple_choice"),
+    path('delete_image_from_single_choice/<quiz_id>/<page_id>/<element_id>/<choice_id>/', views_htmx.delete_image_from_single_choice, name="delete_image_from_single_choice"),
+
 
 ]
 

@@ -1,66 +1,82 @@
 <div
-{% if not checked_db %}
-hx-trigger = 'load'
-hx-swap=outerHTML
-hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id%}
-{% endif %}
+    {% if not checked_db %}
+        hx-trigger = 'load'
+        hx-swap=outerHTML
+        hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id%}
+    {% endif %}
 >
 
 
 
-    <select 
- 
+    <select
 
-    id="question_{{element.id}}" name="{{element.id}}" id="multiC_{{element.id}}" class="form-select d-none" multiple 
+
+        id="question_{{element.id}}" name="{{element.id}}" id="multiC_{{element.id}}" class="form-select d-none" multiple
     >
-    {% for option in element.get_element_type.element.get_multiple_choice_choices %}
+        {% for option in element.get_element_type.element.get_multiple_choice_choices %}
 
-    <option value="{{option.id}}" id="option_{{option.id}}">{{option.choice}}</option>
-    {% endfor %}
+            <option value="{{option.id}}" id="option_{{option.id}}">{{option.choice}}</option>
+        {% endfor %}
     </select>
 
 
     <div class="row justify-content-center  p-1" style="gap: 1.5rem !important;">
-    {% for option in element.get_element_type.element.get_multiple_choice_choices %}
+        {% for option in element.get_element_type.element.get_multiple_choice_choices %}
 
-        <div role="button" onclick="SelectDeselect(this);" id="card_{{option.id}}"
-            class=" card_choice  border-3 col-12 col-sm-5 {% if option.skip_to_next and not edit_preference %}skip_to_next{% endif %} {% if option.can_only_be_selected %}can_only_be_selected{% endif %}" data-option={{option.id}} style="min-width:8rem;border:3px solid white;">
-            <div style="" class="text-center py-4">
-                <h4 class="card-title">{{option.choice}}</h4>
-                {% if option.option_image_icon %}
-                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
-                {% endif %}
+            <div role="button" onclick="SelectDeselect(this);" id="card_{{option.id}}"
+                 class=" card_choice  border-3 col-12 col-sm-5 {% if option.skip_to_next and not edit_preference %}skip_to_next{% endif %} {% if option.can_only_be_selected %}can_only_be_selected{% endif %}" data-option={{option.id}} style="min-width:8rem;border:3px solid white;">
+                <div style="" class="text-center py-4">
+                    <h4 class="card-title">{{option.choice}}</h4>
+                    {% if option.option_image_icon %}
+                        <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+                    {% endif %}
+                </div>
             </div>
-        </div>
 
-        
-    {% endfor %}
+
+        {% endfor %}
     </div>
 
     <script>
-    function SelectDeselect(e) {
-        option_id = "#option_" + e.getAttribute('data-option')
+        function SelectDeselect(e) {
+            option_id = "#option_" + e.getAttribute('data-option')
 
-        optionToSelect = document.querySelector(option_id)
-        if (optionToSelect.selected){
-            e.classList.remove('border-success')
-            e.classList.add('border-white')
+            optionToSelect = document.querySelector(option_id)
+            if (optionToSelect.selected){
+                e.classList.remove('border-success')
+                e.classList.add('border-white')
 
-            optionToSelect.selected = false;
-        } else {
-            e.classList.add('border-success')
-            e.classList.remove('border-white')
+                optionToSelect.selected = false;
+            } else {
+                e.classList.add('border-success')
+                e.classList.remove('border-white')
 
-            optionToSelect.selected = true;
-            
-            classes = e.classList
+                optionToSelect.selected = true;
+
+                classes = e.classList
             {% comment %} if skip to next then submit form {% endcomment %}
-            if (classes.contains('skip_to_next') && !(previous_answers)) {
-                document.querySelector('#submitQuestionBtn').click()
-            }
-            if (classes.contains('can_only_be_selected')) {
+                if (classes.contains('skip_to_next') && !(previous_answers)) {
+                    document.querySelector('#submitQuestionBtn').click()
+                }
+                if (classes.contains('can_only_be_selected')) {
 
-                options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice'))
+                    options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice'))
+                    for (let i = 0; i < options_cards.length; i++) {
+                        if (options_cards[i] != e){
+                            options_cards[i].classList.remove('border-success')
+                            options_cards[i].classList.add('border-white')
+
+                            option_id = "#option_" + options_cards[i].getAttribute('data-option')
+                            optionToSelect = document.querySelector(option_id)
+                            optionToSelect.selected = false;
+                        }
+
+                    }
+                }
+
+            {% comment %} For loop over all cards excluding current {% endcomment %}
+
+                options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice.can_only_be_selected'))
                 for (let i = 0; i < options_cards.length; i++) {
                     if (options_cards[i] != e){
                         options_cards[i].classList.remove('border-success')
@@ -71,41 +87,25 @@ hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id
                         optionToSelect.selected = false;
                     }
 
-            }
-            }
-
-            {% comment %} For loop over all cards excluding current {% endcomment %}
-
-            options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice.can_only_be_selected'))
-            for (let i = 0; i < options_cards.length; i++) {
-                if (options_cards[i] != e){
-                    options_cards[i].classList.remove('border-success')
-                    options_cards[i].classList.add('border-white')
-
-                    option_id = "#option_" + options_cards[i].getAttribute('data-option')
-                    optionToSelect = document.querySelector(option_id)
-                    optionToSelect.selected = false;
                 }
 
-        }
-            
-        }
-    };
+            }
+        };
 
     </script>
 
     {% if answer %}
-    
-    <script>
-    
-        answers = [{% for choice in answer.question_choice.all %}"{{choice.id}}",{% endfor %}]
-    
-        for (let i = 0; i < (answers.length); i++) {
-            card_id = "#card_" + answers[i]
-            document.querySelector(card_id).click()
-    
-        }
-     </script>
+
+        <script>
+
+            answers = [{% for choice in answer.question_choice.all %}"{{choice.id}}",{% endfor %}]
+
+            for (let i = 0; i < (answers.length); i++) {
+                card_id = "#card_" + answers[i]
+                document.querySelector(card_id).click()
+
+            }
+        </script>
     {% endif %}
 </div>
 

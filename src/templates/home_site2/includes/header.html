@@ -36,7 +36,7 @@
         }
 
 
-        
+
         .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
             {{site.site_headings_css}}
         }
@@ -165,33 +165,47 @@
                                     </a>
                                 </li>
 
-                                <li class="nav-item ">
+                                <li class="nav-item  ">
+                                    <a class="nav-link" href="{% url 'pricing' %}" >
+                                        Pricing
+                                    </a>
+                                </li>
+
+                                {% comment %} <li class="nav-item ">
                                     <a class="nav-link" href="{% url 'wagtail_serve' '' %}category/all" >
                                         Blog
                                     </a>
-                                </li>
+                                </li> {% endcomment %}
                                 {% if not user.is_authenticated %}
 
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="{% url 'login_user'  %}" >
-                                        Login
-                                    </a>
-                                </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link" href="{% url 'login_user'  %}" >
+                                            Login
+                                        </a>
+                                    </li>
 
-                                <li class="nav-item ">
-                                    <a class="nav-link" href="{% url 'register_user' %}" >
-                                        Register
-                                    </a>
-                                </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link" href="{% url 'register_user' %}" >
+                                            Register
+                                        </a>
+                                    </li>
 
-                             
+
 
                                 {% else %}
-                                <li class="nav-item">
-                                    <a style="width:100%;" href="{% url 'dashboard_home' %}" type="button" class="btn btn-primary site-button"
-                                        role="button" data-toggle="" aria-haspopup="true"
-                                        aria-expanded="false">Dashboard </a>
-                                </li>
+                                    <li class="nav-item ">
+                                        <a class="nav-link" href="{% url 'logout_user' %}" >
+                                            Logout
+                                        </a>
+                                    </li>
+
+                                    <li class="nav-item">
+                                        <a style="width:100%;" href="{% url 'dashboard_home' %}" type="button" class="btn btn-primary site-button"
+                                           role="button" data-toggle="" aria-haspopup="true"
+                                           aria-expanded="false">Dashboard </a>
+                                    </li>
+
+
                                 {% endif %}
 
 
@@ -223,7 +237,7 @@
                             </a>
                         </li>
                     </ul>
-                    
+
                     <div class="copyright">
                         <div class="copyright">
                             <p>Copyright © {{site.site_name}} <script>document.write(new Date().getFullYear())</script>.
@@ -239,41 +253,41 @@
             <div class="mt-5 container-fluid" style="min-height:30rem;">
                 <div class="content-body col-12 col-md-10 mx-auto">
 
-                {% if messages %}
-                    {% autoescape off %}
-                        {% for message in messages %}
-                            <div class="alert alert-warning alert-dismissible fade show mx-auto text-dark"
-                                role="alert">
-                                <center>
-                                    <p>{{message}}</p>
-                                </center>
-                                <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
-                                </div>
-                        {% endfor %}
+                    {% if messages %}
+                        {% autoescape off %}
+                            {% for message in messages %}
+                                <div class="alert alert-warning alert-dismissible fade show mx-auto text-dark"
+                                     role="alert">
+                                    <center>
+                                        <p>{{message}}</p>
+                                    </center>
+                                    <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
+                                    </div>
+                            {% endfor %}
 
-                    {% endautoescape %}
+                        {% endautoescape %}
 
-                {% endif %}
+                    {% endif %}
 
-                {% if user_payment_status and not user_payment_status.status == "active"  %}
+                    {% if user_payment_status and not user_payment_status.status == "active"  %}
 
-                    <div class="alert alert-warning alert-dismissible fade show mx-auto  text-dark"  role="alert">
-                        <center>
-                            <p>{% if user_payment_status.status == "free" %}
-                                You don't have an active membership. Find out the benefits of a membership here<a href='{{subscribe_url}}'></a>
+                        <div class="alert alert-warning alert-dismissible fade show mx-auto  text-dark"  role="alert">
+                            <center>
+                                <p>{% if user_payment_status.status == "free" %}
+                                    You don't have an active membership. Find out the benefits of a membership here<a href='{{subscribe_url}}'></a>
 
 
-                            {% elif user_payment_status.status == "free_trial_expired" %}
-                                Free trial expired. <a href='{{subscribe_url}}'>Subscribe</a>
-                                today to activate more features
+                                {% elif user_payment_status.status == "free_trial_expired" %}
+                                    Free trial expired. <a href='{{subscribe_url}}'>Subscribe</a>
+                                    today to activate more features
 
-                            {% elif user_payment_status.status == "free_trial" %}
-                                Free trial active. Expires on: {{user_payment_status.subscription_expiry|date:"l dS M Y"}}. <a href='{{subscribe_url}}'>Subscribe</a>
-                                today to activate more features
-                            {% endif %}
-                            </p>
-                        </center>
-                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                    </div>
+                                {% elif user_payment_status.status == "free_trial" %}
+                                    Free trial active. Expires on: {{user_payment_status.subscription_expiry|date:"l dS M Y"}}. <a href='{{subscribe_url}}'>Subscribe</a>
+                                    today to activate more features
+                                {% endif %}
+                                </p>
+                            </center>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                        </div>
 
-                {% endif %}
+                    {% endif %}

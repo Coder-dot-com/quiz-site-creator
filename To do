@@ -2,7 +2,22 @@ To do:
 
 -quiz settings
 
+    -convert multiple choice to table and singe choices
+
+    -for multipple choice and single choice on choices modal add an option to set correct choice (tickbox with htx that auto 
+    sends on change) then render correct choices
+    -allow adding image to swatch for choices, list choices in a table on modal
+    
+    -Create MostlyAgree -MostlyDisagree question type with rows
+        Change from question title to section title in first modal
+    -Create 1-10 question with slider input
+    -Create 1-5 star swatches single choice
+
         -test everything 
+
+        -watch landing p page videos and marketing videos for offer
+
+        -complete marketing templates
 
         -create landing pages
         -Create home page

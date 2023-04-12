@@ -1,39 +1,39 @@
 <div
-{% if not checked_db %}
-hx-trigger = 'load'
-hx-swap=outerHTML
-hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id%}
-{% endif %}
+    {% if not checked_db %}
+        hx-trigger = 'load'
+        hx-swap=outerHTML
+        hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id%}
+    {% endif %}
 >
 
 
-    <select 
- 
+    <select
 
-    id="question_{{element.id}}" name="{{element.id}}" id="singleC_{{element.id}}" class="form-select d-none"  
+
+        id="question_{{element.id}}" name="{{element.id}}" id="singleC_{{element.id}}" class="form-select d-none"
     >
-    {% for option in element.get_element_type.element.get_single_choice_choices %}
+        {% for option in element.get_element_type.element.get_single_choice_choices %}
 
-    <option value="{{option.id}}" id="option_{{option.id}}">{{option.choice}}</option>
-    {% endfor %}
+            <option value="{{option.id}}" id="option_{{option.id}}">{{option.choice}}</option>
+        {% endfor %}
     </select>
 
 
     <div class="row justify-content-center  p-1" style="gap: 1.5rem !important;">
-    {% for option in element.get_element_type.element.get_single_choice_choices %}
+        {% for option in element.get_element_type.element.get_single_choice_choices %}
 
-        <div role="button" onclick="SelectDeselectSingle(this);" id="card_{{option.id}}"
-            class=" card_choice  border-3 col-12 col-sm-5 {% if option.skip_to_next and not edit_preference %}skip_to_next{% endif %} {% if option.can_only_be_selected %}can_only_be_selected{% endif %}" data-option={{option.id}} style="min-width:8rem;border:3px solid white;">
-            <div style="" class="text-center py-4">
-                <h4 class="card-title">{{option.choice}}</h4>
-                {% if option.option_image_icon %}
-                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
-                {% endif %}
+            <div role="button" onclick="SelectDeselectSingle(this);" id="card_{{option.id}}"
+                 class=" card_choice  border-3 col-12 col-sm-5 {% if option.skip_to_next and not edit_preference %}skip_to_next{% endif %} {% if option.can_only_be_selected %}can_only_be_selected{% endif %}" data-option={{option.id}} style="min-width:8rem;border:3px solid white;">
+                <div style="" class="text-center py-4">
+                    <h4 class="card-title">{{option.choice}}</h4>
+                    {% if option.option_image_icon %}
+                        <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+                    {% endif %}
+                </div>
             </div>
-        </div>
 
-        
-    {% endfor %}
+
+        {% endfor %}
     </div>
 
     <script>
@@ -42,21 +42,21 @@ hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id
             optionToSelect = document.querySelector(option_id)
             select_field = optionToSelect.parentNode
             if (optionToSelect.selected){
-                    e.classList.remove('border-success')
-                    e.classList.add('border-white')
-                    optionToSelect.selected = false;
-                    select_field.value = ''
+                e.classList.remove('border-success')
+                e.classList.add('border-white')
+                optionToSelect.selected = false;
+                select_field.value = ''
             } else {
-                    e.classList.add('border-success')
-                    e.classList.remove('border-white')
+                e.classList.add('border-success')
+                e.classList.remove('border-white')
                     //Remove borders from others not selected
-                
-                    options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice'))
-                    for (let i = 0; i < options_cards.length; i++) {
-                        if (options_cards[i] != e){
-                            options_cards[i].classList.remove('border-success')
-                            options_cards[i].classList.add('border-white')
-                        }
+
+                options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice'))
+                for (let i = 0; i < options_cards.length; i++) {
+                    if (options_cards[i] != e){
+                        options_cards[i].classList.remove('border-success')
+                        options_cards[i].classList.add('border-white')
+                    }
 
                 }
                 optionToSelect.selected = true;
@@ -78,7 +78,7 @@ hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id
                             optionToSelect.selected = false;
                         }
 
-                }
+                    }
                 }
             }
         };
@@ -86,20 +86,20 @@ hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id
 
 
         {% if answer %}
-        
-        {% if answer.answer %}
-        card_id = "#card_" + '{{answer.answer}}'
-        console.log(card_id)
-        
-        a = document.querySelector(card_id)
-        a.classList.add('border-success')
-        option_id = "#option_" + '{{answer.answer}}'
-        optionToSelect = document.querySelector(option_id)
 
-        optionToSelect.selected = true
-        {% endif %}
-    
-    
+            {% if answer.answer %}
+                card_id = "#card_" + '{{answer.answer}}'
+                console.log(card_id)
+
+                a = document.querySelector(card_id)
+                a.classList.add('border-success')
+                option_id = "#option_" + '{{answer.answer}}'
+                optionToSelect = document.querySelector(option_id)
+
+                optionToSelect.selected = true
+            {% endif %}
+
+
         {% endif %}
     </script>
 

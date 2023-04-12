@@ -15,7 +15,7 @@
             }
 
         </style>
-        
+
 
         {% comment %} Currency converter {% endcomment %}
         <div class="row dropdown  custom-dropdown my-1" style="float:right;">
@@ -90,19 +90,19 @@
                     input[type="range"]::-webkit-slider-runnable-track {
                         background: #28b765 !important;
                         height: 5px;
-                       }
-                       
-                       input[type="range"]::-moz-range-track {
+                    }
+
+                    input[type="range"]::-moz-range-track {
                         background: #28b765 !important;
                         height: 5px;
-                       }
-                       
-                       
+                    }
+
+
                 </style>
                 <input onmousemove="updatePriceDisplay()" onclick="updatePriceDisplay();" onchange="updatePriceDisplay()" type="range"
-                    class="form-control" required
-                    id="selected_price" name="user_selected_price"
-                    min="10" value=20 max="100">
+                       class="form-control" required
+                       id="selected_price" name="user_selected_price"
+                       min="10" value=20 max="100">
                 <span id="" style="float:right;">
 
                     {{session.currency.currency_symbol}}
@@ -129,7 +129,7 @@
                 <label for="" class="col-form-label">Select how many months to preorder
                 </label>
                 <select  name="interval" id="option_prepurchase" class="form-select d-none"
-                    required >
+                        required >
                     <option value=""></option>
                     <option value="1" id="option_1month">1month</option>
                     <option value="2" id="option_2month">2month</option>
@@ -141,27 +141,27 @@
 
                 <div class="row p-2 m-2" style="gap: 1.5rem !important;">
                     <div role="button" onclick="SelectDeselect(this);" id="card_1month"
-                        class="card border-3 col-12 col-sm-5" data-option="1month"  style="min-width:8rem;border:3px solid white;">
+                         class="card border-3 col-12 col-sm-5" data-option="1month"  style="min-width:8rem;border:3px solid white;">
                         <div class="text-center py-4">
                             <h4 class="card-title">1 month</h4>
                         </div>
                     </div>
 
                     <div role="button" onclick="SelectDeselect(this);" id="card_2month"
-                    class="card border-3 col-12 col-sm-5" data-option="2month" style="min-width:8rem;border:3px solid white;">
+                         class="card border-3 col-12 col-sm-5" data-option="2month" style="min-width:8rem;border:3px solid white;">
                         <div class="text-center py-4">
                             <h4 class="card-title">2 months</h4>
                         </div>
                     </div>
 
                     <div role="button" onclick="SelectDeselect(this);" id="card_3month"
-                        class="card border-3 col-12 col-sm-5" data-option="3month" style="min-width:8rem;border:3px solid white;">
+                         class="card border-3 col-12 col-sm-5" data-option="3month" style="min-width:8rem;border:3px solid white;">
                         <div class="text-center py-4">
                             <h4 class="card-title">3 months</h4>
                         </div>
                     </div>
                     <div role="button" onclick="SelectDeselect(this);" id="card_6month"
-                        class="card border-3 col-12 col-sm-5" data-option="6month" style="min-width:8rem;border:3px solid white;">
+                         class="card border-3 col-12 col-sm-5" data-option="6month" style="min-width:8rem;border:3px solid white;">
                         <div class="text-center py-4">
                             <h4 class="card-title">6 months</h4>
                         </div>
@@ -208,17 +208,17 @@
 
         {% endif %}
 
-<div>
-    After the platform has been developed and you've been onboarded, 
-    we will give your free access to the platform and work
-    through any issues to make sure we meet your needs.
-    
-    <br><br>
-    Once everything's ready, we'll apply your prepayment as a credit to your account
-    <br><br>
-    Until then, thank you for your support
-    <br><br>
-</div>
+        <div>
+            After the platform has been developed and you've been onboarded,
+            we will give your free access to the platform and work
+            through any issues to make sure we meet your needs.
+
+            <br><br>
+            Once everything's ready, we'll apply your prepayment as a credit to your account
+            <br><br>
+            Until then, thank you for your support
+            <br><br>
+        </div>
 
 
 
@@ -226,25 +226,25 @@
 
 
 
-<div class="d-flex flex-row-reverse align-items-center">
+        <div class="d-flex flex-row-reverse align-items-center">
 
-        {% if quiz.product %}
-            <button
-                type="submit"
-                class="btn btn-primary site-button" style="float:right;">Continue to payment</button>
+            {% if quiz.product %}
+                <button
+                    type="submit"
+                    class="btn btn-primary site-button" style="float:right;">Continue to payment</button>
 
-        {% endif %}
-        <a  class="light small ml-0 mr-auto"
-        hx-get="{% url 'go_back_quiz_end' quiz.unique_id response_id %}"
-        hx-trigger="click once"
-        hx-target="#quizEnd"
-        hx-swap="outerHTML"
-        role="button"
-    >
+            {% endif %}
+            <a  class="light small ml-0 mr-auto"
+               hx-get="{% url 'go_back_quiz_end' quiz.unique_id response_id %}"
+               hx-trigger="click once"
+               hx-target="#quizEnd"
+               hx-swap="outerHTML"
+               role="button"
+            >
 
 
-        < Go back</a>
-</div>
+                < Go back</a>
+        </div>
 
     </form>
 </div>

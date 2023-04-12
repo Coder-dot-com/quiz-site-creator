@@ -4,34 +4,34 @@
 
 
 {% block content %}
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
-<script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
+    <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
 
-{% if user_payment_status and  user_payment_status.status == "active"  %}
+    {% if user_payment_status and  user_payment_status.status == "active"  %}
 
 
-{% include 'quizData/response_table.html' %}
+        {% include 'quizData/response_table.html' %}
 
-{% else %}
-To view responses please subscribe. Your responses have been saved.
+    {% else %}
+        To view responses please subscribe. Your responses have been saved.
 
-{% endif %}
-<script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
-<style>
-    div.container {
-        width: 100%;
-    }
+    {% endif %}
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+    <style>
+        div.container {
+            width: 100%;
+        }
 
-    #table_id_previous:hover, .current, #table_id_next:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
-        color: white !important;
-    }
+        #table_id_previous:hover, .current, #table_id_next:hover, .dataTables_wrapper .dataTables_paginate .paginate_button.current, .dataTables_wrapper .dataTables_paginate .paginate_button.current:hover {
+            color: white !important;
+        }
 
-    #table_id_paginate, #table_id_info {
-        margin-top: 1rem;
-    }
+        #table_id_paginate, #table_id_info {
+            margin-top: 1rem;
+        }
 
-    
-</style>
+
+    </style>
 {% endblock content %}
 
 

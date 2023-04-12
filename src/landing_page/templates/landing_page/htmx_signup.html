@@ -1,57 +1,57 @@
 {% if success %}
-<div class="text-center">
-    <h4>
-        Signed up!
-    </h4>
-    
-</div>
+    <div class="text-center">
+        <h4>
+            Signed up!
+        </h4>
+
+    </div>
 
 
-<script>
-  fbq('track', 'Lead', {}, {eventID: '{{lead_event_id}}'});
+    <script>
+        fbq('track', 'Lead', {}, {eventID: '{{lead_event_id}}'});
 
-</script>
+    </script>
 
 {% else %}
 
 
-<form 
-id="signupFormLaunch"
-class="
-needs-validation 
-mx-auto justify-content-center" novalidate=""
-hx-post="{% url 'launch_page_signup' %}"
-hx-target="#signupFormLaunch"
-hx-swap="outerHTML"
->
+    <form
+        id="signupFormLaunch"
+        class="
+               needs-validation
+               mx-auto justify-content-center" novalidate=""
+        hx-post="{% url 'launch_page_signup' %}"
+        hx-target="#signupFormLaunch"
+        hx-swap="outerHTML"
+    >
 
-<h6>Be the first to know when we launch...</h6>
+        <h6>Be the first to know when we launch...</h6>
 
-    <div class="row">
-        <div class="">
-          {% for field in email_form %}
-            <div class="mb-3
-            ">
-              {{field}}
-              <div class="valid-feedback">
-                Looks good!
-              </div>
-              <div class="invalid-feedback">
-                {% if field.errors %}
+        <div class="row">
+            <div class="">
+                {% for field in email_form %}
+                    <div class="mb-3
+                               ">
+                        {{field}}
+                        <div class="valid-feedback">
+                            Looks good!
+                        </div>
+                        <div class="invalid-feedback">
+                            {% if field.errors %}
 
-                    {% for error in field.errors %}
-                        {{error}}
-                        <br>
-                    {% endfor %}                                            
-                {% else %}
+                                {% for error in field.errors %}
+                                    {{error}}
+                                    <br>
+                                {% endfor %}
+                            {% else %}
 
-                Double check your email.
-                {% endif %}
-              </div>
+                                Double check your email.
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
             </div>
-          {% endfor %}
         </div>
-    </div>
 
     {% comment %} <div class="row">
         <div class="col-lg-12">
@@ -67,14 +67,14 @@ hx-swap="outerHTML"
         </div>
     </div> {% endcomment %}
 
-    <div class="text-align-center;">
+        <div class="text-align-center;">
 
-      <div class="d-grid gap-2 d-md-flex justify-content-md-center">
-        <button type="submit" class="btn btn-primary site-button btn-lg px-4 me-md-2">Let me know</button>
-      </div>
-      <p class="text-center">
-        We'll send you details about our launch and offers for early users
-      </p>
-  </div>
-</form>
+            <div class="d-grid gap-2 d-md-flex justify-content-md-center">
+                <button type="submit" class="btn btn-primary site-button btn-lg px-4 me-md-2">Let me know</button>
+            </div>
+            <p class="text-center">
+                We'll send you details about our launch and offers for early users
+            </p>
+        </div>
+    </form>
 {% endif %}

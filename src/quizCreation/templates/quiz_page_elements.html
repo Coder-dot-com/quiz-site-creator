@@ -1,200 +1,200 @@
 <div id="page_elements">
     {% if elements_count > 1 %}
-    <div class="row px-5">
-        <div class="mx-auto w-100 border border-dark border-1 p-4 text-center"  style="border-style:dashed !important">
+        <div class="row px-5">
+            <div class="mx-auto w-100 border border-dark border-1 p-4 text-center"  style="border-style:dashed !important">
                 <div class="">
-                    <button type="button" class="btn btn-primary site-button mb-2" 
-                    data-toggle="modal" data-target="#exampleModalCenter"
-                    hx-target="#modalContent"
-                    hx-swap=outerHTML
-                    hx-get="{% url 'all_element_swatches' user_quiz.id quiz_page.id  %}"
-                    
+                    <button type="button" class="btn btn-primary site-button mb-2"
+                            data-toggle="modal" data-target="#exampleModalCenter"
+                            hx-target="#modalContent"
+                            hx-swap=outerHTML
+                            hx-get="{% url 'all_element_swatches' user_quiz.id quiz_page.id  %}"
+
                     >
                         Select an element to add
-                        <i class="fa fa-plus"></i>        
-                    </button> 
+                        <i class="fa fa-plus"></i>
+                    </button>
                 </div>
+            </div>
         </div>
-    </div>
     {% endif %}
 
     {% for element in quiz_page_elements %}
 
-    
-    <div class="row px-5 my-3">
-        <div class="py-1 w-100 p-3" style="background-color:rgba(227, 227, 204, 0.3)">
-            <strong>
 
-                {{element.element.page_element.position}}. 
-            </strong>
-            
-            {{element.type}}
-        </div> 
-        
-        <div class="mx-auto w-100 border border-1 border-dark p-2"  style="border-style:dashed !important">
-            {% if not element.type == "Text element" %}
-            
-            <a type="button" class="btn btn-primary site-button float-right text-right" data-toggle="modal" data-target="#editModal_{{element.element.id}}">
-                <span type="button" class="">
-                    Edit <i class="fa fa-edit"></i>
-                </span>
-            </a>
-            {% endif %}
+        <div class="row px-5 my-3">
+            <div class="py-1 w-100 p-3" style="background-color:rgba(227, 227, 204, 0.3)">
+                <strong>
 
-            <div class="modal fade" id="editModal_{{element.element.id}}">
-                <div class="modal-dialog" role="document">
-                    <div class="modal-content" id="editModalContent{{element.element.id}}">
-                        <div class="modal-header">
-                            <h5 class="modal-title">Editing element</h5>
-                            <button type="button" class="close" data-dismiss="modal"><span>×</span>
-                            </button>
+                    {{element.element.page_element.position}}.
+                </strong>
+
+                {{element.type}}
+            </div>
+
+            <div class="mx-auto w-100 border border-1 border-dark p-2"  style="border-style:dashed !important">
+                {% if not element.type == "Text element" %}
+
+                    <a type="button" class="btn btn-primary site-button float-right text-right" data-toggle="modal" data-target="#editModal_{{element.element.id}}">
+                        <span type="button" class="">
+                            Edit <i class="fa fa-edit"></i>
+                        </span>
+                    </a>
+                {% endif %}
+
+                <div class="modal fade" id="editModal_{{element.element.id}}">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content" id="editModalContent{{element.element.id}}">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Editing element</h5>
+                                <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                </button>
+                            </div>
+                            <form id="edit_element_form{{element.element.id}}"
+                                  hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                  hx-post="{% url 'edit_element_title' element.element.page_element.page.quiz.id element.element.page_element.page.id element.element.page_element.id %}"
+
+                                  {% if element.type == "Multiple choice question" or  element.type == 'Single choice question' %}
+                                      hx-target="#editModalContent{{element.element.id}}"
+                                  {% else %}
+                                      hx-target="#page_elements"
+                                  {% endif %}
+
+
+
+                                  hx-swap="outerHTML"
+                                  hx-encoding="multipart/form-data"
+
+
+                            >
+                                <div class="modal-body">
+                                    <span >
+
+                                        Editing {{element.type|lower}}: {{element.element.title}}
+                                    </span>
+
+                                    {% if element.type == "Text element" %}
+
+                                        <div
+                                            hx-trigger="load"
+                                            hx-get={% url 'get_text_element_edit_form' user_quiz.id element.element.page_element.id %}
+                                            hx-target="#editModalContent{{element.element.id}}"
+                                            hx-swap="innerHTML"
+
+
+                                        ></div>
+
+
+                                    {% else %}
+
+
+
+                                        <Input
+                                            name="title"
+                                            type="text" value="{{element.element.title}}" placeholder="Enter a new title here"
+                                            class="form-control border-dark text-dark mx-auto w-75 mt-4" required maxlength="1000">
+                                    {% endif %}
+                                </div>
+
+
+
+                                <div class="modal-footer">
+                                    <a type="button" class="btn btn-danger light" data-dismiss="modal">Cancel</a>
+                                    <button
+
+                                        {% if not element.type == "Multiple choice question" and not element.type == "Single choice question" %}
+
+                                            onclick="document.querySelector('#editModal_{{element.element.id}} > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)').click()"
+                                        {% endif %}
+                                        type="submit"
+
+                                        class="btn btn-primary site-button">Finished changing</button>
+                                </div>
+
+                            </form>
                         </div>
-                        <form id="edit_element_form{{element.element.id}}" 
-                        hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                        hx-post="{% url 'edit_element_title' element.element.page_element.page.quiz.id element.element.page_element.page.id element.element.page_element.id %}"
-                        
-                        {% if element.type == "Multiple choice question" or  element.type == 'Single choice question' %}
-                        hx-target="#editModalContent{{element.element.id}}"
-                        {% else %}
-                        hx-target="#page_elements"
+
+                    </div>
+                </div>
+
+
+                <div class="p-4 d-flex align-items-center ">
+                    <div class="list-icon mr-3 border border-1 border-dark rounded ">
+                        <p type="button"
+                           hx-get={% url 'move_element_up' user_quiz.id quiz_page.id element.element.page_element.id %}
+                           hx-target='#page_elements'
+                           hx-swap=outerHTML
+                           class="fs-20 site-color mb-0 mt-2"><i class="fa fa-chevron-up"></i></p>
+                        <p type="button"
+                           hx-get={% url 'move_element_down' user_quiz.id quiz_page.id element.element.page_element.id %}
+                           hx-target='#page_elements'
+                           hx-swap=outerHTML
+                           class="fs-20 site-color mb-0 mt-2"><i class="fa fa-chevron-down"></i></p>
+                    </div>
+
+                    <br>
+                    {% autoescape off %}
+                        <div {% if element.type == "Text element" %} class="w-100 my-5" {% endif %}>
+                            {{element.element.content}}
+                        </div>
+                    {% endautoescape %}
+                    <div>
+                        <br><br>
+                        {% if element.type == 'Text input element' or  element.type == 'Char input element' or  element.type == 'Email input element' or element.type == 'Number input element' or element.type == 'Multiple choice question' or element.type == "Single choice question" %}
+                            Question title:
+                            <ul class="list-group list-group-horizontal-sm">
+                                <li class="list-group-item">
+                                    <strong>{{element.element.title}}</strong>
+                                </li>
+                            </ul>
                         {% endif %}
 
 
+                        {% if element.type == 'Multiple choice question' %}
+                            Question choices:
+                            <br>
 
-                        hx-swap="outerHTML"
-                        hx-encoding="multipart/form-data"
+                            <ul class="list-group list-group-horizontal-sm">
+                                {% for e in element.element.get_multiple_choice_choices %}
+                                    <li class="list-group-item">
+                                        <strong>
 
-                                                
-                        >
-                            <div class="modal-body">
-                                <span >
+                                            {{e.choice}}
+                                        </strong>
+                                    </li >
+                                    <li>
+                                {% endfor %}
+                            </li>
+                            </ul>
 
-                                    Editing {{element.type|lower}}: {{element.element.title}}
-                                </span>
+                        {% elif element.type == "Single choice question" %}
+                            Question choices:
+                            <br>
 
-                            {% if element.type == "Text element" %}
-                            
-                                <div 
-                                hx-trigger="load"
-                                hx-get={% url 'get_text_element_edit_form' user_quiz.id element.element.page_element.id %}
-                                hx-target="#editModalContent{{element.element.id}}"
-                                hx-swap="innerHTML"
-                                
-                                
-                                ></div>
-                       
-                            
-                            {% else %}
+                            <ul class="list-group list-group-horizontal-sm">
+                                {% for e in element.element.get_single_choice_choices %}
+                                    <li class="list-group-item">
+                                        <strong>
+
+                                            {{e.choice}}
+                                        </strong>
+                                    </li >
+                                    <li>
+                                {% endfor %}
+                            </li>
+                            </ul>
+
+                        {% endif %}
 
 
-                            
-                            <Input
-                            name="title"
-                            type="text" value="{{element.element.title}}" placeholder="Enter a new title here"
-                            class="form-control border-dark text-dark mx-auto w-75 mt-4" required maxlength="1000">
-                            {% endif %}
-                        </div>
-                            
-
-                            
-                            <div class="modal-footer">
-                                <a type="button" class="btn btn-danger light" data-dismiss="modal">Cancel</a>
-                                <button                        
-                                
-                                {% if not element.type == "Multiple choice question" and not element.type == "Single choice question" %}
-
-                                onclick="document.querySelector('#editModal_{{element.element.id}} > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)').click()"
-                                 {% endif %}
-                                type="submit" 
-                                
-                                class="btn btn-primary site-button">Finished changing</button>
-                            </div>
-
-                        </form>
                     </div>
 
                 </div>
+                <span type="button" hx-confirm="Are you sure you want to delete this {{element.type}}?"
+                      hx-target='#page_elements'
+                      hx-delete={% url 'delete_page_element' user_quiz.id quiz_page.id element.element.page_element.id %}
+                      class="float-right text-danger" style="border:3px  solid transparent!important;">Delete <i class="fa fa-trash"></i></span>
             </div>
-
-
-            <div class="p-4 d-flex align-items-center ">
-                <div class="list-icon mr-3 border border-1 border-dark rounded ">
-                    <p type="button" 
-                        hx-get={% url 'move_element_up' user_quiz.id quiz_page.id element.element.page_element.id %}
-                        hx-target='#page_elements'
-                        hx-swap=outerHTML
-                        class="fs-20 site-color mb-0 mt-2"><i class="fa fa-chevron-up"></i></p>
-                    <p type="button"
-                        hx-get={% url 'move_element_down' user_quiz.id quiz_page.id element.element.page_element.id %}
-                        hx-target='#page_elements'
-                        hx-swap=outerHTML       
-                        class="fs-20 site-color mb-0 mt-2"><i class="fa fa-chevron-down"></i></p>
-                </div>
-
-                <br>
-                {% autoescape off %}
-                <div {% if element.type == "Text element" %} class="w-100 my-5" {% endif %}>
-                    {{element.element.content}}
-                </div>
-                {% endautoescape %}
-                <div>
-                    <br><br>
-                    {% if element.type == 'Text input element' or  element.type == 'Char input element' or  element.type == 'Email input element' or element.type == 'Number input element' or element.type == 'Multiple choice question' or element.type == "Single choice question" %}
-                    Question title:      
-                    <ul class="list-group list-group-horizontal-sm">
-                        <li class="list-group-item">
-                            <strong>{{element.element.title}}</strong>
-                        </li>
-                    </ul>
-                    {% endif %}
-
-
-                    {% if element.type == 'Multiple choice question' %}
-                    Question choices: 
-                    <br>
-
-                    <ul class="list-group list-group-horizontal-sm">
-                        {% for e in element.element.get_multiple_choice_choices %}
-                        <li class="list-group-item">
-                            <strong>
-
-                                {{e.choice}}
-                            </strong>
-                        </li >
-                        <li>
-                            {% endfor %}
-                        </li>
-                    </ul>
-
-                    {% elif element.type == "Single choice question" %}
-                    Question choices: 
-                    <br>
-
-                    <ul class="list-group list-group-horizontal-sm">
-                        {% for e in element.element.get_single_choice_choices %}
-                        <li class="list-group-item">
-                            <strong>
-
-                                {{e.choice}}
-                            </strong>
-                        </li >
-                        <li>
-                            {% endfor %}
-                        </li>
-                    </ul>
-
-                    {% endif %}
-
-
-                </div>
-                
-            </div>
-            <span type="button" hx-confirm="Are you sure you want to delete this {{element.type}}?" 
-            hx-target='#page_elements' 
-            hx-delete={% url 'delete_page_element' user_quiz.id quiz_page.id element.element.page_element.id %} 
-            class="float-right text-danger" style="border:3px  solid transparent!important;">Delete <i class="fa fa-trash"></i></span>
         </div>
-    </div>
     {% endfor %}
 </div>
 

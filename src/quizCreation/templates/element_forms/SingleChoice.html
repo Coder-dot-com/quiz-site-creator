@@ -4,43 +4,43 @@
     </button>
 </div>
 <div class="modal-body">
-    <form  
+    <form
 
-    {% if edit %}
-    hx-post={% url 'edit_single_choice_element' user_quiz.id quiz_page.id quiz_page_element.id %}
-    hx-target='#modalContent'
-    hx-swap=outerHTML
-    {% else %}
-    hx-post={% url 'add_single_choice_element' user_quiz.id quiz_page.id %}
-    hx-target='#modalContent'
-    hx-swap=outerHTML
-    {% endif %}
+        {% if edit %}
+            hx-post={% url 'edit_single_choice_element' user_quiz.id quiz_page.id quiz_page_element.id %}
+            hx-target='#modalContent'
+            hx-swap=outerHTML
+        {% else %}
+            hx-post={% url 'add_single_choice_element' user_quiz.id quiz_page.id %}
+            hx-target='#modalContent'
+            hx-swap=outerHTML
+        {% endif %}
 
     >
-    {{form.media}}
-    {% for field in form %}
-    {{field.field.widget.attrs.field_title}}
-    {{field}}
-    {% endfor %}
+        {{form.media}}
+        {% for field in form %}
+            {{field.field.widget.attrs.field_title}}
+            {{field}}
+        {% endfor %}
 
-    <div class="my-3 text-center">
-        <a 
-        {% if not edit %}
-        hx-get={% url 'all_element_swatches' user_quiz.id quiz_page.id %} hx-trigger=click
-        hx-target='#modalContent' hx-swap=outerHTML 
-        {% else %}
-        data-dismiss="modal"
-        {% endif %}
-        class="btn btn-danger light" 
-        >
-        {% if edit %}
-        Cancel
-        {% else %}
-        Go back
-        {% endif %}
-    </a>
-        <button type="submit" class="btn btn-primary site-button">{% if edit %}Save{% else %}Add{% endif %}</button>  
-    </div>
+        <div class="my-3 text-center">
+            <a
+                {% if not edit %}
+                    hx-get={% url 'all_element_swatches' user_quiz.id quiz_page.id %} hx-trigger=click
+                    hx-target='#modalContent' hx-swap=outerHTML
+                {% else %}
+                    data-dismiss="modal"
+                {% endif %}
+                class="btn btn-danger light"
+            >
+                {% if edit %}
+                    Cancel
+                {% else %}
+                    Go back
+                {% endif %}
+            </a>
+            <button type="submit" class="btn btn-primary site-button">{% if edit %}Save{% else %}Add{% endif %}</button>
+        </div>
     </form>
 
 </div>

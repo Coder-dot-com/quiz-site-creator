@@ -7,12 +7,12 @@
 
         <p class="">< Editing quiz: {{user_quiz.name}}</p>
     </a>
-        <div class="col-xl-12 my-3">
-            <div class="card plan-list">
-                <div class="card-header d-sm-flex flex-wrap d-block pb-0 border-0">
-                    <div class="mr-auto pr-3 mb-3">
-                        <h4 class="text-black fs-20"></h4>
-                    </div>
+    <div class="col-xl-12 my-3">
+        <div class="card plan-list">
+            <div class="card-header d-sm-flex flex-wrap d-block pb-0 border-0">
+                <div class="mr-auto pr-3 mb-3">
+                    <h4 class="text-black fs-20"></h4>
+                </div>
                     {% comment %} <div class="card-action card-tabs mr-4 mt-3 mt-sm-0 mb-3">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
@@ -26,23 +26,23 @@
                             </li>
                         </ul>
                     </div> {% endcomment %}
-                    
-                    <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
-                    <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'preview_quiz' user_quiz.id %}" type="button" class="btn  mb-2 mr-2">View quiz preview</a>
+
+                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
+                <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'preview_quiz' user_quiz.id %}" type="button" class="btn  mb-2 mr-2">View quiz preview</a>
 
 
-                    <div class="modal fade" id="exampleModalCenter">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Add quiz page</h5>
-                                    <button type="button" class="close" data-dismiss="modal"><span>×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                    <form action="{% url 'quiz_page_add' user_quiz.id %}" 
-                                     method="POST"
-                                    >
+                <div class="modal fade" id="exampleModalCenter">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Add quiz page</h5>
+                                <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="{% url 'quiz_page_add' user_quiz.id %}"
+                                      method="POST"
+                                >
                                     {% csrf_token %}
                                     <div class="form-group">
                                         <label class="text-black font-w600">Enter a name for your quiz page<span class="required">*</span></label>
@@ -54,59 +54,59 @@
                                         <button type="button" class="btn btn-danger light" data-dismiss="modal">Cancel</button>
                                         <button type="submit" class="btn btn-primary site-button">Continue</button>
                                     </div>
-                                    </form>
-                                </div>
+                                </form>
                             </div>
                         </div>
                     </div>
+                </div>
 
-                    <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' user_quiz.id %}" type="button" class="btn mb-2 mr-2">Link to take quiz</a>
- 
-                    <button type="button" class="btn mb-2" data-toggle="modal" data-target="#quizSettingsModal">Quiz settings</button>
+                <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' user_quiz.id %}" type="button" class="btn mb-2 mr-2">Link to take quiz</a>
 
-                    <div class="modal fade" id="quizSettingsModal">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-                                <div class="modal-header">
-                                    <h5 class="modal-title">Quiz Settings</h5>
-                                    <button type="button" class="close" data-dismiss="modal"><span>×</span>
-                                    </button>
-                                </div>
-                                <div class="modal-body">
-                                   {% include 'quiz_settings/logo_upload_form.html' %}
-                                   {% include 'quiz_settings/analytics_script_form.html' %}
+                <button type="button" class="btn mb-2" data-toggle="modal" data-target="#quizSettingsModal">Quiz settings</button>
 
-                                   
-                                
+                <div class="modal fade" id="quizSettingsModal">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Quiz Settings</h5>
+                                <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% include 'quiz_settings/logo_upload_form.html' %}
+                                {% include 'quiz_settings/analytics_script_form.html' %}
 
-                                    <div class="text-center">
-                                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                                    </div>
+
+
+
+                                <div class="text-center">
+                                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="card-body tab-content pt-2">
-                    <div class="tab-pane active show fade" id="Unifinshed">
-                        {% for page in quiz_pages %}
-                       
+            </div>
+            <div class="card-body tab-content pt-2">
+                <div class="tab-pane active show fade" id="Unifinshed">
+                    {% for page in quiz_pages %}
+
                         <div style="background-color:rgba(227, 227, 204, 0.3)" class="d-flex border-bottom flex-wrap py-3 list-row align-items-center mb-2">
-                            
+
                             <div class="col-xl-5 col-xxl-8 col-lg-6 col-sm-8 d-flex align-items-center">
                                 <div class="list-icon mr-3 mb-3">
-                                <p type="button" 
-                                    hx-get={% url 'move_page_up' user_quiz.id page.id %}
-                                    hx-target='#pagesList'
-                                    hx-swap=outerHTML
-                                    class="site-color fs-20 mb-0 mt-2"><i class="fa fa-chevron-up"></i></p>
-                                <p type="button"
-                                    hx-get={% url 'move_page_down' user_quiz.id page.id %}
-                                    hx-target='#pagesList'
-                                    hx-swap=outerHTML       
-                                    class="site-color fs-20 mb-0 mt-2"><i class="fa fa-chevron-down"></i></p>
+                                    <p type="button"
+                                       hx-get={% url 'move_page_up' user_quiz.id page.id %}
+                                       hx-target='#pagesList'
+                                       hx-swap=outerHTML
+                                       class="site-color fs-20 mb-0 mt-2"><i class="fa fa-chevron-up"></i></p>
+                                    <p type="button"
+                                       hx-get={% url 'move_page_down' user_quiz.id page.id %}
+                                       hx-target='#pagesList'
+                                       hx-swap=outerHTML
+                                       class="site-color fs-20 mb-0 mt-2"><i class="fa fa-chevron-down"></i></p>
 
-                              
+
                                 </div>
                                 <div class="info ">
                                     <h4 class=""><p class="text-black">{{page.number}}. {{page.title}}</p></h4>
@@ -115,25 +115,25 @@
                             </div>
                             <div class="ml-auto pr-4">
 
-                            <a class=" btn btn-primary site-button mb-2" href="{% url 'quiz_page_edit' user_quiz.id page.id %}">
-                                <span >Edit <i class="fa fa-edit"></i></span>
+                                <a class=" btn btn-primary site-button mb-2" href="{% url 'quiz_page_edit' user_quiz.id page.id %}">
+                                    <span >Edit <i class="fa fa-edit"></i></span>
+                                </a>
+
+                                <a href="#" class="mt-3"
+                                   hx-delete={% url 'delete_quiz_page' user_quiz.id page.id %}
+                                   hx-target='#pagesList'
+                                   hx-swap=outerHTML
+                                   hx-confirm="Are you sure you wish to delete the page {{page.name}}"
+                                >
+                                    <div class="  text-danger text-right" style="border:3px  solid transparent!important;"> Delete <i class="fa fa-trash"></i></div>
+                                </div>
+
                             </a>
-                            
-                            <a href="#" class="mt-3"
-                            hx-delete={% url 'delete_quiz_page' user_quiz.id page.id %}
-                            hx-target='#pagesList'
-                            hx-swap=outerHTML
-                            hx-confirm="Are you sure you wish to delete the page {{page.name}}"
-                            >
-                            <div class="  text-danger text-right" style="border:3px  solid transparent!important;"> Delete <i class="fa fa-trash"></i></div>
-                            </div>
-                            
-                        </a>
 
                         </div>
 
                         <style>
-                           
+
                             .accordion-bg1-solid .accordion__header {
                                 background-color:rgba(0, 125, 136, 0.6)!important";
                                 border-color:rgba(0, 125, 136, 0.6)!important";
@@ -207,11 +207,11 @@
                         
     
                         <button type="button" class="btn btn-primary site-button mb-2" data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
-    
-                       
-                      
-                    </div>
+
+
+
+                                </div>
                     {% endif %}
-            </div>
-        </div>
-    </div>
+                    </div>
+                    </div>
+                    </div>

@@ -61,6 +61,8 @@ urlpatterns = [
     path('termsandconditions/', views.tandc, name='tandc'), 
     path('privacypolicy/', views.privpolicy, name='privpolicy'), 
     path('deliveryinfo/', views.deliveryinfo, name='deliveryinfo'), 
+    path('pricing/', views.pricing, name='pricing'), 
+
     path('refundandcancellationpolicy/', views.refundpolicy, name='refundpolicy'), 
     path('postdata/', include('conversion_tracking.urls')),
 

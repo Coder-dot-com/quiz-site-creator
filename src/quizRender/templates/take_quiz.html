@@ -3,28 +3,28 @@
 {% load static %}
 {% block content %}
 
-{% if user_payment_status and  user_payment_status.status == "active"  %}
+    {% if user_payment_status and  user_payment_status.status == "active"  %}
 
-    {% if quiz_page %}
+        {% if quiz_page %}
 
 
-    {% include 'quiz_form.html' %}
+            {% include 'quiz_form.html' %}
+
+        {% else %}
+
+            <center class="m-5">
+
+                No pages have been added to this quiz yet.
+            </center>
+
+        {% endif %}
 
     {% else %}
+        <center class="m-5">
 
-    <center class="m-5">
-
-        No pages have been added to this quiz yet.
-    </center>
-
+            Quiz owner's subscription has expired. Please contact them.
+        </center>
     {% endif %}
-
-{% else %}
-<center class="m-5">
-
-Quiz owner's subscription has expired. Please contact them.
-</center>
-{% endif %}
 
 
 

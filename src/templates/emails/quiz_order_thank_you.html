@@ -12,8 +12,8 @@ Order Details <br>
 Amount: {{order.currency.currency_symbol}}{{order.order_total}} {{order.currency.currency_code}}
 <br>
 {% if order.product.type == 'user_chosen' %}
-Amount per month: {{order.currency.currency_symbol}}{{order.user_chosen_price_per_month}} {{order.currency.currency_code}}
-<br>
-Months: {{order.user_chosen_interval_months}}
-<br>
+    Amount per month: {{order.currency.currency_symbol}}{{order.user_chosen_price_per_month}} {{order.currency.currency_code}}
+    <br>
+    Months: {{order.user_chosen_interval_months}}
+    <br>
 {% endif %}

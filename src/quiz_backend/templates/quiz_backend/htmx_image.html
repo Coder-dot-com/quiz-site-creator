@@ -1,10 +1,10 @@
 
 
 <div id="user_image_{{question.id}}" hx-encoding='multipart/form-data'
-    hx-post="{% url 'image_upload' question.quiz.unique_id question.id response_id %}"
-    hx-trigger="change"
-    hx-swap="outerHTML"
-    hx-indicator="#spinner_{{question.id}}">
+     hx-post="{% url 'image_upload' question.quiz.unique_id question.id response_id %}"
+     hx-trigger="change"
+     hx-swap="outerHTML"
+     hx-indicator="#spinner_{{question.id}}">
     {% if too_many_images %}
         Note: Photo limit reached, check and continue or remove some before adding more
         ({% if  user_image_count  %}{{user_image_count}}{% else %}0{% endif %}/{{question.image_upload_number}})
@@ -14,8 +14,8 @@
             Add a photo ({% if  user_image_count  %}{{user_image_count}}{% else %}0{% endif %}/{{question.image_upload_number}})
             <br>
             <input name="image_{{question.id}}"
-                class="d-none form-control
-                    {% if not question.skippable and user_image_count == 0 %} required {% endif %}" style="display:none;"  multiple="multiple" type="file" accept="image/*"
+                   class="d-none form-control
+                          {% if not question.skippable and user_image_count == 0 %} required {% endif %}" style="display:none;"  multiple="multiple" type="file" accept="image/*"
 
             />
         </label>
@@ -29,25 +29,25 @@
 
         {% endif %}
 
-            <center id="spinner_{{question.id}}">
+        <center id="spinner_{{question.id}}">
 
-                <div  class="spinner-border text-dark my-4" role="status">
-                </div>
-                
-            </center>
+            <div  class="spinner-border text-dark my-4" role="status">
+            </div>
+
+        </center>
         <style>
             #spinner_{{question.id}}{
                 opacity:0;
                 transition: all 500ms ease-in;
                 display:none;
-            
-              
-            }                                                    
-        
+
+
+            }
+
             .htmx-request #spinner_{{question.id}}{
                 opacity:1;
                 display: block;
-            
+
 
             }
             .htmx-request#spinner_{{question.id}}{
@@ -71,7 +71,7 @@
                             <img class="" src="{{image.image.url}}" alt="">
                         </div>
                         <a href="#" hx-post="{% url 'delete_image' question.quiz.unique_id response_id image.id %}"
-                            hx-target="#user_image_{{question.id}}" hx-swap="outerHTML" hx-trigger="click">
+                           hx-target="#user_image_{{question.id}}" hx-swap="outerHTML" hx-trigger="click">
                             <small class="text-muted text-center">
                                 Remove?
                             </small>
@@ -81,7 +81,7 @@
             {% endfor %}
         </div>
 
-        
+
     {% endif %}
 
     <style>

@@ -3,38 +3,38 @@
 {% load static %}
 {% block content %}
 
-<a href="{% url 'edit_quiz' quiz_page.quiz.id %}">
-    <p class="mb-3">< Editing quiz page: {{quiz_page.title}}</p>
-</a>
+    <a href="{% url 'edit_quiz' quiz_page.quiz.id %}">
+        <p class="mb-3">< Editing quiz page: {{quiz_page.title}}</p>
+    </a>
 
 
-<div
-hx-trigger=load
-hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
->
+    <div
+        hx-trigger=load
+        hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+    >
 
-</div>
+    </div>
 
     <div class="row px-5">
-    <div class="mx-auto w-100 border border-dark border-1 p-4 text-center"  style="border-style:dashed !important">
+        <div class="mx-auto w-100 border border-dark border-1 p-4 text-center"  style="border-style:dashed !important">
             <div class="">
-                <button type="button" class="btn btn-primary site-button mb-2" 
-                data-toggle="modal" data-target="#exampleModalCenter"
-                hx-target="#modalContent"
-                hx-swap=outerHTML
-                hx-get="{% url 'all_element_swatches' user_quiz.id quiz_page.id  %}"
-                
+                <button type="button" class="btn btn-primary site-button mb-2"
+                        data-toggle="modal" data-target="#exampleModalCenter"
+                        hx-target="#modalContent"
+                        hx-swap=outerHTML
+                        hx-get="{% url 'all_element_swatches' user_quiz.id quiz_page.id  %}"
+
                 >
                     Select an element to add
-                    <i class="fa fa-plus"></i>        
-                </button> 
+                    <i class="fa fa-plus"></i>
+                </button>
                 <div class="modal fade" id="exampleModalCenter" style="display: none;" aria-hidden="true">
                     <div  class="modal-dialog modal-dialog-centered" role="document">
                         {% include 'element_forms/all_elements_swatches.html' %}
                     </div>
                 </div>
             </div>
-    </div>
+        </div>
     </div>
 
     <!--**********************************

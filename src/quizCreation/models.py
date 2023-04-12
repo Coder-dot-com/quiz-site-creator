@@ -105,6 +105,8 @@ class MultipleChoiceElement(models.Model):
 class MultipleChoiceChoice(models.Model):
     multiple_choice_element = models.ForeignKey(MultipleChoiceElement, on_delete=models.CASCADE)
     choice = models.CharField(max_length=300)
+    is_correct_choice = models.BooleanField(default=False)
+    image = models.ImageField(upload_to="choice_images/", null=True, blank=True)
 
 class SingleChoiceElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
@@ -117,3 +119,5 @@ class SingleChoiceElement(models.Model):
 class SingleChoiceChoice(models.Model):
     single_choice_element = models.ForeignKey(SingleChoiceElement, on_delete=models.CASCADE)
     choice = models.CharField(max_length=300)
+    is_correct_choice = models.BooleanField(default=False)
+    image = models.ImageField(upload_to="choice_images/", null=True, blank=True)

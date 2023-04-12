@@ -1,144 +1,144 @@
 <form id="quizRenderPreview"
 
-hx-post={% url 'next_page_quiz_preview' quiz_page.quiz.id quiz_page.number %}
-hx-swap=outerHTML
-hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-hx-encoding="multipart/form-data"
-class="d-flex">
-    
+      hx-post={% url 'next_page_quiz_preview' quiz_page.quiz.id quiz_page.number %}
+      hx-swap=outerHTML
+      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+      hx-encoding="multipart/form-data"
+      class="d-flex">
+
     <div class="col-lg-9 mx-auto p-3 bg-white border-2 bg-shadow">
 
-    {% for element in quiz_page.get_quiz_page_elements %}
-        <br><br>
-        {% if element.get_element_type.type == 'Text element' or  element.get_element_type.type == 'Char element' or  element.get_element_type.type == 'Email element' or element.get_element_type.type == 'Number element' or element.get_element_type.type == 'Multiple choice question' %}
-        <b>{{element.get_element_type.element.title}}</b>
-            {% autoescape off %}
-            {{element.get_element_type.element.content}}
+        {% for element in quiz_page.get_quiz_page_elements %}
+            <br><br>
+            {% if element.get_element_type.type == 'Text element' or  element.get_element_type.type == 'Char element' or  element.get_element_type.type == 'Email element' or element.get_element_type.type == 'Number element' or element.get_element_type.type == 'Multiple choice question' %}
+                <b>{{element.get_element_type.element.title}}</b>
+                {% autoescape off %}
+                    {{element.get_element_type.element.content}}
                 {% endautoescape %}
 
-        {% endif %}
+            {% endif %}
 
-        <label class="text-label" for="">
-            {{element.get_element_type.element.title}}
-        </label>
+            <label class="text-label" for="">
+                {{element.get_element_type.element.title}}
+            </label>
 
 
-        {% if element.get_element_type.type == 'Char input element'  %}
+            {% if element.get_element_type.type == 'Char input element'  %}
 
-            <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="text">
-        {% elif element.get_element_type.type == 'Text input element'  %}
+                <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="text">
+            {% elif element.get_element_type.type == 'Text input element'  %}
 
-            <textarea class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  name="" id="" cols="30" rows="10"></textarea>
-        {% elif element.get_element_type.type == 'Email input element'  %}
+                <textarea class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  name="" id="" cols="30" rows="10"></textarea>
+            {% elif element.get_element_type.type == 'Email input element'  %}
                 <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="email">
-        {% elif element.get_element_type.type == 'Number input element'  %}
+            {% elif element.get_element_type.type == 'Number input element'  %}
                 <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="number">
-        {% elif element.get_element_type.type == 'Multiple choice question'  %}
- 
+            {% elif element.get_element_type.type == 'Multiple choice question'  %}
 
-        <select  name="{{question.id}}" id="multiC_{{element.get_element_type.element.id}}" class="form-select d-none" multiple 
-         >
-        {% for option in element.get_element_type.element.get_multiple_choice_choices %}
-        <option value="{{option.id}}" id="option_{{option.id}}">{{option.choice}}</option>
-            {% endfor %}
-        </select>
 
-        <div class="row justify-content-center  p-1" style="gap: 1.5rem !important;">
-            {% for option in element.get_element_type.element.get_multiple_choice_choices %}
+                <select  name="{{question.id}}" id="multiC_{{element.get_element_type.element.id}}" class="form-select d-none" multiple
+                >
+                    {% for option in element.get_element_type.element.get_multiple_choice_choices %}
+                        <option value="{{option.id}}" id="option_{{option.id}}">{{option.choice}}</option>
+                    {% endfor %}
+                </select>
 
-                <div role="button" onclick="SelectDeselect(this);" id="card_{{option.id}}"
-                    class=" card_choice  border-3 col-12 col-sm-5 {% if option.skip_to_next and not edit_preference %}skip_to_next{% endif %} {% if option.can_only_be_selected %}can_only_be_selected{% endif %}" data-option={{option.id}} style="min-width:8rem;border:3px solid white;">
-                    <div style="" class="text-center py-4">
-                        <h4 class="card-title">{{option.choice}}</h4>
-                        {% if option.option_image_icon %}
-                            <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
-                        {% endif %}
-                    </div>
+                <div class="row justify-content-center  p-1" style="gap: 1.5rem !important;">
+                    {% for option in element.get_element_type.element.get_multiple_choice_choices %}
+
+                        <div role="button" onclick="SelectDeselect(this);" id="card_{{option.id}}"
+                             class=" card_choice  border-3 col-12 col-sm-5 {% if option.skip_to_next and not edit_preference %}skip_to_next{% endif %} {% if option.can_only_be_selected %}can_only_be_selected{% endif %}" data-option={{option.id}} style="min-width:8rem;border:3px solid white;">
+                            <div style="" class="text-center py-4">
+                                <h4 class="card-title">{{option.choice}}</h4>
+                                {% if option.option_image_icon %}
+                                    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+                                {% endif %}
+                            </div>
+                        </div>
+
+
+                    {% endfor %}
                 </div>
 
-                
-            {% endfor %}
-        </div>
+                <script>
+                    function SelectDeselect(e) {
+                        option_id = "#option_" + e.getAttribute('data-option')
 
-        <script>
-            function SelectDeselect(e) {
-                option_id = "#option_" + e.getAttribute('data-option')
+                        optionToSelect = document.querySelector(option_id)
+                        if (optionToSelect.selected){
+                            e.classList.remove('border-success')
+                            e.classList.add('border-white')
 
-                optionToSelect = document.querySelector(option_id)
-                if (optionToSelect.selected){
-                    e.classList.remove('border-success')
-                    e.classList.add('border-white')
+                            optionToSelect.selected = false;
+                        } else {
+                            e.classList.add('border-success')
+                            e.classList.remove('border-white')
 
-                    optionToSelect.selected = false;
-                } else {
-                    e.classList.add('border-success')
-                    e.classList.remove('border-white')
+                            optionToSelect.selected = true;
 
-                    optionToSelect.selected = true;
-                    
-                    classes = e.classList
+                            classes = e.classList
                     {% comment %} if skip to next then submit form {% endcomment %}
-                    if (classes.contains('skip_to_next') && !(previous_answers)) {
-                        document.querySelector('#submitQuestionBtn').click()
-                    }
-                    if (classes.contains('can_only_be_selected')) {
-
-                        options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice'))
-                        for (let i = 0; i < options_cards.length; i++) {
-                            if (options_cards[i] != e){
-                                options_cards[i].classList.remove('border-success')
-                                options_cards[i].classList.add('border-white')
-
-                                option_id = "#option_" + options_cards[i].getAttribute('data-option')
-                                optionToSelect = document.querySelector(option_id)
-                                optionToSelect.selected = false;
+                            if (classes.contains('skip_to_next') && !(previous_answers)) {
+                                document.querySelector('#submitQuestionBtn').click()
                             }
+                            if (classes.contains('can_only_be_selected')) {
 
-                    }
-                    }
+                                options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice'))
+                                for (let i = 0; i < options_cards.length; i++) {
+                                    if (options_cards[i] != e){
+                                        options_cards[i].classList.remove('border-success')
+                                        options_cards[i].classList.add('border-white')
+
+                                        option_id = "#option_" + options_cards[i].getAttribute('data-option')
+                                        optionToSelect = document.querySelector(option_id)
+                                        optionToSelect.selected = false;
+                                    }
+
+                                }
+                            }
 
                     {% comment %} For loop over all cards excluding current {% endcomment %}
 
-                    options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice.can_only_be_selected'))
-                    for (let i = 0; i < options_cards.length; i++) {
-                        if (options_cards[i] != e){
-                            options_cards[i].classList.remove('border-success')
-                            options_cards[i].classList.add('border-white')
+                            options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice.can_only_be_selected'))
+                            for (let i = 0; i < options_cards.length; i++) {
+                                if (options_cards[i] != e){
+                                    options_cards[i].classList.remove('border-success')
+                                    options_cards[i].classList.add('border-white')
 
-                            option_id = "#option_" + options_cards[i].getAttribute('data-option')
-                            optionToSelect = document.querySelector(option_id)
-                            optionToSelect.selected = false;
+                                    option_id = "#option_" + options_cards[i].getAttribute('data-option')
+                                    optionToSelect = document.querySelector(option_id)
+                                    optionToSelect.selected = false;
+                                }
+
+                            }
+
                         }
+                    };
 
-                }
-                    
-                }
-            };
+                </script>
 
-        </script>
-            
             {% endif %}
-            
-    {% endfor %}
 
-    {% if not first_page %}
-    <a class="float-left my-3"
-     hx-get={% url 'previous_page_preview' quiz_page.quiz.id quiz_page.number %}
-    hx-swap=outerHTML
-    hx-target=#quizRenderPreview
-    type="button"
-    >
-      Previous page
-    </a>
-    {% endif %}
+        {% endfor %}
+
+        {% if not first_page %}
+            <a class="float-left my-3"
+               hx-get={% url 'previous_page_preview' quiz_page.quiz.id quiz_page.number %}
+               hx-swap=outerHTML
+               hx-target=#quizRenderPreview
+               type="button"
+            >
+                Previous page
+            </a>
+        {% endif %}
 
 
-    {% if not quiz_page.is_last_page %}
-    <div>
-        <button type="submit" class="btn btn-primary float-right my-3">Continue</button>
+        {% if not quiz_page.is_last_page %}
+            <div>
+                <button type="submit" class="btn btn-primary float-right my-3">Continue</button>
+            </div>
+        {% else %}
+            <h6 class="text-center">End of quiz</h6>
+        {% endif %}
     </div>
-    {% else %}
-    <h6 class="text-center">End of quiz</h6>
-    {% endif %}
-</div>
-    </form>
+</form>
