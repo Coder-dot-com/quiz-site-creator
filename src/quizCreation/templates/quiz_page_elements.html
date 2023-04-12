@@ -34,16 +34,16 @@
             <div class="mx-auto w-100 border border-1 border-dark p-2"  style="border-style:dashed !important">
                 {% if not element.type == "Text element" %}
 
-                    <a type="button" class="btn btn-primary site-button float-right text-right" data-toggle="modal" data-target="#editModal_{{element.element.id}}">
+                    <a type="button" class="btn btn-primary site-button float-right text-right" data-toggle="modal" data-target="#editModal_{{element.element.page_element.id}}">
                         <span type="button" class="">
                             Edit <i class="fa fa-edit"></i>
                         </span>
                     </a>
                 {% endif %}
 
-                <div class="modal fade" id="editModal_{{element.element.id}}">
+                <div class="modal fade" id="editModal_{{element.element.page_element.id}}">
                     <div class="modal-dialog" role="document">
-                        <div class="modal-content" id="editModalContent{{element.element.id}}">
+                        <div class="modal-content" id="editModalContent{{element.element.page_element.id}}">
                             <div class="modal-header">
                                 <h5 class="modal-title">Editing element</h5>
                                 <button type="button" class="close" data-dismiss="modal"><span>×</span>
@@ -54,7 +54,7 @@
                                   hx-post="{% url 'edit_element_title' element.element.page_element.page.quiz.id element.element.page_element.page.id element.element.page_element.id %}"
 
                                   {% if element.type == "Multiple choice question" or  element.type == 'Single choice question' %}
-                                      hx-target="#editModalContent{{element.element.id}}"
+                                      hx-target="#editModalContent{{element.element.page_element.id}}"
                                   {% else %}
                                       hx-target="#page_elements"
                                   {% endif %}
@@ -77,7 +77,7 @@
                                         <div
                                             hx-trigger="load"
                                             hx-get={% url 'get_text_element_edit_form' user_quiz.id element.element.page_element.id %}
-                                            hx-target="#editModalContent{{element.element.id}}"
+                                            hx-target="#editModalContent{{element.element.page_element.id}}"
                                             hx-swap="innerHTML"
 
 
@@ -103,7 +103,7 @@
 
                                         {% if not element.type == "Multiple choice question" and not element.type == "Single choice question" %}
 
-                                            onclick="document.querySelector('#editModal_{{element.element.id}} > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)').click()"
+                                            onclick="document.querySelector('#editModal_{{element.element.page_element.id}} > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)').click()"
                                         {% endif %}
                                         type="submit"
 

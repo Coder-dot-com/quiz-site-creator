@@ -938,7 +938,8 @@ def mark_as_correct_single_choice(request, quiz_id, page_id, element_id, choice_
         }
         # Here render the modal ability to add choices
         return render(request, 'element_forms/AddChoiceSingleChoiceModal.html', context=context)
-    
+
+@login_required
 def delete_image_from_multiple_choice(request, quiz_id, page_id, element_id, choice_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
@@ -966,7 +967,7 @@ def delete_image_from_multiple_choice(request, quiz_id, page_id, element_id, cho
         # Here render the modal ability to add choices
         return render(request, 'element_forms/AddChoiceMultipleChoiceModal.html', context=context)
     
-
+@login_required
 def delete_image_from_single_choice(request, quiz_id, page_id, element_id, choice_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
