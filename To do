@@ -32,6 +32,9 @@ To do:
         -Complete job coding project
 
 
+        -Create zapier integration 
+            - send answer to question xyz as "name" "email" etc.. to zapier
+            - send all response to zapier
         later:
 
             -Add image to page (AWS resize to max 2000px otherwise just clean) (enter percentage of width to cover, and also center )

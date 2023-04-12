@@ -9,15 +9,15 @@
     <div class="row">
 
 
-        <a class="no-print" type="button"  href="{% url 'view_quiz_results' quiz.id %}">< Back</a>
         <div class="col-xl-12 col-lg-12">
-
+            
             <div class="card">
-                <div class="card-header border-0 pb-0">
-                    <h4 class="card-title">Response details</h4>
-                    <a class="btn btn-primary site-button float-right my-3 no-print" type="button" onclick="window.print()">Print <i class="fa fa-print"></i></a>
+                <a class="no-print m-4 pt-1" type="button"  href="{% url 'view_quiz_results' quiz.id %}">< Back</a>
+                <div class="card-header border-0 pb-0 " style="justify-content:right;">
+                    <a class="btn btn-primary site-button float-right mb-3 no-print" type="button" onclick="window.print()">Print <i class="fa fa-print"></i></a>
                 </div>
                 <div class="card-body pb-0">
+                    <h4 class="card-title">Response details</h4>
                     <div class="widget-media">
                         <ul class="timeline">
                             {% for i in response.get_all_answers %}
@@ -29,26 +29,36 @@
                                             <div class="">
                                                 <div>
                                                     <small>Question:</small>
+                                                    <br>
                                                     <strong class="">
                                                         {{x.question.get_element_type.element.title}}
                                                     </strong>
                                                 </div>
+                                                <br>
+                                                
 
                                                 <div >
 
                                                     {% if not x.question.get_element_type.type == 'Multiple choice question' %}
                                                     <small>Answer:</small> 
+                                                    <br>
                                                     <strong>
                                                         {{x.answer}}
                                                     </strong> 
 
 
                                                     {% else %}
+                                                    <small>Answers:</small>
+                                                    <br>
+                                                    <strong>
                                                         {% for i in x.question_choice.all %}
-                                                            {{i.choice}} <br>
+                                                        {{i.choice}} <br>
                                                         {% endfor %}
+                                                    </strong>
 
                                                     {% endif %}
+
+                                                    <br><hr class="text-dark w-100">
 
                                                 </div>
                                             </div>

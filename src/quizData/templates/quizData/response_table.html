@@ -1,10 +1,21 @@
-<div id="table">
-    <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+<div id="table" class="bg-white  p-3 rounded">
+    <div class="">
+        
+        <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
+        
+        
+        <a type="button" class="m-4" href="{% url 'dashboard_home' %}">< Back</a>
+        
+        <div class="row">
+            <div class="col-12">
 
-
-    <a type="button" href="{% url 'dashboard_home' %}">< Back</a>
-
-    <div class="row mt-4 " style="gap:1.5rem;justify-content: center;">
+                
+                <a type="button" class="float-right btn btn-primary site-button my-4"
+                target="_blank" href="{% url 'download_csv_of_responses' quiz.id %}">
+                Download all responses as CSV <i class="fa fa-download"></i></a>
+            </div>
+        </div>
+    <div class="row mt-4 mx-aut-" style="gap:1.5rem;justify-content: center;">
 
         <div class="col-6 col-sm-12 mx-3" style="display: contents;">
             <div class="widget-stat card bg-primary p-1">
@@ -92,11 +103,9 @@
 
                     </tbody>
 
-                </table>
+    </table>
 
-                <a type="button" class="float-right btn btn-primary site-button my-4"
-                   target="_blank" href="{% url 'download_csv_of_responses' quiz.id %}">
-                    Download all responses as CSV <i class="fa fa-download"></i></a>
+
 
                 <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
@@ -115,6 +124,8 @@
 
                 </script>
 
-            </div>
+    </div>
+</div>
+
 
 

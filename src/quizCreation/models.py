@@ -128,7 +128,10 @@ class AgreeDisagree(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
 
-
+class AgreeDisagreeRow(models.Model):
+    agree_disagree_element = models.ForeignKey(AgreeDisagree, on_delete=models.CASCADE)
+    position = models.IntegerField()
+    title = models.CharField(max_length=10000)
 
   
 
