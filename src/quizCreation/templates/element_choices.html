@@ -7,6 +7,7 @@
     <option value="NumberInput" id="option_NumberInput"></option>
     <option value="MultipleChoice" id="option_MultipleChoice"></option>
     <option value="SingleChoice" id="option_SingleChoice"></option>
+    <option value="AgreeDisagree" id="option_AgreeDisagree"></option>
 
 
 </select>
@@ -83,6 +84,17 @@
             <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
         </div>
     </div>
+
+
+    <div role="button" onclick="SelectDeselect(this);" id="card_AgreeDisagree"
+         class="card card_choice border-3 border-white col-12 col-sm-5 " data-option=AgreeDisagree style="min-width:8rem;border:3px solid white;">
+        <div class="text-center py-4">
+            <h4 class="card-title">Agree Disagree Table</h4>
+            <p class="text-small">A table of agree disagree questions where users can answer mostly agree, disagree etc...</p>
+            <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+        </div>
+    </div>
+
 </div>
 
 <script>

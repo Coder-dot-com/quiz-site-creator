@@ -21,8 +21,9 @@ urlpatterns = [
     path('add_email_input_element/<quiz_id>/<page_id>', views_htmx.add_email_input_element, name="add_email_input_element"),
     path('add_number_input_element/<quiz_id>/<page_id>', views_htmx.add_number_input_element, name="add_number_input_element"),
     path('add_multiple_choice_element/<quiz_id>/<page_id>', views_htmx.add_multiple_choice_element, name="add_multiple_choice_element"),
-    
     path('add_single_choice_element/<quiz_id>/<page_id>', views_htmx.add_single_choice_element, name="add_single_choice_element"),
+    path('add_agree_disagree_element/<quiz_id>/<page_id>', views_htmx.add_agree_disagree_element, name="add_agree_disagree_element"),
+
 
 
     path('move_page_up/<quiz_id>/<page_id>', views_htmx.move_page_up, name="move_page_up"),
@@ -36,8 +37,8 @@ urlpatterns = [
     
 
     path('add_choice_to_multiple_choice_element/<quiz_id>/<page_id>/<element_id>', views_htmx.add_choice_to_multiple_choice_element, name="add_choice_to_multiple_choice_element"),
-
     path('add_choice_to_single_choice_element/<quiz_id>/<page_id>/<element_id>', views_htmx.add_choice_to_single_choice_element, name="add_choice_to_single_choice_element"),
+    path('add_row_to_agree_disagree_element/<quiz_id>/<page_id>/<element_id>', views_htmx.add_row_to_agree_disagree_element, name="add_row_to_agree_disagree_element"),
 
 
     path('get_text_element_edit_form/<quiz_id>/<element_id>', views_htmx.get_text_element_edit_form, name="get_text_element_edit_form"),
@@ -48,6 +49,9 @@ urlpatterns = [
 
     path('delete_choice_multiple_choice_element/<quiz_id>/<page_id>/<element_id>/<choice_id>', views_htmx.delete_choice_multiple_choice_element, name="delete_choice_multiple_choice_element"),
     path('delete_choice_single_choice_element/<quiz_id>/<page_id>/<element_id>/<choice_id>', views_htmx.delete_choice_single_choice_element, name="delete_choice_single_choice_element"),
+    path('delete_row_agree_disagree_row/<quiz_id>/<page_id>/<element_id>/<choice_id>', views_htmx.delete_row_agree_disagree_row, name="delete_row_agree_disagree_row"),
+
+
 
 
     path('move_element_up/<quiz_id>/<page_id>/<element_id>', views_htmx.move_element_up, name="move_element_up"),

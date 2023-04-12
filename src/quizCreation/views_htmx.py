@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
-from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement, SingleChoiceChoice, SingleChoiceElement
-from .forms import TextElementForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm, SingleChoiceElementForm, SingleChoiceChoiceForm
+from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement, SingleChoiceChoice, SingleChoiceElement, AgreeDisagree, AgreeDisagreeRow
+from .forms import TextElementForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm, SingleChoiceElementForm, SingleChoiceChoiceForm, AgreeDisagreeElementForm, AgreeDisagreeRowForm
 from django.urls import reverse
 import os
 from uuid import uuid4
@@ -108,6 +108,15 @@ def quiz_page_element_add(request, quiz_id, page_id):
                     'form': form,
                 }
                 return render(request, 'element_forms/SingleChoice.html', context=context)
+
+            elif element == "AgreeDisagree":
+                form = AgreeDisagreeElementForm()
+                context = {
+                    'user_quiz': user_quiz,
+                    'quiz_page': quiz_page,
+                    'form': form,
+                }
+                return render(request, 'element_forms/AgreeDisagree.html', context=context)
 
         return HttpResponse("An error occured")
 
@@ -374,6 +383,49 @@ def add_single_choice_element(request, quiz_id, page_id):
                     return render(request, 'element_forms/AddChoiceSingleChoiceModal.html', context=context)
 
 @login_required
+def add_agree_disagree_element(request, quiz_id, page_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
+        if quiz_page.exists():
+            if request.method == 'POST':
+                # Bind data from request.POST into a PostForm
+                form = AgreeDisagreeElementForm(request.POST)
+                # If data is valid, proceeds to create a new post
+                if form.is_valid():
+                    quiz_page = quiz_page[0]
+                    element = form.save(commit=False)
+                    try:
+                        position = QuizPageElement.objects.filter(
+                            page=quiz_page).order_by('-position')[0].position
+                    except IndexError:
+                        position = 0
+                    position = position + 1
+                    quiz_page_element = QuizPageElement.objects.create(
+                        page=quiz_page, position=position)
+                    element.page_element = quiz_page_element
+                    element.save()
+                    # determine position and create element objects
+                    form = AgreeDisagreeRowForm()
+                    choices = AgreeDisagreeRow.objects.filter(
+                        agree_disagree_element=element)
+
+                    context = {
+                        'user_quiz': user_quiz[0],
+                        'quiz_page': quiz_page,
+                        'element_added': True,
+                        'element': element,
+                        'form': form,
+                        'choices': choices,
+                    }
+
+                    # Here render the modal ability to add choices
+                    return render(request, 'element_forms/AddRowAgreeDisagreeModal.html', context=context)
+
+
+
+
+@login_required
 def move_page_up(request, quiz_id, page_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
@@ -607,6 +659,40 @@ def add_choice_to_single_choice_element(request, quiz_id, page_id, element_id):
         # Here render the modal ability to add choices
         return render(request, 'element_forms/AddChoiceSingleChoiceModal.html', context=context)
 
+@login_required
+def add_row_to_agree_disagree_element(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        element = AgreeDisagree.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+
+        choice_name = request.POST['choice_name']
+        try:
+            position = AgreeDisagreeRow.objects.filter(
+                agree_disagree_element=element).order_by('-position')[0].position
+        except IndexError:
+            position = 0
+        position = position + 1
+
+        choice = AgreeDisagreeRow.objects.create(
+            agree_disagree_element=element, title=choice_name, position=position)
+        choices = AgreeDisagreeRow.objects.filter(
+            agree_disagree_element=element)
+        form = AgreeDisagreeRowForm()
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
+        return render(request, 'element_forms/AddRowAgreeDisagreeModal.html', context=context)
+
+
 
 @login_required
 def delete_choice_multiple_choice_element(request, quiz_id, page_id, element_id, choice_id):
@@ -658,6 +744,30 @@ def delete_choice_single_choice_element(request, quiz_id, page_id, element_id, c
         # Here render the modal ability to add choices
         return render(request, 'element_forms/AddChoiceSingleChoiceModal.html', context=context)
 
+@login_required
+def delete_row_agree_disagree_row(request, quiz_id, page_id, element_id, choice_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        element = AgreeDisagree.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+
+        choice = AgreeDisagreeRow.objects.get(
+            agree_disagree_element=element, id=choice_id).delete()
+        choices = AgreeDisagreeRow.objects.filter(
+            agree_disagree_element=element)
+        form = AgreeDisagreeRowForm()
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
+        return render(request, 'element_forms/AddRowAgreeDisagreeModal.html', context=context)
 
 
 

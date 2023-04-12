@@ -2,7 +2,7 @@ from django import forms
 from ckeditor.widgets import CKEditorWidget
 from uuid import uuid4
 
-from .models import TextElement, CharInputElement, TextInputElement, EmailInputElement, NumberInputElement, MultipleChoiceElement, MultipleChoiceChoice, SingleChoiceElement, SingleChoiceChoice
+from .models import TextElement, CharInputElement, TextInputElement, EmailInputElement, NumberInputElement, MultipleChoiceElement, MultipleChoiceChoice, SingleChoiceElement, SingleChoiceChoice, AgreeDisagree, AgreeDisagreeRow
 
 class TextElementForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -70,3 +70,18 @@ class SingleChoiceChoiceForm(forms.ModelForm):
     class Meta:
         model = SingleChoiceChoice
         fields = ['choice', ]
+
+
+class AgreeDisagreeElementForm(CharInputElementForm):
+    class Meta:
+        model = AgreeDisagree
+        fields = ['title', ]
+
+class AgreeDisagreeRowForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget = forms.TextInput(attrs={'field_title': "Enter your question here", 'maxlength': 10000, 'class': 'w-100 form-control border-dark'},)
+
+    class Meta:
+        model = AgreeDisagreeRow
+        fields = ['title', ]
