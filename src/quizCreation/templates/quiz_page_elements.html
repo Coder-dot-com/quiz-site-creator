@@ -141,8 +141,8 @@
                         <br><br>
                         {% if element.type == 'Text input element' or  element.type == 'Char input element' or  element.type == 'Email input element' or element.type == 'Number input element' or element.type == 'Multiple choice question' or element.type == "Single choice question" %}
                             Question title:
-                            <ul class="list-group list-group-horizontal-sm">
-                                <li class="list-group-item">
+                            <ul class=" list-group-horizontal-sm">
+                                <li class="my-4">
                                     <strong>{{element.element.title}}</strong>
                                 </li>
                             </ul>
@@ -153,35 +153,51 @@
                             Question choices:
                             <br>
 
-                            <ul class="list-group list-group-horizontal-sm">
+                            <ul class="list-group list-group-horizontal-sm row ">
                                 {% for e in element.element.get_multiple_choice_choices %}
-                                    <li class="list-group-item">
-                                        <strong>
+                        
+                                    <li class="border border-1 p-3 rounded border-dark my-4  mx-3 d-flex" 
+                                    style="justify-content: center; align-items: center;width:15rem;max-width;fit-content">
+                                        <div class="text-center">
 
-                                            {{e.choice}}
-                                        </strong>
+                                            <img style="max-width:;max-height:3rem;" src="{% if e.image %}{{e.image.url}}{% endif %}" alt="">
+                                            <br>
+                                            <strong>
+                                                
+                                                {{e.choice}}
+                                            </strong>
+                                            <br>
+                                            {% if e.is_correct_choice %}(Correct <i class="fa fa-check"></i>){% endif %}
+                                        </div>
                                     </li >
-                                    <li>
                                 {% endfor %}
-                            </li>
                             </ul>
 
                         {% elif element.type == "Single choice question" %}
                             Question choices:
                             <br>
 
+
+
                             <ul class="list-group list-group-horizontal-sm">
                                 {% for e in element.element.get_single_choice_choices %}
-                                    <li class="list-group-item">
-                                        <strong>
+                                <li class="border border-1 p-3 rounded border-dark my-4 mx-3 d-flex" 
+                                style="justify-content: center; align-items: center;width:15rem;max-width:fit-content;">
+                                    <div class="text-center">
 
+                                        <img style="max-width:;max-height:3rem;" src="{% if e.image %}{{e.image.url}}{% endif %}" alt="">
+                                        <br>
+                                        <strong>
+                                            
                                             {{e.choice}}
                                         </strong>
-                                    </li >
-                                    <li>
+                                        <br>
+                                        {% if e.is_correct_choice %}(Correct <i class="fa fa-check"></i>){% endif %}
+                                    </div>
+                                </li >
                                 {% endfor %}
-                            </li>
                             </ul>
+                            <div></div>
 
                         {% endif %}
 

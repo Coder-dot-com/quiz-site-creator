@@ -7,14 +7,16 @@
     <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.css" />
     <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
 
-    {% if user_payment_status and  user_payment_status.status == "active"  %}
-
-
-        {% include 'quizData/response_table.html' %}
-
+    {% if user_payment_status %}
+    {% if user_payment_status.status == "free_trial" or user_payment_status.status == "active"  %}
+    
+    
+    {% include 'quizData/response_table.html' %}
+    
     {% else %}
-        To view responses please subscribe. Your responses have been saved.
-
+    To view responses please subscribe. Your responses have been saved.
+    
+    {% endif %}
     {% endif %}
     <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
     <style>

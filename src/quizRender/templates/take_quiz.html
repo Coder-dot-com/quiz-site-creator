@@ -3,7 +3,9 @@
 {% load static %}
 {% block content %}
 
-    {% if user_payment_status and  user_payment_status.status == "active"  %}
+    {% if user_payment_status  %}
+        
+       {% if user_payment_status.status == "active" or user_payment_status.status == "free_trial" %}
 
         {% if quiz_page %}
 
@@ -26,6 +28,7 @@
         </center>
     {% endif %}
 
+    {% endif %}
 
 
 
