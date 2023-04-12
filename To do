@@ -2,17 +2,14 @@ To do:
 
 -quiz settings
 
-
-    render swatches on take_quiz and also quiz_preview
-
-
-
-    -remove container fluid and fix all pages from dashbaord header
-
     -Create MostlyAgree -MostlyDisagree question type with rows
         Change from question title to section title in first modal
+
     -Create 1-10 question with slider input
+
     -Create 1-5 star swatches single choice
+
+    -remove container fluid and fix all pages from dashbaord header
 
         -test everything 
 
@@ -22,6 +19,8 @@ To do:
 
         -create landing pages
         -Create home page
+
+
 
         -Deploy
 

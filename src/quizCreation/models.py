@@ -121,3 +121,14 @@ class SingleChoiceChoice(models.Model):
     choice = models.CharField(max_length=300)
     is_correct_choice = models.BooleanField(default=False)
     image = models.ImageField(upload_to="choice_images/", null=True, blank=True)
+
+
+
+class AgreeDisagree(models.Model):
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    title = models.CharField(max_length=300)
+
+
+
+  
+

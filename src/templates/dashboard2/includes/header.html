@@ -320,10 +320,16 @@
                 {% endif %}
                 {% if user_payment_status and not user_payment_status.status == "active"  %}
 
-                    <div class="alert alert-warning alert-dismissible fade show mx-auto  text-dark no-print" role="alert">
+                    <div class="alert alert-warning alert-dismissible fade show mx-auto  text-dark no-print" role="alert"
+                    style="background-color:#f7f7f0;"
+                    >
                         <center>
                             <p>{% if user_payment_status.status == "free" %}
-                                Subscription expired. <a href='{{subscribe_url}}'>Subscribe</a>
+                                Subscription expired. <a href='{{subscribe_url}}'>
+                                    <strong>
+                                        Subscribe
+                                    </strong>
+                                </a>
                                 today to activate more features
 
 

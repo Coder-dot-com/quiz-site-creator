@@ -269,7 +269,7 @@
 
                     {% endif %}
 
-                    {% if user_payment_status and not user_payment_status.status == "active"  %}
+                    {% comment %} {% if user_payment_status and not user_payment_status.status == "active"  %}
 
                         <div class="alert alert-warning alert-dismissible fade show mx-auto  text-dark"  role="alert">
                             <center>
@@ -290,4 +290,4 @@
                             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
 
-                    {% endif %}
+                    {% endif %} {% endcomment %}
