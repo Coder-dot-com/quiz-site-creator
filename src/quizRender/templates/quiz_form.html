@@ -12,7 +12,7 @@
           action={% url 'complete_quiz'  quiz_page.quiz.id quiz_page.number response_id %}
           method=post
       {% endif %}
-      class=" mt-5">
+      class=" my-5 mx-3">
 
     {% csrf_token %}
 
@@ -33,18 +33,13 @@
 
             {% for element in quiz_page.get_quiz_page_elements %}
                 <br><br>
-                {% if element.get_element_type.type == 'Text element' or  element.get_element_type.type == 'Char element' or  element.get_element_type.type == 'Email element' or element.get_element_type.type == 'Number element' or element.get_element_type.type == 'Multiple choice question' %}
-                    <b>{{element.get_element_type.element.title}}</b>
+                    <h3>{{element.get_element_type.element.title}}</h3>
                     {% autoescape off %}
                         {{element.get_element_type.element.content}}
                     {% endautoescape %}
 
-                {% endif %}
 
-                <label class="text-label" for="">
-                    {{element.get_element_type.element.title}} {{element.get_element_type.type}}
-                </label>
-                {{element.id}}
+                
 
 
 
@@ -79,14 +74,14 @@
 
 
             {% if not quiz_page.is_last_page %}
-                <div>
-                    <button type="submit" class="btn btn-primary float-right my-3">Continue</button>
+                <div class="py-5 text-center">
+                    <button type="submit" class="btn btn-primary  ">Continue</button>
                 </div>
             {% else %}
 
-                <div>
+                <div class="py-5 text-center">
                     <button type="submit"
-                            class="btn btn-primary float-right my-3">Complete quiz</button>
+                            class="btn btn-primary  ">Complete quiz</button>
                 </div>
             {% endif %}
 

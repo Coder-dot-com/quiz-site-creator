@@ -10,9 +10,7 @@
     <div class="col-xl-12 my-3">
         <div class="card plan-list">
             <div class="card-header d-sm-flex flex-wrap d-block pb-0 border-0">
-                <div class="mr-auto pr-3 mb-3">
-                    <h4 class="text-black fs-20"></h4>
-                </div>
+             
                     {% comment %} <div class="card-action card-tabs mr-4 mt-3 mt-sm-0 mb-3">
                         <ul class="nav nav-tabs" role="tablist">
                             <li class="nav-item">
@@ -27,8 +25,8 @@
                         </ul>
                     </div> {% endcomment %}
 
-                <button type="button" class="btn btn-primary mb-2" data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
-                <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'preview_quiz' user_quiz.id %}" type="button" class="btn  mb-2 mr-2">View quiz preview</a>
+                <button type="button" class="btn btn-primary mb-2 float-left" data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
+                {% comment %} <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'preview_quiz' user_quiz.id %}" type="button" class="btn  mb-2 mr-2">View quiz preview</a> {% endcomment %}
 
 
                 <div class="modal fade" id="exampleModalCenter">
@@ -60,7 +58,7 @@
                     </div>
                 </div>
 
-                <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' user_quiz.id %}" type="button" class="btn mb-2 mr-2">Link to take quiz</a>
+                <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' user_quiz.id %}" type="button" class="btn mb-2 ml-auto text-right">Link to take quiz</a>
 
                 <button type="button" class="btn mb-2" data-toggle="modal" data-target="#quizSettingsModal">Quiz settings</button>
 

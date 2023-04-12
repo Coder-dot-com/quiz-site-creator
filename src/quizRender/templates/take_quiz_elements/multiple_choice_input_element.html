@@ -24,7 +24,7 @@
         {% for option in element.get_element_type.element.get_multiple_choice_choices %}
 
             <div role="button" onclick="SelectDeselect(this);" id="card_{{option.id}}"
-                 class=" card_choice  border-3 col-12 col-sm-5 {% if option.skip_to_next and not edit_preference %}skip_to_next{% endif %} {% if option.can_only_be_selected %}can_only_be_selected{% endif %}" data-option={{option.id}} style="min-width:8rem;border:3px solid white;">
+                 class=" card_choice rounded border-3 col-12 col-sm-5 {% if option.skip_to_next and not edit_preference %}skip_to_next{% endif %} {% if option.can_only_be_selected %}can_only_be_selected{% endif %}" data-option={{option.id}} style="min-width:8rem;border:3px solid lightgrey;">
                 <div style="" class="text-center py-4">
                     <h4 class="card-title">{{option.choice}}</h4>
                     {% if option.option_image_icon %}
@@ -37,19 +37,25 @@
         {% endfor %}
     </div>
 
+    <style>
+        .border-custom {
+            border-color: #0b2a97 !important;
+        }
+    </style>
+
     <script>
         function SelectDeselect(e) {
             option_id = "#option_" + e.getAttribute('data-option')
 
             optionToSelect = document.querySelector(option_id)
             if (optionToSelect.selected){
-                e.classList.remove('border-success')
-                e.classList.add('border-white')
+                e.classList.remove('border-custom')
+                e.classList.add('border-lightgrey')
 
                 optionToSelect.selected = false;
             } else {
-                e.classList.add('border-success')
-                e.classList.remove('border-white')
+                e.classList.add('border-custom')
+                e.classList.remove('border-lightgrey')
 
                 optionToSelect.selected = true;
 
@@ -63,8 +69,8 @@
                     options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice'))
                     for (let i = 0; i < options_cards.length; i++) {
                         if (options_cards[i] != e){
-                            options_cards[i].classList.remove('border-success')
-                            options_cards[i].classList.add('border-white')
+                            options_cards[i].classList.remove('border-custom')
+                            options_cards[i].classList.add('border-lightgrey')
 
                             option_id = "#option_" + options_cards[i].getAttribute('data-option')
                             optionToSelect = document.querySelector(option_id)
@@ -79,8 +85,8 @@
                 options_cards = Array.from(e.parentNode.querySelectorAll('.card_choice.can_only_be_selected'))
                 for (let i = 0; i < options_cards.length; i++) {
                     if (options_cards[i] != e){
-                        options_cards[i].classList.remove('border-success')
-                        options_cards[i].classList.add('border-white')
+                        options_cards[i].classList.remove('border-custom')
+                        options_cards[i].classList.add('border-lightgrey')
 
                         option_id = "#option_" + options_cards[i].getAttribute('data-option')
                         optionToSelect = document.querySelector(option_id)

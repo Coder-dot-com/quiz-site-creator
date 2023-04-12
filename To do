@@ -2,12 +2,13 @@ To do:
 
 -quiz settings
 
-    -convert multiple choice to table and singe choices
 
-    -for multipple choice and single choice on choices modal add an option to set correct choice (tickbox with htx that auto 
-    sends on change) then render correct choices
-    -allow adding image to swatch for choices, list choices in a table on modal
-    
+    render swatches on take_quiz and also quiz_preview
+
+
+
+    -remove container fluid and fix all pages from dashbaord header
+
     -Create MostlyAgree -MostlyDisagree question type with rows
         Change from question title to section title in first modal
     -Create 1-10 question with slider input
@@ -40,7 +41,6 @@ To do:
 
              -edit text element
 
-             -remove container fluid and fix all pages from dashbaord header
         
         -When first creating quiz select quiz goal (use swatches with modal)
         
