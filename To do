@@ -2,18 +2,21 @@ To do:
 
 -quiz settings
 
+    -ckeditor font size choices
+
     -Create MostlyAgree 
         -render on take quiz
         -display in responses
         
-    -fix layout edit quiz page elements
+    Improve layout on take quiz and fonts styling etc...
     
+    -re ordder swatches
 
-    -convert all 3 modal tables to datatable
+    -deploy
 
-    -ckeditor font size choices
+    -scrape emails/plan first audience
+
     -Create 1-10 question with slider input
-
     -Create 1-5 star review 
 
     -mark as correct

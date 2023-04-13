@@ -45,7 +45,7 @@ class UserPaymentStatus(models.Model):
     
     def save(self, *args, **kwargs):
         if not self.subscription_expiry and self.status == "free_trial":
-            self.subscription_expiry = datetime.utcnow() + timedelta(days = 14)
+            self.subscription_expiry = datetime.utcnow() + timedelta(days = 5)
         super(UserPaymentStatus, self).save(*args, **kwargs)
     
 

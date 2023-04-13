@@ -16,9 +16,9 @@ gunicorn = "*"
 stripe = "*"
 django-colorfield = "*"
 wagtail = "*"
-django-ckeditor = "*"
 django = "*"
 qrcode = "*"
+django-ckeditor = "*"
 
 [dev-packages]
 autopep8 = "*"

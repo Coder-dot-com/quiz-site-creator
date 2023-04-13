@@ -3,19 +3,24 @@
 {% load static %}
 {% block content %}
 
-    <a href="{% url 'edit_quiz' quiz_page.quiz.id %}">
-        <p class="mb-3">< Editing quiz page: {{quiz_page.title}}</p>
-    </a>
+<div class="col-lg-9 my-5 mx-auto justify-content-center">
+
+
+<a href="{% url 'edit_quiz' quiz_page.quiz.id %}">
+    <p class="">< Editing quiz page: {{quiz_page.title}}</p>
+</a>
+<div class="card  mx-auto py-5 ">
+
+
 
 
     <div
         hx-trigger=load
         hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
     >
-
     </div>
 
-    <div class="row px-5">
+    <div class="row p">
         <div class="mx-auto w-100 border border-dark border-1 p-4 text-center"  style="border-style:dashed !important">
             <div class="">
                 <button type="button" class="btn btn-primary site-button mb-2"
@@ -36,9 +41,8 @@
             </div>
         </div>
     </div>
+</div>
 
-    <!--**********************************
-            Content body end
-        ***********************************-->
+</div>
 
 {% endblock content %}
