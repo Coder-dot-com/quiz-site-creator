@@ -3,18 +3,22 @@
 {% load static %}
 {% block content %}
 
-    <div class="row">
+    <div id="createQuiz">
+
+    <div class="card my-5 col-lg-9 mx-auto px-3 w-90">
+        <div class="card-body">
 
         <form class="my-2 mx-auto"
               hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
               hx-post={% url 'htmx_create_quiz' %}
               hx-replace-url="/create_quiz/edit"
               hx-swap=outerHTML
+              hx-target="#createQuiz"
         >
 
 
             <div class="mb-3">
-                <label class="form-label" for="">Enter a name for your quiz</label>
+                <label class="form-label" for="">Enter a name kjhfor your quiz</label>
                 <input type="text" name="quiz_name"
                        class="form-control" id="name" placeholder="Enter here"
                        required="" maxlength=300>
@@ -26,7 +30,12 @@
                 <button class="btn btn-primary site-button w-100 waves-effect waves-light" type="submit">Create</button>
             </div>
         </form>
+
     </div>
+</div>
+
+    </div>
+
 
     <!--**********************************
             Content body end

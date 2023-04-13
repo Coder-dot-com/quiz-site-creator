@@ -9,14 +9,14 @@
     <div class="row">
 
 
-        <div class="col-xl-12 col-lg-12">
+        <div class="col-lg-9  mx-auto justify-content-center  my-5">
+            <a class="no-print mb-2" type="button"  href="{% url 'view_quiz_results' quiz.id %}">< Back</a>
             
-            <div class="card">
-                <a class="no-print m-4 pt-1" type="button"  href="{% url 'view_quiz_results' quiz.id %}">< Back</a>
-                <div class="card-header border-0 pb-0 " style="justify-content:right;">
+            <div class="card mx-auto">
+                <div class="card-header " style="justify-content:right;">
                     <a class="btn btn-primary site-button float-right mb-3 no-print" type="button" onclick="window.print()">Print <i class="fa fa-print"></i></a>
                 </div>
-                <div class="card-body pb-0">
+                <div class="card-body ">
                     <h4 class="card-title">Response details</h4>
                     <div class="widget-media">
                         <ul class="timeline">

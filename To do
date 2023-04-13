@@ -1,15 +1,23 @@
 To do:
 
 -quiz settings
+    -Fix mobile header links
 
     -Create MostlyAgree -MostlyDisagree question type with rows
         Change from question title to section title in first modal
 
+        -allow edit
+        -render on take quiz
+        -display in responses
+        -convert modal tables to datatable
+
+    -ckeditor font size choices
     -Create 1-10 question with slider input
 
-    -Create 1-5 star swatches single choice
+    -Create 1-5 star review 
 
-    -remove container fluid and fix all pages from dashbaord header
+    -mark as correct
+
 
         -test everything 
 

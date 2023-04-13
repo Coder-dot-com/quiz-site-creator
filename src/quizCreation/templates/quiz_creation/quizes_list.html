@@ -16,14 +16,14 @@
                     Create quiz  <i class="fa fa-plus mx-1"></i>
                 </a>
             </div>
-            <div class="mx-auto ">
-                Your quizes
-            </div>
-
-
-
+            
+            
+            
             <div class="tab-pane active show fade d-inline" id="Unifinshed">
-
+                <div class="mx-auto ">
+                    Your quizes
+                </div>
+                
                 {% for quiz in quizes %}
 
                     <div style="background-color:rgba(227, 227, 204, 0.3);
@@ -33,7 +33,7 @@
                                 transition: all 0.5s;
                                " class="plan-list list-row d-sm-flex d-block  py-3 list-row align-items-center my-5 col-lg-9 mx-auto justify-content-center">
 
-                        <div class="col-xl-5 col-xxl-8 col-lg-6 col-sm-8 d-flex align-items-center">
+                        <div class="d-flex align-items-center">
 
                             <div class="info ">
                                 <a    href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}" target="_blank"
@@ -109,7 +109,7 @@
         </div>
     {% else %}
 
-        <div class="card-body py-4 mt-2 justify-content-center">
+        <div class="card-body py-1 my-1 justify-content-center">
             <div class="mx-auto justify-content-center text-center">
                 Get started by creating your first quiz
             </div>

@@ -139,8 +139,14 @@
                     {% endautoescape %}
                     <div>
                         <br><br>
-                        {% if element.type == 'Text input element' or  element.type == 'Char input element' or  element.type == 'Email input element' or element.type == 'Number input element' or element.type == 'Multiple choice question' or element.type == "Single choice question" or element.type == "Agree disagree element" %}
-                            Question title:
+                        {% if not element.type == "Text element" %}
+                            {% if element.type == "Agree disagree table" %}
+                            Agree disagree section
+                            {% else %}
+                            Question 
+                            {% endif %}
+                            
+                            title:
                             <ul class=" list-group-horizontal-sm">
                                 <li class="my-4">
                                     <strong>{{element.element.title}}</strong>
@@ -197,10 +203,32 @@
                                 </li >
                                 {% endfor %}
                             </ul>
-                            <div></div>
+                            
+                            {% elif element.type == "Agree disagree table" %}
+                            
+                            Questions:
+                            <ul class="list-group list-group-horizontal-sm">
+                                {% for e in element.element.get_agree_disagree_rows %}
+                                <li class="border border-1 p-3 rounded border-dark my-4 mx-3 d-flex" 
+                                style="justify-content: center; align-items: center;width:15rem;max-width:fit-content;">
+                                    <div class="text-center">
 
-                        {% endif %}
-
+                                        <br>
+                                        <strong>
+                                            
+                                            {{e.position}}. {{e.title}}
+                                        </strong>
+                                        <br>
+                                        {% if e.is_correct_choice %}(Correct <i class="fa fa-check"></i>){% endif %}
+                                    </div>
+                                </li >
+                                {% endfor %}
+                            </ul>
+                            
+                            
+                            {% endif %}
+                            
+                           
 
                     </div>
 

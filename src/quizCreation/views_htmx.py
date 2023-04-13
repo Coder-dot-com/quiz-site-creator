@@ -753,7 +753,15 @@ def delete_row_agree_disagree_row(request, quiz_id, page_id, element_id, choice_
             page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
 
         choice = AgreeDisagreeRow.objects.get(
-            agree_disagree_element=element, id=choice_id).delete()
+            agree_disagree_element=element, id=choice_id)
+        
+        choices_above =  AgreeDisagreeRow.objects.filter(
+                agree_disagree_element=element, position__gt=choice.position)
+        
+        for c in choices_above:
+            c.position -= 1
+            c.save()
+        choice.delete()
         choices = AgreeDisagreeRow.objects.filter(
             agree_disagree_element=element)
         form = AgreeDisagreeRowForm()

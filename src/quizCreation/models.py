@@ -72,7 +72,7 @@ class QuizPageElement(models.Model):
             return {'type': 'Single choice question', 'element': single_choice[0]}
         agree_disagree_element = AgreeDisagree.objects.filter(page_element=self)
         if agree_disagree_element.exists():
-            return {'type': 'Agree disagree element', 'element': agree_disagree_element[0]}
+            return {'type': 'Agree disagree table', 'element': agree_disagree_element[0]}
 
 
 class TextElement(models.Model):
@@ -130,6 +130,10 @@ class SingleChoiceChoice(models.Model):
 class AgreeDisagree(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
+
+    def get_agree_disagree_rows(self):
+        return AgreeDisagreeRow.objects.filter(agree_disagree_element=self).order_by('position')
+
 
 class AgreeDisagreeRow(models.Model):
     agree_disagree_element = models.ForeignKey(AgreeDisagree, on_delete=models.CASCADE)

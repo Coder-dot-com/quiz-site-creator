@@ -3,12 +3,12 @@
 </script>
 
 <div class="row d-block col-lg-9 mx-auto" id="pagesList">
-    <a class="my-5" href="{% url 'dashboard_home' %}">
-
-        <p class="">< Editing quiz: {{user_quiz.name}}</p>
-    </a>
-    <div class="col-xl-12 my-3">
-        <div class="card plan-list">
+    <div class="col-xl-12 my-5">
+        <a class="mb-1" href="{% url 'dashboard_home' %}">
+    
+            <span class="">< Editing quiz: {{user_quiz.name}}</span>
+        </a>
+        <div class="card ">
             <div class="card-header d-sm-flex flex-wrap d-block pb-0 border-0">
              
                     {% comment %} <div class="card-action card-tabs mr-4 mt-3 mt-sm-0 mb-3">
@@ -43,7 +43,7 @@
                                 >
                                     {% csrf_token %}
                                     <div class="form-group">
-                                        <label class="text-black font-w600">Enter a name for your quiz page<span class="required">*</span></label>
+                                        <label class="">Enter a name for your quiz page<span class="required">*</span></label>
                                         <input type="text" class="form-control" name="name" required maxlength='300' placeholder="Enter name here">
                                         Note: Name is only shown to you and not displayed to users
                                     </div>
