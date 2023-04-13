@@ -53,7 +53,7 @@
                                   hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
                                   hx-post="{% url 'edit_element_title' element.element.page_element.page.quiz.id element.element.page_element.page.id element.element.page_element.id %}"
 
-                                  {% if element.type == "Multiple choice question" or  element.type == 'Single choice question' %}
+                                  {% if element.type == "Multiple choice question" or  element.type == 'Single choice question' or element.type == 'Agree disagree table' %}
                                       hx-target="#editModalContent{{element.element.page_element.id}}"
                                   {% else %}
                                       hx-target="#page_elements"
@@ -101,13 +101,13 @@
                                     <a type="button" class="btn btn-danger light" data-dismiss="modal">Cancel</a>
                                     <button
 
-                                        {% if not element.type == "Multiple choice question" and not element.type == "Single choice question" %}
+                                        {% if not element.type == "Multiple choice question" and not element.type == "Single choice question" and not element.type == "Agree disagree table" %}
 
                                             onclick="document.querySelector('#editModal_{{element.element.page_element.id}} > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)').click()"
                                         {% endif %}
                                         type="submit"
 
-                                        class="btn btn-primary site-button">Finished changing</button>
+                                        class="btn btn-primary site-button">Continue</button>
                                 </div>
 
                             </form>

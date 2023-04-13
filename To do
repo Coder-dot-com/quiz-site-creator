@@ -3,11 +3,12 @@ To do:
 -quiz settings
 
     -Create MostlyAgree 
-        -allow edit
         -render on take quiz
         -display in responses
         
+    -fix layout edit quiz page elements
     
+
     -convert all 3 modal tables to datatable
 
     -ckeditor font size choices

@@ -823,6 +823,13 @@ def edit_element_title(request, quiz_id, page_id, element_id):
                 single_choice_element=element)
             context['edit'] = True
             return render(request, 'element_forms/AddChoiceSingleChoiceModal.html', context=context)
+        
+        elif element_type == "Agree disagree table":
+            context['element'] = element
+            context['choices'] = AgreeDisagreeRow.objects.filter(
+                agree_disagree_element=element)
+            context['edit'] = True
+            return render(request, 'element_forms/AddRowAgreeDisagreeModal.html', context=context)
 
 
         else:
