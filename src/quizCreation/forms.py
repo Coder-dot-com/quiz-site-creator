@@ -73,6 +73,11 @@ class SingleChoiceChoiceForm(forms.ModelForm):
 
 
 class AgreeDisagreeElementForm(CharInputElementForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget = forms.TextInput(attrs={'field_title': "Enter a title for your agree disagree section", 'maxlength': 100, 'class': 'w-100 form-control border-dark '},)
+
     class Meta:
         model = AgreeDisagree
         fields = ['title', ]

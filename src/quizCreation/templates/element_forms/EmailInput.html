@@ -40,7 +40,10 @@
                     Go back
                 {% endif %}
             </a>
-            <button type="submit" class="btn btn-primary site-button">{% if edit %}Save{% else %}Add{% endif %}</button>
+            <button id="addQuestion" type="submit" class="btn btn-primary site-button">{% if edit %}Save{% else %}Add{% endif %}</button>
+            <script>
+                document.querySelector('#addQuestion').focus()
+            </script>
         </div>
     </form>
 
