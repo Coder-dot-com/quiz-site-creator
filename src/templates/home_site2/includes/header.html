@@ -140,7 +140,7 @@
         ***********************************-->
             <div class="header px-5">
                 <div class="header-content px-2">
-                    <div class="navbar-brand-box ml-auto d-flex text-center justify-content-center">
+                    <div class="navbar-brand-box ml-4 d-flex text-center justify-content-center">
                         <a href="{% url 'home' %}" class="logo logo-light">
                             {% if site.site_logo %}
                                 <span class="logo-lg">
@@ -226,16 +226,47 @@
                     <ul class="metismenu" id="menu">
                         <li>
                             <a href="{% url 'home' %}" class="ai-icon" aria-expanded="false">
-                                <i class="flaticon-381-home"></i>
+                                <span class="nav-text">Home</span>
+                            </a>
+                        </li>
+                        {% comment %} <li>
+                            <a href="{% url 'wagtail_serve' '' %}category/all" class="ai-icon" aria-expanded="false">
+                                <span class="nav-text">Blog</span>
+                            </a>
+                        </li> {% endcomment %}
+
+                        {% if not user.is_authenticated %}
+                        <li>
+                            <a href="{% url 'login_user' %}" class="ai-icon" aria-expanded="false">
                                 <span class="nav-text">Home</span>
                             </a>
                         </li>
                         <li>
-                            <a href="{% url 'wagtail_serve' '' %}category/all" class="ai-icon" aria-expanded="false">
-                                <i class="flaticon-381-book"></i>
-                                <span class="nav-text">Blog</span>
+                            <a href="{% url 'register_user' %}" class="ai-icon" aria-expanded="false">
+                                <span class="nav-text">Register</span>
                             </a>
                         </li>
+
+                     
+
+
+
+                    {% else %}
+                        <li>
+                            <a href="{% url 'logout_user' %}" class="ai-icon" aria-expanded="false">
+                                <span class="nav-text">Logout</span>
+                            </a>
+                        </li>
+                
+
+                        <li class="nav-item mx-5">
+                            <a style="width:100%;" href="{% url 'dashboard_home' %}" type="button" class="btn btn-primary site-button"
+                               role="button" data-toggle="" aria-haspopup="true"
+                               aria-expanded="false">Dashboard </a>
+                        </li>
+
+
+                    {% endif %}
                     </ul>
 
                     <div class="copyright">

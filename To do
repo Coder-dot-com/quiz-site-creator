@@ -1,15 +1,14 @@
 To do:
 
 -quiz settings
-    -Fix mobile header links
 
-    -Create MostlyAgree -MostlyDisagree question type with rows
-        Change from question title to section title in first modal
-
+    -Create MostlyAgree 
         -allow edit
         -render on take quiz
         -display in responses
-        -convert modal tables to datatable
+        
+    
+    -convert all 3 modal tables to datatable
 
     -ckeditor font size choices
     -Create 1-10 question with slider input
