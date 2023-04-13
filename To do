@@ -3,42 +3,32 @@ To do:
 -quiz settings
 
 
+        -Create basic home page
+            -take screenshot of quiz and use as mockup for home page
+            
+        -Add button to customize quiz confirmation page
+            -create a new page and they can check redirect to new page after quiz completion
+
+        -Deploy
+        -create 1 landing page use quiz
+
+        -Test
         
-    Improve layout on take quiz and fonts styling etc...
-    
-    -Protect take_quiz by adding check in view for active quiz owners subscription not current user
+        -find keywords to use to scrape emails
+        -Scrape emails
+ 
+        -Ready with some audiences to test emails
 
-    -re ordder swatches (G)
 
-    -Fix cancel adn go back focus enter should continue not go back
-
-    -deploy
-
-    -scrape emails/plan first audience
+    -add email optin option to quiz
+    -mark as correct (at quiz completion)
 
     -Create 1-10 question with slider input
     -Create 1-5 star review 
+    -Fix cancel adn go back focus enter should continue not go back
+    -Fix account & billing pages
 
-    -mark as correct
-
-
-        -test everything 
-
-        -watch landing p page videos and marketing videos for offer
-
-        -complete marketing templates
-
-        -create landing pages
-        -Create home page
-
-
-
-        -Deploy
-
-
-
- 
-        -Ready with some audiences to test emails
+    -progress bar
 
     -download csv (disabled for now re-enable with handling of AgreeDisagree)
         -Complete job coding project

@@ -1,11 +1,17 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse
 from quizCreation.models import UserQuiz, QuizPage, MultipleChoiceChoice
+from subscriptions.models import UserPaymentStatus
+from datetime import datetime
 from uuid import uuid4
 from session_management.views import _session
 from .models import Response, Answer
 from django.utils.datastructures import MultiValueDictKeyError
+from datetime import datetime, timedelta, timezone
 
+from django.urls import reverse
+from emails.tasks import subscription_cancelled
+from subscriptions.models import UserPaymentStatus, UserSubscriptions
 # Create your views here.
 @login_required
 def preview_quiz(request, quiz_id):
@@ -25,23 +31,71 @@ def take_quiz(request, quiz_id):
 
     quiz = UserQuiz.objects.filter(id=quiz_id)
 
+    user = quiz[0].user
+    #check user payment status is 
+    
+    try:
+        user_payment_status = UserPaymentStatus.objects.get(user=user)
+    except:
+        return dict(checked_subscription=True)
+    
+    print(user_payment_status)
+
+    print("Checking subscription")
+
+        #The trigger for this function should be context_processors which checks for logged in,
+        #user has an active User payment status and current time > subscription expiry,
+        #been more than 10 minutes since last sync
+
+    if user_payment_status.status == "active" and datetime.now(timezone.utc) > (user_payment_status.subscription_expiry + timedelta(seconds=1)) and datetime.now(timezone.utc) > (user_payment_status.last_synced + timedelta(seconds=600)):
+        response = user_payment_status.sync_subscription_expiry()
+        if response == "Canceled":
+            try:
+                user_subscription = UserSubscriptions.objects.filter(
+                user_payment_status=user_payment_status,
+                ).latest('created_at')
+                subscription_cancelled.delay(user_subscription.subscription_id, failed_payment=True)
+            except Exception as b:
+                print(b)
+ 
+    elif user_payment_status.status == "free":
+        response = user_payment_status.sync_subscription_expiry()
+
+ 
+    elif user_payment_status.status == "free_trial":
+        subscribe_url = reverse('subscription_page_dashboard')
+        if user_payment_status.subscription_expiry.replace(tzinfo=None) < datetime.utcnow().replace(tzinfo=None):
+            user_payment_status.status = "free"
+            user_payment_status.save()
+            print(user_payment_status.status)
+            print("TEST1231")
+
+
+
+
     if quiz.exists():
-        
-        context = {}
-        context['quiz_page'] = quiz[0].first_quiz_page()
-        context['first_page'] = True
+        if user_payment_status.status == "free_trial" or  user_payment_status.status == "active":
 
-        try:
-            session = _session(request)
-            response_id = Response.objects.filter(session=session, quiz__id=quiz_id, completed=False).latest('last_modified').response_id
-        except Response.DoesNotExist:
-            response_id = uuid4()
+        
+            context = {}
+            context['quiz_page'] = quiz[0].first_quiz_page()
+            context['first_page'] = True
 
-        context['response_id'] = response_id
-        
-        print("TAKE UQUIZ")
-        
-        return render(request, 'take_quiz.html', context=context)
+            try:
+                session = _session(request)
+                response_id = Response.objects.filter(session=session, quiz__id=quiz_id, completed=False).latest('last_modified').response_id
+            except Response.DoesNotExist:
+                response_id = uuid4()
+
+            context['response_id'] = response_id
+            
+            print("TAKE UQUIZ")
+            
+            return render(request, 'take_quiz.html', context=context)
+        else:
+            return HttpResponse("The quiz owners subscription has expired. Quiz is currently unavailable")
+    
+
     
     
 def complete_quiz(request, quiz_id, number, response_id):
