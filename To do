@@ -2,15 +2,14 @@ To do:
 
 -quiz settings
 
-    -ckeditor font size choices
 
-    -Create MostlyAgree 
-        -render on take quiz
-        -display in responses
         
     Improve layout on take quiz and fonts styling etc...
     
-    -re ordder swatches
+    -Protect take_quiz by adding check in view for active quiz owners subscription not current user
+
+    -re ordder swatches (G)
+
 
     -deploy
 
@@ -40,6 +39,7 @@ To do:
  
         -Ready with some audiences to test emails
 
+    -download csv (disabled for now re-enable with handling of AgreeDisagree)
         -Complete job coding project
 
 

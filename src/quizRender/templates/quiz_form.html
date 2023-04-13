@@ -56,6 +56,8 @@
                     {% include 'take_quiz_elements/multiple_choice_input_element.html' %}
                 {% elif element.get_element_type.type == 'Single choice question'  %}
                     {% include 'take_quiz_elements/single_choice_input_element.html' %}
+                {% elif element.get_element_type.type == 'Agree disagree table'  %}
+                    {% include 'take_quiz_elements/agree_disagree_table.html' %}
 
                 {% endif %}
 

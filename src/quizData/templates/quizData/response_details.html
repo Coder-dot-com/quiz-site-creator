@@ -31,7 +31,13 @@
                                                     <small>Question:</small>
                                                     <br>
                                                     <strong class="">
+                                                        {% if x.question %}
+                                                        
+                                                        
                                                         {{x.question.get_element_type.element.title}}
+                                                        {% else %}
+                                                        {{x.question_agree_disagree.title}}
+                                                        {% endif %}
                                                     </strong>
                                                 </div>
                                                 <br>

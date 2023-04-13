@@ -16,6 +16,7 @@ urlpatterns = [
     
     
     path('get_value_stored_in_db/<quiz_id>/<element_id>/<response_id>', views_htmx.get_value_stored_in_db, name="get_value_stored_in_db"),
+    path('get_value_stored_in_db/<quiz_id>/<element_id>/<response_id>/<question_id>', views_htmx.get_value_stored_in_db, name="get_value_stored_in_db_agree_disagree"),
 
     path('complete_quiz/<quiz_id>/<number>/<response_id>', views.complete_quiz, name="complete_quiz"),
 

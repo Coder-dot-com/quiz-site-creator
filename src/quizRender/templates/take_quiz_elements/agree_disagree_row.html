@@ -1,0 +1,44 @@
+<div class="form-group my-3" >
+    <div class="d-none" id="swapRow{{question.id}}"></div>
+    <tr class="my-3 border-dark border-bottom" id="tableRow{{question.id}}"
+    
+    
+    {% if not checked_db %}
+        hx-trigger = 'load'
+        hx-target="#swapRow{{question.id}}"
+        hx-swap=innerHTML
+        hx-get={% url 'get_value_stored_in_db_agree_disagree'  quiz_page.quiz.id element.id response_id  question.id %}
+        {% endif %}
+        >
+        <td class="py-5">
+            {{question.title}}
+        </td>
+        <td class="py-5"     
+    >
+            <label class="radio-inline mr-3"><input type="radio" name="{{question.id}}" value="Mostly agree" ></label>
+        </td>
+        <td class="py-5">
+            <label class="radio-inline mr-3"><input type="radio" name="{{question.id}}" value="Agree"></label>
+        </td>
+        <td class="py-5">
+            <label class="radio-inline mr-3"><input type="radio" name="{{question.id}}" value="Not sure"></label>
+        </td>
+        <td class="py-5">
+            <label class="radio-inline mr-3"><input type="radio" name="{{question.id}}" value="Disagree"></label>
+        </td>
+        <td class="py-5">
+            <label class="radio-inline mr-3"><input type="radio" name="{{question.id}}" value="Mostly disagree"></label>
+        </td>
+    </tr>
+    </div>
+
+{% if answer %}
+<script>
+    row_{{question.id}} = document.querySelector('#tableRow{{question.id}}')
+
+    
+    row_{{question.id}}.querySelector('input[value="{{answer.answer}}"]').click()
+
+    
+</script>
+{% endif %}

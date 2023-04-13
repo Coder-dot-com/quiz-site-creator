@@ -1,0 +1,44 @@
+<div class="border border-3 border-dark p-3">
+
+
+<table class="">
+    <thead>
+        <tr>
+            <td style="width:40%">
+                Question
+            </td>
+            <td>
+                Mostly agree
+            </td>
+            <td>
+                Agree
+            </td>
+            <td>
+                Not sure
+            </td>
+            <td>
+                Disagree
+            </td>
+            <td>
+                Mostly disagree
+            </td>
+        </tr>
+    </thead>
+
+    {% for question in  element.get_element_type.element.get_agree_disagree_rows %}
+        {% include 'take_quiz_elements/agree_disagree_row.html' %}
+    {% endfor %}
+
+
+</table>
+
+</div>
+
+{% if answers %}
+
+{% for answer in answers %}
+
+{% endfor %}
+
+
+{% endif %}

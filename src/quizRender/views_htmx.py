@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse
-from quizCreation.models import UserQuiz, QuizPage, QuizPageElement, MultipleChoiceChoice, SingleChoiceChoice
+from quizCreation.models import UserQuiz, QuizPage, QuizPageElement, MultipleChoiceChoice, SingleChoiceChoice, AgreeDisagreeRow
 from uuid import uuid4
 from .models import Response, Answer
 from session_management.views import _session
@@ -69,13 +69,27 @@ def take_next_page(request, quiz_id, number, response_id):
                 answer_obj.question_choice.add(question_choice)
            
             answer_obj.save()
+        elif e.get_element_type()['type'] == "Agree disagree table":
+            print("TEST")
+            print(request.POST)
+            questions = AgreeDisagreeRow.objects.filter(agree_disagree_element=e.get_element_type()['element'])
+            for q in questions:
+                answer_obj = Answer.objects.get_or_create(response=response_object, question_agree_disagree=q)[0]
+                print(q.id)
+                try:
+                    answer = request.POST[str(q.id)]
+                except MultiValueDictKeyError:
+                    answer = ""  
+                answer_obj.answer = answer
+                answer_obj.save()       
+        
         elif not e.get_element_type()['type'] == 'Text element':
             try:
                 answer = request.POST[str(e.id)]
             except MultiValueDictKeyError:
                 answer = ""            
             answer_obj.answer = answer
-            answer_obj.save()    
+            answer_obj.save()
         
         
         elif e.get_element_type()['type'] == 'Text element':
@@ -121,23 +135,29 @@ def take_previous_page(request, quiz_id, number, response_id):
     
     
 
-def get_value_stored_in_db(request, quiz_id, element_id, response_id):
-    try:
-        response = Response.objects.get(session=_session(request), response_id=response_id)
-        element = QuizPageElement.objects.get(id=element_id)
-        answer = Answer.objects.get(question=element, response=response)
-    except Response.DoesNotExist:
-        answer = False
-    element = QuizPageElement.objects.get(id=element_id)
-
-
+def get_value_stored_in_db(request, quiz_id, element_id, response_id, question_id = None):
     context = {}
-
-    context['quiz_page'] = element.page
-    context['response_id'] = response_id
+    element = QuizPageElement.objects.get(id=element_id)
     context['element']  = element
-    context['answer'] = answer
+    context['response_id'] = response_id
+    context['quiz_page'] = element.page
     context['checked_db'] = True
+
+    response = Response.objects.get(session=_session(request), response_id=response_id)
+
+    if not question_id:
+        try:
+            answer = Answer.objects.get(question=element, response=response)
+        except Response.DoesNotExist:
+            answer = False
+
+
+    else:
+        agree_disagree_question = AgreeDisagreeRow.objects.get(id=question_id)
+        answer = Answer.objects.get(question_agree_disagree=agree_disagree_question, response=response)
+        context['question'] = agree_disagree_question
+
+    context['answer'] = answer
 
     if element.get_element_type()['type'] == "Char input element":
         return render(request, 'take_quiz_elements/char_input_element.html', context=context)
@@ -151,3 +171,5 @@ def get_value_stored_in_db(request, quiz_id, element_id, response_id):
         return render(request, 'take_quiz_elements/multiple_choice_input_element.html', context=context)
     elif element.get_element_type()['type'] == "Single choice question":
         return render(request, 'take_quiz_elements/single_choice_input_element.html', context=context)
+    elif element.get_element_type()['type'] == "Agree disagree table":
+        return render(request, 'take_quiz_elements/agree_disagree_row.html', context=context)
