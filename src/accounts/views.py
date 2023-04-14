@@ -34,7 +34,13 @@ def register_view(request):
             promo_consent = False
 
 
-        user = UserModel.objects.create_user(username=username, email=email, password=password)
+        try:
+            user = UserModel.objects.create_user(username=username, email=email, password=password)
+        except Exception as e:
+            print("registration error")
+            messages.error(request, "An error occured, please try again")
+            print(e)
+            user = None
 
         if user != None:
             old_session = _session(request)
@@ -53,7 +59,7 @@ def register_view(request):
             # Create user emaillist object
             UserEmail.objects.create(user=user, email=email, promo_consent=promo_consent)
             
-            # messages.success(request, "Welcome, get started by using the menu")
+            messages.success(request, "Welcome, get started by using the menu")
             return redirect(reverse('dashboard_home') + f"?nu=1")
 
         else:

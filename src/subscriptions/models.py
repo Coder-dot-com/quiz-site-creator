@@ -18,7 +18,6 @@ choices = [
     ("free_trial", "free_trial"),
     ("active", "active"),
     ("free", "free"),
-    ("beta_tester", "beta_tester")
 ]
 
 def default_date_time():

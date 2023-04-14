@@ -14,7 +14,6 @@ class Profile(models.Model):
 
 class UserPreferenceType(models.Model):
     preference_name = models.CharField(max_length=300, unique=True)
-
     def __str__(self):
         return self.preference_name
 

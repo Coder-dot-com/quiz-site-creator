@@ -147,9 +147,11 @@
                                     <img src="{{site.site_logo.url}}" alt="" style="max-width:80%;max-height:5rem;">
                                 </span>
                             {% endif %}
+                            {% if site.site_logo_square %}
                             <span class="logo-sm">
                                 <img src="{% if site.site_logo_square %}{{site.site_logo_square.url}}{% endif %}" alt="" height="26">
                             </span>
+                            {% endif %}
                         </a>
                     </div>
                     <nav class="navbar navbar-expand d-none d-sm-block">

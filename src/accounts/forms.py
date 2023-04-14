@@ -4,7 +4,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.password_validation import validate_password
 from django.db.models import Q
 from django.contrib.auth.forms import SetPasswordForm
-
+from emails.models import UserEmail
 
 non_allowed_usernames = ['admin', 'administrator', 'mod', 'moderator', 'owner', 'manager']
 User = get_user_model()
@@ -84,7 +84,8 @@ class RegisterForm(forms.Form):
     def clean_email(self):
         email = self.cleaned_data.get("email")
         qs = User.objects.filter(email=email)
-        if qs.exists() or email in non_allowed_usernames:
+        qs2 = UserEmail.objects.filter(email=email)
+        if qs.exists() or email in non_allowed_usernames or qs2.exists():
             raise forms.ValidationError("Email has already been taken")
         return email
 
