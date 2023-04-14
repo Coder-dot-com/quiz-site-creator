@@ -23,7 +23,7 @@ UserModel = get_user_model()
 def register_view(request):
     form =  RegisterForm(request.POST or None)
     if form.is_valid():
-        username = uuid4()
+        username = form.cleaned_data.get('email')
         email = form.cleaned_data.get('email')
         password = form.cleaned_data.get('password')
         password2 = form.cleaned_data.get('password2')

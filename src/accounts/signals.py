@@ -20,12 +20,12 @@ def save_profile(sender, instance, created, **kwargs):
         profile.save()
         #Also create user payment status
         if not user.is_staff:
-            tier = Tier.objects.get(type='free_tier')
-            UserPaymentStatus.objects.create(user=user, status="free", tier=tier)
+            tier = Tier.objects.get(type='professional')
+            UserPaymentStatus.objects.create(user=user, status="free_trial", tier=tier)
         
         #Sync email with sib and also add to contacts list
 
-        sync_email_with_sendinblue.delay(user.email, contact_list_id=7)
+        sync_email_with_sendinblue.delay(user.email)
 
 
 
