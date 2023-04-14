@@ -6,6 +6,7 @@ To do:
         -Add button to customize quiz confirmation page
             -create a new page and they can check redirect to new page after quiz completion
 
+        -add logo and improve design quiz completion
         -Deploy
         -create 1 landing page use quiz
 
@@ -14,7 +15,7 @@ To do:
         -find keywords to use to scrape emails
         -Scrape emails
  
-        -Ready with some audiences to test emails
+        -Ready with one audience to test emails
 
 
     -add email optin option to quiz
@@ -26,6 +27,8 @@ To do:
     -Fix account & billing pages
 
     -progress bar
+
+    -when user clickc ancel susbcription resell beneftis and then offer discount also ask why unsubscribing
 
     -download csv (disabled for now re-enable with handling of AgreeDisagree)
         -Complete job coding project

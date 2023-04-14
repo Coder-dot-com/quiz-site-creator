@@ -1,10 +1,33 @@
 {% extends 'dashboard2/base.html' %}
 
 {% load static %}
-{% block content %}
+{% block content %} 
 
     <div class="row">
-        {% include 'questions_page.html' %}
+
+        <div class="col-lg-9 mx-auto ">
+            Quiz completion page 
+            <div class="card px-3 ">
+
+                <label for="" class="form-label my-4">
+                    <strong>
+                        Redirect after quiz completion? (leave blank to not redirect)
+                    </strong>
+                </label>
+                <form class="input-group mb-3"
+                >
+
+                        <input type="text" class="form-control" placeholder="Enter URL here include https:// or http://">
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" type="button">Save</button>
+                        </div>
+                    
+                </form>
+               
+
+            </div>
+        </div>
+
 
     </div>
 

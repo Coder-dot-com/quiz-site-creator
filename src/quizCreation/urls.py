@@ -48,7 +48,7 @@ urlpatterns = [
 
     path('get_text_element_edit_form/<quiz_id>/<element_id>', views_htmx.get_text_element_edit_form, name="get_text_element_edit_form"),
 
-    path('edit_text_input_element/<quiz_id>/<element_id>', views_htmx.edit_text_input_element, name="edit_text_input_element"),
+    path('edit_text_element/<quiz_id>/<element_id>', views.edit_text_element, name="edit_text_element"),
 
 
 

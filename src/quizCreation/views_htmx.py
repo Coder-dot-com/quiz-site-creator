@@ -174,6 +174,7 @@ def add_text_element(request, quiz_id, page_id):
                     return render(request, 'element_forms/all_elements_swatches.html', context=context)
 
 
+
 @login_required
 def add_text_input_element(request, quiz_id, page_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
@@ -897,15 +898,13 @@ def get_text_element_edit_form(request, quiz_id, element_id):
         'user_quiz': user_quiz,
         'quiz_page': element.page,
         'quiz_page_element': element,
-        'form': TextElementForm(element.get_element_type()['element'], prefix=uuid4())
+        'form': TextElementForm(instance=element.get_element_type()['element'], prefix=uuid4())
     }
 
-    return render(request, 'element_forms/TextInput.html', context=context)
+    return render(request, 'element_forms/edit_text_element_page.html', context=context)
 
 
-@login_required
-def edit_text_input_element(request):
-    return
+
 # @login_required
 # def duplicate_quiz(request, quiz_id):
 #     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)

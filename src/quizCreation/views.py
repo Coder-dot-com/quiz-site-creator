@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
-from .models import UserQuiz, QuizPage
+from .models import UserQuiz, QuizPage, QuizPageElement
+from .forms import TextElementForm
 from django.shortcuts import redirect
 
 # Create your views here.
@@ -89,3 +90,19 @@ def quiz_page_edit(request, quiz_id, page_id):
 
     return redirect('dashboard_home')
 
+@login_required
+def edit_text_element(request, quiz_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)[0]
+    element = QuizPageElement.objects.get(page__quiz=user_quiz, id=element_id)
+
+    print(request.POST)
+    for key,value in request.POST.items():
+        if key == "csrfmiddlewaretoken":
+            pass
+        else:
+            content = request.POST[key]
+            textelement = element.get_element_type()['element']
+            textelement.content = content
+            textelement.save()
+
+    return quiz_page_edit(request, quiz_id=quiz_id, page_id=element.page.id)

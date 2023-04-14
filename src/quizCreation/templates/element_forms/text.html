@@ -1,16 +1,18 @@
+{% if edit %}
+<h3 class="mx-3 mt-4">Edit text element</h3>
+{% else %}
 <div class="modal-header">
-    <h5 class="modal-title">{% if edit %}Edit {% else %} Add {% endif %} text element</h5>
+    <h5 class="modal-title"> Add text element</h5>
     <button type="button" class="close" data-dismiss="modal"><span>×</span>
     </button>
 </div>
+{% endif %}
 <div class="modal-body">
     <form
 
         {% if edit %}
-            hx-post={% url 'edit_text_element' user_quiz.id quiz_page.id quiz_page_element.id %}
-            hx-target='#page_elements'
-            hx-swap=outerHTML
-            hx-
+           action="{% url 'edit_text_element' user_quiz.id quiz_page_element.id %}"
+            method="post"
         {% else %}
             hx-post={% url 'add_text_element' user_quiz.id quiz_page.id %}
             hx-target='#modalContent'
@@ -19,6 +21,7 @@
         hx-sync="closest form:abort"
 
     >
+    {% csrf_token %}
         {{form.media}}
         {% for field in form %}
             {{field}}
@@ -30,17 +33,13 @@
                    hx-get={% url 'all_element_swatches' user_quiz.id quiz_page.id %} hx-trigger=click
                    hx-target='#modalContent' hx-swap=outerHTML
                {% else %}
-                   hx-get={% url 'all_element_swatches' user_quiz.id quiz_page.id %} hx-trigger=click
-                   hx-target='#modalContent' hx-swap=outerHTML
-                   data-dismiss="modal"
+                   href={% url 'quiz_page_edit' user_quiz.id quiz_page.id %} 
+
                {% endif %}
                class="btn btn-danger light"
             >
-                {% if edit %}
-                    Cancel
-                {% else %}
+            
                     Go back
-                {% endif %}
             </a>
             <button type="submit" onclick="for ( instance in CKEDITOR.instances ) {
                                            CKEDITOR.instances[instance].updateElement();
