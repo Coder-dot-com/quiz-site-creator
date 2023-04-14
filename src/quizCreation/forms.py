@@ -1,12 +1,14 @@
 from django import forms
-from ckeditor.widgets import CKEditorWidget
 from uuid import uuid4
 
 from .models import TextElement, CharInputElement, TextInputElement, EmailInputElement, NumberInputElement, MultipleChoiceElement, MultipleChoiceChoice, SingleChoiceElement, SingleChoiceChoice, AgreeDisagree, AgreeDisagreeRow
+from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 class TextElementForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
+
+    content = forms.CharField(widget=CKEditorUploadingWidget())
     class Meta:
         model = TextElement
         fields = ['content', ]

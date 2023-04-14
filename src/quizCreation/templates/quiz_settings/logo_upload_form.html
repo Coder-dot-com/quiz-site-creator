@@ -5,8 +5,11 @@
       hx-post="{% url 'upload_quiz_logo' user_quiz.id %}"
       hx-trigger="change"
       hx-swap="outerHTML"
-      hx-indicator="#spinner_{{user_quiz.id}}">
+      hx-indicator="#spinner_{{user_quiz.id}}"
+      class="my-4"
+      >
 
+        <h4>Add a logo</h4>
 
     {% if user_quiz.logo %}
         <div class="col-12 my-2">

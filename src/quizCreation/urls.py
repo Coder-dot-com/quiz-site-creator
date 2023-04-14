@@ -6,9 +6,14 @@ urlpatterns = [
     path('edit/<quiz_id>/', views.quiz_edit, name="edit_quiz"),
     path('delete/<quiz_id>/', views_htmx.htmx_quiz_delete, name="htmx_quiz_delete"),
     # path('duplicate_quiz/<quiz_id>/', views_htmx.duplicate_quiz, name="duplicate_quiz"),
+    
+    
+    path('edit_quiz_completion_page/<quiz_id>/', views.edit_quiz_completion_page, name="edit_quiz_completion_page"),
 
 
     path('quiz_page_add/<quiz_id>/', views.quiz_page_add, name="quiz_page_add"),
+
+
     path('htmx_create_quiz/', views_htmx.htmx_create_quiz, name="htmx_create_quiz"),
     path('edit/quiz_page/<quiz_id>/<page_id>', views.quiz_page_edit, name="quiz_page_edit"),
     path('edit/all_element_swatches/<quiz_id>/<page_id>', views_htmx.all_element_swatches, name="all_element_swatches"),

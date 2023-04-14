@@ -1,7 +1,8 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from ckeditor.fields import RichTextField
-
+from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.widgets import CKEditorWidget
 
 User = get_user_model()
 # Create your models here.
@@ -12,7 +13,9 @@ class UserQuiz(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
     logo = models.ImageField(upload_to='user_quiz_logos/', null=True, blank=True)
     analytics_scripts = models.TextField(max_length=10000, null=True, blank=True)
-
+#html field with image ckeditor
+#redirect url
+#
     def first_quiz_page(self):
         return QuizPage.objects.filter(quiz=self).order_by('number').first()
     
@@ -77,7 +80,7 @@ class QuizPageElement(models.Model):
 
 class TextElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
-    content = RichTextField()
+    content = RichTextUploadingField()
 
 
 

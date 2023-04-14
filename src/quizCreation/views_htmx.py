@@ -32,6 +32,8 @@ def htmx_quiz_delete(request, quiz_id):
     return render(request, 'quiz_creation/quizes_list.html', context=context)
 
 
+
+
 @login_required
 def quiz_page_element_add(request, quiz_id, page_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)

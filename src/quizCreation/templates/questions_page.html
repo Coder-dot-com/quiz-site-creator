@@ -16,7 +16,7 @@
                </div>
             <div class="card-header d-sm-flex flex-wrap d-block pb-0 border-0 ">
 
-                <button type="button" class="btn btn-primary site-button" data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
+                <button type="button" class="btn btn-primary site-button mb-2" data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
                 {% comment %} <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'preview_quiz' user_quiz.id %}" type="button" class="btn  mb-2 mr-2">View quiz preview</a> {% endcomment %}
 
 
@@ -49,9 +49,10 @@
                     </div>
                 </div>
 
-                <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' user_quiz.id %}" type="button" class="btn mb-2 ml-auto text-right">Link to take quiz</a>
+                <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' user_quiz.id %}" type="button" class="btn btn-primary site-secondary-button mb-2 ml-auto text-right">Link to take quiz</a>
+                <a href="" type="button" class="btn btn-primary site-secondary-button mb-2 ml-auto text-right">Edit quiz completion page </a>
 
-                <button type="button" class="btn mb-2" data-toggle="modal" data-target="#quizSettingsModal">Quiz settings</button>
+                <button type="button" class="btn btn-primary site-secondary-button  mb-2 ml-auto text-right" data-toggle="modal" data-target="#quizSettingsModal">Quiz settings</button>
 
                 <div class="modal fade" id="quizSettingsModal">
                     <div class="modal-dialog modal-dialog-centered" role="document">

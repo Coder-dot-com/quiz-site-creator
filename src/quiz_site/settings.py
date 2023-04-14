@@ -157,6 +157,8 @@ INSTALLED_APPS = [
     
     'blog',
 
+    'ckeditor_uploader',
+
     #wagtail apps
     'wagtail',
     'wagtail.contrib.forms',
@@ -290,6 +292,7 @@ USE_TZ = True
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR /'media'
+CKEDITOR_UPLOAD_PATH = 'ckeditor_uploads/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.0/ref/settings/#default-auto-field
@@ -315,13 +318,14 @@ CKEDITOR_CONFIGS = {
 'default': {
     'width': 'auto',
 
+
     'toolbar': [
             ['Styles', 'Format', 'Bold', 'Italic', 'Underline', 'Strike', 'SpellChecker', 'Undo', 'Redo'],
             ['TextColor', 'BGColor', 'FontSize'],
             ['Smiley'], ['Source'],
             ['JustifyLeft','JustifyCenter','JustifyRight','JustifyBlock'],
             ['NumberedList','BulletedList'],
-            ['Indent','Outdent'],
+            ['Indent','Outdent',],
             ], #You can change this based on your requirements.
 
         },

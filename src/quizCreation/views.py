@@ -25,7 +25,19 @@ def quiz_edit(request, quiz_id):
 
     return redirect('dashboard_home')
 
+@login_required
+def edit_quiz_completion_page(request, quiz_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
 
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_pages = QuizPage.objects.filter(quiz=user_quiz).order_by('number')
+        context = {
+            'user_quiz': user_quiz, 
+            'quiz_pages': quiz_pages,
+
+        }   
+    return render(request, 'quiz_completion_page.html')
 
 @login_required
 def quiz_page_add(request, quiz_id):
