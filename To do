@@ -3,9 +3,9 @@
 
 To do:
 
--quiz settings
-
    -Deploy
+   -send emails manually to  up
+-scrape emails
 
         -Test
         
@@ -28,7 +28,7 @@ To do:
     -Create 1-10 question with slider input
     -Create 1-5 star review 
 
-
+    -email custoemr surveys for people from a new domain and use subdomains
     -Fix cancel adn go back focus enter should continue not go back
     -Fix account & billing pages
 

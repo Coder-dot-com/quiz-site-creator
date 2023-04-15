@@ -33,8 +33,7 @@ def user_current_currency(request):
 
             if request.method == 'GET' and ip !="127.0.0.1":
 
-                IP_API_KEY = config('IP_API_KEY')
-                response = requests.get(f'https://ipapi.co/{str(ip)}/json/?key={IP_API_KEY}').json()
+                response = requests.get(f'https://ipapi.co/{str(ip)}/json/').json()
                 print(response)
                 user_currency = response.get("currency")
                 country_code = (str(response.get("country_code"))).lower()
