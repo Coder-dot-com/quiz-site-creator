@@ -13,6 +13,8 @@ urlpatterns = [
 
     path('quiz_page_add/<quiz_id>/', views.quiz_page_add, name="quiz_page_add"),
 
+    path('update_url_quiz_complete/<quiz_id>/', views_htmx.update_url_quiz_complete, name="update_url_quiz_complete"),
+    path('update_text_content_quiz_complete/<quiz_id>/', views_htmx.update_text_content_quiz_complete, name="update_text_content_quiz_complete"),
 
     path('htmx_create_quiz/', views_htmx.htmx_create_quiz, name="htmx_create_quiz"),
     path('edit/quiz_page/<quiz_id>/<page_id>', views.quiz_page_edit, name="quiz_page_edit"),

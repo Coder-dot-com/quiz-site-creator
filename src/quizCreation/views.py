@@ -39,7 +39,7 @@ def edit_quiz_completion_page(request, quiz_id):
             'form': QuizConfirmationForm(instance=user_quiz)
 
         }   
-    return render(request, 'quiz_completion_page.html', context=context)
+        return render(request, 'quiz_completion_page.html', context=context)
 
 @login_required
 def quiz_page_add(request, quiz_id):

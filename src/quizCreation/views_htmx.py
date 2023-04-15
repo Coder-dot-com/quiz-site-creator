@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
 from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement, SingleChoiceChoice, SingleChoiceElement, AgreeDisagree, AgreeDisagreeRow
-from .forms import TextElementForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm, SingleChoiceElementForm, SingleChoiceChoiceForm, AgreeDisagreeElementForm, AgreeDisagreeRowForm
+from .forms import TextElementForm, QuizConfirmationForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm, SingleChoiceElementForm, SingleChoiceChoiceForm, AgreeDisagreeElementForm, AgreeDisagreeRowForm
 from django.urls import reverse
 import os
 from uuid import uuid4
@@ -30,6 +30,45 @@ def htmx_quiz_delete(request, quiz_id):
         'quizes': user_quizes_list,
     }
     return render(request, 'quiz_creation/quizes_list.html', context=context)
+
+
+@login_required
+def update_url_quiz_complete(request, quiz_id):
+
+    user_quiz = UserQuiz.objects.get(user=request.user, id=quiz_id)
+
+    url = request.POST['url']
+    
+    if url.__contains__("http"):
+            pass
+    elif not url == '':
+        url = f"https://{url}"
+    else:
+        url = None
+    user_quiz.redirect_url = url
+    user_quiz.save()
+
+    context = {
+        'user_quiz': user_quiz,
+        'updated': True,
+    }
+    return render(request, 'quiz_completion_page/redirect_url.html', context=context)
+
+
+@login_required
+def update_text_content_quiz_complete(request, quiz_id):
+    user_quiz = UserQuiz.objects.get(user=request.user, id=quiz_id)
+    context = {
+    }
+
+    if request.POST:
+        QuizConfirmationForm(request.POST, instance=user_quiz).save()
+        context['updated'] = True
+
+    context['user_quiz'] = user_quiz
+    context['form'] = QuizConfirmationForm(instance=user_quiz)  
+
+    return render(request, 'quiz_completion_page/text_content.html',context=context)
 
 
 

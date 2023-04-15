@@ -95,6 +95,11 @@ class AgreeDisagreeRowForm(forms.ModelForm):
 
 
 class QuizConfirmationForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+
+ 
+    quiz_confirmation_content = forms.CharField(widget=CKEditorUploadingWidget())
 
     class Meta:
         model = UserQuiz

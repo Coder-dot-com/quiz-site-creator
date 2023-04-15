@@ -7,8 +7,10 @@ To do:
 
 
         -create a new page for customization and they can check redirect to new page after quiz completion
+            -handle post view x 2
 
-        -add logo, quiz pixel and improve design quiz completion
+        -add logo, quiz pixel, redirect and custom text content and improve design quiz completion
+                -if nor edirect or custom content just say quiz successfully completed and rediret to our hom peage after 3 seconds
 
 
 

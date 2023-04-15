@@ -18,52 +18,15 @@
                 </div>
                 <hr>
 
-                <div class="mx-3">
+                {% include 'quiz_completion_page/redirect_url.html' %}
 
-
-                <label for="" class="form-label my-4">
-                    <strong>
-                        Redirect after quiz completion? (leave blank to not redirect)
-                    </strong>
-                    <br>    
-                    Note: If a URL is saved your quiz will redirect and any custom HTML text entered won't show 
-                </label>
-                <form class="input-group mb-3"
-                >
-                        <input type="text" class="form-control border-3 border-dark" placeholder="Enter URL here include https:// or http://">
-                        <div class="input-group-append">
-                            <button class="btn btn-primary" type="button">Save</button>
-                        </div>
-                    
-                </form>
-                </div>
                 
 
                 <h4 class="text-center my-5">
 
                     ------- OR -------
                 </h4>
-                <div class="mx-3">
-
-
-                    <label for="" class="form-label my-4">
-                        <strong>
-                            Custom HTML text content
-                        </strong>
-                    </label>
-                    <form class=" mb-3"
-                    >
-                    {{form.media}}
-                    {% for field in form %}
-                        {{field.field.widget.attrs.field_title}}
-                        {{field}}
-                    {% endfor %}
-                          
-                    <button type="submit" class="btn btn-primary site-button float-right">Save</button>
-                        
-                    </form>
-                    </div>
-
+                {% include 'quiz_completion_page/text_content.html' %}
             </div>
         </div>
 
