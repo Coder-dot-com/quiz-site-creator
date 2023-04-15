@@ -8,9 +8,8 @@ RUN openssl req -x509 \
             -sha256 -days 356 \
             -nodes \
             -newkey rsa:2048 \
-            -subj "/CN=www.quizelements.com/C=US/L=San Fransisco" \
+            -subj "/CN=quizelements.com/C=US/L=San Fransisco" \
             -keyout ssl_certificate.key -out ssl_certificate.crt 
-
 
 WORKDIR ..
 
