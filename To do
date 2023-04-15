@@ -5,9 +5,8 @@ To do:
 
 -quiz settings
 
-    -Fix layout account details etc...
-   -Deploy
         -create 1 landing page use quiz redirect to register
+   -Deploy
 
         -Test
         
@@ -85,6 +84,8 @@ To do:
 
     -Support FAQ/site
     =Where says on completion quiz successfully completed  rediret to our hom peage after 3 seconds
+    -email and password changes switch to htmx
+    -add in bootstrap form validation was-validated...
 
     ================================================
     

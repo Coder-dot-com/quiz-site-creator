@@ -74,7 +74,10 @@
                                 <div class="modal-body">
                                     <span >
 
-                                        Editing {{element.type|lower}}: {{element.element.title}}
+                                        Editing {{element.type|lower}}
+                                        {% if element.element.title %}
+                                        : {{element.element.title}}
+                                        {% endif %}
                                     </span>
 
                                     {% if element.type == "Text element" %}
@@ -88,7 +91,7 @@
 
                                         <Input
                                             name="title"
-                                            type="text" value="{{element.element.title}}" placeholder="Enter a new title here"
+                                            type="text" value="{% if element.element.title %}{{element.element.title}}{% endif %}" placeholder="Enter a new title here"
                                             class="form-control border-dark text-dark mx-auto w-75 mt-4" required maxlength="1000">
                                     {% endif %}
                                 </div>
@@ -131,13 +134,13 @@
 
                     <br>
                     {% autoescape off %}
-                        <div {% if element.type == "Text element" %} class="w-100 my-5" {% endif %}>
+                        <div {% if element.type == "Text element" %} class="w-100 my-5" style="font-weight:none;"{% endif %}>
                             {{element.element.content}}
                         </div>
                     {% endautoescape %}
                     <div>
                         <br><br>
-                        {% if not element.type == "Text element" %}
+                        {% if not element.type == "Text element" and element.element.title %}
                             {% if element.type == "Agree disagree table" %}
                             Agree disagree section
                             {% else %}

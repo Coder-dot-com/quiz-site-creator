@@ -20,26 +20,29 @@
                 5 bg-white border-2 bg-shadow">
         <div class="row d-flex justify-content-center">
 
+            {% if quiz_page.quiz.logo %}
             <div class="mb-3">
 
-                <img class="img-fluid" style="height:5rem;"  src="{% if quiz_page.quiz.logo %}
-                {{quiz_page.quiz.logo.url}}
-                {% endif %}"
+                <img class="img-fluid" style="height:5rem;"  src="
+                {{quiz_page.quiz.logo.url}}"
                 
                 
                 >
             </div>
+            {% endif %}
 
 
         </div>
         <div >
 
             {% for element in quiz_page.get_quiz_page_elements %}
-                <br><br>
-                    <h3>{{element.get_element_type.element.title}}</h3>
-                    {% autoescape off %}
-                        {{element.get_element_type.element.content}}
-                    {% endautoescape %}
+                <br>
+                {% if element.get_element_type.element.title  %}
+                <h3>{{element.get_element_type.element.title}}</h3>
+                {% endif %}
+                {% autoescape off %}
+                {{element.get_element_type.element.content}}
+                {% endautoescape %}
 
 
                 
@@ -86,7 +89,7 @@
 
                 <div class="py-5 text-center">
                     <button type="submit"
-                            class="btn btn-primary  ">Complete</button>
+                            class="btn btn-primary  ">Continue</button>
                 </div>
             {% endif %}
 

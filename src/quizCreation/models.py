@@ -135,7 +135,7 @@ class SingleChoiceChoice(models.Model):
 
 class AgreeDisagree(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
-    title = models.CharField(max_length=300)
+    title = models.CharField(max_length=300, null=True, blank=True)
 
     def get_agree_disagree_rows(self):
         return AgreeDisagreeRow.objects.filter(agree_disagree_element=self).order_by('position')
