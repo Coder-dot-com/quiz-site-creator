@@ -38,8 +38,7 @@ WORKDIR /APP/src
 
 ENV PATH="/scripts:/py/bin:$PATH"
 
-#Requires root user for pymatting and rembg modules to work
-# USER app 
+USER app 
 
 
 
