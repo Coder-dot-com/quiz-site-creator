@@ -1,4 +1,4 @@
-FROM jwilder/nginx-proxy:latest
+FROM jwilder/nginx-proxy:13
 
 COPY custom.conf /etc/nginx/conf.d/custom.conf
 
@@ -10,6 +10,7 @@ RUN openssl req -x509 \
             -newkey rsa:2048 \
             -subj "/CN=www.quizelements.com/C=US/L=San Fransisco" \
             -keyout ssl_certificate.key -out ssl_certificate.crt 
+
 
 WORKDIR ..
 
