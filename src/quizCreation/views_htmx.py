@@ -45,6 +45,7 @@ def update_url_quiz_complete(request, quiz_id):
         url = f"https://{url}"
     else:
         url = None
+    print(url)
     user_quiz.redirect_url = url
     user_quiz.save()
 

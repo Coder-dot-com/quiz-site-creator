@@ -1,5 +1,5 @@
 from django.contrib.auth.decorators import login_required
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from quizCreation.models import UserQuiz, QuizPage, MultipleChoiceChoice
 from subscriptions.models import UserPaymentStatus
 from datetime import datetime
@@ -150,6 +150,10 @@ def complete_quiz(request, quiz_id, number, response_id):
 
     response.completed = True
     response.save()
+
+    print("redirect")
+    if quiz.redirect_url:
+        return redirect(quiz.redirect_url)
     return render(request, 'quiz_completed.html', context=context)
                             
 
