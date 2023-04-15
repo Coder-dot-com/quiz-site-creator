@@ -1,19 +1,28 @@
+-Charge £15 for now once start running paid ads charge £30+
+-Before running ads everything has to be perfect and set up
+
 To do:
 
 -quiz settings
 
 
-        -Add button to customize quiz confirmation page
-            -create a new page and they can check redirect to new page after quiz completion
+        -create a new page for customization and they can check redirect to new page after quiz completion
 
-        -add logo and improve design quiz completion
+        -add logo, quiz pixel and improve design quiz completion
+
+
+
+
         -Deploy
-        -create 1 landing page use quiz
+        -create 1 landing page use quiz redirect to register
 
         -Test
         
         -find keywords to use to scrape emails
         -Scrape emails
+
+        -setup facebook pixel and capi (make sure first email apssd is used for capi or if multiple email fields suer can edit and there is a boolean sayin guse for email in facebook capi and tiktok)
+        -setu google analytics
  
         -Ready with one audience to test emails
 
@@ -21,12 +30,20 @@ To do:
     -add email optin option to quiz
     -mark as correct (at quiz completion)
 
+    -image element
+    -video element
+
     -Create 1-10 question with slider input
     -Create 1-5 star review 
+
+
     -Fix cancel adn go back focus enter should continue not go back
     -Fix account & billing pages
 
     -progress bar
+    -num of quiz views in response data
+    -graphs for all questions that are multiple choice/single/mostlyagree disagre/number input?
+    
 
     -when user clickc ancel susbcription resell beneftis and then offer discount also ask why unsubscribing
 
@@ -44,6 +61,8 @@ To do:
             -Add icons to element swatches
 
              -edit text element
+
+             -telephone number input
 
         
         -When first creating quiz select quiz goal (use swatches with modal)
@@ -69,7 +88,8 @@ To do:
 
         -introjs onboarding tutorial
             -different tutorial for each audience
-        
+
+    -Support FAQ/site
     
     ================================================
     

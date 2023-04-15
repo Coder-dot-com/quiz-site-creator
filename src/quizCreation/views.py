@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
 from .models import UserQuiz, QuizPage, QuizPageElement
-from .forms import TextElementForm
+from .forms import TextElementForm, QuizConfirmationForm
 from django.shortcuts import redirect
 
 # Create your views here.
@@ -36,9 +36,10 @@ def edit_quiz_completion_page(request, quiz_id):
         context = {
             'user_quiz': user_quiz, 
             'quiz_pages': quiz_pages,
+            'form': QuizConfirmationForm(instance=user_quiz)
 
         }   
-    return render(request, 'quiz_completion_page.html')
+    return render(request, 'quiz_completion_page.html', context=context)
 
 @login_required
 def quiz_page_add(request, quiz_id):

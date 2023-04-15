@@ -4,7 +4,7 @@ from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from ckeditor.widgets import CKEditorWidget
 
-User = get_user_model()
+User = get_user_model() 
 # Create your models here.
 
 class UserQuiz(models.Model):
@@ -13,6 +13,9 @@ class UserQuiz(models.Model):
     time_created = models.DateTimeField(auto_now_add=True)
     logo = models.ImageField(upload_to='user_quiz_logos/', null=True, blank=True)
     analytics_scripts = models.TextField(max_length=10000, null=True, blank=True)
+    redirect_url = models.URLField(max_length=10000, null=True, blank=True)
+    quiz_confirmation_content = RichTextUploadingField(null=True, blank=True)
+
 #html field with image ckeditor
 #redirect url
 #

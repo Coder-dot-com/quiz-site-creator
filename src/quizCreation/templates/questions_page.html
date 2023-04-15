@@ -2,17 +2,16 @@
     history.pushState(state='', unused='', url='{{hx_url}}')
 </script>
 
-<div class="row d-block col-lg-9 mx-auto" id="pagesList">
-    <div class="col-xl-12 my-5">
-        <a class="mb-1" href="{% url 'dashboard_home' %}">
-    
-            <span class="">< Back</span>
+<div class=" col-lg-9 mx-auto" id="pagesList">
+    <div class="col-xl-12 m-5">
+       
+        <a href="{% url 'dashboard_home' %}">
+            <p class="">< Back</p>
         </a>
-        <div class="card ">
+        <div class="card px-1">
             
-               <div class="m-3">
-                   <h4 class="text-black fs-20"></h4>
-                   <p class="fs-13 mb-0 text-black">Editing quiz: {{user_quiz.name}}</p>
+               <div class="px-3 my-3">
+                   <h5 class"my-3" >Editing quiz: {{user_quiz.name}}</h5>
                </div>
             <div class="card-header d-sm-flex flex-wrap d-block pb-0 border-0 ">
 
