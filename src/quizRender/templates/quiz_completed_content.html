@@ -39,7 +39,8 @@
     </div>
 </form>
 
+{% if user_quiz.analytics_scripts %}
 {% autoescape off %}
-
-{{quiz_page.analytics_scripts}}
+{{user_quiz.analytics_scripts}}
 {% endautoescape %}
+{% endif %}

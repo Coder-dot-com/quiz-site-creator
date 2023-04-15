@@ -97,8 +97,10 @@
         </div>
     </div>
 
-    {% autoescape off %}
 
-        {{quiz_page.analytics_scripts}}
+    {% if quiz_page.quiz.analytics_scripts %}
+    {% autoescape off %}
+    {{quiz_page.quiz.analytics_scripts}}
     {% endautoescape %}
+    {% endif %}
 </form>
