@@ -66,6 +66,7 @@ def account_details_dashboard(request):
 
             if email:
                 user.email = email
+                user.username = email
                 user.save()
             
             messages.success(request, "Success, details updated!")

@@ -11,6 +11,7 @@ class AccountDetailsForm(forms.Form):
             'class': 'form-control',
             'id': 'email',
             'name': 'email',
+            'type': 'email',
             'title': "Change your email here",
             'placeholder': 'Enter new email here',
             'maxlength': 500,

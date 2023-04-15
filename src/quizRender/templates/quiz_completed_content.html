@@ -3,11 +3,40 @@
 
     <div class="col-lg-9 mx-auto p-5
                 5 bg-white border-2 bg-shadow">
+                <div class="row d-flex justify-content-center">
 
+                    <div class="mb-3">
+
+                        <img class="img-fluid" style="height:5rem;"  src="{% if user_quiz.logo %}
+                        {{user_quiz.logo.url}}{% endif %}"
+                        
+                        
+                        >
+                    </div>
+         
+        
+                </div>
+
+        {% if user_quiz.redirect_url %}
+        <script>
+            window.location = "{{user_quiz.redirect_url}}"
+        </script>
+        {% elif user_quiz.quiz_confirmation_content %}
+        {% autoescape off %}
+        {{user_quiz.quiz_confirmation_content}}
+        {% endautoescape %}
+        
+        {% else %}
         <h3 class="text-center">
             Quiz Successfully completed!
         </h3>
+        {% endif %}
 
 
     </div>
 </form>
+
+{% autoescape off %}
+
+{{quiz_page.analytics_scripts}}
+{% endautoescape %}

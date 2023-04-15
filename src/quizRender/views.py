@@ -140,18 +140,17 @@ def complete_quiz(request, quiz_id, number, response_id):
     response_object.steps_completed = number
     response_object.save()
 
-    next_quiz_page = quiz.next_quiz_page(number=number)
     context = {}
-    context['quiz_page']  = next_quiz_page
-    context['first_page'] = False
+    context['user_quiz'] = quiz
     context['response_id'] = response_id
+
    
     response = response_object
     
 
     response.completed = True
     response.save()
-    return render(request, 'quiz_completed.html')
+    return render(request, 'quiz_completed.html', context=context)
                             
 
     

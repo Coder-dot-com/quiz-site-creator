@@ -8,49 +8,40 @@
 
 
 
-    <div class="row">
-        <h1 class="text-center">Change Account Details</h1>
-
-    </div>
 
     <div class="row">
-        <div class="col-xl-12">
+        <div class="col-lg-9 mx-auto">
             <div class="card">
-                <h5 class="card-title">Current details</h5>
+                <h5 class="m-3">Current account details</h5>
                 <div class="card-body">
                     <br>
                     Email: {{user.email}}
 
                 </div>
                                     <!-- end card body -->
-            </div>
-                                <!-- end card -->
-        </div>
-                            <!-- end col -->
-    </div>
-                        <!-- end row -->
 
 
-    <div class="row">
-        <div class="col-xl-12">
-            <div class="card">
-                <h5 class="card-title">Change details</h5>
+
+
+                <h5 class="m-3">Change details</h5>
 
 
                 <div class="card-body">
 
-                    <form action="{% url 'account_details_dashboard' %}" method="POST" class="needs-validation" novalidate enctype="multipart/form-data">
+                    <form action="{% url 'account_details_dashboard' %}" method="POST" class="needs-validation was-validated"  enctype="multipart/form-data">
                         {% csrf_token %}
                         {% for field in form %}
 
 
-                            <div class="card-title">
+                            <div class="">
 
 
 
                                 <div class="row mb-4">
-                                    <label for="{{field.name}}" class="col-sm-3 col-form-label">{{field.field.widget.attrs.title}}</label>
-                                    <div class="col-sm-9">
+                                    
+                                    <div class="w-100">
+                                        <label for="{{field.name}}" class="form-label">{{field.field.widget.attrs.title}}
+                                        </label>
                                         <div class="input-group">
 
                                             {% if field.field.widget.attrs.input_group_text %}
@@ -60,8 +51,8 @@
 
                                             {{field}}
                                         </div>
-                                        {{field.errors}}
                                         <div class="invalid-feedback">
+                                            {{field.errors}}
                                         </div>
                                         <div class="valid-feedback">
                                             Looks good!

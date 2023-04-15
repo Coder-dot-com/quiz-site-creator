@@ -20,12 +20,15 @@
                 5 bg-white border-2 bg-shadow">
         <div class="row d-flex justify-content-center">
 
-            <img style="max-height:7% ;"  src="{% if quiz_page.quiz.logo %}
-                                                   {{quiz_page.quiz.logo.url}}
-                                               {% endif %}"
+            <div class="mb-3">
 
-
-            >
+                <img class="img-fluid" style="height:5rem;"  src="{% if quiz_page.quiz.logo %}
+                {{quiz_page.quiz.logo.url}}
+                {% endif %}"
+                
+                
+                >
+            </div>
 
 
         </div>

@@ -5,17 +5,8 @@ To do:
 
 -quiz settings
 
-
-        -create a new page for customization and they can check redirect to new page after quiz completion
-            -handle post view x 2
-
-        -add logo, quiz pixel, redirect and custom text content and improve design quiz completion
-                -if nor edirect or custom content just say quiz successfully completed and rediret to our hom peage after 3 seconds
-
-
-
-
-        -Deploy
+    -Fix layout account details etc...
+   -Deploy
         -create 1 landing page use quiz redirect to register
 
         -Test
@@ -32,6 +23,7 @@ To do:
     -add email optin option to quiz
     -mark as correct (at quiz completion)
 
+        -make sure google and bing cna't crawl/access take quiz pages
     -image element
     -video element
 
@@ -92,7 +84,8 @@ To do:
             -different tutorial for each audience
 
     -Support FAQ/site
-    
+    =Where says on completion quiz successfully completed  rediret to our hom peage after 3 seconds
+
     ================================================
     
     <iframe embed> create
