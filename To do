@@ -3,15 +3,15 @@
 
 To do:
 
-    -Deploy
-    -understand stripe webhook
-        -setup pixel and capi code on backend
-        -add to admin panel
+        -send 3 emails this evening
 
-    -Test everything live
+        -Agree disagree table clicking td selects option
+        -image element
+        -video element
+        -prevent modal from closing when clicking outside
 
 -scrape emails
-   -send emails manually to 10 people (double each day to 40) then automate
+   -send emails manually to 10 people on 17/04 (double each day to 40) then automate
 
         -Test
         
@@ -24,14 +24,12 @@ To do:
         -Ready with one audience to test emails
 
     -post sign up email flow ensure sendinblue is working
-    -Agree disagree table clicking td selects option
 
     -add email optin option to quiz
     -mark as correct (at quiz completion)
 
         -make sure google and bing cna't crawl/access take quiz pages
-    -image element
-    -video element
+
 
     -Create 1-10 question with slider input
     -Create 1-5 star review 

@@ -1,6 +1,6 @@
 <div class="form-group my-3" >
     <div class="d-none" id="swapRow{{question.id}}"></div>
-    <tr class="my-3 border-dark border-bottom" id="tableRow{{question.id}}"
+    <tr class="my-3 border-dark text-center border-bottom" id="tableRow{{question.id}}"
     
     
     {% if not checked_db %}
@@ -10,24 +10,24 @@
         hx-get={% url 'get_value_stored_in_db_agree_disagree'  quiz_page.quiz.id element.id response_id  question.id %}
         {% endif %}
         >
-        <td class="border-dark"  class="py-5">
+        <td class="border-dark text-center" onclick="(this).querySelector('input').click()"  class="py-5">
             {{question.title}}
         </td>
-        <td class="border-dark"  class="py-5"     
+        <td class="border-dark text-center" onclick="(this).querySelector('input').click()"  class="py-5"     
     >
-            <label class="radio-inline mr-3"><input type="radio" name="{{question.id}}" value="Mostly agree" ></label>
+            <label class="radio-inline"><input type="radio" name="{{question.id}}" value="Mostly agree" ></label>
         </td>
-        <td class="border-dark"  class="py-5">
-            <label class="radio-inline mr-3"><input type="radio" name="{{question.id}}" value="Agree"></label>
+        <td class="border-dark text-center" onclick="(this).querySelector('input').click()"  class="py-5">
+            <label class="radio-inline"><input type="radio" name="{{question.id}}" value="Agree"></label>
         </td>
-        <td class="border-dark"  class="py-5">
-            <label class="radio-inline mr-3"><input type="radio" name="{{question.id}}" value="Not sure"></label>
+        <td class="border-dark text-center" onclick="(this).querySelector('input').click()"  class="py-5">
+            <label class="radio-inline"><input type="radio" name="{{question.id}}" value="Not sure"></label>
         </td>
-        <td class="border-dark"  class="py-5">
-            <label class="radio-inline mr-3"><input type="radio" name="{{question.id}}" value="Disagree"></label>
+        <td class="border-dark text-center" onclick="(this).querySelector('input').click()"  class="py-5">
+            <label class="radio-inline"><input type="radio" name="{{question.id}}" value="Disagree"></label>
         </td>
-        <td class="border-dark"  class="py-5">
-            <label class="radio-inline mr-3"><input type="radio" name="{{question.id}}" value="Mostly disagree"></label>
+        <td class="border-dark text-center" onclick="(this).querySelector('input').click()"  class="py-5">
+            <label class="radio-inline"><input type="radio" name="{{question.id}}" value="Mostly disagree"></label>
         </td>
     </tr>
     </div>
