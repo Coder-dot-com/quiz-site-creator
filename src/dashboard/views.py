@@ -26,14 +26,6 @@ UserModel = get_user_model()
 def dashboard_home(request):
     context = {}
     
-    if request.user.date_joined.replace(tzinfo=None) > datetime.now().replace(tzinfo=None) - timedelta(minutes=1) and request.GET.get('nu'):
-            context['new_user'] = True
-            # lead_event_id = event_id()
-            # context['lead_event_id'] = lead_event_id
-            # print("lead")
-            # conversion_tracking.delay(event_name="Lead", event_id=lead_event_id, event_source_url=event_source_url, category_id=quiz.category.id, session_id=session.session_id)  
-
-    
     quizes = UserQuiz.objects.filter(user=request.user)
     context['quizes'] = quizes
 

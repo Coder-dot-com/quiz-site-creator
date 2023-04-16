@@ -4,87 +4,7 @@
 {% block content %}
 
     <div class="row">
-        {% comment %} <div class="col-xl-6 col-xxl-12">
-            <h5>This week's daily averages</h5>
-            <div class="row">
-                <div class="col-sm-6">
-                    <div class="card avtivity-card">
-                        <div class="card-body">
-                            <div class="media align-items-center">
 
-                                <div class="media-body">
-                                    <p class="fs-14 mb-2">Calories</p>
-                                    <span class="title text-black font-w600">2217 kcal</span>
-                                </div>
-                            </div>
-                            <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-success" style="width: 100%; height:5px;" role="progressbar">
-                                    <span class="sr-only"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="effect bg-success"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card avtivity-card">
-                        <div class="card-body">
-                            <div class="media align-items-center">
-
-                                <div class="media-body">
-                                    <p class="fs-14 mb-2">Carbs</p>
-                                    <span class="title text-black font-w600">20 g</span>
-                                </div>
-                            </div>
-                            <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-secondary" style="width: 100%; height:5px;" role="progressbar">
-                                    <span class="sr-only"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="effect bg-secondary"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card avtivity-card">
-                        <div class="card-body">
-                            <div class="media align-items-center">
-
-                                <div class="media-body">
-                                    <p class="fs-14 mb-2">Fats</p>
-                                    <span class="title text-black font-w600">17 g</span>
-                                </div>
-                            </div>
-                            <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-danger" style="width: 100%; height:5px;" role="progressbar">
-                                    <span class="sr-only"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="effect bg-danger"></div>
-                    </div>
-                </div>
-                <div class="col-sm-6">
-                    <div class="card avtivity-card">
-                        <div class="card-body">
-                            <div class="media align-items-center">
-
-                                <div class="media-body">
-                                    <p class="fs-14 mb-2">Protein</p>
-                                    <span class="title text-black font-w600">23 g</span>
-                                </div>
-                            </div>
-                            <div class="progress" style="height:5px;">
-                                <div class="progress-bar bg-warning" style="width: 100%; height:5px;" role="progressbar">
-                                    <span class="sr-only"></span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="effect bg-warning"></div>
-                    </div>
-                </div>
-            </div>
-        </div> {% endcomment %}
         <div class="col-xl-6 col-xxl-12">
             <div class="card col-lg-9 mx-auto justify-content-center my-5" >
                 <div class="card-header d-sm-flex d-block pb-0 border-0">
@@ -101,6 +21,28 @@
     </div>
     </div>
     </div>
+
+    {% if category.enable_pixels %}
+    {% if pv_event_unique_id or vc_event_unique_id or lead_event_unique_id %}
+      {% autoescape off %}
+        {{category.analytics_base}}
+      {% endautoescape %}
+    {% endif %}
+      <script>
+        {% if pv_event_unique_id %}
+        fbq('track', 'PageView', {}, {eventID: '{{pv_event_unique_id}}'});
+        {% endif %}
+
+        {% if vc_event_unique_id %}
+        fbq('track', 'ViewContent', {}, {eventID: '{{vc_event_unique_id}}'});
+        {% endif %}
+
+        {% if lead_event_unique_id %}
+        fbq('track', 'Lead', {}, {eventID: '{{lead_event_unique_id}}'});
+        {% endif %}
+
+      </script>
+    {% endif %}
 
 
 {% endblock content %}

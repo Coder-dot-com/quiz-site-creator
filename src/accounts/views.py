@@ -15,6 +15,11 @@ from session_management.views import _session
 
 from .forms import ChangePasswordForm, LoginForm, RegisterForm, ResetForm
 from emails.tasks import password_reset_email
+from common.util.functions import event_id
+
+from conversion_tracking.tasks import conversion_tracking
+from conversion_tracking.models import Category
+
 # Create your views here.
 
 UserModel = get_user_model()
@@ -60,7 +65,40 @@ def register_view(request):
             UserEmail.objects.create(user=user, email=email, promo_consent=promo_consent)
             
             messages.success(request, "Welcome, get started by using the menu")
-            return redirect(reverse('dashboard_home') + f"?nu=1")
+
+            context = {}
+
+            pv_event_unique_id = event_id()
+            vc_event_unique_id = event_id()
+            lead_event_unique_id = event_id()
+
+            context['pv_event_unique_id'] = pv_event_unique_id
+            context['vc_event_unique_id'] = vc_event_unique_id
+            context['lead_event_unique_id'] = lead_event_unique_id
+
+
+            event_source_url = request.META.get('HTTP_REFERER')
+
+            session = _session(request)
+            category = Category.objects.all()[0]
+
+            try:
+                # Need to fix this to ensure different ids
+                conversion_tracking.delay(event_name="PageView", event_id=pv_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
+                conversion_tracking.delay(event_name="ViewContent", event_id=vc_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
+                conversion_tracking.delay(event_name="Lead", event_id=vc_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
+
+                print("tracking conversion")
+            except Exception as e:
+                print("failed conv tracking")
+
+                print(e)
+
+            #render dashboard home
+
+            context['quizes'] = None
+
+            return render(request, "dashboard2/index.html", context=context)
 
         else:
             request.session['register_error'] = 1

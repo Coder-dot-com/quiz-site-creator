@@ -3,16 +3,15 @@
 
 To do:
 
-   -Deploy
+    -Deploy
     -understand stripe webhook
-        -go through deployment todos
-        -setup account
-        -setup quiz
+        -setup pixel and capi code on backend
+        -add to admin panel
 
     -Test everything live
 
 -scrape emails
-   -send emails manually to  up
+   -send emails manually to 10 people (double each day to 40) then automate
 
         -Test
         
@@ -24,6 +23,7 @@ To do:
  
         -Ready with one audience to test emails
 
+    -post sign up email flow ensure sendinblue is working
     -Agree disagree table clicking td selects option
 
     -add email optin option to quiz
@@ -94,6 +94,7 @@ To do:
     -email and password changes switch to htmx
     -add in bootstrap form validation was-validated...
 
+    -make page load faster with pagepseed and gtmetrix
     ================================================
     
     <iframe embed> create
