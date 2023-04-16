@@ -91,7 +91,6 @@ def register_view(request):
                 print("tracking conversion")
             except Exception as e:
                 print("failed conv tracking")
-
                 print(e)
 
             #render dashboard home

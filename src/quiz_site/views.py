@@ -13,6 +13,27 @@ def home(request):
     context = {
     }
 
+
+    pv_event_unique_id = event_id()
+    vc_event_unique_id = event_id()
+
+    context['pv_event_unique_id'] = pv_event_unique_id
+    context['vc_event_unique_id'] = vc_event_unique_id
+
+
+    event_source_url = request.META.get('HTTP_REFERER')
+    session = _session(request)
+    category = Category.objects.all()[0]
+
+    try:
+        # Need to fix this to ensure different ids
+        conversion_tracking.delay(event_name="PageView", event_id=pv_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
+        conversion_tracking.delay(event_name="ViewContent", event_id=vc_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
+
+        print("tracking conversion")
+    except Exception as e:
+        print("failed conv tracking")
+        print(e)
     return render(request, 'home_site2/index.html', context=context)
 
 
