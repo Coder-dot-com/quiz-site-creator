@@ -269,6 +269,18 @@
                         </div>
                     </nav>
                     <div class="copyright">
+
+                        {% if site.site_email %}
+
+                        <span class="text-center">
+                            <h5 class="">
+                                Contact email:
+                                <strong>
+                                    {{site.site_email}}
+                                </strong>
+                            </h5> 
+                        </span>
+                    {% endif %}
                         <p>Copyright © {{site.site_name}} <script>document.write(new Date().getFullYear())</script>.
                         </p>
                         {% if site.site_logo %}
@@ -280,15 +292,7 @@
                         {% endif %}
 
 
-                        {% if site.site_email %}
-
-                            <p>
-                                <b class="text-uppercase fw-bold mb-4">
-                                    Contact:
-                                </b>
-                                {{site.site_email}}
-                            </p>
-                        {% endif %}
+              
                     </div>
                 </div>
 
