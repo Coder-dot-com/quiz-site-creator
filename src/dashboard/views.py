@@ -57,7 +57,10 @@ def account_details_dashboard(request):
     user = request.user
     profile_obj = Profile.objects.get(user=user)
 
-    form = AccountDetailsForm(request.POST or None)
+    if request.POST:
+        form = AccountDetailsForm(request.POST)
+    else:
+        form = AccountDetailsForm(initial={'email': user.email})
 
     user = UserModel.objects.get(pk=request.user.id)
 

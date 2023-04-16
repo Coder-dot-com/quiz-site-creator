@@ -5,11 +5,12 @@ To do:
 
    -Deploy
     -understand stripe webhook
-        -go through deployment script
-        -update .env on server 
+        -go through deployment todos
+        -setup account
+        -setup quiz
 
-   -send emails manually to  up
 -scrape emails
+   -send emails manually to  up
 
         -Test
         
