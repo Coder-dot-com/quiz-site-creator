@@ -3,6 +3,7 @@ from django.contrib.auth.decorators import login_required
 from .models import UserQuiz, QuizPage, QuizPageElement
 from .forms import TextElementForm, QuizConfirmationForm
 from django.shortcuts import redirect
+from quizConversionTracking.models import Pixel
 
 # Create your views here.
 @login_required
@@ -20,8 +21,10 @@ def quiz_edit(request, quiz_id):
         context = {
             'user_quiz': user_quiz, 
             'quiz_pages': quiz_pages,
+            
 
         }
+        context['conversion_api_pixels'] = Pixel.objects.filter(quiz=user_quiz)
         return render(request, 'quiz_edit.html', context=context)
 
     return redirect('dashboard_home')

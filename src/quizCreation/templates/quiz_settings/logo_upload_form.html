@@ -1,12 +1,10 @@
-
-
 <form id="user_image_{{user_quiz.id}}"
       hx-encoding='multipart/form-data'
       hx-post="{% url 'upload_quiz_logo' user_quiz.id %}"
       hx-trigger="change"
       hx-swap="outerHTML"
       hx-indicator="#spinner_{{user_quiz.id}}"
-      class="my-4"
+      class="my-5"
       >
 
         <h4>Add a logo</h4>
@@ -22,7 +20,7 @@
                     <a href="#"
                        hx-post="{% url 'delete_logo_from_quiz' user_quiz.id %}"
                        hx-target="#user_image_{{user_quiz.id}}" hx-swap="outerHTML" hx-trigger="click">
-                        <small class="text-muted text-center">
+                        <small class="text-muted text-center my-2 py-2">
                             Remove?
                         </small>
                     </a>

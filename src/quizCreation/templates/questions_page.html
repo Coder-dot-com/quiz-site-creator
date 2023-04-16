@@ -62,15 +62,15 @@
                                 </button>
                             </div>
                             <div class="modal-body">
+                                {% include 'quiz_conversion_tracking/conversion_api.html' %}
                                 {% include 'quiz_settings/logo_upload_form.html' %}
                                 {% include 'quiz_settings/analytics_script_form.html' %}
 
 
 
-
-                                <div class="text-center">
-                                    <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                                </div>
+                            </div>
+                            <div class="text-center mb-3 pb-1">
+                                <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
                             </div>
                         </div>
                     </div>

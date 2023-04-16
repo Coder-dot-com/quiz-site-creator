@@ -3,13 +3,21 @@
 
 To do:
 
-        -send 3 emails this evening
 
-        -Agree disagree table clicking td selects option
+        -add fb capi to user quizes 
+
+
+        -email scraper
+
+
+
+
+        
         -image element
         -video element
         -prevent modal from closing when clicking outside
 
+    -satisfied/unsatisfied element
 -scrape emails
    -send emails manually to 10 people on 17/04 (double each day to 40) then automate
 
@@ -23,6 +31,8 @@ To do:
  
         -Ready with one audience to test emails
 
+
+    -move all vc and pv tracking CAPI to context processor
     -post sign up email flow ensure sendinblue is working
 
     -add email optin option to quiz

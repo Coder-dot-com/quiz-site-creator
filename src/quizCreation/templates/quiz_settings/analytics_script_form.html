@@ -22,7 +22,7 @@
     {% else %}
 
         <label for="" class="my-1">
-            Copy and paste any analytics scripts (javascript) here (e.g. Facebook pixel or Google analytics). Remember to include &#x3C;script&#x3E; tags.
+            Copy and paste any analytics scripts (javascript) here (e.g. Google analytics tag). Remember to include &#x3C;script&#x3E; tags.
             <textarea name="analytics_script" value="{{user_quiz.analytics_scripts}}" class="form-control border-dark"
 
                       id="analytics_script" cols="30" rows="10" maxlength="9000" required>{% if user_quiz.analytics_scripts %}{{user_quiz.analytics_scripts}}{% endif %}</textarea>
