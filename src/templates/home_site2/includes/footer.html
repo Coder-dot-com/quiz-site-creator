@@ -70,52 +70,7 @@ Content body end
 <script src="{% static 'site_2/assets/vendor/global/global.min.js' %}"></script>
 <script src="{% static 'site_2/assets/js/custom.min.js' %}"></script>
 
-	<!-- Chart piety plugin files -->
-
-	<!-- Apex Chart -->
-
-	<!-- Dashboard 1 -->
-<script>
-    function carouselReview(){
-			/*  testimonial one function by = owl.carousel.js */
-        jQuery('.testimonial-one').owlCarousel({
-            loop:true,
-            autoplay:true,
-            margin:30,
-            nav:false,
-            dots: false,
-            left:true,
-            navText: ['<i class="fa fa-chevron-left" aria-hidden="true"></i>', '<i class="fa fa-chevron-right" aria-hidden="true"></i>'],
-            responsive:{
-                0:{
-                    items:1
-                },
-                484:{
-                    items:2
-                },
-                882:{
-                    items:3
-                },
-                1200:{
-                    items:2
-                },
-
-                1540:{
-                    items:3
-                },
-                1740:{
-                    items:4
-                }
-            }
-        })
-    }
-    jQuery(window).on('load',function(){
-        setTimeout(function(){
-            carouselReview();
-        }, 1000);
-    });
-</script>
-
+<script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
 <script>
 
     function handle_response_to_fbp(){
