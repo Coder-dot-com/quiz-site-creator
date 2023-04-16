@@ -1,9 +1,9 @@
-        -Stripe: set up webhook url on stripe, product ids on stripe and site
-        -create superuser
+        |-Stripe: set up webhook url on stripe, 
+        |-create superuser 
         -Set up currency objects
         -Create tier
         -create category objects
-        -Create subscriptions
+        -Create subscriptions on site and stripe
         -Sitesettings
         -Quiz
         -Pixels and analytics

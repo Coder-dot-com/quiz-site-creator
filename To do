@@ -4,9 +4,9 @@
 To do:
 
    -Deploy
-        -setup domain to load balancer and get error nginx
-        -then set up load balancer to ec2
-        -not working then letsencrypt
+    -understand stripe webhook
+        -go through deployment script
+        -update .env on server 
 
    -send emails manually to  up
 -scrape emails
