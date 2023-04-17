@@ -39,8 +39,9 @@ def take_quiz(request, quiz_id):
     
     try:
         user_payment_status = UserPaymentStatus.objects.get(user=user)
-    except:
-        return dict(checked_subscription=True)
+    except UserPaymentStatus.DoesNotExist:
+        user_payment_status = None
+        pass
     
     print(user_payment_status)
 
@@ -50,7 +51,7 @@ def take_quiz(request, quiz_id):
         #user has an active User payment status and current time > subscription expiry,
         #been more than 10 minutes since last sync
 
-    if user_payment_status.status == "active" and datetime.now(timezone.utc) > (user_payment_status.subscription_expiry + timedelta(seconds=1)) and datetime.now(timezone.utc) > (user_payment_status.last_synced + timedelta(seconds=600)):
+    if user_payment_status and user_payment_status.status == "active" and datetime.now(timezone.utc) > (user_payment_status.subscription_expiry + timedelta(seconds=1)) and datetime.now(timezone.utc) > (user_payment_status.last_synced + timedelta(seconds=600)):
         response = user_payment_status.sync_subscription_expiry()
         if response == "Canceled":
             try:
@@ -71,7 +72,6 @@ def take_quiz(request, quiz_id):
             user_payment_status.status = "free"
             user_payment_status.save()
             print(user_payment_status.status)
-            print("TEST1231")
 
 
 

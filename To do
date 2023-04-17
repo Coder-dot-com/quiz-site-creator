@@ -3,9 +3,7 @@
 
 To do:
 
-        -Image on quiz elements
-        -display on quiz render
-        -allow image quiz edit
+        -display on quiz render (50%width and center max-height 10rem;)
         -allow width percentage setting default 50%
         -allow alignment left right or center dropdown default=center
     
