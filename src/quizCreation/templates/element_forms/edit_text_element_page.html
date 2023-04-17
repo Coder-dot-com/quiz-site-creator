@@ -1,21 +1,21 @@
 {% extends 'dashboard2/base.html' %}
 
 {% load static %}
-{% block content %} 
+{% block content %}
 
-<div class="col-lg-9 mx-auto">
+    <div class="col-lg-9 mx-auto">
 
-    <a 
-    href={% url 'quiz_page_edit' user_quiz.id quiz_page.id %} 
-    class="">
-        < Back
-    </a>
+        <a
+            href={% url 'quiz_page_edit' user_quiz.id quiz_page.id %}
+            class="">
+            < Back
+        </a>
 
-    <div class="card mx-auto mt-3">
-        
-        
-        {% include 'element_forms/text.html' %}
+        <div class="card mx-auto mt-3">
+
+
+            {% include 'element_forms/text.html' %}
+        </div>
     </div>
-</div>
 
 {% endblock content %}

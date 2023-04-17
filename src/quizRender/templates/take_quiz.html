@@ -3,21 +3,21 @@
 {% load static %}
 {% block content %}
 
-        
-
-        {% if quiz_page %}
 
 
-            {% include 'quiz_form.html' %}
+    {% if quiz_page %}
 
-        {% else %}
 
-            <center class="m-5">
+        {% include 'quiz_form.html' %}
 
-                No pages have been added to this quiz yet.
-            </center>
+    {% else %}
 
-        {% endif %}
+        <center class="m-5">
+
+            No pages have been added to this quiz yet.
+        </center>
+
+    {% endif %}
 
 
 

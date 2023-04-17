@@ -63,7 +63,7 @@
                                             />
                                         </label>
 
-                                       
+
 
                                         <center id="spinner_{{choice.id}}">
 
@@ -131,10 +131,10 @@
                                                         <img class="" src="{% if choice.image %}{{choice.image.url}}{% endif %}" alt="">
                                                     </div>
                                                     <a href="#"
-                                                    hx-post="{% url 'delete_image_from_single_choice' user_quiz.id quiz_page.id element.id choice.id %}"
-                                                    hx-target='#modalContent'
-                                                    hx-swap=outerHTML
-                                                    hx-indicator="#spinner_{{choice.id}}"
+                                                       hx-post="{% url 'delete_image_from_single_choice' user_quiz.id quiz_page.id element.id choice.id %}"
+                                                       hx-target='#modalContent'
+                                                       hx-swap=outerHTML
+                                                       hx-indicator="#spinner_{{choice.id}}"
                                                        hx-trigger="click">
                                                         <small class="text-muted ">
                                                             Remove?

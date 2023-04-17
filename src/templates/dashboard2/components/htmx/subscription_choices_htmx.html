@@ -7,99 +7,99 @@
 
         {% if user_subscription %}
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <h5 class="card-title">Your current subscription</h5>
-                    <div class="card-body">
-                        Amount: {{user_subscription.subscription_choice.currency.currency_symbol}}{{user_subscription.amount_subscribed}}
-                        {{user_subscription.subscription_choice.currency.currency_code}}
-                        <br>
-                        Status: {{user_subscription.status | title}}
-                        <br>
-                        Tier: {{user_subscription.subscription_choice.tier}}
-                        <br>
-                        Renewal: {{user_subscription.renewal_frequency | title}}
-                        <br>
-                        {% if user_subscription.next_due %}
-                            {% if  user_subscription.status == 'cancelled' %}
-                                Was going to renew on : {{user_subscription.next_due |date:'d-M-y' }}
-                                <br>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <h5 class="card-title">Your current subscription</h5>
+                        <div class="card-body">
+                            Amount: {{user_subscription.subscription_choice.currency.currency_symbol}}{{user_subscription.amount_subscribed}}
+                            {{user_subscription.subscription_choice.currency.currency_code}}
+                            <br>
+                            Status: {{user_subscription.status | title}}
+                            <br>
+                            Tier: {{user_subscription.subscription_choice.tier}}
+                            <br>
+                            Renewal: {{user_subscription.renewal_frequency | title}}
+                            <br>
+                            {% if user_subscription.next_due %}
+                                {% if  user_subscription.status == 'cancelled' %}
+                                    Was going to renew on : {{user_subscription.next_due |date:'d-M-y' }}
+                                    <br>
 
-                                <div class="my-1">
-                                    <center>
-                                        <b>Re-subscribe now, your new subscription will begin the day before your cancelled subscription expires.
-                                            Your subscription will include any days you have left converted to your new plan
-                                        </b>
-                                    </center>
-                                </div>
-                            {% else %}
-                                Next payment: {{user_subscription.next_due |date:'d-M-y' }}
+                                    <div class="my-1">
+                                        <center>
+                                            <b>Re-subscribe now, your new subscription will begin the day before your cancelled subscription expires.
+                                                Your subscription will include any days you have left converted to your new plan
+                                            </b>
+                                        </center>
+                                    </div>
+                                {% else %}
+                                    Next payment: {{user_subscription.next_due |date:'d-M-y' }}
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
 
-                        <div class="d-flex ">
+                            <div class="d-flex ">
 
-                            {% if  user_subscription.status != 'cancelled' %}
-                                <a href="{% url 'cancel_subscription' %}" data-key="">
-                                    Cancel subscription?
-                                </a>
-                            {% endif %}
+                                {% if  user_subscription.status != 'cancelled' %}
+                                    <a href="{% url 'cancel_subscription' %}" data-key="">
+                                        Cancel subscription?
+                                    </a>
+                                {% endif %}
+                            </div>
                         </div>
-                    </div>
                     <!-- end card body -->
-                </div>
+                    </div>
                 <!-- end card -->
-            </div>
+                </div>
             <!-- end col -->
-        </div>
-    {% endif %}
+            </div>
+        {% endif %}
 
-    {% if previous_cancelled_subscription %}
+        {% if previous_cancelled_subscription %}
 
-        <div class="row">
-            <div class="col-xl-12">
-                <div class="card">
-                    <h5 class="card-title">Your cancelled subscription that's still valid</h5>
-                    <div class="card-body">
-                        Amount: {{previous_cancelled_subscription.subscription_choice.currency.currency_symbol}}{{previous_cancelled_subscription.amount_subscribed}}
-                        {{previous_cancelled_subscription.subscription_choice.currency.currency_code}}
-                        <br>
-                        Status: {{previous_cancelled_subscription.status | title}}
-                        <br>
-                        Tier: {{previous_cancelled_subscription.subscription_choice.tier}}
-                        <br>
-                        Renewal: {{previous_cancelled_subscription.renewal_frequency | title}}
-                        <br>
-                        {% if previous_cancelled_subscription.next_due %}
-                            {% if  previous_cancelled_subscription.status == 'cancelled' %}
-                                Payment was next due: {{previous_cancelled_subscription.next_due |date:'d-M-y' }}
-                                <br>
+            <div class="row">
+                <div class="col-xl-12">
+                    <div class="card">
+                        <h5 class="card-title">Your cancelled subscription that's still valid</h5>
+                        <div class="card-body">
+                            Amount: {{previous_cancelled_subscription.subscription_choice.currency.currency_symbol}}{{previous_cancelled_subscription.amount_subscribed}}
+                            {{previous_cancelled_subscription.subscription_choice.currency.currency_code}}
+                            <br>
+                            Status: {{previous_cancelled_subscription.status | title}}
+                            <br>
+                            Tier: {{previous_cancelled_subscription.subscription_choice.tier}}
+                            <br>
+                            Renewal: {{previous_cancelled_subscription.renewal_frequency | title}}
+                            <br>
+                            {% if previous_cancelled_subscription.next_due %}
+                                {% if  previous_cancelled_subscription.status == 'cancelled' %}
+                                    Payment was next due: {{previous_cancelled_subscription.next_due |date:'d-M-y' }}
+                                    <br>
 
-                                <div class="my-1">
-                                    <center>
-                                        <b>Re-subscribe now, your new subscription will begin the day before your cancelled subscription expires.
-                                            Your subscription will include any days you have left converted to your new plan
-                                        </b>
-                                    </center>
-                                </div>
-                            {% else %}
-                                Next payment: {{previous_cancelled_subscription.next_due |date:'d-M-y' }}
+                                    <div class="my-1">
+                                        <center>
+                                            <b>Re-subscribe now, your new subscription will begin the day before your cancelled subscription expires.
+                                                Your subscription will include any days you have left converted to your new plan
+                                            </b>
+                                        </center>
+                                    </div>
+                                {% else %}
+                                    Next payment: {{previous_cancelled_subscription.next_due |date:'d-M-y' }}
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
 
 
-                    </div>
+                        </div>
                     <!-- end card body -->
-                </div>
+                    </div>
                 <!-- end card -->
-            </div>
+                </div>
             <!-- end col -->
-        </div>
+            </div>
 
 
 
-    {% endif %}
+        {% endif %}
         <div class="row justify-content-center">
             {% comment %} Currency converter {% endcomment %}
             <div class="row dropdown  custom-dropdown my-1" style="float:right;">
@@ -162,7 +162,7 @@
         </div>
         <!-- end row -->
 
-  
+
         {% if not user_subscription.paid %}
 
             <div class="default-tab">

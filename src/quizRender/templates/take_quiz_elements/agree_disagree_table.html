@@ -7,61 +7,61 @@
 <div class="table-responsive" style="font-size:1.5rem; !important">
 
 
-<table class="table header-border table-bordered table-responsive-sm" style="font-size:1.5rem; !important">
-    <thead class=>
-        <strong>
+    <table class="table header-border table-bordered table-responsive-sm" style="font-size:1.5rem; !important">
+        <thead class=>
+            <strong>
 
-        <tr>
-            <td class="border-dark text-center" style="vertical-align:bottom;" >
-                <strong>
-                    Question
-                </strong>
-            </td>
-            <td class="border-dark text-center" style="vertical-align:bottom;" >
-                <strong>
-                    Mostly agree
-                </strong>
-            </td>
-            <td class="border-dark text-center" style="vertical-align:bottom;" >
-                <strong>
-                    Agree
-                </strong>
-            </td>
-            <td class="border-dark text-center" style="vertical-align:bottom;" >
-                <strong>
-                    Not sure
-                </strong>
-            </td>
-            <td class="border-dark text-center" style="vertical-align:bottom;" >
-                <strong>
-                    Disagree
-                </strong>
-            </td>
-            <td class="border-dark text-center" style="vertical-align:bottom;" >
-                <strong>
-                    Mostly disagree
-                </strong>
-            </td>
-        </tr>
-    </strong>
-        
-    </thead>
+                <tr>
+                    <td class="border-dark text-center" style="vertical-align:bottom;" >
+                        <strong>
+                            Question
+                        </strong>
+                    </td>
+                    <td class="border-dark text-center" style="vertical-align:bottom;" >
+                        <strong>
+                            Mostly agree
+                        </strong>
+                    </td>
+                    <td class="border-dark text-center" style="vertical-align:bottom;" >
+                        <strong>
+                            Agree
+                        </strong>
+                    </td>
+                    <td class="border-dark text-center" style="vertical-align:bottom;" >
+                        <strong>
+                            Not sure
+                        </strong>
+                    </td>
+                    <td class="border-dark text-center" style="vertical-align:bottom;" >
+                        <strong>
+                            Disagree
+                        </strong>
+                    </td>
+                    <td class="border-dark text-center" style="vertical-align:bottom;" >
+                        <strong>
+                            Mostly disagree
+                        </strong>
+                    </td>
+                </tr>
+            </strong>
 
-        
-    {% for question in  element.get_element_type.element.get_agree_disagree_rows %}
-        {% include 'take_quiz_elements/agree_disagree_row.html' %}
-    {% endfor %}
+        </thead>
 
 
-</table>
+        {% for question in  element.get_element_type.element.get_agree_disagree_rows %}
+            {% include 'take_quiz_elements/agree_disagree_row.html' %}
+        {% endfor %}
+
+
+    </table>
 
 </div>
 
 {% if answers %}
 
-{% for answer in answers %}
+    {% for answer in answers %}
 
-{% endfor %}
+    {% endfor %}
 
 
 {% endif %}

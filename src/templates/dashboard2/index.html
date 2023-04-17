@@ -23,25 +23,25 @@
     </div>
 
     {% if category.enable_pixels %}
-    {% if pv_event_unique_id or vc_event_unique_id or lead_event_unique_id %}
-      {% autoescape off %}
-        {{category.analytics_base}}
-      {% endautoescape %}
-    {% endif %}
-      <script>
-        {% if pv_event_unique_id %}
-        fbq('track', 'PageView', {}, {eventID: '{{pv_event_unique_id}}'});
+        {% if pv_event_unique_id or vc_event_unique_id or lead_event_unique_id %}
+            {% autoescape off %}
+                {{category.analytics_base}}
+            {% endautoescape %}
         {% endif %}
+        <script>
+            {% if pv_event_unique_id %}
+                fbq('track', 'PageView', {}, {eventID: '{{pv_event_unique_id}}'});
+            {% endif %}
 
-        {% if vc_event_unique_id %}
-        fbq('track', 'ViewContent', {}, {eventID: '{{vc_event_unique_id}}'});
-        {% endif %}
+            {% if vc_event_unique_id %}
+                fbq('track', 'ViewContent', {}, {eventID: '{{vc_event_unique_id}}'});
+            {% endif %}
 
-        {% if lead_event_unique_id %}
-        fbq('track', 'Lead', {}, {eventID: '{{lead_event_unique_id}}'});
-        {% endif %}
+            {% if lead_event_unique_id %}
+                fbq('track', 'Lead', {}, {eventID: '{{lead_event_unique_id}}'});
+            {% endif %}
 
-      </script>
+        </script>
     {% endif %}
 
 

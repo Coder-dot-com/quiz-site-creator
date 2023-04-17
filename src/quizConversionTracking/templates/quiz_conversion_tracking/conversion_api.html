@@ -1,107 +1,107 @@
 <form
     id="conversion_api_pixels"
-    hx-post={% url 'add_fb_tiktok_capi' user_quiz.id %} 
+    hx-post={% url 'add_fb_tiktok_capi' user_quiz.id %}
     hx-swap="outerHTML"
     hx-target="#conversion_api_pixels"
     hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
     class="mb-5 pb-3"
 
 >
-<h4>Integrate Facebook or Tiktok conversion API</h4>
-{% if conversion_api_pixels %}
-<div class="table-responsive my-3">
-    <h6>Added integrations</h6>
+    <h4>Integrate Facebook or Tiktok conversion API</h4>
+    {% if conversion_api_pixels %}
+        <div class="table-responsive my-3">
+            <h6>Added integrations</h6>
 
-<table class="table header-border table-responsive-sm">
-    <thead>
-        <tr>
-            <td>
-                <strong>
-                    Integration type
-                </strong>
+            <table class="table header-border table-responsive-sm">
+                <thead>
+                    <tr>
+                        <td>
+                            <strong>
+                                Integration type
+                            </strong>
 
-            </td>
-            <td>
-                <strong>
-                    Conversion API token
-                </strong>
-                
-            </td>
-            <td>
-                <strong>
-                    Pixel ID
-                </strong>
-                
-            </td>
+                        </td>
+                        <td>
+                            <strong>
+                                Conversion API token
+                            </strong>
 
-            <td>
-                <strong>
-                    Delete?
-                </strong>
-            </td>
-        </tr>
-    </thead>
+                        </td>
+                        <td>
+                            <strong>
+                                Pixel ID
+                            </strong>
 
-{% for pixel in conversion_api_pixels %}
-<tr>
-    <td>
-        {{pixel.integration_type}}
-    </td>
-    <td>
-        {{pixel.conv_api_token}}
-    </td>
-    <td>
-        {{pixel.pixel_id}}
-    </td>
-    <td>
-        <a
-        hx-post={% url 'delete_fb_tiktok_capi' user_quiz.id pixel.id %} 
-        hx-swap="outerHTML"
-        hx-target="#conversion_api_pixels"
-        >
-            Delete <i class="fa fa-trash"></i>
-        </a>
-    </td>
-</tr>
-{% endfor %}
+                        </td>
 
-    
-</table>
-</div>
-   
-{% else %}
+                        <td>
+                            <strong>
+                                Delete?
+                            </strong>
+                        </td>
+                    </tr>
+                </thead>
+
+                {% for pixel in conversion_api_pixels %}
+                    <tr>
+                        <td>
+                            {{pixel.integration_type}}
+                        </td>
+                        <td>
+                            {{pixel.conv_api_token}}
+                        </td>
+                        <td>
+                            {{pixel.pixel_id}}
+                        </td>
+                        <td>
+                            <a
+                                hx-post={% url 'delete_fb_tiktok_capi' user_quiz.id pixel.id %}
+                                hx-swap="outerHTML"
+                                hx-target="#conversion_api_pixels"
+                            >
+                                Delete <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
 
 
-<center class="my-4">
-    No Facebook or Tiktok conversion API integration added
-</center>
+            </table>
+        </div>
 
-{% endif %}
+    {% else %}
 
-<div class="form-label">
-    <strong>
 
-        Integration type:
-    </strong>
-</div>
+        <center class="my-4">
+            No Facebook or Tiktok conversion API integration added
+        </center>
+
+    {% endif %}
+
+    <div class="form-label">
+        <strong>
+
+            Integration type:
+        </strong>
+    </div>
 
     <div class=" border-dark b-3">
         <select class="form-control   "  name="integration_type" required>
-        <option value="facebook">Facebook</option>
-        <option value="tiktok">Tiktok</option>
+            <option value="facebook">Facebook</option>
+            <option value="tiktok">Tiktok</option>
         </select>
     </div>
 
     <div class="form-label">
         <strong>
-    
+
             Conversion API Token:
         </strong>
     </div>
     <input type="text" class="form-control input-default " placeholder="Enter token" name="conv_api_token" required>
     <div class="form-label">
         <strong>
-    
+
             Pixel ID:
         </strong>
     </div>

@@ -146,9 +146,9 @@
                                 </span>
                             {% endif %}
                             {% if site.site_logo_square %}
-                            <span class="logo-sm">
-                                <img src="{% if site.site_logo_square %}{{site.site_logo_square.url}}{% endif %}" alt="" height="26">
-                            </span>
+                                <span class="logo-sm">
+                                    <img src="{% if site.site_logo_square %}{{site.site_logo_square.url}}{% endif %}" alt="" height="26">
+                                </span>
                             {% endif %}
                         </a>
                     </div>
@@ -236,37 +236,37 @@
                         </li> {% endcomment %}
 
                         {% if not user.is_authenticated %}
-                        <li>
-                            <a href="{% url 'login_user' %}" class="ai-icon" aria-expanded="false">
-                                <span class="nav-text">Login</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="{% url 'register_user' %}" class="ai-icon" aria-expanded="false">
-                                <span class="nav-text">Register</span>
-                            </a>
-                        </li>
-
-                     
+                            <li>
+                                <a href="{% url 'login_user' %}" class="ai-icon" aria-expanded="false">
+                                    <span class="nav-text">Login</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'register_user' %}" class="ai-icon" aria-expanded="false">
+                                    <span class="nav-text">Register</span>
+                                </a>
+                            </li>
 
 
 
-                    {% else %}
-                        <li>
-                            <a href="{% url 'logout_user' %}" class="ai-icon" aria-expanded="false">
-                                <span class="nav-text">Logout</span>
-                            </a>
-                        </li>
-                
-
-                        <li class="nav-item mx-5">
-                            <a style="width:100%;" href="{% url 'dashboard_home' %}" type="button" class="btn btn-primary site-button"
-                               role="button" data-toggle="" aria-haspopup="true"
-                               aria-expanded="false">Dashboard </a>
-                        </li>
 
 
-                    {% endif %}
+                        {% else %}
+                            <li>
+                                <a href="{% url 'logout_user' %}" class="ai-icon" aria-expanded="false">
+                                    <span class="nav-text">Logout</span>
+                                </a>
+                            </li>
+
+
+                            <li class="nav-item mx-5">
+                                <a style="width:100%;" href="{% url 'dashboard_home' %}" type="button" class="btn btn-primary site-button"
+                                   role="button" data-toggle="" aria-haspopup="true"
+                                   aria-expanded="false">Dashboard </a>
+                            </li>
+
+
+                        {% endif %}
                     </ul>
 
                     <div class="copyright">

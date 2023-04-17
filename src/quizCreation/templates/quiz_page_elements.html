@@ -33,96 +33,112 @@
 
             <div class="mx-auto w-100 border border-1 border-dark p-2"  style="border-style:dashed !important">
 
-                    <a  
+                <a
                     {% if  element.type == "Text" %}
-                    href="{% url 'get_text_element_edit_form' user_quiz.id element.element.page_element.id %}"
+                        href="{% url 'get_text_element_edit_form' user_quiz.id element.element.page_element.id %}"
                     {% else %}
-                    data-toggle="modal" data-target="#editModal_{{element.element.page_element.id}}"#
+                        data-toggle="modal" data-target="#editModal_{{element.element.page_element.id}}"#
                     {% endif %}
-                    type="button" class="btn btn-primary site-button float-right text-right" 
-                    >
-                        <span type="button" class="">
-                            Edit <i class="fa fa-edit"></i>
-                        </span>
-                    </a>
+                    type="button" class="btn btn-primary site-button float-right text-right"
+                >
+                    <span type="button" class="">
+                        Edit <i class="fa fa-edit"></i>
+                    </span>
+                </a>
 
                 <div class="modal fade" id="editModal_{{element.element.page_element.id}}" data-backdrop="static">
                     <div class="modal-dialog" role="document">
+                        {% if not element.type == "Image" %}
                         <div class="modal-content" id="editModalContent{{element.element.page_element.id}}">
-                            <div class="modal-header">
-                                <h5 class="modal-title">Editing element</h5>
-                                <button type="button" class="close" data-dismiss="modal"
-                                hx-trigger="click"
-                                hx-target="#page_elements"
-                                hx-swap=outerHTML
-                                hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
-                                ><span>×</span>
-                                </button>
+
+
+                                <div class="modal-header">
+                                    <h5 class="modal-title">Editing {{element.type|lower}}</h5>
+                                    <button type="button" class="close" data-dismiss="modal"
+                                            hx-trigger="click"
+                                            hx-target="#page_elements"
+                                            hx-swap=outerHTML
+                                            hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+                                    ><span>×</span>
+                                    </button>
+                                </div>
+                                <form id="edit_element_form{{element.element.id}}"
+                                      hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+                                      hx-post="{% url 'edit_element_title' element.element.page_element.page.quiz.id element.element.page_element.page.id element.element.page_element.id %}"
+
+                                      {% if element.type == "Multiple choice question" or  element.type == 'Single choice question' or element.type == 'Agree disagree table' %}
+                                          hx-target="#editModalContent{{element.element.page_element.id}}"
+                                      {% else %}
+                                          hx-target="#page_elements"
+                                      {% endif %}
+
+
+
+                                      hx-swap="outerHTML"
+                                      hx-encoding="multipart/form-data"
+
+
+                                >
+
+                                    <div class="modal-body">
+                                        <span >
+
+                                            Editing {{element.type|lower}}
+                                            {% if element.element.title %}
+                                                : {{element.element.title}}
+                                            {% endif %}
+                                        </span>
+
+                                        {% if element.type == "Text" %}
+
+
+
+
+                                        {% else %}
+
+
+
+                                            <Input
+                                                name="title"
+                                                type="text" value="{% if element.element.title %}{{element.element.title}}{% endif %}" placeholder="Enter a new title here"
+                                                class="form-control border-dark text-dark mx-auto w-75 mt-4" required maxlength="1000">
+                                        {% endif %}
+                                    </div>
+
+
+
+                                    <div class="modal-footer">
+                                        <a type="button" class="btn btn-danger light" data-dismiss="modal"
+                                           hx-trigger="click"
+                                           hx-target="#page_elements"
+                                           hx-swap=outerHTML
+                                           hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+                                        >Cancel</a>
+                                        <button
+
+                                            {% if not element.type == "Multiple choice question" and not element.type == "Single choice question" and not element.type == "Agree disagree table" %}
+
+                                                onclick="document.querySelector('#editModal_{{element.element.page_element.id}} > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)').click()"
+                                            {% endif %}
+                                            type="submit"
+
+                                            class="btn btn-primary site-button">Continue</button>
+                                    </div>
+
+                                </form>
                             </div>
-                            <form id="edit_element_form{{element.element.id}}"
-                                  hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-                                  hx-post="{% url 'edit_element_title' element.element.page_element.page.quiz.id element.element.page_element.page.id element.element.page_element.id %}"
+                            {% else %}
 
-                                  {% if element.type == "Multiple choice question" or  element.type == 'Single choice question' or element.type == 'Agree disagree table' %}
-                                      hx-target="#editModalContent{{element.element.page_element.id}}"
-                                  {% else %}
-                                      hx-target="#page_elements"
-                                  {% endif %}
-
-
-
-                                  hx-swap="outerHTML"
-                                  hx-encoding="multipart/form-data"
-
-
-                            >
-                                <div class="modal-body">
-                                    <span >
-
-                                        Editing {{element.type|lower}}
-                                        {% if element.element.title %}
-                                        : {{element.element.title}}
-                                        {% endif %}
-                                    </span>
-
-                                    {% if element.type == "Text" %}
-
-                              
-
-
-                                    {% else %}
-
-
-
-                                        <Input
-                                            name="title"
-                                            type="text" value="{% if element.element.title %}{{element.element.title}}{% endif %}" placeholder="Enter a new title here"
-                                            class="form-control border-dark text-dark mx-auto w-75 mt-4" required maxlength="1000">
-                                    {% endif %}
-                                </div>
-
-
-
-                                <div class="modal-footer">
-                                    <a type="button" class="btn btn-danger light" data-dismiss="modal"
-                                    hx-trigger="click"
-                                    hx-target="#page_elements"
+                                <div
                                     hx-swap=outerHTML
-                                    hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
-                                    >Cancel</a>
-                                    <button
+                                    hx-trigger=load
+                                    hx-get={% url 'edit_image_element' user_quiz.id quiz_page.id element.element.id %}
+                                >
 
-                                        {% if not element.type == "Multiple choice question" and not element.type == "Single choice question" and not element.type == "Agree disagree table" %}
-
-                                            onclick="document.querySelector('#editModal_{{element.element.page_element.id}} > div:nth-child(1) > div:nth-child(1) > div:nth-child(1) > button:nth-child(2)').click()"
-                                        {% endif %}
-                                        type="submit"
-
-                                        class="btn btn-primary site-button">Continue</button>
                                 </div>
 
-                            </form>
-                        </div>
+
+                            {% endif %}
 
                     </div>
                 </div>
@@ -148,15 +164,15 @@
                             {{element.element.content}}
                         </div>
                     {% endautoescape %}
-                    <div>
+                    <div class="{% if element.type == "Image" %}mx-auto{% endif %}">
                         <br><br>
                         {% if not element.type == "Text" and element.element.title %}
                             {% if element.type == "Agree disagree table" %}
-                            Agree disagree section
+                                Agree disagree section
                             {% else %}
-                            Question 
+                                Question
                             {% endif %}
-                            
+
                             title:
                             <ul class=" list-group-horizontal-sm">
                                 <li class="my-4">
@@ -172,15 +188,15 @@
 
                             <ul class="list-group list-group-horizontal-sm row ">
                                 {% for e in element.element.get_multiple_choice_choices %}
-                        
-                                    <li class="border border-1 p-3 rounded border-dark my-4  mx-3 d-flex" 
-                                    style="justify-content: center; align-items: center;max-width;fit-content">
+
+                                    <li class="border border-1 p-3 rounded border-dark my-4  mx-3 d-flex"
+                                        style="justify-content: center; align-items: center;max-width;fit-content">
                                         <div class="text-center">
 
                                             <img style="max-width:;max-height:3rem;" src="{% if e.image %}{{e.image.url}}{% endif %}" alt="">
                                             <br>
                                             <strong>
-                                                
+
                                                 {{e.choice}}
                                             </strong>
                                             <br>
@@ -198,48 +214,56 @@
 
                             <ul class="list-group list-group-horizontal-sm">
                                 {% for e in element.element.get_single_choice_choices %}
-                                <li class="border border-1 p-3 rounded border-dark my-4 mx-3 d-flex" 
-                                style="justify-content: center; align-items: center;max-width:fit-content;">
-                                    <div class="text-center">
+                                    <li class="border border-1 p-3 rounded border-dark my-4 mx-3 d-flex"
+                                        style="justify-content: center; align-items: center;max-width:fit-content;">
+                                        <div class="text-center">
 
-                                        <img style="max-width:;max-height:3rem;" src="{% if e.image %}{{e.image.url}}{% endif %}" alt="">
-                                        <br>
-                                        <strong>
-                                            
-                                            {{e.choice}}
-                                        </strong>
-                                        <br>
-                                        {% if e.is_correct_choice %}(Correct <i class="fa fa-check"></i>){% endif %}
-                                    </div>
-                                </li >
+                                            <img style="max-width:;max-height:3rem;" src="{% if e.image %}{{e.image.url}}{% endif %}" alt="">
+                                            <br>
+                                            <strong>
+
+                                                {{e.choice}}
+                                            </strong>
+                                            <br>
+                                            {% if e.is_correct_choice %}(Correct <i class="fa fa-check"></i>){% endif %}
+                                        </div>
+                                    </li >
                                 {% endfor %}
                             </ul>
-                            
-                            {% elif element.type == "Agree disagree table" %}
-                            
+
+                        {% elif element.type == "Agree disagree table" %}
+
                             Questions:
                             <ul class="list-group list-group-horizontal-sm">
                                 {% for e in element.element.get_agree_disagree_rows %}
-                                <li class="border border-1 p-3 rounded border-dark my-4 mx-3 d-flex" 
-                                style="justify-content: center; align-items: center;max-width:fit-content;">
-                                    <div class="text-center">
+                                    <li class="border border-1 p-3 rounded border-dark my-4 mx-3 d-flex"
+                                        style="justify-content: center; align-items: center;max-width:fit-content;">
+                                        <div class="text-center">
 
-                                        <br>
-                                        <strong>
-                                            
-                                            {{e.position}}. {{e.title}}
-                                        </strong>
-                                        <br>
-                                        {% if e.is_correct_choice %}(Correct <i class="fa fa-check"></i>){% endif %}
-                                    </div>
-                                </li >
+                                            <br>
+                                            <strong>
+
+                                                {{e.position}}. {{e.title}}
+                                            </strong>
+                                            <br>
+                                            {% if e.is_correct_choice %}(Correct <i class="fa fa-check"></i>){% endif %}
+                                        </div>
+                                    </li >
                                 {% endfor %}
                             </ul>
-                            
-                            
-                            {% endif %}
-                            
-                           
+
+                        {% elif element.type == "Image" %}
+                            <div class="mx-auto">
+
+                                <center>
+
+                                    <img class="mx-auto" src="{{element.element.image.url}}" alt="" style="max-height:10rem">
+                                </center>
+                            </div>
+
+                        {% endif %}
+
+
 
                     </div>
 

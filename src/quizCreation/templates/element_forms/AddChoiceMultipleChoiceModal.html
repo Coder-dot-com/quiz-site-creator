@@ -2,11 +2,11 @@
     <div class="modal-header">
         <h5 class="modal-title">Add choices to your multiple choice question</h5>
         <button type="button" id="closeModalElement" class="close" data-dismiss="modal"
-        hx-trigger="click"
-        hx-target="#page_elements"
-        hx-swap=outerHTML
-        hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
-        
+                hx-trigger="click"
+                hx-target="#page_elements"
+                hx-swap=outerHTML
+                hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+
         ><span>×</span>
         </button>
     </div>
@@ -72,7 +72,7 @@
                                             />
                                         </label>
 
-                                     
+
 
                                         <center id="spinner_{{choice.id}}">
 
@@ -144,7 +144,7 @@
                                                        hx-target='#modalContent'
                                                        hx-swap=outerHTML
                                                        hx-indicator="#spinner_{{choice.id}}"
-                                                        hx-trigger="click">
+                                                       hx-trigger="click">
                                                         <small class="text-muted ">
                                                             Remove?
                                                         </small>

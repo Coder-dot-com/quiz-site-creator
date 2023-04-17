@@ -272,15 +272,15 @@
 
                         {% if site.site_email %}
 
-                        <span class="text-center">
-                            <h5 class="">
-                                Contact email:
-                                <strong>
-                                    {{site.site_email}}
-                                </strong>
-                            </h5> 
-                        </span>
-                    {% endif %}
+                            <span class="text-center">
+                                <h5 class="">
+                                    Contact email:
+                                    <strong>
+                                        {{site.site_email}}
+                                    </strong>
+                                </h5>
+                            </span>
+                        {% endif %}
                         <p>Copyright © {{site.site_name}} <script>document.write(new Date().getFullYear())</script>.
                         </p>
                         {% if site.site_logo %}
@@ -292,7 +292,7 @@
                         {% endif %}
 
 
-              
+
                     </div>
                 </div>
 
@@ -325,7 +325,7 @@
                 {% if user_payment_status and not user_payment_status.status == "active"  %}
 
                     <div class="alert alert-warning alert-dismissible fade show mx-auto  text-dark no-print" role="alert"
-                    style="background-color:#f7f7f0;"
+                         style="background-color:#f7f7f0;"
                     >
                         <center>
                             <p>{% if user_payment_status.status == "free" %}

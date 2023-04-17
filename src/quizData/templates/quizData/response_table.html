@@ -1,11 +1,11 @@
 <div id="table" class="col-lg-9 mx-auto rounded my-5">
     <a type="button" class="mb-2" href="{% url 'dashboard_home' %}">< Back</a>
     <div class="bg-white p-5">
-        
+
         <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
-        
-        
-        
+
+
+
         <div class="row">
             {% comment %} <div class="col-12">
 
@@ -15,117 +15,117 @@
                 Download all responses as CSV <i class="fa fa-download"></i></a>
             </div> {% endcomment %}
         </div>
-    <div class="row  mx-auto" style="gap:1.5rem;justify-content: center;">
+        <div class="row  mx-auto" style="gap:1.5rem;justify-content: center;">
 
-        <div class="col-6 col-sm-12 mx-3" style="display: contents;">
-            <div class="widget-stat card bg-primary p-1">
-                <div class="card-body ">
-                    <div class="media">
-                        <span class="mr-3">
-                            <i class="la la-users"></i>
-                        </span>
-                        <div class=" text-white ">
-                            <p class="mb-1">Total Respondants</p>
-                            <h3 class="text-white">{{response_count}}</h3>
+            <div class="col-6 col-sm-12 mx-3" style="display: contents;">
+                <div class="widget-stat card bg-primary p-1">
+                    <div class="card-body ">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="la la-users"></i>
+                            </span>
+                            <div class=" text-white ">
+                                <p class="mb-1">Total Respondants</p>
+                                <h3 class="text-white">{{response_count}}</h3>
 
                         {% comment %} <small>80% Increase in 20 Days</small> {% endcomment %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-6 col-sm-12 mx-3" style="display: contents;">
+                <div class="widget-stat card bg-info p-1" >
+                    <div class="card-body ">
+                        <div class="media">
+                            <span class="mr-3">
+                                <i class="flaticon-381-calendar-1"></i>
+                            </span>
+                            <div class=" text-white ">
+                                <p class="mb-1">% Completed</p>
+                                <h3 class="text-white">{{percentage_completed}}</h3>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="col-6 col-sm-12 mx-3" style="display: contents;">
-            <div class="widget-stat card bg-info p-1" >
-                <div class="card-body ">
-                    <div class="media">
-                        <span class="mr-3">
-                            <i class="flaticon-381-calendar-1"></i>
-                        </span>
-                        <div class=" text-white ">
-                            <p class="mb-1">% Completed</p>
-                            <h3 class="text-white">{{percentage_completed}}</h3>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
 
+        <table id="table_id" class="display" style="width:100%">
+            <thead>
+                <tr>
+                    <th>Quiz start time</th>
+                    <th>Complete?
+                        <th>Steps completed
+                            <th>View answers
+                                <th>Delete response?
 
-    <table id="table_id" class="display" style="width:100%">
-        <thead>
-            <tr>
-                <th>Quiz start time</th>
-                <th>Complete?
-                    <th>Steps completed
-                        <th>View answers
-                            <th>Delete response?
-
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody id="response_rows">
-                        {% load tz %}
-                        {% for r in responses %}
-                            <tr>
-                                <td>{{r.time_added|localtime}} {% get_current_timezone as TIME_ZONE %} ({{TIME_ZONE}})</td>
-                                <td>
-                                    {% if r.completed %}
-                                        <i style="display:none">C</i>
-                                        <i class="fa fa-check text-green"></i>
-                                    {% else %}
-                                        <i style="display:none">T</i>
-                                        <i class="fa fa-ban text-red"></i>
-                                    {% endif %}
-
-                                </td>
-                                <td>{{r.steps_completed}}</td>
-                                <td>
-                                    <a target="_blank" href="{% url 'detailed_results' r.quiz.id r.response_id %}">
-                                        View <i class="fa fa-eye"></i>
-                                    </a>
-
-                                </td>
-                                <td class="text-danger">
-                                    <a type="button"
-                                       hx-delete="{% url 'delete_response' r.quiz.id r.response_id %}"
-                                       hx-confirm="Are you sure you want to delete response with id: {{r.response_id}}"
-                                       hx-target="#table"
-                                    >
-                                        Delete <i class="fa fa-trash"></i>
-                                    </a>
-
-
-                                </td>
+                                </th>
                             </tr>
-                        {% endfor %}
+                        </thead>
+                        <tbody id="response_rows">
+                            {% load tz %}
+                            {% for r in responses %}
+                                <tr>
+                                    <td>{{r.time_added|localtime}} {% get_current_timezone as TIME_ZONE %} ({{TIME_ZONE}})</td>
+                                    <td>
+                                        {% if r.completed %}
+                                            <i style="display:none">C</i>
+                                            <i class="fa fa-check text-green"></i>
+                                        {% else %}
+                                            <i style="display:none">T</i>
+                                            <i class="fa fa-ban text-red"></i>
+                                        {% endif %}
 
-                    </tbody>
+                                    </td>
+                                    <td>{{r.steps_completed}}</td>
+                                    <td>
+                                        <a target="_blank" href="{% url 'detailed_results' r.quiz.id r.response_id %}">
+                                            View <i class="fa fa-eye"></i>
+                                        </a>
 
-    </table>
+                                    </td>
+                                    <td class="text-danger">
+                                        <a type="button"
+                                           hx-delete="{% url 'delete_response' r.quiz.id r.response_id %}"
+                                           hx-confirm="Are you sure you want to delete response with id: {{r.response_id}}"
+                                           hx-target="#table"
+                                        >
+                                            Delete <i class="fa fa-trash"></i>
+                                        </a>
+
+
+                                    </td>
+                                </tr>
+                            {% endfor %}
+
+                        </tbody>
+
+                    </table>
 
 
 
-                <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
+                    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.js"></script>
 
-                <script defer>
+                    <script defer>
 
-                    {% if deleted %}
+                        {% if deleted %}
 
-                        location.reload();
+                            location.reload();
 
-                        setTimeout(location.reload(), 750)
-                    {% else %}
-                        window.$('#table_id').dataTable( {
-                            "order": [[ 0, 'desc' ],],
-                        } );
-                    {% endif %}
+                            setTimeout(location.reload(), 750)
+                        {% else %}
+                            window.$('#table_id').dataTable( {
+                                "order": [[ 0, 'desc' ],],
+                            } );
+                        {% endif %}
 
-                </script>
+                    </script>
 
-    </div>
-</div>
+                </div>
+            </div>
 
 
 

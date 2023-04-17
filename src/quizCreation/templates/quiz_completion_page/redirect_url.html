@@ -5,33 +5,33 @@
         <strong>
             Redirect after quiz completion? (leave blank to not redirect)
         </strong>
-        <br>    
-        Note: If a URL is saved your quiz will redirect and any custom HTML text entered won't show 
+        <br>
+        Note: If a URL is saved your quiz will redirect and any custom HTML text entered won't show
     </label>
     <form class="input-group mb-3"
-    hx-post={% url 'update_url_quiz_complete' user_quiz.id %}
-    hx-swap=outerHTML
-    hx-target="#update_url_quiz_complete"
-    hx-encoding="multipart/form-data"
+          hx-post={% url 'update_url_quiz_complete' user_quiz.id %}
+          hx-swap=outerHTML
+          hx-target="#update_url_quiz_complete"
+          hx-encoding="multipart/form-data"
     >
-    {% csrf_token %}
-            <input type="text"  {% if user_quiz.redirect_url %}value="{{user_quiz.redirect_url}}" {% endif %} 
-            name="url" class="form-control border-3 border-dark" placeholder="Enter URL here include https:// or http://">
-            <div class="input-group-append">
-                <button class="btn btn-primary" type="submit">Save</button>
-            </div>
+        {% csrf_token %}
+        <input type="text"  {% if user_quiz.redirect_url %}value="{{user_quiz.redirect_url}}" {% endif %}
+               name="url" class="form-control border-3 border-dark" placeholder="Enter URL here include https:// or http://">
+        <div class="input-group-append">
+            <button class="btn btn-primary" type="submit">Save</button>
+        </div>
 
-        
-        
+
+
     </form>
     {% if updated %}
-    <p class="text-success">Successfully updated!</p>
+        <p class="text-success">Successfully updated!</p>
 
-    <div class="d-none" hx-get={% url 'update_text_content_quiz_complete' user_quiz.id %} hx-trigger=load
-    hx-target="#update_text_content_quiz_complete"
-    
-    >
+        <div class="d-none" hx-get={% url 'update_text_content_quiz_complete' user_quiz.id %} hx-trigger=load
+             hx-target="#update_text_content_quiz_complete"
 
-    </div>
+        >
+
+        </div>
     {% endif %}
 </div>

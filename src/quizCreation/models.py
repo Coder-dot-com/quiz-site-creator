@@ -81,7 +81,7 @@ class QuizPageElement(models.Model):
             return {'type': 'Agree disagree table', 'element': agree_disagree_element[0]}
         image_display_element = ImageDisplayElement.objects.filter(page_element=self)
         if image_display_element.exists():
-            return {'type': 'Display image', 'element': image_display_element[0]}
+            return {'type': 'Image', 'element': image_display_element[0]}
 
 
 class ImageDisplayElement(models.Model):

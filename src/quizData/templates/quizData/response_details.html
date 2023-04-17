@@ -11,7 +11,7 @@
 
         <div class="col-lg-9  mx-auto justify-content-center  my-5">
             <a class="no-print mb-2" type="button"  href="{% url 'view_quiz_results' quiz.id %}">< Back</a>
-            
+
             <div class="card mx-auto">
                 <div class="card-header " style="justify-content:right;">
                     <a class="btn btn-primary site-button float-right mb-3 no-print" type="button" onclick="window.print()">Print <i class="fa fa-print"></i></a>
@@ -32,35 +32,35 @@
                                                     <br>
                                                     <strong class="">
                                                         {% if x.question %}
-                                                        
-                                                        
-                                                        {{x.question.get_element_type.element.title}}
+
+
+                                                            {{x.question.get_element_type.element.title}}
                                                         {% else %}
-                                                        {{x.question_agree_disagree.title}}
+                                                            {{x.question_agree_disagree.title}}
                                                         {% endif %}
                                                     </strong>
                                                 </div>
                                                 <br>
-                                                
+
 
                                                 <div >
 
                                                     {% if not x.question.get_element_type.type == 'Multiple choice question' %}
-                                                    <small>Answer:</small> 
-                                                    <br>
-                                                    <strong>
-                                                        {{x.answer}}
-                                                    </strong> 
+                                                        <small>Answer:</small>
+                                                        <br>
+                                                        <strong>
+                                                            {{x.answer}}
+                                                        </strong>
 
 
                                                     {% else %}
-                                                    <small>Answers:</small>
-                                                    <br>
-                                                    <strong>
-                                                        {% for i in x.question_choice.all %}
-                                                        {{i.choice}} <br>
-                                                        {% endfor %}
-                                                    </strong>
+                                                        <small>Answers:</small>
+                                                        <br>
+                                                        <strong>
+                                                            {% for i in x.question_choice.all %}
+                                                                {{i.choice}} <br>
+                                                            {% endfor %}
+                                                        </strong>
 
                                                     {% endif %}
 

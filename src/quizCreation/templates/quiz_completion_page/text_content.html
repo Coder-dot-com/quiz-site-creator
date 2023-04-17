@@ -7,30 +7,30 @@
         </strong>
         <br>
         {% if user_quiz.redirect_url %}
-        
-        <p class="text-danger">Will not be shown as user will be redirected, to show update the URL above so it's empty </p>
+
+            <p class="text-danger">Will not be shown as user will be redirected, to show update the URL above so it's empty </p>
         {% endif %}
     </label>
     <form class=" mb-3"
-    hx-post={% url 'update_text_content_quiz_complete' user_quiz.id %} 
-    hx-target="#update_text_content_quiz_complete"
-    hx-swap=outerHTML
-    hx-encoding="multipart/form-data"
+          hx-post={% url 'update_text_content_quiz_complete' user_quiz.id %}
+          hx-target="#update_text_content_quiz_complete"
+          hx-swap=outerHTML
+          hx-encoding="multipart/form-data"
     >
-    {{form.media}}
-    {% for field in form %}
-        {{field.field.widget.attrs.field_title}}
-        {{field}}
-    {% endfor %}
-          
-    <button type="submit" onclick="for ( instance in CKEDITOR.instances ) {
-        CKEDITOR.instances[instance].updateElement();
-        }"
-        class="btn btn-primary site-button float-right">Save</button>
-        
+        {{form.media}}
+        {% for field in form %}
+            {{field.field.widget.attrs.field_title}}
+            {{field}}
+        {% endfor %}
+
+        <button type="submit" onclick="for ( instance in CKEDITOR.instances ) {
+                                       CKEDITOR.instances[instance].updateElement();
+                                       }"
+                class="btn btn-primary site-button float-right">Save</button>
+
     </form>
 
     {% if updated %}
-    <p class="text-success">Successfully updated!</p>
+        <p class="text-success">Successfully updated!</p>
     {% endif %}
 </div>

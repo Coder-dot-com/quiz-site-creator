@@ -513,7 +513,6 @@ def add_image_display_element(request, quiz_id, page_id):
                     'user_quiz': user_quiz[0],
                     'quiz_page': quiz_page,
                     'element_added': True,
-                    'edit': True,
                     'element': element,
                 }
 
@@ -936,13 +935,48 @@ def edit_element_title(request, quiz_id, page_id, element_id):
             return render(request, 'quiz_page_elements.html', context=context)
   
 @login_required
+def edit_image_element(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    success = False
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        element = ImageDisplayElement.objects.get(id=element_id, page_element__page=quiz_page)
+        if request.method == 'POST':            
+            images = request.FILES.getlist('image')
+            for image in images:
+                if image.size < 20000000 and image.size > 100:
+                    file_name = image.name
+                    file_ext = os.path.splitext(file_name)[1]
+                    if file_ext == '.jpeg':
+                        file_ext = '.jpg'
+
+                    image.name = f"{uuid4()}{file_ext}"
+                    element.image = image
+                    element.save()
+                    success = True
+                    print("ADDED IMAGE")
+        
+        element = ImageDisplayElement.objects.get(id=element_id, page_element__page=quiz_page)
+       
+        context = {
+            'element': element,
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'edit': True,
+            'success': success,
+        }
+        
+        return render(request, 'element_forms/ImageDisplay.html', context=context)
+
+@login_required
 def upload_quiz_logo(request, quiz_id):
     print(request)
     print(request.POST)
     images = request.FILES.getlist('logo')
 
     for image in images:
-        if image.size < 2000000 and image.size > 100:
+        if image.size < 20000000 and image.size > 100:
             file_name = image.name
             file_ext = os.path.splitext(file_name)[1]
             if file_ext == '.jpeg':
@@ -1027,7 +1061,7 @@ def upload_image_for_multiple_choice(request, quiz_id, page_id, element_id, choi
         images = request.FILES.getlist('choice_image')
 
         for image in images:
-            if image.size < 2000000 and image.size > 100:
+            if image.size < 20000000 and image.size > 100:
                 file_name = image.name
                 file_ext = os.path.splitext(file_name)[1]
                 if file_ext == '.jpeg':
@@ -1065,7 +1099,7 @@ def upload_image_for_single_choice(request, quiz_id, page_id, element_id, choice
         images = request.FILES.getlist('choice_image')
 
         for image in images:
-            if image.size < 2000000 and image.size > 100:
+            if image.size < 20000000 and image.size > 100:
                 file_name = image.name
                 file_ext = os.path.splitext(file_name)[1]
                 if file_ext == '.jpeg':

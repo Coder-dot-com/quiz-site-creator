@@ -1,124 +1,141 @@
-<div id="imageDisplayModal">
 
-<div class="modal-header">
-    <h5 class="modal-title">{% if edit %}Edit {% else %} Add {% endif %}image</h5>
-    <button type="button" class="close" data-dismiss="modal"><span>×</span>
-    </button>
-</div>
-<div class="modal-body">
+        <div class="modal-content" id="editModalContent{{element.page_element.id}}">
 
-<form id="user_image_{{user_quiz.id}}"
-      hx-encoding='multipart/form-data'
-      {% if edit %}
-      {% comment %} hx-post={% url '' %} {% endcomment %}
-      {% else %}
-      hx-post="{% url 'add_image_display_element' user_quiz.id quiz_page.id %}"
-      {% endif %}
-      hx-trigger="change"
-      hx-target="#imageDisplayModal"
-      hx-swap="outerHTML"
-      hx-indicator="#spinner_{{user_quiz.id}}"
-      class="my-5"
-      >
+    <div class="modal-header">
+        <h5 class="modal-title">{% if edit %}Edit {% else %} Add {% endif %}image</h5>
+        <button type="button" class="close" data-dismiss="modal"
+                hx-trigger="click"
+                hx-target="#page_elements"
+                hx-swap=outerHTML
+                hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+
+        ><span>×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <form id="user_image_{{user_quiz.id}}"
+              hx-encoding='multipart/form-data'
+
+              {% if edit %}
+                  hx-post="{% url 'edit_image_element' user_quiz.id quiz_page.id element.id %}"
+                  hx-target="#editModalContent{{element.page_element.id}}"
+
+                  {% else %}
+                  hx-post="{% url 'add_image_display_element' user_quiz.id quiz_page.id %}"
+                  hx-target="#imageDisplayModal"
+              {% endif %}
+
+              hx-trigger="change"
+              hx-swap="outerHTML"
+              hx-indicator="#spinner_{{user_quiz.id}}"
+              class="my-5"
+
+              onsubmit=""
+        >
 
 
-    {% if element.image %}
-        <div class="col-12 my-2">
-            <h5 class="text-center">Current image</h5>
-        </div>
-        <div class="row">
-            <div class=" mx-auto">
-                <center>
-                    <div class="userImageUpload">
-                        <img class="" src="{{element.image.url}}" alt="">
+            {% if element.image %}
+                <div class="col-12 my-2">
+                    <h5 class="text-center">Current image</h5>
+                </div>
+                <div class="row">
+                    <div class=" mx-auto">
+                        <center>
+                            <div class="userImageUpload">
+                                <img class="" src="{{element.image.url}}" alt="">
+                            </div>
+
+                        </center>
                     </div>
-                  
-                </center>
-            </div>
-        </div>
+                </div>
 
-    {% endif %}
+            {% endif %}
 
 
 
-    <label class="btn btn-primary site-button" style="width:100%"
-    >
-        Add an image
-        <br>
-        <input name="image"
-               class="d-none form-control
-                      required" style="display:none;" type="file" accept="image/*"
+            <label class="btn btn-primary site-button" style="width:100%"
+            >
+                Add an image
 
-        />
-    </label>
+            
+                <br>
+                <input name="image"
+                       class="d-none form-control
+                              required" style="display:none;" type="file" accept="image/*"
 
-    {% if error %}
-        <br><br>
-        <span class="small text-danger">
-            Please check image has been uploaded by refreshing the page
-        </span>
+                />
+            </label>
 
-    {% endif %}
+            {% if error %}
+                <br><br>
+                <span class="small text-danger">
+                    Please check image has been uploaded by refreshing the page
+                </span>
 
-    <center id="spinner_{{user_quiz.id}}">
+            {% endif %}
 
-        <div  class="spinner-border text-dark my-4" role="status">
-        </div>
+            <center id="spinner_{{user_quiz.id}}">
 
-    </center>
-    <style>
-        #spinner_{{user_quiz.id}}{
-            opacity:0;
-            transition: all 500ms ease-in;
-            display:none;
+                <div  class="spinner-border text-dark my-4" role="status">
+                </div>
 
-
-        }
-
-        .htmx-request #spinner_{{user_quiz.id}}{
-            opacity:1;
-            display: block;
+            </center>
+            <style>
+                #spinner_{{user_quiz.id}}{
+                    opacity:0;
+                    transition: all 500ms ease-in;
+                    display:none;
 
 
-        }
-        .htmx-request#spinner_{{user_quiz.id}}{
-            opacity:1;
-            display: block;
-        }
+                }
+
+                .htmx-request #spinner_{{user_quiz.id}}{
+                    opacity:1;
+                    display: block;
 
 
-    </style>
+                }
+                .htmx-request#spinner_{{user_quiz.id}}{
+                    opacity:1;
+                    display: block;
+                }
 
 
-    <style>
-        @media (min-width: 600px){
-            .userImageUpload {
-                max-width: 80%; /*set max width*/
-                max-height: 40%;
-            }
-            .userImageUpload img{
-                width:100%;
-                object-fit:contain;
-            }
+            </style>
 
 
-        }
-        @media (max-width: 600px){
-            .userImageUpload {
-                max-width: 70%; /*set max width*/
-                max-height: 50%;
-            }
-            .userImageUpload img{
-                width:100%;
-                object-fit:contain;
-            }
+            <style>
+                @media (min-width: 600px){
+                    .userImageUpload {
+                        max-width: 80%; /*set max width*/
+                        max-height: 40%;
+                    }
+                    .userImageUpload img{
+                        width:100%;
+                        object-fit:contain;
+                    }
 
 
-        }
+                }
+                @media (max-width: 600px){
+                    .userImageUpload {
+                        max-width: 70%; /*set max width*/
+                        max-height: 50%;
+                    }
+                    .userImageUpload img{
+                        width:100%;
+                        object-fit:contain;
+                    }
 
-    </style>
-</form>
+
+                }
+
+            </style>
+        </form>
+    </div>
 </div>
+
 
 
 

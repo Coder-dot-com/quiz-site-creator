@@ -54,7 +54,6 @@ urlpatterns = [
     path('edit_text_element/<quiz_id>/<element_id>', views.edit_text_element, name="edit_text_element"),
 
 
-
     path('delete_choice_multiple_choice_element/<quiz_id>/<page_id>/<element_id>/<choice_id>', views_htmx.delete_choice_multiple_choice_element, name="delete_choice_multiple_choice_element"),
     path('delete_choice_single_choice_element/<quiz_id>/<page_id>/<element_id>/<choice_id>', views_htmx.delete_choice_single_choice_element, name="delete_choice_single_choice_element"),
     path('delete_row_agree_disagree_row/<quiz_id>/<page_id>/<element_id>/<choice_id>', views_htmx.delete_row_agree_disagree_row, name="delete_row_agree_disagree_row"),
@@ -67,6 +66,10 @@ urlpatterns = [
 
     path('edit_element_title/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_element_title, name="edit_element_title"),
     
+    path('edit_image_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_image_element, name="edit_image_element"),
+
+
+
     path('upload_quiz_logo/<quiz_id>/', views_htmx.upload_quiz_logo, name="upload_quiz_logo"),
     path('delete_logo_from_quiz/<quiz_id>/', views_htmx.delete_logo_from_quiz, name="delete_logo_from_quiz"),
     path('update_quiz_analytic_scripts/<quiz_id>/', views_htmx.update_quiz_analytic_scripts, name="update_quiz_analytic_scripts"),

@@ -16,14 +16,14 @@
                     Create quiz  <i class="fa fa-plus mx-1"></i>
                 </a>
             </div>
-            
-            
-            
+
+
+
             <div class="tab-pane active show fade d-inline" id="Unifinshed">
                 <div class="mx-auto ">
                     Your quizes
                 </div>
-                
+
                 {% for quiz in quizes %}
 
                     <div style="background-color:rgba(227, 227, 204, 0.3);
@@ -40,11 +40,11 @@
                                    type="button" class="mx-1"  >Open quiz in new tab</a> |
 
 
-                                    <a           id="copy-button{{quiz.id}}"          data-clipboard-target="#linkToQuiz{{quiz.id}}"
-                                       type="button" class=" dropdown-toggle mx-1" data-toggle="dropdown">Copy link to quiz</a> |
-                                    <div class="dropdown-menu">
-                                        <span class="dropdown-item" href="javascript:void()">Link successfully copied!</span>
-                                    </div>
+                                <a           id="copy-button{{quiz.id}}"          data-clipboard-target="#linkToQuiz{{quiz.id}}"
+                                   type="button" class=" dropdown-toggle mx-1" data-toggle="dropdown">Copy link to quiz</a> |
+                                <div class="dropdown-menu">
+                                    <span class="dropdown-item" href="javascript:void()">Link successfully copied!</span>
+                                </div>
 
 
                                 <input style="display:none;" type="hidden" id="linkToQuiz{{quiz.id}}" value="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}">
@@ -64,7 +64,7 @@
                                 <br>
                                 <h4 class="mt-5 pt-2">
                                     <small>Quiz name:</small>
-                                    
+
                                     <p class="">{{quiz.name}}</p></h4>
 
 

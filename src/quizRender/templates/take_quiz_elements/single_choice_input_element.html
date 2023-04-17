@@ -25,7 +25,7 @@
             <div role="button" onclick="SelectDeselectSingle(this);" id="card_{{option.id}}"
                  class=" card_choice rounded  border-3 col-12 col-sm-5 {% if option.skip_to_next and not edit_preference %}skip_to_next{% endif %} {% if option.can_only_be_selected %}can_only_be_selected{% endif %}" data-option={{option.id}} style="min-width:8rem;border:3px solid lightgrey;">
                 <div style="" class="text-center py-4">
-                    
+
                     <img style="max-width:;max-height:3rem;" src="{% if option.image %}{{option.image.url}}{% endif %}" alt="">
 
                     <h4 class="card-title">{{option.choice}}</h4>

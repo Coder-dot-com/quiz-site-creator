@@ -21,14 +21,14 @@
         <div class="row d-flex justify-content-center">
 
             {% if quiz_page.quiz.logo %}
-            <div class="mb-3">
+                <div class="mb-3">
 
-                <img class="img-fluid" style="height:5rem;"  src="
-                {{quiz_page.quiz.logo.url}}"
-                
-                
-                >
-            </div>
+                    <img class="img-fluid" style="height:5rem;"  src="
+                                                                      {{quiz_page.quiz.logo.url}}"
+
+
+                    >
+                </div>
             {% endif %}
 
 
@@ -38,14 +38,14 @@
             {% for element in quiz_page.get_quiz_page_elements %}
                 <br>
                 {% if element.get_element_type.element.title  %}
-                <h3>{{element.get_element_type.element.title}}</h3>
+                    <h3>{{element.get_element_type.element.title}}</h3>
                 {% endif %}
                 {% autoescape off %}
-                {{element.get_element_type.element.content}}
+                    {{element.get_element_type.element.content}}
                 {% endautoescape %}
 
 
-                
+
 
 
 
@@ -99,13 +99,13 @@
 
 
     {% if quiz_page.quiz.analytics_scripts %}
-    {% autoescape off %}
-    {{quiz_page.quiz.analytics_scripts}}
-    {% endautoescape %}
-    <script>
-        fbq('track', 'PageView', {}, {eventID: '{{pv_event_unique_id}}'});
-        fbq('track', 'ViewContent', {}, {eventID: '{{vc_event_unique_id}}'});
+        {% autoescape off %}
+            {{quiz_page.quiz.analytics_scripts}}
+        {% endautoescape %}
+        <script>
+            fbq('track', 'PageView', {}, {eventID: '{{pv_event_unique_id}}'});
+            fbq('track', 'ViewContent', {}, {eventID: '{{vc_event_unique_id}}'});
 
-      </script>
+        </script>
     {% endif %}
 </form>
