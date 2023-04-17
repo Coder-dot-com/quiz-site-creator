@@ -150,7 +150,7 @@ def complete_quiz(request, quiz_id, number, response_id):
                 answer_obj.question_choice.add(question_choice)
            
             answer_obj.save()
-        elif not e.get_element_type()['type'] == 'Text element':
+        elif not e.get_element_type()['type'] == 'Text':
             try:
                 answer = request.POST[str(e.id)]
             except MultiValueDictKeyError:
@@ -159,7 +159,7 @@ def complete_quiz(request, quiz_id, number, response_id):
             answer_obj.save()    
         
         
-        elif e.get_element_type()['type'] == 'Text element':
+        elif e.get_element_type()['type'] == 'Text':
             answer_obj.delete()    
 
     

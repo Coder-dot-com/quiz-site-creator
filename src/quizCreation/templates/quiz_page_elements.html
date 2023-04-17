@@ -34,7 +34,7 @@
             <div class="mx-auto w-100 border border-1 border-dark p-2"  style="border-style:dashed !important">
 
                     <a  
-                    {% if  element.type == "Text element" %}
+                    {% if  element.type == "Text" %}
                     href="{% url 'get_text_element_edit_form' user_quiz.id element.element.page_element.id %}"
                     {% else %}
                     data-toggle="modal" data-target="#editModal_{{element.element.page_element.id}}"#
@@ -85,7 +85,7 @@
                                         {% endif %}
                                     </span>
 
-                                    {% if element.type == "Text element" %}
+                                    {% if element.type == "Text" %}
 
                               
 
@@ -104,7 +104,12 @@
 
 
                                 <div class="modal-footer">
-                                    <a type="button" class="btn btn-danger light" data-dismiss="modal">Cancel</a>
+                                    <a type="button" class="btn btn-danger light" data-dismiss="modal"
+                                    hx-trigger="click"
+                                    hx-target="#page_elements"
+                                    hx-swap=outerHTML
+                                    hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+                                    >Cancel</a>
                                     <button
 
                                         {% if not element.type == "Multiple choice question" and not element.type == "Single choice question" and not element.type == "Agree disagree table" %}
@@ -139,13 +144,13 @@
 
                     <br>
                     {% autoescape off %}
-                        <div {% if element.type == "Text element" %} class="w-100 my-5" style="font-weight:none;"{% endif %}>
+                        <div {% if element.type == "Text" %} class="w-100 my-5" style="font-weight:none;"{% endif %}>
                             {{element.element.content}}
                         </div>
                     {% endautoescape %}
                     <div>
                         <br><br>
-                        {% if not element.type == "Text element" and element.element.title %}
+                        {% if not element.type == "Text" and element.element.title %}
                             {% if element.type == "Agree disagree table" %}
                             Agree disagree section
                             {% else %}

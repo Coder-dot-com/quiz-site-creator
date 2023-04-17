@@ -50,13 +50,13 @@
 
 
 
-                {% if element.get_element_type.type == 'Char input element'  %}
+                {% if element.get_element_type.type == 'Char input'  %}
                     {% include 'take_quiz_elements/char_input_element.html' %}
-                {% elif element.get_element_type.type == 'Text input element'  %}
+                {% elif element.get_element_type.type == 'Text input'  %}
                     {% include 'take_quiz_elements/text_input_element.html' %}
-                {% elif element.get_element_type.type == 'Email input element'  %}
+                {% elif element.get_element_type.type == 'Email input'  %}
                     {% include 'take_quiz_elements/email_input_element.html' %}
-                {% elif element.get_element_type.type == 'Number input element'  %}
+                {% elif element.get_element_type.type == 'Number input'  %}
                     {% include 'take_quiz_elements/number_input_element.html' %}
                 {% elif element.get_element_type.type == 'Multiple choice question'  %}
                     {% include 'take_quiz_elements/multiple_choice_input_element.html' %}

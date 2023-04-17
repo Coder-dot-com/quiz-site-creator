@@ -83,7 +83,7 @@ def take_next_page(request, quiz_id, number, response_id):
                 answer_obj.answer = answer
                 answer_obj.save()       
         
-        elif not e.get_element_type()['type'] == 'Text element':
+        elif not e.get_element_type()['type'] == 'Text':
             try:
                 answer = request.POST[str(e.id)]
             except MultiValueDictKeyError:
@@ -92,10 +92,10 @@ def take_next_page(request, quiz_id, number, response_id):
             answer_obj.save()
         
         
-        elif e.get_element_type()['type'] == 'Text element':
+        elif e.get_element_type()['type'] == 'Text':
             answer_obj.delete()    
 
-        if e.get_element_type()['type'] == 'Email input element':
+        if e.get_element_type()['type'] == 'Email input':
             email = request.POST[str(e.id)]
             session = _session(request)
             session.email = email
@@ -164,13 +164,13 @@ def get_value_stored_in_db(request, quiz_id, element_id, response_id, question_i
 
     context['answer'] = answer
 
-    if element.get_element_type()['type'] == "Char input element":
+    if element.get_element_type()['type'] == "Char input":
         return render(request, 'take_quiz_elements/char_input_element.html', context=context)
-    elif element.get_element_type()['type'] == "Text input element":
+    elif element.get_element_type()['type'] == "Text input":
         return render(request, 'take_quiz_elements/text_input_element.html', context=context)
-    elif element.get_element_type()['type'] == "Number input element":
+    elif element.get_element_type()['type'] == "Number input":
         return render(request, 'take_quiz_elements/number_input_element.html', context=context)
-    elif element.get_element_type()['type'] == "Email input element":
+    elif element.get_element_type()['type'] == "Email input":
         return render(request, 'take_quiz_elements/email_input_element.html', context=context)
     elif element.get_element_type()['type'] == "Multiple choice question":
         return render(request, 'take_quiz_elements/multiple_choice_input_element.html', context=context)

@@ -197,7 +197,7 @@ def add_text_element(request, quiz_id, page_id):
                 form = TextElementForm(request.POST)
                 print(request.POST)
                 # If data is valid, proceeds to create a new post
-                print("Adding text element")
+                print("Adding Text")
                 print(form.errors)
                 if form.is_valid():
                     quiz_page = quiz_page[0]

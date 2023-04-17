@@ -10,7 +10,7 @@
 
         {% for element in quiz_page.get_quiz_page_elements %}
             <br><br>
-            {% if element.get_element_type.type == 'Text element' or  element.get_element_type.type == 'Char element' or  element.get_element_type.type == 'Email element' or element.get_element_type.type == 'Number element' or element.get_element_type.type == 'Multiple choice question' %}
+            {% if element.get_element_type.type == 'Text' or  element.get_element_type.type == 'Char element' or  element.get_element_type.type == 'Email element' or element.get_element_type.type == 'Number element' or element.get_element_type.type == 'Multiple choice question' %}
                 <b>{{element.get_element_type.element.title}}</b>
                 {% autoescape off %}
                     {{element.get_element_type.element.content}}
@@ -23,15 +23,15 @@
             </label>
 
 
-            {% if element.get_element_type.type == 'Char input element'  %}
+            {% if element.get_element_type.type == 'Char input'  %}
 
                 <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="text">
-            {% elif element.get_element_type.type == 'Text input element'  %}
+            {% elif element.get_element_type.type == 'Text input'  %}
 
                 <textarea class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  name="" id="" cols="30" rows="10"></textarea>
-            {% elif element.get_element_type.type == 'Email input element'  %}
+            {% elif element.get_element_type.type == 'Email input'  %}
                 <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="email">
-            {% elif element.get_element_type.type == 'Number input element'  %}
+            {% elif element.get_element_type.type == 'Number input'  %}
                 <input class="form-control my-2 border-dark" placeholder="{{element.get_element_type.element.title}}"  style="color: rgb(45, 52, 61);"  type="number">
             {% elif element.get_element_type.type == 'Multiple choice question'  %}
 

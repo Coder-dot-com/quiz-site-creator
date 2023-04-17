@@ -57,19 +57,19 @@ class QuizPageElement(models.Model):
     def get_element_type(self):
         text_element = TextElement.objects.filter(page_element=self)
         if text_element.exists():
-            return {'type': 'Text element', 'element': text_element[0]}
+            return {'type': 'Text', 'element': text_element[0]}
         char_input_element = CharInputElement.objects.filter(page_element=self)
         if char_input_element.exists():
-            return {'type': 'Char input element', 'element': char_input_element[0]}
+            return {'type': 'Char input', 'element': char_input_element[0]}
         text_input_element = TextInputElement.objects.filter(page_element=self)
         if text_input_element.exists():
-            return {'type': 'Text input element', 'element': text_input_element[0]}
+            return {'type': 'Text input', 'element': text_input_element[0]}
         email_input_element = EmailInputElement.objects.filter(page_element=self)
         if email_input_element.exists():
-            return {'type': 'Email input element', 'element': email_input_element[0]}
+            return {'type': 'Email input', 'element': email_input_element[0]}
         number_input_element = NumberInputElement.objects.filter(page_element=self)
         if number_input_element.exists():
-            return {'type': 'Number input element', 'element': number_input_element[0]}
+            return {'type': 'Number input', 'element': number_input_element[0]}
         multiple_choice = MultipleChoiceElement.objects.filter(page_element=self)
         if multiple_choice.exists():
             return {'type': 'Multiple choice question', 'element': multiple_choice[0]}
@@ -81,7 +81,7 @@ class QuizPageElement(models.Model):
             return {'type': 'Agree disagree table', 'element': agree_disagree_element[0]}
         image_display_element = ImageDisplayElement.objects.filter(page_element=self)
         if image_display_element.exists():
-            return {'type': 'Image display element', 'element': image_display_element[0]}
+            return {'type': 'Display image', 'element': image_display_element[0]}
 
 
 class ImageDisplayElement(models.Model):

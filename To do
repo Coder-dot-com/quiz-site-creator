@@ -3,7 +3,12 @@
 
 To do:
 
-    -add email to session if user logs in
+        -display image on quiz elements
+        -display on quiz render
+        -allow image quiz edit
+        -allow width percentage setting default 50%
+        -allow alignment left right or center dropdown default=center
+    
 
         -email scraper
 
