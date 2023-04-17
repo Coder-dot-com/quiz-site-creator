@@ -8,6 +8,7 @@
     <option value="MultipleChoice" id="option_MultipleChoice"></option>
     <option value="SingleChoice" id="option_SingleChoice"></option>
     <option value="AgreeDisagree" id="option_AgreeDisagree"></option>
+    <option value="ImageDisplay" id="option_ImageDisplay"></option>
 
 
 </select>
@@ -97,6 +98,16 @@ class="card  mb-0 card_choice border-3 border-white col-12 col-sm-5 " data-optio
 <div class="text-center py-2">
    <h4 class="card-title border border-dark border-3 p-3">Email input</h4>
    <p class="text-small">Capture email addresses easily with this element</p>
+
+   <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+</div>
+</div>
+
+<div role="button" onclick="SelectDeselect(this);" id="card_ImageDisplay"
+class="card  mb-0 card_choice border-3 border-white col-12 col-sm-5 " data-option=ImageDisplay style="min-width:8rem;border:3px solid white;">
+<div class="text-center py-2">
+   <h4 class="card-title border border-dark border-3 p-3">Add Image</h4>
+   <p class="text-small">Upload and display your own image</p>
 
    <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
 </div>

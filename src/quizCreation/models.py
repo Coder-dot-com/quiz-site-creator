@@ -79,7 +79,14 @@ class QuizPageElement(models.Model):
         agree_disagree_element = AgreeDisagree.objects.filter(page_element=self)
         if agree_disagree_element.exists():
             return {'type': 'Agree disagree table', 'element': agree_disagree_element[0]}
+        image_display_element = ImageDisplayElement.objects.filter(page_element=self)
+        if image_display_element.exists():
+            return {'type': 'Image display element', 'element': image_display_element[0]}
 
+
+class ImageDisplayElement(models.Model):
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to='user_quiz_images/')
 
 class TextElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)

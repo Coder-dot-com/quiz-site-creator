@@ -30,6 +30,7 @@ urlpatterns = [
     path('add_multiple_choice_element/<quiz_id>/<page_id>', views_htmx.add_multiple_choice_element, name="add_multiple_choice_element"),
     path('add_single_choice_element/<quiz_id>/<page_id>', views_htmx.add_single_choice_element, name="add_single_choice_element"),
     path('add_agree_disagree_element/<quiz_id>/<page_id>', views_htmx.add_agree_disagree_element, name="add_agree_disagree_element"),
+    path('add_image_display_element/<quiz_id>/<page_id>', views_htmx.add_image_display_element, name="add_image_display_element"),
 
 
 

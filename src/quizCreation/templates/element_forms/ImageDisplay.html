@@ -1,0 +1,124 @@
+<div id="imageDisplayModal">
+
+<div class="modal-header">
+    <h5 class="modal-title">{% if edit %}Edit {% else %} Add {% endif %}image</h5>
+    <button type="button" class="close" data-dismiss="modal"><span>×</span>
+    </button>
+</div>
+<div class="modal-body">
+
+<form id="user_image_{{user_quiz.id}}"
+      hx-encoding='multipart/form-data'
+      {% if edit %}
+      {% comment %} hx-post={% url '' %} {% endcomment %}
+      {% else %}
+      hx-post="{% url 'add_image_display_element' user_quiz.id quiz_page.id %}"
+      {% endif %}
+      hx-trigger="change"
+      hx-target="#imageDisplayModal"
+      hx-swap="outerHTML"
+      hx-indicator="#spinner_{{user_quiz.id}}"
+      class="my-5"
+      >
+
+
+    {% if element.image %}
+        <div class="col-12 my-2">
+            <h5 class="text-center">Current image</h5>
+        </div>
+        <div class="row">
+            <div class=" mx-auto">
+                <center>
+                    <div class="userImageUpload">
+                        <img class="" src="{{element.image.url}}" alt="">
+                    </div>
+                  
+                </center>
+            </div>
+        </div>
+
+    {% endif %}
+
+
+
+    <label class="btn btn-primary site-button" style="width:100%"
+    >
+        Add an image
+        <br>
+        <input name="image"
+               class="d-none form-control
+                      required" style="display:none;" type="file" accept="image/*"
+
+        />
+    </label>
+
+    {% if error %}
+        <br><br>
+        <span class="small text-danger">
+            Please check image has been uploaded by refreshing the page
+        </span>
+
+    {% endif %}
+
+    <center id="spinner_{{user_quiz.id}}">
+
+        <div  class="spinner-border text-dark my-4" role="status">
+        </div>
+
+    </center>
+    <style>
+        #spinner_{{user_quiz.id}}{
+            opacity:0;
+            transition: all 500ms ease-in;
+            display:none;
+
+
+        }
+
+        .htmx-request #spinner_{{user_quiz.id}}{
+            opacity:1;
+            display: block;
+
+
+        }
+        .htmx-request#spinner_{{user_quiz.id}}{
+            opacity:1;
+            display: block;
+        }
+
+
+    </style>
+
+
+    <style>
+        @media (min-width: 600px){
+            .userImageUpload {
+                max-width: 80%; /*set max width*/
+                max-height: 40%;
+            }
+            .userImageUpload img{
+                width:100%;
+                object-fit:contain;
+            }
+
+
+        }
+        @media (max-width: 600px){
+            .userImageUpload {
+                max-width: 70%; /*set max width*/
+                max-height: 50%;
+            }
+            .userImageUpload img{
+                width:100%;
+                object-fit:contain;
+            }
+
+
+        }
+
+    </style>
+</form>
+</div>
+
+
+
