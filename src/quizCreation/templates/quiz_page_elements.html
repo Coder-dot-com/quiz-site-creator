@@ -46,12 +46,17 @@
                         </span>
                     </a>
 
-                <div class="modal fade" id="editModal_{{element.element.page_element.id}}">
+                <div class="modal fade" id="editModal_{{element.element.page_element.id}}" data-backdrop="static">
                     <div class="modal-dialog" role="document">
                         <div class="modal-content" id="editModalContent{{element.element.page_element.id}}">
                             <div class="modal-header">
                                 <h5 class="modal-title">Editing element</h5>
-                                <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                <button type="button" class="close" data-dismiss="modal"
+                                hx-trigger="click"
+                                hx-target="#page_elements"
+                                hx-swap=outerHTML
+                                hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+                                ><span>×</span>
                                 </button>
                             </div>
                             <form id="edit_element_form{{element.element.id}}"

@@ -33,7 +33,7 @@
                     Select an element to add
                     <i class="fa fa-plus"></i>
                 </button>
-                <div class="modal fade" id="exampleModalCenter" style="display: none;" aria-hidden="true">
+                <div class="modal fade" id="exampleModalCenter" style="display: none;" aria-hidden="true" data-backdrop="static"> 
                     <div  class="modal-dialog modal-dialog-centered" role="document">
                         {% include 'element_forms/all_elements_swatches.html' %}
                     </div>
@@ -44,5 +44,13 @@
 </div>
 
 </div>
+
+<script>
+
+    $("#exampleModalCenter").on("hidden.modal", function () {
+        // put your default event here 
+        console.log("a")
+    });
+</script>
 
 {% endblock content %}
