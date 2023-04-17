@@ -95,6 +95,11 @@ def take_next_page(request, quiz_id, number, response_id):
         elif e.get_element_type()['type'] == 'Text element':
             answer_obj.delete()    
 
+        if e.get_element_type()['type'] == 'Email input element':
+            email = request.POST[str(e.id)]
+            session = _session(request)
+            session.email = email
+            session.save()
     
     response_object.steps_completed = number
     response_object.save()

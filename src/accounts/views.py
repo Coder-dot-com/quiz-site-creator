@@ -123,6 +123,7 @@ def login_view(request):
                 old_session.session_id = new_id
             
             old_session.user = user
+            old_session.email = username
             old_session.save()
 
             return redirect('dashboard_home')

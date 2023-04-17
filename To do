@@ -3,8 +3,9 @@
 
 To do:
 
+    -add email to session if user logs in
 
-        -add fb capi to user quizes 
+        -send 20 emails manually
 
 
         -email scraper

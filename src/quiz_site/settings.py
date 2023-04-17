@@ -196,7 +196,6 @@ INSTALLED_APPS = [
 
     'quizCreation',
     'quizRender',
-    'quizPost',
     'quizData',
     'quizConversionTracking',
 ]
