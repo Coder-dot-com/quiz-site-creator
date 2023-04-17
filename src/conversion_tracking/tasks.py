@@ -65,7 +65,7 @@ def conversion_tracking(event_name, event_id, session_id=None, category_id=None,
     print("Attempting to get fbp")
     latest_fbp_loop_count = 0
 
-    if not event_name == "PageView":
+    if not event_name == "PageView" or not event_name =="ViewContent":
 
         while (not session.latest_fbp or not session.email) and latest_fbp_loop_count < 30: 
             #Need to get session.email before increasing loop count

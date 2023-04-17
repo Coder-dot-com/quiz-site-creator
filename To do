@@ -5,16 +5,18 @@ To do:
 
     -add email to session if user logs in
 
-        -send 20 emails manually
-
-
         -email scraper
 
+        -send 10 emails manually
 
-        
+
+
         -image element
         -video element
         -prevent modal from closing when clicking outside
+
+        -setup for other store
+            
 
     -satisfied/unsatisfied element
 -scrape emails
