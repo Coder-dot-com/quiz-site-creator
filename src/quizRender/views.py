@@ -12,6 +12,9 @@ from datetime import datetime, timedelta, timezone
 from django.urls import reverse
 from emails.tasks import subscription_cancelled
 from subscriptions.models import UserPaymentStatus, UserSubscriptions
+from common.util.functions import event_id
+from quizConversionTracking.tasks import conversion_tracking_user_quiz
+
 # Create your views here.
 @login_required
 def preview_quiz(request, quiz_id):
@@ -91,6 +94,29 @@ def take_quiz(request, quiz_id):
             
             print("TAKE UQUIZ")
             
+            pv_event_unique_id = event_id()
+            vc_event_unique_id = event_id()
+
+            context['pv_event_unique_id'] = pv_event_unique_id
+            context['vc_event_unique_id'] = vc_event_unique_id
+
+
+            event_source_url = request.META.get('HTTP_REFERER')
+
+            session = _session(request)
+
+            try:
+                # Need to fix this to ensure different ids
+                conversion_tracking_user_quiz.delay(event_name="PageView", event_id=pv_event_unique_id, event_source_url=event_source_url, quiz_id=quiz_id, session_id=session.session_id)  
+                conversion_tracking_user_quiz.delay(event_name="ViewContent", event_id=vc_event_unique_id, event_source_url=event_source_url,quiz_id=quiz_id, session_id=session.session_id)  
+
+                print("tracking conversionuser quiz")
+            except Exception as e:
+                print("failed conv tracking")
+                print(e)
+
+
+
             return render(request, 'take_quiz.html', context=context)
         else:
             return HttpResponse("The quiz owners subscription has expired. Quiz is currently unavailable")
@@ -152,6 +178,28 @@ def complete_quiz(request, quiz_id, number, response_id):
     response.save()
 
     print("redirect")
+
+
+
+    pv_event_unique_id = event_id()
+    vc_event_unique_id = event_id()
+    lead_event_unique_id = event_id()
+    context['pv_event_unique_id'] = pv_event_unique_id
+    context['vc_event_unique_id'] = vc_event_unique_id
+    context['lead_event_unique_id'] = lead_event_unique_id
+    event_source_url = request.META.get('HTTP_REFERER')
+    session = _session(request)
+    try:
+        conversion_tracking_user_quiz.delay(event_name="PageView", event_id=pv_event_unique_id, event_source_url=event_source_url, quiz_id=quiz_id, session_id=session.session_id)  
+        conversion_tracking_user_quiz.delay(event_name="ViewContent", event_id=vc_event_unique_id, event_source_url=event_source_url,quiz_id=quiz_id, session_id=session.session_id)  
+        conversion_tracking_user_quiz.delay(event_name="Lead", event_id=lead_event_unique_id, event_source_url=event_source_url,quiz_id=quiz_id, session_id=session.session_id)  
+        print("tracking conversionuser quiz")
+    except Exception as e:
+        print("failed conv tracking")
+        print(e)
+
+
+
     if quiz.redirect_url:
         return redirect(quiz.redirect_url)
     return render(request, 'quiz_completed.html', context=context)

@@ -43,4 +43,11 @@
 {% autoescape off %}
 {{user_quiz.analytics_scripts}}
 {% endautoescape %}
+
+<script>
+    fbq('track', 'PageView', {}, {eventID: '{{pv_event_unique_id}}'});
+    fbq('track', 'ViewContent', {}, {eventID: '{{vc_event_unique_id}}'});
+    fbq('track', 'Lead', {}, {eventID: '{{lead_event_unique_id}}'});
+
+</script>
 {% endif %}
