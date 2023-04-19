@@ -49,7 +49,7 @@
                 <div class="modal fade" id="editModal_{{element.element.page_element.id}}" data-backdrop="static">
                     <div class="modal-dialog" role="document">
                         {% if not element.type == "Image" %}
-                        <div class="modal-content" id="editModalContent{{element.element.page_element.id}}">
+                            <div class="modal-content" id="editModalContent{{element.element.page_element.id}}">
 
 
                                 <div class="modal-header">
@@ -127,18 +127,18 @@
 
                                 </form>
                             </div>
-                            {% else %}
+                        {% else %}
 
-                                <div
-                                    hx-swap=outerHTML
-                                    hx-trigger=load
-                                    hx-get={% url 'edit_image_element' user_quiz.id quiz_page.id element.element.id %}
-                                >
+                            <div
+                                hx-swap=outerHTML
+                                hx-trigger=load
+                                hx-get={% url 'edit_image_element' user_quiz.id quiz_page.id element.element.id %}
+                            >
 
-                                </div>
+                            </div>
 
 
-                            {% endif %}
+                        {% endif %}
 
                     </div>
                 </div>

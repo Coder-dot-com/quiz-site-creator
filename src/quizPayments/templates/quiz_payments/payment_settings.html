@@ -4,7 +4,7 @@
     hx-swap="outerHTML"
     hx-target="#payment_modal"
     hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
-    class="mb-5 pb-5" autocomplete="off"
+    class="mb-2 pb-2" autocomplete="off"
 
 >
     <h4>Step 1. Integrate Stripe payments to quiz</h4>
@@ -31,22 +31,22 @@
                     </tr>
                 </thead>
 
-                    <tr>
-                       
-                        <td>
-                            {{user_quiz.stripe_public_key}}
-                        </td>
-                       
-                        <td>
-                            <a type="button"
-                                hx-post={% url 'delete_stripe_integration' user_quiz.id %}
-                                hx-swap="outerHTML"
-                                hx-target="#payment_modal"
-                            >
-                                Delete <i class="fa fa-trash"></i>
-                            </a>
-                        </td>
-                    </tr>
+                <tr>
+
+                    <td>
+                        {{user_quiz.stripe_public_key}}
+                    </td>
+
+                    <td>
+                        <a type="button"
+                           hx-post={% url 'delete_stripe_integration' user_quiz.id %}
+                           hx-swap="outerHTML"
+                           hx-target="#payment_modal"
+                        >
+                            Delete <i class="fa fa-trash"></i>
+                        </a>
+                    </td>
+                </tr>
 
 
             </table>
@@ -69,12 +69,12 @@
         <input type="text" class="form-control input-default " placeholder="Enter token" name="stripe_public_key" required>
         <div class="form-label">
             <strong>
-    
+
                 Stripe secret key:
             </strong>
         </div>
         <input type="text" class="form-control input-default " placeholder="Enter id" name="stripe_secret_key" required>
-    
+
         <button type="submit" class="float-right btn btn-primary site-button w-100">Add integration</button>
     {% endif %}
 

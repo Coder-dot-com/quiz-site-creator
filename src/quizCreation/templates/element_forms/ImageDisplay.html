@@ -1,5 +1,5 @@
 
-        <div class="modal-content" id="editModalContent{{element.page_element.id}}">
+<div class="modal-content" id="editModalContent{{element.page_element.id}}">
 
     <div class="modal-header">
         <h5 class="modal-title">{% if edit %}Edit {% else %} Add {% endif %}image</h5>
@@ -19,11 +19,11 @@
 
               {% if edit %}
                   hx-post="{% url 'edit_image_element' user_quiz.id quiz_page.id element.id %}"
-                  
-                  {% else %}
+
+              {% else %}
                   hx-post="{% url 'add_image_display_element' user_quiz.id quiz_page.id %}"
-                  {% endif %}
-                  hx-target="#editModalContent{{element.page_element.id}}"
+              {% endif %}
+              hx-target="#editModalContent{{element.page_element.id}}"
 
               hx-trigger="change"
               hx-swap="outerHTML"
@@ -57,7 +57,7 @@
             >
                 Add an image
 
-            
+
                 <br>
                 <input name="image"
                        class="d-none form-control

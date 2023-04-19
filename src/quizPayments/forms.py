@@ -8,7 +8,7 @@ class ProductCreateForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         for visible in self.visible_fields():
-            visible.field.widget.attrs['class'] = 'form-control input-default w-100 '
+            visible.field.widget.attrs['class'] = 'form-control input-default border-dark w-100'
 
     description = forms.CharField(widget=CKEditorUploadingWidget())
         

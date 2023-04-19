@@ -12,6 +12,10 @@ class Product(models.Model):
     description = RichTextUploadingField(null=True, blank=True)
     require_shipping_information = models.BooleanField(default=False)
 
+    def get_images(self):
+        return ProductImage.objects.filter(product=self)
+
+
 
 class ProductImage(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
