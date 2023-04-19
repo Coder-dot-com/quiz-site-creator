@@ -4,9 +4,7 @@
 -email scraper
 
 To do:
-    -Add delete button to product
-    -Allow adding images to product htmx
-        -Move to seprate new page add text saying must complete accept payments using quiz on previous page for product to be displayed at quiz end t
+    -render buy now
 
     -Image carousel element
 

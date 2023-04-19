@@ -15,6 +15,8 @@ from subscriptions.models import UserPaymentStatus, UserSubscriptions
 from common.util.functions import event_id
 from quizConversionTracking.tasks import conversion_tracking_user_quiz
 
+from quizPayments.models import Product
+
 # Create your views here.
 @login_required
 def preview_quiz(request, quiz_id):
@@ -169,6 +171,10 @@ def complete_quiz(request, quiz_id, number, response_id):
     context = {}
     context['user_quiz'] = quiz
     context['response_id'] = response_id
+    try:
+        context['product'] = Product.objects.get(quiz=quiz)
+    except Product.DoesNotExist:
+        pass
 
    
     response = response_object

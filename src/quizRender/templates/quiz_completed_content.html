@@ -15,10 +15,7 @@
                 </div>
             {% endif %}
 
-
         </div>
-
-
 
         {% if user_quiz.redirect_url %}
             <script>
@@ -28,11 +25,103 @@
             {% autoescape off %}
                 {{user_quiz.quiz_confirmation_content}}
             {% endautoescape %}
-
-        {% else %}
+ 
+        {% elif not product %}
             <h3 class="text-center">
                 Quiz Successfully completed!
             </h3>
+        {% endif %}
+
+        {% if product %}
+
+        <div class="row">
+            <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
+            <!-- Tab panes -->
+                <div class="tab-content">
+
+                    <div >
+                        <a id="imageLink" href="{{product.get_images.0.image.url}}" target="_blank">
+
+                            
+                            <img id="mainImage" src="{{product.get_images.0.image.url}}" alt="" style="width:100%">
+                        </a>
+                    </div>
+
+
+                    <div class="card-body pb-1">
+                        <div id="" class="row">
+
+                            {% for i in product.get_images %}
+                            <a  
+                            onClick="document.querySelector('#mainImage').src='{{i.image.url}}';document.querySelector('#imageLink').href='{{i.image.url}}'" 
+                            class="col-lg-3 col-md-6 mb-4">
+                                <img src="{{i.image.url}}" style="width:100%;"/>
+                            </a>
+                            {% endfor %}
+                            
+                        </div>
+                    </div>
+                 
+                </div>
+            
+            </div>
+        <!--Tab slider End-->
+            <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
+                <div class="product-detail-content">
+                <!--Product details-->
+                    <div class="new-arrival-content pr">
+                        <h2>{{product.name}}</h2>
+                        {% comment %} <div class="comment-review star-rating">
+                            <ul>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star"></i></li>
+                                <li><i class="fa fa-star-half-empty"></i></li>
+                                <li><i class="fa fa-star-half-empty"></i></li>
+                            </ul>
+                            <span class="review-text">(34 reviews) / </span><a class="product-review" href="" data-toggle="modal" data-target="#reviewModal">Write a review?</a>
+                        </div> {% endcomment %}
+                        <div class="d-table mb-2">
+                            <p class="price float-left d-block">{{product.currency.currency_symbol}}{{product.price}} {{product.currency}}</p>
+                        </div>
+                   
+                        <p class="text-content">{{product.description|safe}}</p>
+               
+                    {% comment %} <!--Quantity start-->
+                        <div class="col-2 px-0">
+                            <input type="number" name="num" class="form-control input-btn input-number" value="1">
+                        </div> {% endcomment %}
+                    <!--Quanatity End-->
+                        <div class="shopping-cart mt-3">
+                            <a 
+                            data-toggle="modal" data-target="#exampleModalLong"
+                            
+                            class="btn btn-primary btn-lg" href="javascript:void(0)"><i class="fa fa-shopping-basket mr-2"></i>
+                                Buy now</a>
+                        </div>
+                        <div class="modal fade" id="exampleModalLong">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">Buy now</h5>
+                                        <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                                        <button type="submit" class="btn btn-primary">Continue</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         {% endif %}
 
 
