@@ -1,0 +1,46 @@
+<form
+    id="create_product"
+    hx-post={% url 'create_product' user_quiz.id %}
+    hx-swap="outerHTML"
+    hx-target="#create_product"
+    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+    class="my-5" autocomplete="off"
+
+>
+    <h4>Step 2. Create a product</h4>
+    {% if product %}
+        <div class="table-responsive my-3">
+            <h6>Added Product</h6>
+
+            <center class="my-4">
+                <strong>
+                    Product added edit details below
+                </strong>
+            </center>
+
+    {% else %}
+
+
+        <center class="my-4">
+            <strong>
+                Currently no product added
+            </strong>
+        </center>
+
+            {{form.media}}
+    {% for field in form %}
+    <label class="form-label">
+        {{field.label_tag }}
+    </label>
+        {{field}}
+    {% endfor %}
+
+
+    <button type="submit" class="float-right btn btn-primary site-button w-100">
+        {% if product %}
+        Edit
+        {% endif %} Add product</button>
+
+    {% endif %}
+
+</form>

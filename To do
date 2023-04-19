@@ -1,278 +1,112 @@
 -Charge £15 for now once start running paid ads charge £30+
 -Before running ads everything has to be perfect and set up
 
+-email scraper
+
 To do:
+    -Add product to quiz end
+    -allow adding product to quiz
+        -Move to seprate new page add text saying must complete accept payments using quiz on previous page for product to be displayed at quiz end t
 
-        -display on quiz render (50%width and center max-height 10rem;)
-        -allow width percentage setting default 50%
-        -allow alignment left right or center dropdown default=center
-    
-
-        -email scraper
-
-        -send 10 emails manually
+    -Image carousel element
 
 
+        -setup for other store (stripe product payment option with priced variations)
+            -setup quiz for jewelry
+            - send 10 emails
+            - start creating fb ads for jewelry
+        -User image upload (same size just clean)
+            -Select a fair price
 
-        -image element
-        -video element
-        -prevent modal from closing when clicking outside
+        -set product price to be in user chosen currency for quiz add to product model for now default is gbp
+        -open image in new tab if clicked
 
-        -setup for other store
-            
+        -satisfied/unsatisfied element
+        -Create 1-10 question with slider input
+        -Create 1-5 star review 
+        -Create address component
 
-    -satisfied/unsatisfied element
--scrape emails
-   -send emails manually to 10 people on 17/04 (double each day to 40) then automate
-
-        -Test
-        
-        -find keywords to use to scrape emails
-        -Scrape emails
-
-        -setup facebook pixel and capi (make sure first email apssd is used for capi or if multiple email fields suer can edit and there is a boolean sayin guse for email in facebook capi and tiktok)
-        -setu google analytics
- 
-        -Ready with one audience to test emails
-
-
-    -move all vc and pv tracking CAPI to context processor
-    -post sign up email flow ensure sendinblue is working
-
-    -add email optin option to quiz
-    -mark as correct (at quiz completion)
-
-        -make sure google and bing cna't crawl/access take quiz pages
-
-
-    -Create 1-10 question with slider input
-    -Create 1-5 star review 
-
-    -email custoemr surveys for people from a new domain and use subdomains
-    -Fix cancel adn go back focus enter should continue not go back
-    -Fix account & billing pages
-
-    -progress bar
-    -num of quiz views in response data
-    -graphs for all questions that are multiple choice/single/mostlyagree disagre/number input?
-    
-
-    -when user clickc ancel susbcription resell beneftis and then offer discount also ask why unsubscribing
-
-    -download csv (disabled for now re-enable with handling of AgreeDisagree)
-        -Complete job coding project
-
-
-        -Create zapier integration 
-            - send answer to question xyz as "name" "email" etc.. to zapier
-            - send all response to zapier
-        later:
-
-            -Add image to page (AWS resize to max 2000px otherwise just clean) (enter percentage of width to cover, and also center )
-            -User image upload (same size just clean)
-            -Add icons to element swatches
-
-             -edit text element
-
-             -telephone number input
-
-        
-        -When first creating quiz select quiz goal (use swatches with modal)
-        
-            -if trivia:
-                -Add ability for quiz to be marked (multiple choice and single choice questions only)
-                    -have to get all multiple choice answers to count
-                    -calculate score for end of quiz
-            -if leads
-                -CAPI
-                -TikTok, Facebook
-                -with data enrichment options
-
-            -Prouct customization
-                -product page at end/ability to choose variant and pay
-
-            -No goal/general quiz
-
-        -schedule currency rate update celery beat task
-
-    -Create landing pages
-    -Home page
+        -templates (useful for seo purposes aswell create new app? template/xyzurl no s)
+        -Select quiz goal on creation name > quiz goal (swatch)
 
         -introjs onboarding tutorial
             -different tutorial for each audience
 
-    -Support FAQ/site
-    =Where says on completion quiz successfully completed  rediret to our hom peage after 3 seconds
+
+        -change bg color quiz and font color (started as color settings.html)
+        -video element
+
+
+
+        -mark as correct (at quiz completion)
+
+        -make sure google and bing cna't crawl/access take quiz pages
+        
+            
+        -email custoemr surveys for people from a new domain (use sendinblue? or other smtp)
+
+        <iframe embed> create
+
+        -add email optin option dropdown select ask for for email optin if yes then optin text and render in responses
+
+        -Make quiz confirmation modular with elements
+
+    -move all vc and pv tracking CAPI to context processor
+    -post sign up email flow ensure sendinblue is working
+    -Fix cancel adn go back focus enter should continue not go back
+    -progress bar
+    -graphs for all questions that are multiple choice/single/mostlyagree disagre/number input?
+    -when user clickc ancel susbcription resell beneftis and then offer discount also ask why unsubscribing
+    -download csv (disabled for now re-enable with handling of AgreeDisagree)
+        -Complete job coding project
+        -Create zapier integration 
+            - send answer to question xyz as "name" "email" etc.. to zapier
+            - send all response to zapier
+        later:
+            -Add icons to element swatches
+            -telephone number input
+
+         -allow alignment left right or center dropdown default=center for image element
+
+
+        -schedule currency rate update celery beat task
+
+   
+
     -email and password changes switch to htmx
-    -add in bootstrap form validation was-validated...
+        -add in bootstrap form validation was-validated...
 
     -make page load faster with pagepseed and gtmetrix
+    -Support FAQ/site
+        -email response results automatically per quiz (settings)
+
+    -allow adding product variants to quiz
+
     ================================================
     
-    <iframe embed> create
 
-    Later add these elements:
-        -pdf file ipload (clean using AWS lambda) (convert to image then image to pdf)
-        -Embed video link
-        -Upload video as quiz owner (AWS )
-        -1-10 (use single choice? and auto create)
-        - 1-5 stars( use single choice)
+
     later:
-        -change bg color quiz and 
 
-        -email results automatically per quiz (settings)
+        -email response results automatically per quiz (settings)
 
-        -duplicate quiz  (started)
-
-         -add links to header
-
+        -duplicate quiz
 
         -add qrcode scan btn link(modal with image that has a print button), 
         structure
 
 
--Create layout/pages with content to display and use as mockups
--then use this is asset for purchases/landing page
+           
+    -Exit intent popup
+    -Add subscription to payment options for quiz product
 
--deploy
-
-Improve UserSession display, make sure/ensure pixel is being added to page (copy from allmed)
-
-Later:
-    -Change blog link header to dropdown with 3 posts and link to all posts
-
-
--ensure all susbcriptions/payments   have email passed to stripe 
-use metadata
--can add later after launch
-            -sales video/GIF
-            -Guarantee
-            -Reviews
-            -Customer video reviews
-            -FAQ
-            -Exit intent popup
-
--got through UX, design, CRO and improve again
-
-
-To do blog:
-            -Improve intro, create new template for blogpage
-            
-            -Then add email sign up etc... (copy from diet site)
-            -email capture?
-                -Sidebar of blog
-                -home page
-                
-            
-        -Imrpove design. go through home site
-            
-
-===Todo Blog Later ====
--autogenerate posts
-
-===User session====
-Update conv tracking (copy from diet site)
-
-
-===== Deployment scripts ========
--finish flatten migrations script (before deploying)
-
-
-==== Quiz ========
-
--Add subscription to payment options for quiz product
-
--Create lead capture landing page     
-        -add name capture also and to template
-            -sync to SIB?
--make quiz htmx and based on main site
-
--Add auto create/fill quiz with questions linked to preferences
-    - using quiz that sets preferences intiially o
--Duplicate quiz functionality
--Rework question pages (many fields not required e.g. video) and add new ones
-    -rework quiz template accordingly
-
-
--improve email templates
-    -Basic logo at top with title and text
-
--Add yes or no confirm before user can cancel subscription (with copy from db)
-
-
-Other:
-
--Improve ad tracking via ads api collating data to django?
-    -can then compare to on site data
-
-
--Once user clicks susbcribe add a spinner (htmx)
-
--currency conversion/ subscriptions:
-
-    Other to do later:
-            #delete/make inactive existing stripe plans (not user susbcriptions) using the stripe product id
-            -Add auto create plan if no prod id supplied 
-
-
-
-Other (do later (added:6th July 22)):
-    -fb CAPI pass subscription ID
-    -Quiz with server side rendering and htmx?
-    -can cosnider fire event before full data 
-    -Fire same event with same event id only change is email/more data may become available
-    - Create auto fb post functionality ? lambda that runs daily and queries s3 for images/quotes
-    - Create footer for dashboard and homepage, if user logged in hide email capture
-    -improve subscription confirmed template
-
-    -Analytics
-    fire  CAPI for quiz more than 25% 50% 75% completion etc....
-    later on can also add pixel, for retargeting 
-    -Simulate failed payments and needs authentication payments
-
-
-    -change email unsubscribe     
-        -link has a encoded token which contains reference to email
-        -on click link is decoded and email gotten and email displayed and user asked if would like to...
-        -Create a views_htmx and yes sends a post request and returns resposne
-        -No redirects to homepage
-
-
--Improve exclusion by user agent i.e. save to a new model and check against this (improve the display so can easily see which is excluded and isn't)
-    -remove current field is excluded and change to a check against this model for the admin display
-    (see memorial site)
     -If session is more than 1 month old delete (celery task?)
-
-
-
-Add subscripton table component so can include this anywhere similar to dashboard with currency conv and annual toggle, free trial banner, savings etc...
-
--With suvbscription currency conv use new prices instead of creating new product
-
-
-                Allow users to upgrade/downgrade plan in 1 step:
-                    On subscription page if user has plan 
-                        -If current plan add tag to say Active with grey bg
-                        Change subscribe to upgrade/downgrade with separate
-                        views to handle these
-                    -see sync expiry for handling upgrade/downgrade
-
-                    -If user upgrades plan pro rate discount by using free trial days
-                        for remaining days equivalent  (make this clear to user also)
-                        -remember to cancel previous subscription and create a new one
-                    
-
-                    If user wants to downgrade your plan, the change will take effect on next 
-                    billing date, 
-
-                
-                -allow users to switch to annual
-
 
 create enterprise plan contact us form
                     (has a plan but also contact us create a form for this modal popup if custom requirements)
 
-                
-                new user free trial days should be stored in subscripotionchocies
-                and free trial days for subscription set using this
+      
+
+
+
         

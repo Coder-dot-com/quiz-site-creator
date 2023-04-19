@@ -1,0 +1,83 @@
+<form
+    id="payment_modal"
+    hx-post={% url 'add_stripe_integration' user_quiz.id %}
+    hx-swap="outerHTML"
+    hx-target="#payment_modal"
+    hx-headers='{"X-CSRFToken": "{{ csrf_token }}"}'
+    class="mb-5 pb-5" autocomplete="off"
+
+>
+    <h4>Step 1. Integrate Stripe payments to quiz</h4>
+    <p>Note: Payments can only be accepted at the end of the quiz provided no redirect has been setup on the quiz completion page</p>
+    {% if user_quiz.stripe_public_key %}
+        <div class="table-responsive my-3">
+            <h6>Added integration</h6>
+
+            <table class="table header-border table-responsive-sm">
+                <thead>
+                    <tr>
+                        <td>
+                            <strong>
+                                Public key
+                            </strong>
+
+                        </td>
+
+                        <td>
+                            <strong>
+                                Delete?
+                            </strong>
+                        </td>
+                    </tr>
+                </thead>
+
+                    <tr>
+                       
+                        <td>
+                            {{user_quiz.stripe_public_key}}
+                        </td>
+                       
+                        <td>
+                            <a type="button"
+                                hx-post={% url 'delete_stripe_integration' user_quiz.id %}
+                                hx-swap="outerHTML"
+                                hx-target="#payment_modal"
+                            >
+                                Delete <i class="fa fa-trash"></i>
+                            </a>
+                        </td>
+                    </tr>
+
+
+            </table>
+        </div>
+
+    {% else %}
+
+
+        <center class="my-4">
+            <strong>
+                Currently no Stripe integration added
+            </strong>
+        </center>
+
+        <div class="form-label">
+            <strong>
+                Stripe public key
+            </strong>
+        </div>
+        <input type="text" class="form-control input-default " placeholder="Enter token" name="stripe_public_key" required>
+        <div class="form-label">
+            <strong>
+    
+                Stripe secret key:
+            </strong>
+        </div>
+        <input type="text" class="form-control input-default " placeholder="Enter id" name="stripe_secret_key" required>
+    
+        <button type="submit" class="float-right btn btn-primary site-button w-100">Add integration</button>
+    {% endif %}
+
+
+
+</form>

@@ -47,6 +47,7 @@ urlpatterns = [
     path('render_quiz/', include('quizRender.urls')),
     path('quiz_data/', include('quizData.urls')),
     path('quiz_conversion_tracking/', include('quizConversionTracking.urls')),
+    path('quiz_payments/', include('quizPayments.urls')),
 
 
 

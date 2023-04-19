@@ -15,6 +15,9 @@ class UserQuiz(models.Model):
     analytics_scripts = models.TextField(max_length=10000, null=True, blank=True)
     redirect_url = models.URLField(max_length=10000, null=True, blank=True)
     quiz_confirmation_content = RichTextUploadingField(null=True, blank=True)
+    stripe_public_key = models.CharField(max_length=10000, null=True, blank=True)
+    stripe_secret_key = models.CharField(max_length=10000, null=True, blank=True)
+
 
 #html field with image ckeditor
 #redirect url

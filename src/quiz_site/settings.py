@@ -198,6 +198,7 @@ INSTALLED_APPS = [
     'quizRender',
     'quizData',
     'quizConversionTracking',
+    'quizPayments',
 ]
 
 MIDDLEWARE = [

@@ -49,7 +49,7 @@
                 </div>
 
                 <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' user_quiz.id %}" type="button" class="btn btn-primary site-secondary-button mb-2 ml-auto ">Link to take quiz</a>
-                <a href="{% url 'edit_quiz_completion_page' user_quiz.id %}" type="button" class="btn btn-primary site-secondary-button mb-2 ml-auto text-right">Edit quiz completion page </a>
+                <a href="{% url 'edit_quiz_completion_page' user_quiz.id %}" type="button" class="btn btn-primary site-secondary-button mb-2 ml-auto text-right">Edit quiz end </a>
 
                 <button type="button" class="btn btn-primary site-secondary-button  mb-2 ml-auto text-right" data-toggle="modal" data-target="#quizSettingsModal">Quiz settings</button>
 
@@ -65,7 +65,32 @@
                                 {% include 'quiz_conversion_tracking/conversion_api.html' %}
                                 {% include 'quiz_settings/logo_upload_form.html' %}
                                 {% include 'quiz_settings/analytics_script_form.html' %}
+                                {% include 'quiz_settings/color_settings.html' %}
 
+
+                            </div>
+                            <div class="text-center mb-3 pb-1">
+                                <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+                <button type="button" class="btn btn-primary site-secondary-button  mb-2 ml-auto text-right" data-toggle="modal" data-target="#quizPaymentSettings">Accept payments</button>
+
+                <div class="modal fade" id="quizPaymentSettings">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title">Accept payments using quiz</h5>
+                                <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                {% include 'quiz_payments/payment_settings.html' %}
+
+                              
 
 
                             </div>
