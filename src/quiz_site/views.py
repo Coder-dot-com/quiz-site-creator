@@ -7,6 +7,12 @@ from conversion_tracking.tasks import conversion_tracking
 from session_management.models import Category
 from session_management.views import _session
 from blog.models import BlogPage
+import stripe
+from quiz_site.settings import STRIPE_SECRET_KEY
+from django.contrib import messages
+from quizPayments.models import Order
+
+stripe.api_key = STRIPE_SECRET_KEY
 
 def home(request):
 
@@ -34,6 +40,21 @@ def home(request):
     except Exception as e:
         print("failed conv tracking")
         print(e)
+
+
+    if request.GET.get('payment_intent', None):
+        
+        payment_intent = stripe.PaymentIntent.retrieve(
+        request.GET.get('payment_intent'),
+        )   
+
+        print(payment_intent) 
+        if payment_intent['status'] == "succeeded":
+            order = Order.objects.get(payment_intent_id=request.GET.get('payment_intent'))
+            order.is_paid = True
+            order.save()
+
+            messages.success(request, f"Order placed, you should receive an email with your order details soon! Your order number is {order.number}.")
     return render(request, 'home_site2/index.html', context=context)
 
 

@@ -172,9 +172,11 @@ def complete_quiz(request, quiz_id, number, response_id):
     context['user_quiz'] = quiz
     context['response_id'] = response_id
     try:
-        context['product'] = Product.objects.get(quiz=quiz)
+        product = Product.objects.get(quiz=quiz)
+        context['product'] = product
     except Product.DoesNotExist:
-        pass
+        product = None
+
 
    
     response = response_object

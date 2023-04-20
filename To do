@@ -5,6 +5,7 @@
 
 To do:
     -render buy now
+        -check if productrewuires shipping info
 
     -Image carousel element
 
@@ -69,6 +70,8 @@ To do:
 
         -schedule currency rate update celery beat task
 
+
+    -every hour check if order is paid if created in last 24 hours using celery beat
    
 
     -email and password changes switch to htmx

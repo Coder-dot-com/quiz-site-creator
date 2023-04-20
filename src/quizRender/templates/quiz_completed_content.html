@@ -1,4 +1,4 @@
-<form id="quizRenderPreview"
+<div id="quizRenderPreview"
       class="d-flex mt-5">
 
     <div class="col-lg-9 mx-auto p-5
@@ -54,7 +54,7 @@
                             {% for i in product.get_images %}
                             <a  
                             onClick="document.querySelector('#mainImage').src='{{i.image.url}}';document.querySelector('#imageLink').href='{{i.image.url}}'" 
-                            class="col-lg-3 col-md-6 mb-4">
+                            class="col-lg-3 col-4 mb-4">
                                 <img src="{{i.image.url}}" style="width:100%;"/>
                             </a>
                             {% endfor %}
@@ -89,14 +89,14 @@
                
                     {% comment %} <!--Quantity start-->
                         <div class="col-2 px-0">
-                            <input type="number" name="num" class="form-control input-btn input-number" value="1">
+                            <input type="number" name="num" class="form-control border-dark input-btn input-number" value="1">
                         </div> {% endcomment %}
                     <!--Quanatity End-->
                         <div class="shopping-cart mt-3">
                             <a 
                             data-toggle="modal" data-target="#exampleModalLong"
                             
-                            class="btn btn-primary btn-lg" href="javascript:void(0)"><i class="fa fa-shopping-basket mr-2"></i>
+                            class="btn btn-primary btn-lg " href="javascript:void(0)"><i class="fa fa-shopping-basket mr-2"></i>
                                 Buy now</a>
                         </div>
                         <div class="modal fade" id="exampleModalLong">
@@ -108,13 +108,84 @@
                                         </button>
                                     </div>
                                     <div class="modal-body">
+                                        <div class=" order-md-1">
+                                            <h4 class="mb-3">Shipping address</h4>
+                                            <form id="shippingAddressForm"
+                                            hx-post={% url 'post_shipping_address_form' user_quiz.id response_id %}
+                                            hx-validate
+                                            
+                                            >
+                                            {% csrf_token %}
+                                                <div class="row">
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="firstName">First name</label>
+                                                        <input name="first_name" type="text" class="form-control border-dark" id="firstName" placeholder="Enter first name" value="" required="">
+                                                        <div class="invalid-feedback">
+                                                            Valid first name is required.
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6 mb-3">
+                                                        <label for="lastName">Last name</label>
+                                                        <input  name="last_name" type="text" class="form-control border-dark" id="lastName" placeholder="Enter last name" value="" required="">
+                                                        <div class="invalid-feedback">
+                                                            Valid last name is required.
+                                                        </div>
+                                                    </div>
+                                                </div>
 
+                                              
+
+                                                <div class="mb-3">
+                                                    <label for="email">Shipping Email </label>
+                                                    <input name="shipping_email" type="email" class="form-control border-dark" id="email" placeholder="you@example.com" required>
+                                                    <div class="invalid-feedback">
+                                                        Please enter a valid email address for shipping updates.
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="address">Address</label>
+                                                    <input name="address_line_1" type="text" class="form-control border-dark" id="address" placeholder="1234 Main St" required="">
+                                                    <div class="invalid-feedback">
+                                                        Please enter your shipping address.
+                                                    </div>
+                                                </div>
+
+                                                <div class="mb-3">
+                                                    <label for="address2">Address 2 <span
+                                                        class="text-muted">(Optional)</span></label>
+                                                    <input name="address_line_2" type="text" class="form-control border-dark" id="address2" placeholder="Apartment or suite">
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-lg-5 col-md-12 mb-3">
+                                                        <label for="country">Country</label>
+                                                        <input name="country" type="text" class="form-control border-dark" id="country" placeholder="Enter country" required="">
+
+                                                    </div>
+                                                    <div class="col-lg-4 col-md-12 mb-3">
+                                                        <label for="state">City</label>
+                                                        <input name="city" type="text" class="form-control border-dark" id="city" placeholder="Enter city" required="">
+
+                                                        <div class="invalid-feedback">
+                                                            Please provide a valid state.
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-3 col-md-12 mb-3">
+                                                        <label for="zip">Zip/postcode</label>
+                                                        <input name="zip_postcode" type="text" class="form-control border-dark" id="zip" placeholder="Enter here" required="">
+                                                        <div class="invalid-feedback">
+                                                            Zip code required.
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to
+                                                    checkout</button>
+                                            </form>
+                                        </div>
                                         
                                     </div>
-                                    <div class="modal-footer">
-                                        <button type="button" class="btn btn-danger light" data-dismiss="modal">Close</button>
-                                        <button type="submit" class="btn btn-primary">Continue</button>
-                                    </div>
+
                                 </div>
                             </div>
                         </div>
@@ -126,7 +197,7 @@
 
 
     </div>
-</form>
+</div>
 
 {% if user_quiz.analytics_scripts %}
     {% autoescape off %}

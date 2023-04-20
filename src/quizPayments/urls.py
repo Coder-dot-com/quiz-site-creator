@@ -12,6 +12,8 @@ urlpatterns = [
     path('add_image_quiz_product/<quiz_id>', views_htmx.add_image_quiz_product, name="add_image_quiz_product"),
     path('delete_image_quiz_product/<quiz_id>/<image_id>', views_htmx.delete_image_quiz_product, name="delete_image_quiz_product"),
 
+    path('post_shipping_address_form/<quiz_id>/<response_id>', views_htmx.post_shipping_address_form, name="post_shipping_address_form"),
+
 
 
 ]

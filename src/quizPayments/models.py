@@ -27,6 +27,43 @@ class ProductVariant(models.Model):
     price = models.DecimalField(max_digits=7, decimal_places=2, blank=True, null=True)
 
 
+class Order(models.Model):
+    STATUS = (
+        ('New', 'New'),
+        ('Completed', 'Completed'),
+        ('Cancelled', 'Cancelled'),
+        ('On hold', 'On hold'),
+    )
+
+    product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
+    number = models.CharField(max_length=200, null=True, blank=True)
+    first_name = models.CharField(max_length=500, blank=True, null=True)
+    last_name = models.CharField(max_length=500, blank=True, null=True)
+    shipping_email = models.EmailField(max_length=500, blank=True, null=True)
+    address_line_1 = models.CharField(max_length=150, blank=True, null=True)
+    address_line_2 = models.CharField(max_length=500, blank=True, null=True)
+    country = models.CharField(max_length=500, blank=True, null=True)
+    city = models.CharField(max_length=500, blank=True, null=True)
+    zip_postcode = models.CharField(max_length=500, blank=True, null=True)
+    total = models.FloatField()
+    currency_code = models.CharField(max_length=300)
+    status = models.CharField(max_length=10, choices=STATUS, default="New")
+    is_paid = models.BooleanField(default=False)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    payment_intent_id = models.CharField(max_length=500, null=True, blank=True)
+
+    def full_name(self):
+        return f"{self.first_name} {self.last_name}"
+
+
+    def full_address(self):
+        return f"{self.address_line_1} {self.address_line_2}"
+
+
+    def __str__(self):
+        return self.email
+
 
 
 
