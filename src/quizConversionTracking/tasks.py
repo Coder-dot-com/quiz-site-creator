@@ -45,7 +45,7 @@ def conversion_tracking_user_quiz(event_name, event_id, session_id, quiz_id, eve
 
     print(event_name)
 
-    if not event_name == "PageView" or not event_name == "ViewContent":
+    if not str(event_name) == "PageView" and not event_name == "ViewContent":
 
         while (not session.latest_fbp or not session.email) and latest_fbp_loop_count < 20: 
             #Need to get session.email before increasing loop count
