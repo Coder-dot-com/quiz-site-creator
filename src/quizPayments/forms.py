@@ -14,4 +14,5 @@ class ProductCreateForm(forms.ModelForm):
         
     class Meta:
         model = Product
-        fields = ['name', 'price', 'currency', 'require_shipping_information', 'description',]
+        # fields = ['name', 'price', 'currency', 'require_shipping_information', 'description',]
+        fields = ['name', 'price', 'currency', 'description',]
