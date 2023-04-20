@@ -17,9 +17,6 @@ from django.contrib import messages
 
 User = get_user_model()
 
-stripe.api_key = STRIPE_SECRET_KEY
-stripe_pub_key = STRIPE_PUBLIC_KEY
-
 
 # Create your views here.
 

@@ -4,25 +4,18 @@
 -email scraper
 
 To do:
-    -render buy now
 
-        -display response summary underneath buy
-
-    -render images multiple choice single choice on response summary/details
+    -make sure api uses the quizes api key
+    -add api to own quiz on live site settings
+    -add check make sure quiz has stripe and product before displaying product 
     
         -add check if product requires shipping info (later)
-        -add check make sure quiz has stripe and product before displaying product
-        -make sure api uses the quizes api key
+
+    -User image upload 
+
+            -Select a fair price
 
     -Image carousel element
-
-
-        -setup for other store (stripe product payment option with priced variations)
-            -setup quiz for jewelry
-            - send 10 emails
-            - start creating fb ads for jewelry
-        -User image upload (same size just clean)
-            -Select a fair price
 
         -set product price to be in user chosen currency for quiz add to product model for now default is gbp
         -open image in new tab if clicked
@@ -89,6 +82,7 @@ To do:
         -email response results automatically per quiz (settings)
 
     -allow adding product variants to quiz
+    -clean user image uoloads keep same size
 
     ================================================
     

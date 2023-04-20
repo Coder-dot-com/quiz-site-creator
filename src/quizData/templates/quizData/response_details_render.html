@@ -29,16 +29,22 @@
                         <small>Answer:</small>
                         <br>
                         <strong>
+                            
                             {{x.answer}}
                         </strong>
                     {% else %}
                         <small>Answers:</small>
                         <br>
-                        <strong>
-                            {% for i in x.question_choice.all %}
-                                {{i.choice}} <br>
-                            {% endfor %}
-                        </strong>
+                        {% for i in x.question_choice.all %}
+                        <div class="">
+                            {% if i.image %}
+                            <img src="{{i.image.url}}" style="max-height:3rem;">
+                            {% endif %}
+                            <strong>
+                                    {{i.choice}} 
+                            </strong>
+                        </div>
+                        {% endfor %}
 
                     {% endif %}
 

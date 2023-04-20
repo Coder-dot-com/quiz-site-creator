@@ -12,8 +12,7 @@ from common.util.functions import event_id
 from quiz_site.settings import STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY
 from quizRender.models import Response
 
-stripe.api_key = STRIPE_SECRET_KEY
-stripe_pub_key = STRIPE_PUBLIC_KEY
+
 
 @login_required
 def add_stripe_integration(request, quiz_id):
@@ -132,6 +131,8 @@ def post_shipping_address_form(request, quiz_id, response_id):
         order.number = order_number
 
         order.save()
+        stripe.api_key = user_quiz.stripe_secret_key
+        stripe_pub_key = user_quiz.stripe_public_key
 
         #create strip payment intent and rendr stri[e]
         intent = stripe.PaymentIntent.create(
