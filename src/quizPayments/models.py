@@ -2,6 +2,7 @@ from django.db import models
 from quizCreation.models import UserQuiz
 from ckeditor_uploader.fields import RichTextUploadingField
 from multicurrency.models import Currency
+from quizRender.models import Response
 # Create your models here.
 
 class Product(models.Model):
@@ -36,6 +37,7 @@ class Order(models.Model):
     )
 
     product = models.ForeignKey(Product, on_delete=models.SET_NULL, blank=True, null=True)
+    response = models.OneToOneField(Response, on_delete=models.SET_NULL, blank=True, null=True)
     number = models.CharField(max_length=200, null=True, blank=True)
     first_name = models.CharField(max_length=500, blank=True, null=True)
     last_name = models.CharField(max_length=500, blank=True, null=True)

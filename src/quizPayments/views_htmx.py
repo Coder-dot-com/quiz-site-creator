@@ -10,6 +10,7 @@ import datetime
 import stripe
 from common.util.functions import event_id
 from quiz_site.settings import STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY
+from quizRender.models import Response
 
 stripe.api_key = STRIPE_SECRET_KEY
 stripe_pub_key = STRIPE_PUBLIC_KEY
@@ -100,9 +101,11 @@ def post_shipping_address_form(request, quiz_id, response_id):
     if user_quiz.exists():
         user_quiz = user_quiz[0]
         product = Product.objects.get(quiz=user_quiz)
-
+        response = Response.objects.get(response_id=response_id)
         print(request.POST)
         order = Order()
+
+        order.response = response
 
         order.first_name = request.POST['first_name']
         order.last_name = request.POST['last_name']
