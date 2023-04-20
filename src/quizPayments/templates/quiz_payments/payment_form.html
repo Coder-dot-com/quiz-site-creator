@@ -1,7 +1,9 @@
 <form id="payment-form">
     <h5>Complete your order</h5>
+    <br>
+    Total: {{order.product.currency.currency_symbol}} {{order.total}} {{order.product.currency.currency_code}}
+
     <br><br>
-    Total: {{order.total}}
 
     <div id="payment-element">
         <!-- Elements will create form elements here -->
