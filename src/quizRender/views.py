@@ -171,6 +171,7 @@ def complete_quiz(request, quiz_id, number, response_id):
     context = {}
     context['user_quiz'] = quiz
     context['response_id'] = response_id
+    context['response'] = response_object
     try:
         product = Product.objects.get(quiz=quiz)
         context['product'] = product

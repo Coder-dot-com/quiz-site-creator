@@ -148,8 +148,10 @@ def get_value_stored_in_db(request, quiz_id, element_id, response_id, question_i
     context['quiz_page'] = element.page
     context['checked_db'] = True
 
-    response = Response.objects.get(session=_session(request), response_id=response_id)
-
+    try:
+        response = Response.objects.get(session=_session(request), response_id=response_id)
+    except Response.DoesNotExist:
+        pass
     if not question_id:
         try:
             answer = Answer.objects.get(question=element, response=response)

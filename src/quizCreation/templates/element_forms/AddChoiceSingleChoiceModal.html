@@ -12,7 +12,7 @@
                 <table class="table">
                     <thead>
                         <tr>
-                            <th>Mark as correct (use for trivia questions)</th>
+                            {% comment %} <th>Mark as correct (use for trivia questions)</th> {% endcomment %}
                             <th>Choice name</th>
                             <th>Image</th>
                             <th>Delete</th>
@@ -22,7 +22,7 @@
 
                         {% for choice in choices %}
                             <tr>
-                                <td><input
+                                {% comment %} <td><input
                                     hx-trigger="change"
                                     name="correct"
                                     {% if choice.is_correct_choice  %}checked="true"{% endif %}
@@ -30,7 +30,7 @@
                                     type="checkbox"
 
                                 >
-                                </td>
+                                </td> {% endcomment %}
 
                                 <td><div class="d-flex align-items-left">{{choice.choice}}</div></td>
                                 <td>

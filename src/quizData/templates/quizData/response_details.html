@@ -4,11 +4,7 @@
 
 
 {% block content %}
-
-
     <div class="row">
-
-
         <div class="col-lg-9  mx-auto justify-content-center  my-5">
             <a class="no-print mb-2" type="button"  href="{% url 'view_quiz_results' quiz.id %}">< Back</a>
 
@@ -20,60 +16,8 @@
                     <h4 class="card-title">Response details</h4>
                     <div class="widget-media">
                         <ul class="timeline">
-                            {% for i in response.get_all_answers %}
-                                {% for x in i %}
-
-                                    <li>
-                                        <div class="timeline-panel p-0 m-0">
-
-                                            <div class="">
-                                                <div>
-                                                    <small>Question:</small>
-                                                    <br>
-                                                    <strong class="">
-                                                        {% if x.question %}
-
-
-                                                            {{x.question.get_element_type.element.title}}
-                                                        {% else %}
-                                                            {{x.question_agree_disagree.title}}
-                                                        {% endif %}
-                                                    </strong>
-                                                </div>
-                                                <br>
-
-
-                                                <div >
-
-                                                    {% if not x.question.get_element_type.type == 'Multiple choice question' %}
-                                                        <small>Answer:</small>
-                                                        <br>
-                                                        <strong>
-                                                            {{x.answer}}
-                                                        </strong>
-
-
-                                                    {% else %}
-                                                        <small>Answers:</small>
-                                                        <br>
-                                                        <strong>
-                                                            {% for i in x.question_choice.all %}
-                                                                {{i.choice}} <br>
-                                                            {% endfor %}
-                                                        </strong>
-
-                                                    {% endif %}
-
-                                                    <br><hr class="text-dark w-100">
-
-                                                </div>
-                                            </div>
-
-                                        </div>
-                                    </li>
-                                    <br>
-                                {% endfor %}
-                            {% endfor %}
+                            {% include 'quizData/response_details_render.html' %}
+                            
                         </ul>
                     </div>
                 </div>

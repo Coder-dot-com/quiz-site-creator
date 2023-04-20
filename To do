@@ -8,6 +8,8 @@ To do:
 
         -display response summary underneath buy
 
+    -render images multiple choice single choice on response summary/details
+    
         -add check if product requires shipping info (later)
         -add check make sure quiz has stripe and product before displaying product
         -make sure api uses the quizes api key

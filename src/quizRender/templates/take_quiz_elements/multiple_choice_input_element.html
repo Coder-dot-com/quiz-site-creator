@@ -8,10 +8,10 @@
 
 
 
-    <select
+    <select required style="opacity:0; position:fixed;"
 
 
-        id="question_{{element.id}}" name="{{element.id}}" id="multiC_{{element.id}}" class="form-select d-none" multiple
+        id="question_{{element.id}}" name="{{element.id}}" id="multiC_{{element.id}}" class="form-select " multiple
     >
         {% for option in element.get_element_type.element.get_multiple_choice_choices %}
 
