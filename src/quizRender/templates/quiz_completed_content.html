@@ -109,12 +109,12 @@
                                     </div>
                                     <div class="modal-body">
                                         <div class=" order-md-1">
-                                            <h4 class="mb-3">Shipping address</h4>
                                             <form id="shippingAddressForm"
                                             hx-post={% url 'post_shipping_address_form' user_quiz.id response_id %}
                                             hx-validate
                                             
                                             >
+                                            <h4 class="mb-3">Shipping address</h4>
                                             {% csrf_token %}
                                                 <div class="row">
                                                     <div class="col-md-6 mb-3">
