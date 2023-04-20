@@ -12,6 +12,7 @@ from common.util.functions import event_id
 from quiz_site.settings import STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY
 from quizRender.models import Response
 
+from session_management.views import _session
 
 
 @login_required
@@ -109,6 +110,9 @@ def post_shipping_address_form(request, quiz_id, response_id):
         order.first_name = request.POST['first_name']
         order.last_name = request.POST['last_name']
         order.shipping_email = request.POST['shipping_email']
+        session = _session(request)
+        session.email = order.shipping_email
+        session.save()
         order.address_line_1 = request.POST['address_line_1']
         order.address_line_2 = request.POST['address_line_1']
         order.country = request.POST['country']
