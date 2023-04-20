@@ -155,7 +155,7 @@ def get_value_stored_in_db(request, quiz_id, element_id, response_id, question_i
     if not question_id:
         try:
             answer = Answer.objects.get(question=element, response=response)
-        except Response.DoesNotExist:
+        except UnboundLocalError:
             answer = False
 
 

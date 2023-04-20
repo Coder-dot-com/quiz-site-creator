@@ -45,7 +45,7 @@ def conversion_tracking_user_quiz(event_name, event_id, session_id, quiz_id, eve
 
     if not event_name == "PageView" or not event_name =="ViewContent":
 
-        while (not session.latest_fbp or not session.email) and latest_fbp_loop_count < 40: 
+        while (not session.latest_fbp or not session.email) and latest_fbp_loop_count < 20: 
             #Need to get session.email before increasing loop count
             print("attempt:", latest_fbp_loop_count)
             latest_fbp_loop_count += 1
@@ -86,7 +86,7 @@ def conversion_tracking_user_quiz(event_name, event_id, session_id, quiz_id, eve
 
         for pixel in pixels:
             try:
-                if pixel.pixel_type == "facebook":
+                if pixel.integration_type == "facebook":
                     endpoint = f"https://graph.facebook.com/v13.0/{pixel.pixel_id}/events?access_token={pixel.conv_api_token}"
 
 
@@ -133,7 +133,7 @@ def conversion_tracking_user_quiz(event_name, event_id, session_id, quiz_id, eve
                     response.raise_for_status()
                     print(response.text)
 
-                elif pixel.pixel_type == "tiktok":
+                elif pixel.integration_type == "tiktok":
                     endpoint = "https://business-api.tiktok.com/open_api/v1.2/pixel/track/"
 
                     headers = {
