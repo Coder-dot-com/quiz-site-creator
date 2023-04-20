@@ -5,7 +5,12 @@
 
 To do:
     -render buy now
-        -check if productrewuires shipping info
+
+        -display response summary underneath buy
+
+        -add check if product requires shipping info (later)
+        -add check make sure quiz has stripe and product before displaying product
+        -make sure api uses the quizes api key
 
     -Image carousel element
 
