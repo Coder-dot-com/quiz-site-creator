@@ -4,14 +4,12 @@
 -email scraper
 
 To do:
-    -response-details_display
-
+    -User image upload 
 
     -add check make sure quiz has stripe and product before displaying product 
     
         -add check if product requires shipping info (later)
 
-    -User image upload 
     -Select a fair price
 
     -Image carousel element

@@ -6,7 +6,7 @@
     <li>
         <div class="timeline-panel p-0 m-0">
 
-            {% if not x.question.get_element_type.type == "Text content" %}
+            {% if not x.question.get_element_type.type == "Text content" and not x.question.get_element_type.type == "Image" %}
             <div class="">
                 <div>
                     <small>Question:</small>
