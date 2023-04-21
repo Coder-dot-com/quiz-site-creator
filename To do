@@ -4,16 +4,15 @@
 -email scraper
 
 To do:
+    -response-details_display
 
-    -make sure api uses the quizes api key
-    -add api to own quiz on live site settings
+
     -add check make sure quiz has stripe and product before displaying product 
     
         -add check if product requires shipping info (later)
 
     -User image upload 
-
-            -Select a fair price
+    -Select a fair price
 
     -Image carousel element
 

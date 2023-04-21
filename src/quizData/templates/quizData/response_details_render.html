@@ -6,6 +6,7 @@
     <li>
         <div class="timeline-panel p-0 m-0">
 
+            {% if not x.question.get_element_type.type == "Text content" %}
             <div class="">
                 <div>
                     <small>Question:</small>
@@ -25,20 +26,35 @@
 
                 <div >
 
-                    {% if not x.question.get_element_type.type == 'Multiple choice question' %}
+                    {% if not x.question.get_element_type.type == 'Multiple choice question' and not x.question.get_element_type.type == 'Single choice question' %}
                         <small>Answer:</small>
                         <br>
                         <strong>
                             
                             {{x.answer}}
                         </strong>
+                    {% elif x.question.get_element_type.type == 'Single choice question' %}
+                    <small>Answer:</small>
+                    <br>
+                    <div class="">
+                        
+                        {% if x.single_question_choice.image %}
+                        <img src="{{x.single_question_choice.image.url}}" style="max-height:3rem;mx-auto">
+                        <br>
+                        {% endif %}
+                        <strong>
+                                {{x.answer}} 
+                        </strong>
+                    </div>                        
+                    </strong>
                     {% else %}
                         <small>Answers:</small>
                         <br>
                         {% for i in x.question_choice.all %}
                         <div class="">
                             {% if i.image %}
-                            <img src="{{i.image.url}}" style="max-height:3rem;">
+                            <img src="{{i.image.url}}" style="max-height:3rem;mx-auto">
+                            <br>
                             {% endif %}
                             <strong>
                                     {{i.choice}} 
@@ -52,7 +68,7 @@
 
                 </div>
             </div>
-
+            {% endif %}
         </div>
     </li>
 {% endfor %}

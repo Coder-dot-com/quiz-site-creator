@@ -28,3 +28,5 @@ class ResponseAdmin(admin.ModelAdmin):
     
 
 admin.site.register(Response, ResponseAdmin)
+
+admin.site.register(Answer)

@@ -52,7 +52,6 @@ def take_next_page(request, quiz_id, number, response_id):
     response_object = Response.objects.get_or_create(response_id=response_id, session=_session(request), quiz=quiz)[0]
 
 
-
     for e in elements:
         answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
 
@@ -69,8 +68,19 @@ def take_next_page(request, quiz_id, number, response_id):
                 answer_obj.question_choice.add(question_choice)
            
             answer_obj.save()
+        elif e.get_element_type()['type'] == "Single choice question":
+            print("SINGLE CHOICE")
+            print(request.POST)
+            try:
+                answer = request.POST[str(q.id)]
+                single_choice = SingleChoiceChoice.objects.get(id=answer)
+                answer = single_choice.choice
+                answer_obj.single_question_choice = single_choice
+            except MultiValueDictKeyError:
+                answer = ""  
+            answer_obj.answer = answer
+            answer_obj.save()  
         elif e.get_element_type()['type'] == "Agree disagree table":
-            print("TEST")
             print(request.POST)
             questions = AgreeDisagreeRow.objects.filter(agree_disagree_element=e.get_element_type()['element'])
             for q in questions:

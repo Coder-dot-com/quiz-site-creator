@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse, redirect
-from quizCreation.models import UserQuiz, QuizPage, MultipleChoiceChoice
+from quizCreation.models import UserQuiz, QuizPage, MultipleChoiceChoice, SingleChoiceChoice
 from subscriptions.models import UserPaymentStatus
 from datetime import datetime
 from uuid import uuid4
@@ -136,32 +136,46 @@ def complete_quiz(request, quiz_id, number, response_id):
 
     print(request.POST)
 
-    for e in elements:
-        answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
+    for q in elements:
+        answer_obj = Answer.objects.get_or_create(response=response_object, question=q)[0]
 
-        if e.get_element_type()['type'] == 'Multiple choice question':
-            answers_list = request.POST.getlist(str(e.id))
+        if q.get_element_type()['type'] == 'Multiple choice question':
+            answers_list = request.POST.getlist(str(q.id))
             answer = ", ".join(answers_list)
             answer_obj.answer = answer
             answer_obj.question_choice.clear()
             answer_obj.save()
             for i in answers_list:
-                element = e.get_element_type()['element']
+                element = q.get_element_type()['element']
                 question_choice = MultipleChoiceChoice.objects.get(
                         id=i)
                 answer_obj.question_choice.add(question_choice)
            
             answer_obj.save()
-        elif not e.get_element_type()['type'] == 'Text':
+
+        elif q.get_element_type()['type'] == "Single choice question":
+            print("SINGLE CHOICE")
+            print(request.POST)
             try:
-                answer = request.POST[str(e.id)]
+                answer = request.POST[str(q.id)]
+                single_choice = SingleChoiceChoice.objects.get(id=answer)
+                answer = single_choice.choice
+                answer_obj.single_question_choice = single_choice
+            except MultiValueDictKeyError:
+                answer = ""  
+            answer_obj.answer = answer
+            answer_obj.save()  
+
+        elif not q.get_element_type()['type'] == 'Text':
+            try:
+                answer = request.POST[str(q.id)]
             except MultiValueDictKeyError:
                 answer = ""
             answer_obj.answer = answer
             answer_obj.save()    
         
         
-        elif e.get_element_type()['type'] == 'Text':
+        elif q.get_element_type()['type'] == 'Text':
             answer_obj.delete()    
 
     
@@ -203,9 +217,9 @@ def complete_quiz(request, quiz_id, number, response_id):
         conversion_tracking_user_quiz.delay(event_name="ViewContent", event_id=vc_event_unique_id, event_source_url=event_source_url,quiz_id=quiz_id, session_id=session.session_id)  
         conversion_tracking_user_quiz.delay(event_name="Lead", event_id=lead_event_unique_id, event_source_url=event_source_url,quiz_id=quiz_id, session_id=session.session_id)  
         print("tracking conversionuser quiz")
-    except Exception as e:
+    except Exception as q:
         print("failed conv tracking")
-        print(e)
+        print(q)
 
 
 

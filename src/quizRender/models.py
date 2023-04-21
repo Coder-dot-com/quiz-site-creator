@@ -1,5 +1,5 @@
 from django.db import models
-from quizCreation.models import UserQuiz, QuizPageElement, MultipleChoiceChoice, AgreeDisagreeRow
+from quizCreation.models import UserQuiz, QuizPageElement, MultipleChoiceChoice, AgreeDisagreeRow, SingleChoiceChoice
 from session_management.models import UserSession
 from itertools import chain
 # Create your models here.
@@ -28,6 +28,7 @@ class Answer(models.Model):
     question = models.ForeignKey(QuizPageElement, on_delete=models.SET_NULL, null=True, blank=True)
     question_agree_disagree = models.ForeignKey(AgreeDisagreeRow, on_delete=models.SET_NULL, null=True, blank=True)
     question_choice = models.ManyToManyField(MultipleChoiceChoice, blank=True, null=True)
+    single_question_choice = models.ForeignKey(SingleChoiceChoice, blank=True, null=True, on_delete=models.SET_NULL)
     time_added = models.DateTimeField(auto_now_add=True)
     answer = models.CharField(max_length=5000)
 
