@@ -134,53 +134,52 @@ def complete_quiz(request, quiz_id, number, response_id):
 
     response_object = Response.objects.get_or_create(response_id=response_id, session=_session(request), quiz=quiz)[0]
 
-    print(request.POST)
+    if not response_object.completed:
+        for q in elements:
+            answer_obj = Answer.objects.get_or_create(response=response_object, question=q)[0]
 
-    for q in elements:
-        answer_obj = Answer.objects.get_or_create(response=response_object, question=q)[0]
+            if q.get_element_type()['type'] == 'Multiple choice question':
+                answers_list = request.POST.getlist(str(q.id))
+                answer = ", ".join(answers_list)
+                answer_obj.answer = answer
+                answer_obj.question_choice.clear()
+                answer_obj.save()
+                for i in answers_list:
+                    element = q.get_element_type()['element']
+                    question_choice = MultipleChoiceChoice.objects.get(
+                            id=i)
+                    answer_obj.question_choice.add(question_choice)
+            
+                answer_obj.save()
 
-        if q.get_element_type()['type'] == 'Multiple choice question':
-            answers_list = request.POST.getlist(str(q.id))
-            answer = ", ".join(answers_list)
-            answer_obj.answer = answer
-            answer_obj.question_choice.clear()
-            answer_obj.save()
-            for i in answers_list:
-                element = q.get_element_type()['element']
-                question_choice = MultipleChoiceChoice.objects.get(
-                        id=i)
-                answer_obj.question_choice.add(question_choice)
-           
-            answer_obj.save()
+            elif q.get_element_type()['type'] == "Single choice question":
+                print("SINGLE CHOICE")
+                print(request.POST)
+                try:
+                    answer = request.POST[str(q.id)]
+                    single_choice = SingleChoiceChoice.objects.get(id=answer)
+                    answer = single_choice.choice
+                    answer_obj.single_question_choice = single_choice
+                except MultiValueDictKeyError:
+                    answer = ""  
+                answer_obj.answer = answer
+                answer_obj.save()  
 
-        elif q.get_element_type()['type'] == "Single choice question":
-            print("SINGLE CHOICE")
-            print(request.POST)
-            try:
-                answer = request.POST[str(q.id)]
-                single_choice = SingleChoiceChoice.objects.get(id=answer)
-                answer = single_choice.choice
-                answer_obj.single_question_choice = single_choice
-            except MultiValueDictKeyError:
-                answer = ""  
-            answer_obj.answer = answer
-            answer_obj.save()  
+            elif not q.get_element_type()['type'] == 'Text':
+                try:
+                    answer = request.POST[str(q.id)]
+                except MultiValueDictKeyError:
+                    answer = ""
+                answer_obj.answer = answer
+                answer_obj.save()    
+            
+            
+            elif q.get_element_type()['type'] == 'Text':
+                answer_obj.delete()    
 
-        elif not q.get_element_type()['type'] == 'Text':
-            try:
-                answer = request.POST[str(q.id)]
-            except MultiValueDictKeyError:
-                answer = ""
-            answer_obj.answer = answer
-            answer_obj.save()    
         
-        
-        elif q.get_element_type()['type'] == 'Text':
-            answer_obj.delete()    
-
-    
-    response_object.steps_completed = number
-    response_object.save()
+        response_object.steps_completed = number
+        response_object.save()
 
     context = {}
     context['user_quiz'] = quiz

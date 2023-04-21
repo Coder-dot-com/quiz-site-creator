@@ -9,9 +9,16 @@
             <a class="no-print mb-2" type="button"  href="{% url 'view_quiz_results' quiz.id %}">< Back</a>
 
             <div class="card mx-auto">
+                <a class="text-danger text-right ml-auto my-2 p-3 no-print"
+                type="button"
+                href="{% url 'delete_response_detail' response.quiz.id response.response_id %}"
+             >
+                 Delete <i class="fa fa-trash"></i>
+             </a>
                 <div class="card-header " style="justify-content:right;">
                     <a class="btn btn-primary site-button float-right mb-3 no-print" type="button" onclick="window.print()">Print <i class="fa fa-print"></i></a>
                 </div>
+
                 <div class="card-body ">
                     <h4 class="card-title">Response details</h4>
                     <div class="widget-media">
@@ -21,9 +28,7 @@
                         </ul>
                     </div>
                 </div>
-                <div class="chart-wrapper"><div class="chartjs-size-monitor"><div class="chartjs-size-monitor-expand"><div class=""></div></div><div class="chartjs-size-monitor-shrink"><div class=""></div></div></div>
-                    <canvas id="chart_widget_10" style="display: block; height: 250px; width: 879px;" class="chartjs-render-monitor" width="1098" height="312"></canvas>
-                </div>
+            
             </div>
         </div>
 

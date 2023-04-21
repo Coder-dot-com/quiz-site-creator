@@ -1,4 +1,4 @@
-from django.shortcuts import render, HttpResponse
+from django.shortcuts import render, HttpResponse, redirect
 from django.contrib.auth.decorators import login_required
 from quizCreation.models import UserQuiz
 from quizRender.models import Response
@@ -109,3 +109,23 @@ def download_csv_of_responses(request, quiz_id):
         response['Content-Type'] = 'text/csv'
         response['Content-Disposition'] = 'attachment; filename=responses.csv'
         return response
+    
+@login_required
+def delete_response_detail(request, quiz_id, response_id):
+
+    quiz = UserQuiz.objects.get(user=request.user, id=quiz_id)
+
+    try:
+        Response.objects.get(quiz=quiz, response_id=response_id).delete()
+    except Response.DoesNotExist:
+        return HttpResponse(500)
+    
+    responses = Response.objects.filter(quiz=quiz)
+
+    context = {
+        'responses': responses,
+        'deleted': True,
+        'quiz': quiz,
+    }
+
+    return redirect('view_quiz_results', quiz_id=quiz_id)
