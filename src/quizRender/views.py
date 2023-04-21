@@ -33,7 +33,6 @@ def preview_quiz(request, quiz_id):
 
 def take_quiz(request, quiz_id):
     
-
     quiz = UserQuiz.objects.filter(id=quiz_id)
 
     user = quiz[0].user
@@ -134,10 +133,15 @@ def complete_quiz(request, quiz_id, number, response_id):
     elements = current_quiz_page.get_quiz_page_elements()
 
     response_object = Response.objects.filter(response_id=response_id, session=_session(request), quiz=quiz)
-    print(QuizPage.objects.filter(quiz=quiz).count())
-    if not response_object.exists() and QuizPage.objects.filter(quiz=quiz).count() == 1:
-        Response.objects.create(response_id=response_id, session=_session(request), quiz=quiz)
-        response_object = Response.objects.filter(response_id=response_id, session=_session(request), quiz=quiz)
+
+    if response_object.exists() and request.POST:
+        if response_object[0].completed:
+            print("redirect")
+            return redirect('take_quiz', quiz_id=quiz_id) 
+
+    if not response_object.exists() and QuizPage.objects.filter(quiz=quiz).count() == 1 and request.POST:
+            Response.objects.create(response_id=response_id, session=_session(request), quiz=quiz)
+            response_object = Response.objects.filter(response_id=response_id, session=_session(request), quiz=quiz)
 
     print('response_object', response_object)
 
