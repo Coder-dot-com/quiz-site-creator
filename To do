@@ -4,7 +4,7 @@
 -email scraper
 
 To do:
-    -add delete button on response_details page
+
     -User image upload 
 
     -add check make sure quiz has stripe and product before displaying product 

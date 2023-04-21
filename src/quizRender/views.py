@@ -127,104 +127,115 @@ def take_quiz(request, quiz_id):
     
     
 def complete_quiz(request, quiz_id, number, response_id):
+    context = {}
 
     quiz = UserQuiz.objects.get(id=quiz_id)
     current_quiz_page = QuizPage.objects.get(number=number, quiz=quiz)
     elements = current_quiz_page.get_quiz_page_elements()
 
-    response_object = Response.objects.get_or_create(response_id=response_id, session=_session(request), quiz=quiz)[0]
+    response_object = Response.objects.filter(response_id=response_id, session=_session(request), quiz=quiz)
+    print(QuizPage.objects.filter(quiz=quiz).count())
+    if not response_object.exists() and QuizPage.objects.filter(quiz=quiz).count() == 1:
+        Response.objects.create(response_id=response_id, session=_session(request), quiz=quiz)
+        response_object = Response.objects.filter(response_id=response_id, session=_session(request), quiz=quiz)
 
-    if not response_object.completed:
-        for q in elements:
-            answer_obj = Answer.objects.get_or_create(response=response_object, question=q)[0]
+    print('response_object', response_object)
 
-            if q.get_element_type()['type'] == 'Multiple choice question':
-                answers_list = request.POST.getlist(str(q.id))
-                answer = ", ".join(answers_list)
-                answer_obj.answer = answer
-                answer_obj.question_choice.clear()
-                answer_obj.save()
-                for i in answers_list:
-                    element = q.get_element_type()['element']
-                    question_choice = MultipleChoiceChoice.objects.get(
-                            id=i)
-                    answer_obj.question_choice.add(question_choice)
+    if response_object.exists():
+        response_object = response_object[0]
+
+        if not response_object.completed:
+            for q in elements:
+                answer_obj = Answer.objects.get_or_create(response=response_object, question=q)[0]
+
+                if q.get_element_type()['type'] == 'Multiple choice question':
+                    answers_list = request.POST.getlist(str(q.id))
+                    answer = ", ".join(answers_list)
+                    answer_obj.answer = answer
+                    answer_obj.question_choice.clear()
+                    answer_obj.save()
+                    for i in answers_list:
+                        element = q.get_element_type()['element']
+                        question_choice = MultipleChoiceChoice.objects.get(
+                                id=i)
+                        answer_obj.question_choice.add(question_choice)
+                
+                    answer_obj.save()
+
+                elif q.get_element_type()['type'] == "Single choice question":
+                    print("SINGLE CHOICE")
+                    print(request.POST)
+                    try:
+                        answer = request.POST[str(q.id)]
+                        single_choice = SingleChoiceChoice.objects.get(id=answer)
+                        answer = single_choice.choice
+                        answer_obj.single_question_choice = single_choice
+                    except MultiValueDictKeyError:
+                        answer = ""  
+                    answer_obj.answer = answer
+                    answer_obj.save()  
+
+                elif not q.get_element_type()['type'] == 'Text':
+                    try:
+                        answer = request.POST[str(q.id)]
+                    except MultiValueDictKeyError:
+                        answer = ""
+                    answer_obj.answer = answer
+                    answer_obj.save()    
+                
+                
+                elif q.get_element_type()['type'] == 'Text':
+                    answer_obj.delete()    
+
             
-                answer_obj.save()
+            response_object.steps_completed = number
+            response_object.save()
 
-            elif q.get_element_type()['type'] == "Single choice question":
-                print("SINGLE CHOICE")
-                print(request.POST)
-                try:
-                    answer = request.POST[str(q.id)]
-                    single_choice = SingleChoiceChoice.objects.get(id=answer)
-                    answer = single_choice.choice
-                    answer_obj.single_question_choice = single_choice
-                except MultiValueDictKeyError:
-                    answer = ""  
-                answer_obj.answer = answer
-                answer_obj.save()  
-
-            elif not q.get_element_type()['type'] == 'Text':
-                try:
-                    answer = request.POST[str(q.id)]
-                except MultiValueDictKeyError:
-                    answer = ""
-                answer_obj.answer = answer
-                answer_obj.save()    
             
-            
-            elif q.get_element_type()['type'] == 'Text':
-                answer_obj.delete()    
+            pv_event_unique_id = event_id()
+            vc_event_unique_id = event_id()
+            lead_event_unique_id = event_id()
+            context['pv_event_unique_id'] = pv_event_unique_id
+            context['vc_event_unique_id'] = vc_event_unique_id
+            context['lead_event_unique_id'] = lead_event_unique_id
+            event_source_url = request.META.get('HTTP_REFERER')
+            session = _session(request)
+            try:
+                conversion_tracking_user_quiz.delay(event_name="PageView", event_id=pv_event_unique_id, event_source_url=event_source_url, quiz_id=quiz_id, session_id=session.session_id)  
+                conversion_tracking_user_quiz.delay(event_name="ViewContent", event_id=vc_event_unique_id, event_source_url=event_source_url,quiz_id=quiz_id, session_id=session.session_id)  
+                conversion_tracking_user_quiz.delay(event_name="Lead", event_id=lead_event_unique_id, event_source_url=event_source_url,quiz_id=quiz_id, session_id=session.session_id)  
+                print("tracking conversionuser quiz")
+            except Exception as q:
+                print("failed conv tracking")
+                print(q)
 
-        
-        response_object.steps_completed = number
-        response_object.save()
 
-    context = {}
-    context['user_quiz'] = quiz
-    context['response_id'] = response_id
-    context['response'] = response_object
-    try:
-        product = Product.objects.get(quiz=quiz)
-        context['product'] = product
-    except Product.DoesNotExist:
-        product = None
+        context['user_quiz'] = quiz
+        context['response_id'] = response_id
+        context['response'] = response_object
+        try:
+            product = Product.objects.get(quiz=quiz)
+            context['product'] = product
+        except Product.DoesNotExist:
+            product = None
 
 
-   
-    response = response_object
     
+        response = response_object
+        
 
-    response.completed = True
-    response.save()
+        response.completed = True
+        response.save()
 
-    print("redirect")
-
-
-
-    pv_event_unique_id = event_id()
-    vc_event_unique_id = event_id()
-    lead_event_unique_id = event_id()
-    context['pv_event_unique_id'] = pv_event_unique_id
-    context['vc_event_unique_id'] = vc_event_unique_id
-    context['lead_event_unique_id'] = lead_event_unique_id
-    event_source_url = request.META.get('HTTP_REFERER')
-    session = _session(request)
-    try:
-        conversion_tracking_user_quiz.delay(event_name="PageView", event_id=pv_event_unique_id, event_source_url=event_source_url, quiz_id=quiz_id, session_id=session.session_id)  
-        conversion_tracking_user_quiz.delay(event_name="ViewContent", event_id=vc_event_unique_id, event_source_url=event_source_url,quiz_id=quiz_id, session_id=session.session_id)  
-        conversion_tracking_user_quiz.delay(event_name="Lead", event_id=lead_event_unique_id, event_source_url=event_source_url,quiz_id=quiz_id, session_id=session.session_id)  
-        print("tracking conversionuser quiz")
-    except Exception as q:
-        print("failed conv tracking")
-        print(q)
+        print("redirect")
 
 
+    else:
+        return redirect('take_quiz', quiz_id=quiz_id)                     
 
     if quiz.redirect_url:
         return redirect(quiz.redirect_url)
     return render(request, 'quiz_completed.html', context=context)
-                            
+
 
     
