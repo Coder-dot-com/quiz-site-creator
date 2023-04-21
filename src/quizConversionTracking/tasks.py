@@ -38,6 +38,10 @@ def conversion_tracking_user_quiz(event_name, event_id, session_id, quiz_id, eve
         elif 'bot' in user_agent:
             print(f"user agent contains bot not firing pixel for quiz with id: {quiz_id}... {user_agent}")
             return
+        
+    if session.email == "usman.shabir1@outlook.com":
+            print(f"{session.email}... not firing pixel")
+            return     
 
     #Check for session fbp
     print("Attempting to get fbp")

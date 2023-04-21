@@ -118,7 +118,7 @@
                             setTimeout(location.reload(), 750)
                         {% else %}
                             window.$('#table_id').dataTable( {
-                                "order": [[ 0, 'desc' ],],
+                                {% comment %} "order": [[ 0, 'desc' ],], {% endcomment %}
                             } );
                         {% endif %}
 
