@@ -5,11 +5,10 @@
 
 To do:
 
+    
     -User image upload 
 
-    -add check make sure quiz has stripe and product before displaying product 
     
-        -add check if product requires shipping info (later)
 
     -Select a fair price
 
@@ -81,6 +80,8 @@ To do:
 
     -allow adding product variants to quiz
     -clean user image uoloads keep same size
+
+    -add check if product requires shipping info (later)
 
     ================================================
     
