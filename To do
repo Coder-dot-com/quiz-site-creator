@@ -1,14 +1,21 @@
 -Charge £15 for now once start running paid ads charge £30+
 -Before running ads everything has to be perfect and set up
 
--email scraper
+-take our feedback survey
 
 To do:
 
+    -satisfied/unsatisfied element
+    -Create 1-10 question with slider input
+    -Create 1-5 star review 
     
-    -User image upload 
+    -email scraper
 
+    -templates modal short and long customer feedback survey
     
+
+
+    -User image upload 
 
     -Select a fair price
 
@@ -17,9 +24,6 @@ To do:
         -set product price to be in user chosen currency for quiz add to product model for now default is gbp
         -open image in new tab if clicked
 
-        -satisfied/unsatisfied element
-        -Create 1-10 question with slider input
-        -Create 1-5 star review 
         -Create address component
 
         -templates (useful for seo purposes aswell create new app? template/xyzurl no s)
