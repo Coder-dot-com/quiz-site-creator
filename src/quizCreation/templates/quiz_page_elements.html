@@ -22,7 +22,7 @@
 
 
         <div class="row px-5 my-3">
-            <div class="py-1 w-100 p-3" style="background-color:rgba(227, 227, 204, 0.3)">
+            <div class="py-1 w-100 p-3 border border-1" style="border-color: #1ea7c5 !important">
                 <strong>
 
                     {{element.element.page_element.position}}.
@@ -145,17 +145,17 @@
 
 
                 <div class="p-4 d-flex align-items-center ">
-                    <div class="list-icon mr-3 border border-1 border-dark rounded ">
+                    <div class="list-icon mr-3 border border-1 border-dark rounded p-2" style="border-color: #1ea7c5 !important">
                         <p type="button"
                            hx-get={% url 'move_element_up' user_quiz.id quiz_page.id element.element.page_element.id %}
                            hx-target='#page_elements'
                            hx-swap=outerHTML
-                           class="fs-20 site-color mb-0 mt-2"><i class="fa fa-chevron-up"></i></p>
+                           class="fs-20 site-color mb-0 mt-2" style="color: #1ea7c5 !important"><i class="fa fa-chevron-up"></i></p>
                         <p type="button"
                            hx-get={% url 'move_element_down' user_quiz.id quiz_page.id element.element.page_element.id %}
                            hx-target='#page_elements'
                            hx-swap=outerHTML
-                           class="fs-20 site-color mb-0 mt-2"><i class="fa fa-chevron-down"></i></p>
+                           class="fs-20 site-color mb-0 mt-2" style="color: #1ea7c5 !important"><i class="fa fa-chevron-down"></i></p>
                     </div>
 
                     <br>
@@ -168,12 +168,12 @@
                         <br><br>
                         {% if not element.type == "Text" and element.element.title %}
                             {% if element.type == "Agree disagree table" %}
-                                Agree disagree section
+                                Section
                             {% else %}
                                 Question
                             {% endif %}
-
                             title:
+
                             <ul class=" list-group-horizontal-sm">
                                 <li class="my-4">
                                     <strong>{{element.element.title}}</strong>
