@@ -185,11 +185,17 @@ def get_value_stored_in_db(request, quiz_id, element_id, response_id, question_i
             answer = False
 
 
-    else:
+    elif element.get_element_type()['type'] == "Agree disagree table":
         agree_disagree_question = AgreeDisagreeRow.objects.get(id=question_id)
         answer = Answer.objects.get(question_agree_disagree=agree_disagree_question, response=response)
         context['question'] = agree_disagree_question
+    
+    elif element.get_element_type()['type'] == "Satisfied unsatisfied table":
+        question_satisfied_unsatisfied = SatisfiedUnsatisfiedRow.objects.get(id=question_id)
+        answer = Answer.objects.get(question_satisfied_unsatisfied=agree_disagree_question, response=response)
+        context['question'] = question_satisfied_unsatisfied
 
+        
     context['answer'] = answer
 
     if element.get_element_type()['type'] == "Char input":

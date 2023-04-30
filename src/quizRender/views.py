@@ -130,6 +130,8 @@ def complete_quiz(request, quiz_id, number, response_id):
 
     response_object = Response.objects.filter(
         response_id=response_id, session=_session(request), quiz=quiz)
+    
+    print(response_object)
 
     if response_object.exists() and request.POST:
         if response_object[0].completed:
@@ -144,7 +146,7 @@ def complete_quiz(request, quiz_id, number, response_id):
 
     print('response_object', response_object)
 
-    if response_object.exists():
+    if response_object.exists() and request.method == 'POST':
         response_object = response_object[0]
 
         for e in elements:
@@ -175,7 +177,6 @@ def complete_quiz(request, quiz_id, number, response_id):
                 answer_obj.answer = answer
                 answer_obj.save()  
             elif e.get_element_type()['type'] == "Agree disagree table":
-                answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
                 questions = AgreeDisagreeRow.objects.filter(agree_disagree_element=e.get_element_type()['element'])
                 for q in questions:
                     answer_obj = Answer.objects.get_or_create(response=response_object, question_agree_disagree=q)[0]
@@ -188,7 +189,6 @@ def complete_quiz(request, quiz_id, number, response_id):
                         answer_obj.delete()
 
             elif e.get_element_type()['type'] == "Satisfied unsatisfied table":
-                answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
                 questions = SatisfiedUnsatisfiedRow.objects.filter(satisfied_unsatisfied_element=e.get_element_type()['element'])
                 for q in questions:
 
@@ -219,6 +219,7 @@ def complete_quiz(request, quiz_id, number, response_id):
     
 
         response_object.steps_completed = number
+        response_object.completed = True
         response_object.save()
 
         pv_event_unique_id = event_id()
@@ -241,19 +242,19 @@ def complete_quiz(request, quiz_id, number, response_id):
             print("failed conv tracking")
             print(q)
 
-        context['user_quiz'] = quiz
-        context['response_id'] = response_id
-        context['response'] = response_object
-        try:
-            product = Product.objects.get(quiz=quiz)
-            context['product'] = product
-        except Product.DoesNotExist:
-            product = None
+    else:
+        response_object = response_object[0]
 
-        response = response_object
+    
+    context['user_quiz'] = quiz
+    context['response_id'] = response_id
+    context['response'] = response_object
+    try:
+        product = Product.objects.get(quiz=quiz)
+        context['product'] = product
+    except Product.DoesNotExist:
+        product = None
 
-        response.completed = True
-        response.save()
 
     if quiz.redirect_url:
         return redirect(quiz.redirect_url)
