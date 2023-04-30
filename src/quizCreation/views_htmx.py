@@ -997,6 +997,7 @@ def delete_satisfied_unsatisfied_row(request, quiz_id, page_id, element_id, choi
 
 @login_required
 def edit_element_title(request, quiz_id, page_id, element_id):
+    print("edit_element_title")
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     if user_quiz.exists():
         user_quiz = user_quiz[0]
@@ -1045,6 +1046,13 @@ def edit_element_title(request, quiz_id, page_id, element_id):
             context['edit'] = True
             return render(request, 'element_forms/AddRowAgreeDisagreeModal.html', context=context)
 
+        elif element_type == "Satisfied unsatisfied table":
+            context['element'] = element
+            context['choices'] = SatisfiedUnsatisfiedRow.objects.filter(
+                satisfied_unsatisfied_element=element)
+            context['edit'] = True
+            print("edit_element_title satisfied")
+            return render(request, 'element_forms/AddRowSatisfiedUnsatisfiedModal.html', context=context)
 
         else:
             print("NOT MULTIPLE CHOICE")
