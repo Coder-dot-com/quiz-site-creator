@@ -231,11 +231,11 @@
                                 {% endfor %}
                             </ul>
 
-                        {% elif element.type == "Agree disagree table" %}
+                        {% elif element.type == "Agree disagree table"  or element.type == "Satisfied unsatisfied table" %}
 
                             Questions:
                             <ul class="list-group list-group-horizontal-sm">
-                                {% for e in element.element.get_agree_disagree_rows %}
+                                {% for e in element.element.get_rows %}
                                     <li class="border border-1 p-3 rounded border-dark my-4 mx-3 d-flex"
                                         style="justify-content: center; align-items: center;max-width:fit-content;">
                                         <div class="text-center">

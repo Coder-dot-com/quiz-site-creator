@@ -179,81 +179,12 @@
                 <div class="tab-pane fade" id="Monthly" role="tabpanel">
                     <div class="pt-4">
 
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center p-5">
 
                             {% for option in monthly_subscription_choices %}
+                            {% include 'dashboard2/components/htmx/subscription_choices_include.html' %}
 
-                                <div class="col-xl-3 col-lg-3 col-md-6 col-sm-12">
-                                    {% if option.tier.type == "professional" %}
-                                        <div class="row text-center">
-                                            {% comment %} <span class=" badge-soft-primary text-white my-3  mx-auto float-right" style="font-size:1.1rem;background-color:lightgrey">Recommended</span> {% endcomment %}
-                                        </div>
-                                    {% endif %}
-                                    <div class="card plan-box overflow-hidden p-2 {% if option.tier.type == "professional" %} shadow-lg border-5 {% else %} border-1 my-3{% endif %}">
-                                        {% if option.has_badge %}
-                                            <div class="card-header">
-                                                <span class="badge badge-soft-primary text-black ms-auto float-end" style="font-size:1.1rem;background-color:{{option.badge_color}};color:{{option.badge_text_color}} !important">{{option.badge_text}}</span>
-                                            </div>
-                                        {% endif %}
-                                        <div class="card-body">
-
-                                            <h3 class="mt-2">{{option.subscription_name}}</h5>
-                                            {% autoescape off %}
-                                                {{option.feature_list}}
-                                            {% endautoescape %}
-
-                                            {% if option.description %}
-
-                                                <div class="mt-4">
-                                                    <p class=" mb-0">{{option.description}}</p>
-                                                </div>
-                                            {% endif %}
-
-                                            <div class="mt-4 d-flex">
-                                                <h2 class="m-0">
-                                                    {% if option.sale_price %}
-                                                        <s class="font-size-22"> {{option.currency.currency_symbol}}{{option.sale_price}} {{option.renewal_frequency}}</s>
-                                                    {% endif %}
-                                                    <span class="plan ps-1 ">{{option.currency.currency_symbol}}<span id="subscriptionPrice_{{option.id}}">{{option.price | stringformat:'d'}}
-
-                                                    </span>
-                                                    </span>
-                                                </h2>
-                                                <br>
-                                                <br>
-                                                <span class="float-end ms-1" style="align-self:end"> per mo</span>
-
-
-                                                <script>
-
-                                                    var subscription_price = document.querySelector('#subscriptionPrice_{{option.id}}')
-                                                    {% if option.renewal_frequency == 'annually' %}
-                                                        new_price = (Math.round({{option.price}} / 12))
-                                                            subscription_price.textContent = new_price
-                                                    {% endif %}
-                                                </script>
-                                            </div>
-                                            {% if annual %}
-                                                <span class="text-muted">({{option.currency.currency_symbol}}{{option.price}} billed annually})</span>
-                                            {% endif %}
-                                            <form action=""
-                                                  hx-post="{% url 'stripe_payment_subscibe' option.id  %}"
-                                                  hx-target="#subscribeNow"
-                                                  hx-swap="outerHTML"
-                                            >
-                                                {% if user.is_authenticated %}
-                                                    <div class="text-center plan-btn mt-4 pt-2">
-                                                        {% if option == user_subscription.subscription_choice and not user_subscription.status == "cancelled" %}
-                                                            <span type="" class="btn site-button waves-effect waves-light w-100" style="background-color:lightgrey;color:white;">Active</span>
-                                                        {% else %}
-                                                            <button type="submit" class="btn btn-primary site-button waves-effect waves-light w-100">Subscribe now</button>
-                                                        {% endif %}
-                                                    </div>
-                                                {% endif %}
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                              
                             {% endfor %}
                         </div>
                         <!-- end row -->
@@ -262,81 +193,11 @@
 
                 <div class="tab-pane fade  active show"  id="Annual">
                     <div class="pt-4">
-                        <div class="row justify-content-center">
+                        <div class="row justify-content-center p-5">
 
                             {% for option in annual_subscription_choices %}
-
-                                <div class="col-xl-3 col-lg-3 col-md-6   col-sm-12">
-                                    {% if option.tier.type == "professional" %}
-                                        <div class="row text-center">
-                                            {% comment %} <span class=" badge-soft-primary text-white my-3  mx-auto float-right" style="font-size:1.1rem;background-color:lightgrey">Recommended</span> {% endcomment %}
-                                        </div>
-                                    {% endif %}
-                                    <div class="card plan-box overflow-hidden p-2 {% if option.tier.type == "professional" %} shadow-lg border-5 {% else %} border-1 my-3{% endif %}">
-                                        {% if option.has_badge %}
-                                            <div class="card-header">
-                                                <span class="badge badge-soft-primary text-black ms-auto float-end" style="font-size:1.1rem;background-color:{{option.badge_color}};color:{{option.badge_text_color}} !important">{{option.badge_text}}</span>
-                                            </div>
-                                        {% endif %}
-                                        <div class="card-body">
-
-                                            <h3 class="mt-2">{{option.subscription_name}}</h5>
-                                            {% autoescape off %}
-                                                {{option.feature_list}}
-                                            {% endautoescape %}
-
-                                            {% if option.description %}
-
-                                                <div class="mt-4">
-                                                    <p class=" mb-0">{{option.description}}</p>
-                                                </div>
-                                            {% endif %}
-
-                                            <div class="mt-4 d-flex">
-                                                <h2 class="m-0">
-                                                    {% if option.sale_price %}
-                                                        <s class="font-size-22"> {{option.currency.currency_symbol}}{{option.sale_price}} {{option.renewal_frequency}}</s>
-                                                    {% endif %}
-                                                    <span class="plan ps-1 ">{{option.currency.currency_symbol}}<span id="subscriptionPrice_{{option.id}}">{{option.price | stringformat:'d'}}
-
-                                                    </span>
-                                                    </span>
-                                                </h2>
-                                                <br>
-                                                <br>
-                                                <span class="float-end ms-1" style="align-self:end"> per mo</span>
-
-
-                                                <script>
-
-                                                    var subscription_price = document.querySelector('#subscriptionPrice_{{option.id}}')
-                                                    {% if option.renewal_frequency == 'annually' %}
-                                                        new_price = (Math.round({{option.price}} / 12))
-                                                            subscription_price.textContent = new_price
-                                                    {% endif %}
-                                                </script>
-                                            </div>
-                                            {% if annual %}
-                                                <span class="text-muted">({{option.currency.currency_symbol}}{{option.price}} billed annually})</span>
-                                            {% endif %}
-                                            <form action=""
-                                                  hx-post="{% url 'stripe_payment_subscibe' option.id  %}"
-                                                  hx-target="#subscribeNow"
-                                                  hx-swap="outerHTML"
-                                            >
-                                                {% if user.is_authenticated %}
-                                                    <div class="text-center plan-btn mt-4 pt-2">
-                                                        {% if option == user_subscription.subscription_choice and not user_subscription.status == "cancelled" %}
-                                                            <span type="" class="btn site-button waves-effect waves-light w-100" style="background-color:lightgrey;color:white;">Active</span>
-                                                        {% else %}
-                                                            <button type="submit" class="btn btn-primary site-button waves-effect waves-light w-100">Subscribe now</button>
-                                                        {% endif %}
-                                                    </div>
-                                                {% endif %}
-                                            </form>
-                                        </div>
-                                    </div>
-                                </div>
+                            {% include 'dashboard2/components/htmx/subscription_choices_include.html' %}
+                          
                             {% endfor %}
                         </div>
                         <!-- end row -->

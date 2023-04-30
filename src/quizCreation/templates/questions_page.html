@@ -163,22 +163,22 @@
                                         <div class="accordion__body--text pb-5">
 
                                             {% if page.get_quiz_page_elements %}
-                                                Quiz page elements: <br>
                                                 {% for e in page.get_quiz_page_elements %}
                                                     <br>
-                                                    {{e.position}}. {% if e.get_element_type.element.title %}
+                                                    {{e.position}}. <strong>
+                                                        {{e.get_element_type.type}}:
+                                                    </strong> 
+                                                    {% if e.get_element_type.element.title %}
                                                         {{e.get_element_type.element.title}}
                                                     {% else %}
+                                                        {% if e.get_element_type.type == 'Text' %}
+                                                        Custom HTML Text   
+                                                        {% else %}
                                                         No title added to page element
+                                                        {% endif %}
                                                     {% endif %}
                                                     <br>
-                                                    <small class="text-align-right ml-auto" style="float: right !important;">
-
-                                                        <i class="text-small">
-
-                                                            ({{e.get_element_type.type}})
-                                                        </i>
-                                                    </small>
+                                                   
                                                 {% endfor %}
                                             {% else %}
                                                 No page elements added. Click edit to add an element!

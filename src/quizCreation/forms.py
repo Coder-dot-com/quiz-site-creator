@@ -1,7 +1,7 @@
 from django import forms
 from uuid import uuid4
 
-from .models import TextElement, CharInputElement, TextInputElement, EmailInputElement, NumberInputElement, MultipleChoiceElement, MultipleChoiceChoice, SingleChoiceElement, SingleChoiceChoice, AgreeDisagree, AgreeDisagreeRow, UserQuiz
+from .models import TextElement, CharInputElement, TextInputElement, EmailInputElement, NumberInputElement, MultipleChoiceElement, MultipleChoiceChoice, SingleChoiceElement, SingleChoiceChoice, AgreeDisagree, AgreeDisagreeRow, UserQuiz, SatisfiedUnsatisfied, SatisfiedUnsatisfiedRow
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 class TextElementForm(forms.ModelForm):
@@ -105,3 +105,24 @@ class QuizConfirmationForm(forms.ModelForm):
     class Meta:
         model = UserQuiz
         fields = ['quiz_confirmation_content', ]
+
+
+class SatisfiedUnsatisfiedElementForm(CharInputElementForm):
+
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget = forms.TextInput(attrs={'field_title': "Enter a title for your satisfied unsatisfied section", 'maxlength': 100, 'class': 'w-100 form-control border-dark'},)
+        self.fields['title'].required = False
+
+    class Meta:
+        model = SatisfiedUnsatisfied
+        fields = ['title', ]
+
+class SatisfiedUnsatisfiedRowForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['title'].widget = forms.TextInput(attrs={'field_title': "Enter your question here", 'maxlength': 10000, 'class': 'w-100 form-control border-dark'},)
+
+    class Meta:
+        model = SatisfiedUnsatisfiedRow
+        fields = ['title', ]

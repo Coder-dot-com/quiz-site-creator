@@ -21,40 +21,13 @@
 
   {% endif %}
 
-  <style>
-    @media screen and (max-width: 768px) {
-      .responsiveModal {
-
-        min-width: 100%;
-
-
-
-      }
-    }
-    @media screen and (min-width: 768px) {
-
-      .responsiveModal {
-        min-width: 500px;
-      }
-    }
-  </style>
   <div class="container-fluid" id="subscribeNow">
-
-    {% comment %} <div class="row justify-content-center">
-      <div class="col-lg-6">
-          <div class="text-center mb-5">
-              <h4>Subscribe now</h4>
-              <p class="text-muted">Cancel anytime</p>
-          </div>
-      </div>
-  </div> {% endcomment %}
-  <!-- end row -->
 
 
     <div class="row justify-content-center">
 
       <script src="https://js.stripe.com/v3/"></script>
-      <div class="col-10 mx-auto p-1 responsiveModal">
+      <div class="col-10 mx-auto p- border border-dark border-3 rounded p-4 mb-4 my-1">
         <h4>
           What you get when you subscribe to the {{subscription_choice.subscription_name}} plan
 
@@ -63,9 +36,11 @@
           {{subscription_choice.feature_list}}
         {% endautoescape %}
 
+        <div class="text-center">
+
         {% if subscription_choice.renewal_frequency == 'annually' %}
-          <h4>
-            Works out rounded to {{subscription_choice.currency.currency_symbol}}<span id="subscriptionPrice_">{{subscription_choice.price}}</span> per month
+          <h4>Only 
+             {{subscription_choice.currency.currency_symbol}}<span id="subscriptionPrice_">{{subscription_choice.price}}</span> per month
 
 
           </h4>
@@ -78,11 +53,14 @@
           Billed at {{subscription_choice.currency.currency_symbol}}{{subscription_choice.price}} {{subscription_choice.renewal_frequency}}
         </small>
 
+      </div>
+
+
         <script>
 
           var subscription_price = document.querySelector('#subscriptionPrice_')
           {% if subscription_choice.renewal_frequency == 'annually' %}
-            new_price = (Math.round({{subscription_choice.price}} / 12))
+            new_price = ({{subscription_choice.price}} / 12).toFixed(2)
               subscription_price.textContent = new_price
           {% endif %}
         </script>
@@ -90,7 +68,7 @@
 
       </div>
 
-      <div class="col-10 mx-auto p-1 responsiveModal mt-2">
+      <div class="col-lg-6 col-md-8 mx-auto p-4  mt-2">
         <form id="payment-form" data-secret="{{ client_secret }}">
           <div id="payment-element">
           <!-- Elements will create form elements here -->

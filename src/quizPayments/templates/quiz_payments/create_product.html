@@ -1,88 +1,88 @@
 {% load static %}
 
 <div class="col-lg-9 mx-auto">
- <div class="card"> 
-    <div class="mx-3">
-        <h6 class="m-3">Note: For product to display at quiz end make sure your quiz can accept payments on the previous page</h6>
-     {% if product %}
+    <div class="card">
+        <div class="mx-3">
+            <h6 class="m-3">Note: For product to display at quiz end make sure your quiz can accept payments on the previous page</h6>
+            {% if product %}
 
-             <a  type="button" 
-             href={% url 'delete_product_quiz' user_quiz.id %} 
-             class="text-danger float-right">Delete</a>
- 
-             <center class="my-4">
-                 <strong>
-                     Product added edit details below
-                 </strong>
-             </center>
+                <a  type="button"
+                   href={% url 'delete_product_quiz' user_quiz.id %}
+                   class="text-danger float-right">Delete</a>
 
-             {% include 'quiz_payments/add_product_image.html' %}
-             
-     {% else %}
+                <center class="my-4">
+                    <strong>
+                        Product added edit details below
+                    </strong>
+                </center>
 
-        
- 
- 
-         <center class="my-4">
-             <strong>
-                 Currently no product added. Add a product then you'll see the option to add images
-             </strong>
-         </center>
-         
-     {% endif %}
+                {% include 'quiz_payments/add_product_image.html' %}
+
+            {% else %}
 
 
 
-    <form
-        id="create_product"
-        action="{% url 'create_product' user_quiz.id %}"
-        method="post"
-        class="my-5 mx-3"
-    >
-    {% csrf_token %}
-            <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
-            <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
-            {% for field in form %}
-                <div class="mb-2">
 
-                    <div class="form-label my-3">
-                        {{field.field.widget.attrs.field_title}}
-                    </div>
-                    {{field}}
-                </div>
-            {% endfor %}
+                <center class="my-4">
+                    <strong>
+                        Currently no product added. Add a product then you'll see the option to add images
+                    </strong>
+                </center>
 
-            <button type="submit" class="float-right btn btn-primary site-button w-100"
-                    onclick="for ( instance in CKEDITOR.instances ) {
-                             CKEDITOR.instances[instance].updateElement();
-                             }"
+            {% endif %}
+
+
+
+            <form
+                id="create_product"
+                action="{% url 'create_product' user_quiz.id %}"
+                method="post"
+                class="my-5 mx-3"
             >
-                {% if product %}
-                    Edit
+                {% csrf_token %}
+                <script type="text/javascript" src="{% static "ckeditor/ckeditor-init.js" %}"></script>
+                <script type="text/javascript" src="{% static "ckeditor/ckeditor/ckeditor.js" %}"></script>
+                {% for field in form %}
+                    <div class="mb-2">
+
+                        <div class="form-label my-3">
+                            {{field.field.widget.attrs.field_title}}
+                        </div>
+                        {{field}}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" class="float-right btn btn-primary site-button w-100"
+                        onclick="for ( instance in CKEDITOR.instances ) {
+                                 CKEDITOR.instances[instance].updateElement();
+                                 }"
+                >
+                    {% if product %}
+                        Edit
                     {% else %}
 
-                    Add 
-                {% endif %} 
-                product</button>
+                        Add
+                    {% endif %}
+                    product</button>
 
                 {% if success %}
-                <p class="text-green fadeOut">Details updated!</p>
+                    <p class="text-green fadeOut">Details updated!</p>
 
-                <style>
-                    .fadeOut {
+                    <style>
+                        .fadeOut {
                             visibility: hidden;
                             opacity: 0;
                             transition: visibility 0s 1s, opacity 1s linear;
-                    }
-                </style>
+                        }
+                    </style>
                 {% endif %}
 
 
-    </form>
+            </form>
 
- </div>
+        </div>
 
-</div>
+    </div>
 
 
 

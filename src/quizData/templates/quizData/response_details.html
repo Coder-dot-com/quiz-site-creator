@@ -10,11 +10,11 @@
 
             <div class="card mx-auto">
                 <a class="text-danger text-right ml-auto my-2 p-3 no-print"
-                type="button"
-                href="{% url 'delete_response_detail' response.quiz.id response.response_id %}"
-             >
-                 Delete <i class="fa fa-trash"></i>
-             </a>
+                   type="button"
+                   href="{% url 'delete_response_detail' response.quiz.id response.response_id %}"
+                >
+                    Delete <i class="fa fa-trash"></i>
+                </a>
                 <div class="card-header " style="justify-content:right;">
                     <a class="btn btn-primary site-button float-right mb-3 no-print" type="button" onclick="window.print()">Print <i class="fa fa-print"></i></a>
                 </div>
@@ -24,11 +24,11 @@
                     <div class="widget-media">
                         <ul class="timeline">
                             {% include 'quizData/response_details_render.html' %}
-                            
+
                         </ul>
                     </div>
                 </div>
-            
+
             </div>
         </div>
 

@@ -36,9 +36,9 @@
         }
 
         .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6, body {
-        
-                color: #302929 !important;
-        
+
+            color: #302929 !important;
+
 
         }
 
@@ -307,25 +307,4 @@
 
                     {% endif %}
 
-                    {% comment %} {% if user_payment_status and not user_payment_status.status == "active"  %}
-
-                        <div class="alert alert-warning alert-dismissible fade show mx-auto  text-dark"  role="alert">
-                            <center>
-                                <p>{% if user_payment_status.status == "free" %}
-                                    You don't have an active membership. Find out the benefits of a membership here<a href='{{subscribe_url}}'></a>
-
-
-                                {% elif user_payment_status.status == "free_trial_expired" %}
-                                    Free trial expired. <a href='{{subscribe_url}}'>Subscribe</a>
-                                    today to activate more features
-
-                                {% elif user_payment_status.status == "free_trial" %}
-                                    Free trial active. Expires on: {{user_payment_status.subscription_expiry|date:"l dS M Y"}}. <a href='{{subscribe_url}}'>Subscribe</a>
-                                    today to activate more features
-                                {% endif %}
-                                </p>
-                            </center>
-                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                        </div>
-
-                    {% endif %} {% endcomment %}
+                 

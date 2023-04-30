@@ -1,122 +1,122 @@
 <form id="user_image_{{user_quiz.id}}"
-hx-encoding='multipart/form-data'
+      hx-encoding='multipart/form-data'
 
-hx-post="{% url 'add_image_quiz_product' user_quiz.id %}"
-hx-trigger="change"
-hx-swap="outerHTML"
-hx-indicator="#spinner_{{user_quiz.id}}"
-class="my-5"
+      hx-post="{% url 'add_image_quiz_product' user_quiz.id %}"
+      hx-trigger="change"
+      hx-swap="outerHTML"
+      hx-indicator="#spinner_{{user_quiz.id}}"
+      class="my-5"
 
-onsubmit=""
+      onsubmit=""
 >
 
 
-{% if product.get_images %}
+    {% if product.get_images %}
 
-  <div class="col-12 my-2">
-      <h5 class="text-center">Current image(s)</h5>
-  </div>
-  <div class="row px-3">
-          {% for i in product.get_images %}
-          <div class=" mx-auto">
-              <div class="">
-                <img class="my-3" src="{{i.image.url}}" alt="" style="max-width:5rem;max-height:10rem;">
-                <br>
-                <a 
-                type="button"
-
-                hx-delete="{% url 'delete_image_quiz_product' user_quiz.id i.id %}"
-                hx-trigger="click"
-                hx-target="#user_image_{{user_quiz.id}}"   
-                hx-indicator="#spinner_{{user_quiz.id}}"
-                hx-confirm="Are you sure you wish to delete this image?"
-
-                >Remove?
-            
-            </a>
-            </div>
+        <div class="col-12 my-2">
+            <h5 class="text-center">Current image(s)</h5>
         </div>
+        <div class="row px-3">
+            {% for i in product.get_images %}
+                <div class=" mx-auto">
+                    <div class="">
+                        <img class="my-3" src="{{i.image.url}}" alt="" style="max-width:5rem;max-height:10rem;">
+                        <br>
+                        <a
+                            type="button"
+
+                            hx-delete="{% url 'delete_image_quiz_product' user_quiz.id i.id %}"
+                            hx-trigger="click"
+                            hx-target="#user_image_{{user_quiz.id}}"
+                            hx-indicator="#spinner_{{user_quiz.id}}"
+                            hx-confirm="Are you sure you wish to delete this image?"
+
+                        >Remove?
+
+                        </a>
+                    </div>
+                </div>
             {% endfor %}
-  </div>
+        </div>
 
-{% endif %}
-
-
-
-<label class="btn btn-primary site-button my-3" style="width:100%"
->
-  Add image(s)
-  <br>
-  <input name="image"
-         class="d-none form-control
-                required" style="display:none;" type="file" accept="image/*" multiple
-
-  />
-</label>
-
-{% if error %}
-  <br><br>
-  <span class="small text-danger">
-      Please check image has been uploaded by refreshing the page
-  </span>
-
-{% endif %}
-
-<center id="spinner_{{user_quiz.id}}">
-
-  <div  class="spinner-border text-dark my-4" role="status">
-  </div>
-
-</center>
-<style>
-  #spinner_{{user_quiz.id}}{
-      opacity:0;
-      transition: all 500ms ease-in;
-      display:none;
+    {% endif %}
 
 
-  }
 
-  .htmx-request #spinner_{{user_quiz.id}}{
-      opacity:1;
-      display: block;
+    <label class="btn btn-primary site-button my-3" style="width:100%"
+    >
+        Add image(s)
+        <br>
+        <input name="image"
+               class="d-none form-control
+                      required" style="display:none;" type="file" accept="image/*" multiple
 
+        />
+    </label>
 
-  }
-  .htmx-request#spinner_{{user_quiz.id}}{
-      opacity:1;
-      display: block;
-  }
+    {% if error %}
+        <br><br>
+        <span class="small text-danger">
+            Please check image has been uploaded by refreshing the page
+        </span>
 
+    {% endif %}
 
-</style>
+    <center id="spinner_{{user_quiz.id}}">
 
+        <div  class="spinner-border text-dark my-4" role="status">
+        </div>
 
-<style>
-  @media (min-width: 600px){
-      .userImageUpload {
-          max-width: 80%; /*set max width*/
-          max-height: 40%;
-      }
-      .userImageUpload img{
-          width:100%;
-          object-fit:contain;
-      }
-
-
-  }
-  @media (max-width: 600px){
-      .userImageUpload {
-          max-width: 70%; /*set max width*/
-          max-height: 50%;
-      }
-      .userImageUpload img{
-          width:100%;
-          object-fit:contain;
-      }
+    </center>
+    <style>
+        #spinner_{{user_quiz.id}}{
+            opacity:0;
+            transition: all 500ms ease-in;
+            display:none;
 
 
-  }
+        }
 
-</style>
+        .htmx-request #spinner_{{user_quiz.id}}{
+            opacity:1;
+            display: block;
+
+
+        }
+        .htmx-request#spinner_{{user_quiz.id}}{
+            opacity:1;
+            display: block;
+        }
+
+
+    </style>
+
+
+    <style>
+        @media (min-width: 600px){
+            .userImageUpload {
+                max-width: 80%; /*set max width*/
+                max-height: 40%;
+            }
+            .userImageUpload img{
+                width:100%;
+                object-fit:contain;
+            }
+
+
+        }
+        @media (max-width: 600px){
+            .userImageUpload {
+                max-width: 70%; /*set max width*/
+                max-height: 50%;
+            }
+            .userImageUpload img{
+                width:100%;
+                object-fit:contain;
+            }
+
+
+        }
+
+    </style>
 </form>

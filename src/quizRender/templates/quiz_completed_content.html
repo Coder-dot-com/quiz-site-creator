@@ -1,5 +1,5 @@
 <div id="quizRenderPreview"
-      class="d-flex mt-5">
+     class="d-flex mt-5">
 
     <div class="col-lg-9 mx-auto p-5
                 5 bg-white border-2 bg-shadow">
@@ -25,7 +25,7 @@
             {% autoescape off %}
                 {{user_quiz.quiz_confirmation_content}}
             {% endautoescape %}
- 
+
         {% elif not product %}
             <h3 class="text-center">
                 Quiz Successfully completed!
@@ -34,43 +34,43 @@
 
         {% if product  and user_quiz.stripe_public_key %}
 
-        <div class="row">
-            <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
+            <div class="row">
+                <div class="col-xl-3 col-lg-6  col-md-6 col-xxl-5 ">
             <!-- Tab panes -->
-                <div class="tab-content">
+                    <div class="tab-content">
 
-                    <div >
-                        <a id="imageLink" href="{{product.get_images.0.image.url}}" target="_blank">
-
-                            
-                            <img id="mainImage" src="{{product.get_images.0.image.url}}" alt="" style="width:100%">
-                        </a>
-                    </div>
+                        <div >
+                            <a id="imageLink" href="{{product.get_images.0.image.url}}" target="_blank">
 
 
-                    <div class="card-body pb-1">
-                        <div id="" class="row">
-
-                            {% for i in product.get_images %}
-                            <a  
-                            onClick="document.querySelector('#mainImage').src='{{i.image.url}}';document.querySelector('#imageLink').href='{{i.image.url}}'" 
-                            class="col-lg-3 col-4 mb-4">
-                                <img src="{{i.image.url}}" style="width:100%;"/>
+                                <img id="mainImage" src="{{product.get_images.0.image.url}}" alt="" style="width:100%">
                             </a>
-                            {% endfor %}
-                            
                         </div>
+
+
+                        <div class="card-body pb-1">
+                            <div id="" class="row">
+
+                                {% for i in product.get_images %}
+                                    <a
+                                        onClick="document.querySelector('#mainImage').src='{{i.image.url}}';document.querySelector('#imageLink').href='{{i.image.url}}'"
+                                        class="col-lg-3 col-4 mb-4">
+                                        <img src="{{i.image.url}}" style="width:100%;"/>
+                                    </a>
+                                {% endfor %}
+
+                            </div>
+                        </div>
+
                     </div>
-                 
+
                 </div>
-            
-            </div>
         <!--Tab slider End-->
-            <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
-                <div class="product-detail-content">
+                <div class="col-xl-9 col-lg-6  col-md-6 col-xxl-7 col-sm-12">
+                    <div class="product-detail-content">
                 <!--Product details-->
-                    <div class="new-arrival-content pr">
-                        <h2>{{product.name}}</h2>
+                        <div class="new-arrival-content pr">
+                            <h2>{{product.name}}</h2>
                         {% comment %} <div class="comment-review star-rating">
                             <ul>
                                 <li><i class="fa fa-star"></i></li>
@@ -81,118 +81,118 @@
                             </ul>
                             <span class="review-text">(34 reviews) / </span><a class="product-review" href="" data-toggle="modal" data-target="#reviewModal">Write a review?</a>
                         </div> {% endcomment %}
-                        <div class="d-table mb-2">
-                            <p class=" float-left d-block">{{product.currency.currency_symbol}}{{product.price}} {{product.currency}}</p>
-                        </div>
-                   
-                        <p class="text-content">{{product.description|safe}}</p>
-               
+                            <div class="d-table mb-2">
+                                <p class=" float-left d-block">{{product.currency.currency_symbol}}{{product.price}} {{product.currency}}</p>
+                            </div>
+
+                            <p class="text-content">{{product.description|safe}}</p>
+
                     {% comment %} <!--Quantity start-->
                         <div class="col-2 px-0">
                             <input type="number" name="num" class="form-control border-dark input-btn input-number" value="1">
                         </div> {% endcomment %}
                     <!--Quanatity End-->
-                        <div class="shopping-cart mt-3">
-                            <a 
-                            data-toggle="modal" data-target="#exampleModalLong"
-                            
-                            class="btn btn-primary btn-lg " href="javascript:void(0)"><i class="fa fa-shopping-basket mr-2"></i>
-                                Buy now</a>
-                        </div>
-                        <div class="modal fade" id="exampleModalLong">
-                            <div class="modal-dialog">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Buy now</h5>
-                                        <button type="button" class="close" data-dismiss="modal"><span>×</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class=" order-md-1">
-                                            <form id="shippingAddressForm"
-                                            hx-post={% url 'post_shipping_address_form' user_quiz.id response_id %}
-                                            hx-validate
-                                            
-                                            >
-                                            <h4 class="mb-3">Shipping address</h4>
-                                            {% csrf_token %}
-                                                <div class="row">
-                                                    <div class="col-md-6 mb-3">
-                                                        <label for="firstName">First name</label>
-                                                        <input name="first_name" type="text" class="form-control border-dark" id="firstName" placeholder="Enter first name" value="" required="">
-                                                        <div class="invalid-feedback">
-                                                            Valid first name is required.
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-md-6 mb-3">
-                                                        <label for="lastName">Last name</label>
-                                                        <input  name="last_name" type="text" class="form-control border-dark" id="lastName" placeholder="Enter last name" value="" required="">
-                                                        <div class="invalid-feedback">
-                                                            Valid last name is required.
-                                                        </div>
-                                                    </div>
-                                                </div>
+                            <div class="shopping-cart mt-3">
+                                <a
+                                    data-toggle="modal" data-target="#exampleModalLong"
 
-                                              
-
-                                                <div class="mb-3">
-                                                    <label for="email">Shipping Email </label>
-                                                    <input name="shipping_email" type="email" class="form-control border-dark" id="email" placeholder="you@example.com" required>
-                                                    <div class="invalid-feedback">
-                                                        Please enter a valid email address for shipping updates.
-                                                    </div>
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label for="address">Address</label>
-                                                    <input name="address_line_1" type="text" class="form-control border-dark" id="address" placeholder="1234 Main St" required="">
-                                                    <div class="invalid-feedback">
-                                                        Please enter your shipping address.
-                                                    </div>
-                                                </div>
-
-                                                <div class="mb-3">
-                                                    <label for="address2">Address 2 <span
-                                                        class="text-muted">(Optional)</span></label>
-                                                    <input name="address_line_2" type="text" class="form-control border-dark" id="address2" placeholder="Apartment or suite">
-                                                </div>
-
-                                                <div class="row">
-                                                    <div class="col-lg-5 col-md-12 mb-3">
-                                                        <label for="country">Country</label>
-                                                        <input name="country" type="text" class="form-control border-dark" id="country" placeholder="Enter country" required="">
-
-                                                    </div>
-                                                    <div class="col-lg-4 col-md-12 mb-3">
-                                                        <label for="state">City</label>
-                                                        <input name="city" type="text" class="form-control border-dark" id="city" placeholder="Enter city" required="">
-
-                                                        <div class="invalid-feedback">
-                                                            Please provide a valid state.
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-lg-3 col-md-12 mb-3">
-                                                        <label for="zip">Zip/postcode</label>
-                                                        <input name="zip_postcode" type="text" class="form-control border-dark" id="zip" placeholder="Enter here" required="">
-                                                        <div class="invalid-feedback">
-                                                            Zip code required.
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to
-                                                    checkout</button>
-                                            </form>
+                                    class="btn btn-primary btn-lg " href="javascript:void(0)"><i class="fa fa-shopping-basket mr-2"></i>
+                                    Buy now</a>
+                            </div>
+                            <div class="modal fade" id="exampleModalLong">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title">Buy now</h5>
+                                            <button type="button" class="close" data-dismiss="modal"><span>×</span>
+                                            </button>
                                         </div>
-                                        
-                                    </div>
+                                        <div class="modal-body">
+                                            <div class=" order-md-1">
+                                                <form id="shippingAddressForm"
+                                                      hx-post={% url 'post_shipping_address_form' user_quiz.id response_id %}
+                                                      hx-validate
 
+                                                >
+                                                    <h4 class="mb-3">Shipping address</h4>
+                                                    {% csrf_token %}
+                                                    <div class="row">
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="firstName">First name</label>
+                                                            <input name="first_name" type="text" class="form-control border-dark" id="firstName" placeholder="Enter first name" value="" required="">
+                                                            <div class="invalid-feedback">
+                                                                Valid first name is required.
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-md-6 mb-3">
+                                                            <label for="lastName">Last name</label>
+                                                            <input  name="last_name" type="text" class="form-control border-dark" id="lastName" placeholder="Enter last name" value="" required="">
+                                                            <div class="invalid-feedback">
+                                                                Valid last name is required.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+
+
+                                                    <div class="mb-3">
+                                                        <label for="email">Shipping Email </label>
+                                                        <input name="shipping_email" type="email" class="form-control border-dark" id="email" placeholder="you@example.com" required>
+                                                        <div class="invalid-feedback">
+                                                            Please enter a valid email address for shipping updates.
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="address">Address</label>
+                                                        <input name="address_line_1" type="text" class="form-control border-dark" id="address" placeholder="1234 Main St" required="">
+                                                        <div class="invalid-feedback">
+                                                            Please enter your shipping address.
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="mb-3">
+                                                        <label for="address2">Address 2 <span
+                                                            class="text-muted">(Optional)</span></label>
+                                                        <input name="address_line_2" type="text" class="form-control border-dark" id="address2" placeholder="Apartment or suite">
+                                                    </div>
+
+                                                    <div class="row">
+                                                        <div class="col-lg-5 col-md-12 mb-3">
+                                                            <label for="country">Country</label>
+                                                            <input name="country" type="text" class="form-control border-dark" id="country" placeholder="Enter country" required="">
+
+                                                        </div>
+                                                        <div class="col-lg-4 col-md-12 mb-3">
+                                                            <label for="state">City</label>
+                                                            <input name="city" type="text" class="form-control border-dark" id="city" placeholder="Enter city" required="">
+
+                                                            <div class="invalid-feedback">
+                                                                Please provide a valid state.
+                                                            </div>
+                                                        </div>
+                                                        <div class="col-lg-3 col-md-12 mb-3">
+                                                            <label for="zip">Zip/postcode</label>
+                                                            <input name="zip_postcode" type="text" class="form-control border-dark" id="zip" placeholder="Enter here" required="">
+                                                            <div class="invalid-feedback">
+                                                                Zip code required.
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                    <button class="btn btn-primary btn-lg btn-block" type="submit">Continue to
+                                                        checkout</button>
+                                                </form>
+                                            </div>
+
+                                        </div>
+
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
         {% endif %}
 
         <strong class="my-3">

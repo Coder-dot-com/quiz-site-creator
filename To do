@@ -1,11 +1,15 @@
--Charge £15 for now once start running paid ads charge £30+
+-Charge £10 for now once start running paid ads charge £30+
 -Before running ads everything has to be perfect and set up
 
 -take our feedback survey
 
 To do:
 
-    -satisfied/unsatisfied element
+
+    -finish satisfied/unsatisfied element and handle rendering post and data analysis
+        -handle edit edit_satisfied_unsatisfied_element
+        -render
+
     -Create 1-10 question with slider input
     -Create 1-5 star review 
     

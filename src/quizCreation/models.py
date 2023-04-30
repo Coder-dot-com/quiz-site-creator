@@ -82,6 +82,9 @@ class QuizPageElement(models.Model):
         agree_disagree_element = AgreeDisagree.objects.filter(page_element=self)
         if agree_disagree_element.exists():
             return {'type': 'Agree disagree table', 'element': agree_disagree_element[0]}
+        satisfied_unsatisfied = SatisfiedUnsatisfied.objects.filter(page_element=self)
+        if satisfied_unsatisfied.exists():
+            return {'type': 'Satisfied unsatisfied table', 'element': satisfied_unsatisfied[0]}        
         image_display_element = ImageDisplayElement.objects.filter(page_element=self)
         if image_display_element.exists():
             return {'type': 'Image', 'element': image_display_element[0]}
@@ -147,7 +150,7 @@ class AgreeDisagree(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300, null=True, blank=True)
 
-    def get_agree_disagree_rows(self):
+    def get_rows(self):
         return AgreeDisagreeRow.objects.filter(agree_disagree_element=self).order_by('position')
 
 
@@ -158,3 +161,15 @@ class AgreeDisagreeRow(models.Model):
 
   
 
+class SatisfiedUnsatisfied(models.Model):
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    title = models.CharField(max_length=300, null=True, blank=True)
+
+    def get_rows(self):
+        return SatisfiedUnsatisfiedRow.objects.filter(satisfied_unsatisfied_element=self).order_by('position')
+
+
+class SatisfiedUnsatisfiedRow(models.Model):
+    satisfied_unsatisfied_element = models.ForeignKey(SatisfiedUnsatisfied, on_delete=models.CASCADE)
+    position = models.IntegerField()
+    title = models.TextField(max_length=10000)

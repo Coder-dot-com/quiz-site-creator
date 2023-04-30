@@ -6,14 +6,18 @@
     <div class="row">
 
         <div class="col-xl-6 col-xxl-12">
-            <div class="card col-lg-9 mx-auto justify-content-center my-5" >
-                <div class="card-header d-sm-flex d-block pb-0 border-0">
-                    <div class="mr-auto pr-3 mb-sm-0 mb-3">
-                        <h4 class="text-black fs-20"></h4>
-                        {% comment %} <p class="fs-13 mb-0 text-black">Lorem ipsum dolor sit amet, consectetur</p> {% endcomment %}
-                    </div>
 
+            <div class="card col-lg-9 mx-auto justify-content-center mt-5 mb-1" >
+                <div class=" ">
+                    Your quizes
                 </div>
+
+                <div class="text-center">
+                    <a style="" href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto float-right my-1">
+                        Create quiz  <i class="fa fa-plus mx-1"></i>
+                    </a>
+                </div>
+  
                 {% include 'quiz_creation/quizes_list.html' %}
             </div>
         </div>

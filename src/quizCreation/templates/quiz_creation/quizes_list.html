@@ -1,5 +1,6 @@
 {% load static %}
 <div id="quizesList">
+
     {% if quizes %}
         <script src="{% static 'dashboard/assets/js/clipboard.min.js' %}"></script>
 
@@ -11,18 +12,7 @@
         </style>
 
         <div class="card-body py-0 ">
-            <div class="text-center">
-                <a style="float:right;" href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-end my-1">
-                    Create quiz  <i class="fa fa-plus mx-1"></i>
-                </a>
-            </div>
-
-
-
             <div class="tab-pane active show fade d-inline" id="Unifinshed">
-                <div class="mx-auto ">
-                    Your quizes
-                </div>
 
                 {% for quiz in quizes %}
 
@@ -34,14 +24,14 @@
                                 transition: all 0.5s;
                                " class="shadow  py-3 my-5 col-lg-9 mx-auto ">
 
-                               <a type="button"
-                               hx-confirm="Are you sure you want to delete this quiz"
-                               hx-delete  ="{% url 'htmx_quiz_delete' quiz.id %}" class="ml-auto text-danger float-right"
-                               hx-target="#quizesList"
-           
-                            >
-                                Delete
-                            </a>
+                        <a type="button"
+                           hx-confirm="Are you sure you want to delete this quiz"
+                           hx-delete  ="{% url 'htmx_quiz_delete' quiz.id %}" class="ml-auto text-danger float-right"
+                           hx-target="#quizesList"
+
+                        >
+                            Delete
+                        </a>
                         <div class="d-flex align-items-center">
 
 
@@ -69,7 +59,7 @@
 
                                     <p class="">{{quiz.name}}</p></h4>
 
-                                
+
 
                             </div>
 
@@ -86,13 +76,13 @@
                                     <i class="fa fa-eye"></i></div>
                             </a>
                         </div>
-                        
+
                         <br>
                         <br>
-                        
-                        
-                        
-            
+
+
+
+
                     </div>
 
 

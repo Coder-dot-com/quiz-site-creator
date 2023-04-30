@@ -9,6 +9,7 @@
     <option value="SingleChoice" id="option_SingleChoice"></option>
     <option value="AgreeDisagree" id="option_AgreeDisagree"></option>
     <option value="ImageDisplay" id="option_ImageDisplay"></option>
+    <option value="SatisfiedUnsatisfied" id="option_SatisfiedUnsatisfied"></option>
 
 
 </select>
@@ -32,6 +33,14 @@
         </div>
     </div>
 
+    <div role="button" onclick="SelectDeselect(this);" id="card_SatisfiedUnsatisfied"
+         class="card  mb-0 card_choice border-3 border-white col-12 col-sm-5 " data-option=SatisfiedUnsatisfied style="min-width:8rem;border:3px solid white;">
+        <div class="text-center py-2">
+            <h4 class="card-title border border-dark border-3 p-3" style="border-color: #1ea7c5 !important">Satisfied Unsatisfied </h4>
+            <p class="text-small">A table of questions where users can answer mostly satisfied, unsatisfied etc...</p>
+            <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+        </div>
+    </div>
 
     <div role="button" onclick="SelectDeselect(this);" id="card_TextInput"
          class="card  mb-0 card_choice border-3 border-white col-12 col-sm-5 " data-option=TextInput style="min-width:8rem;border:3px solid white;">

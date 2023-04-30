@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
-from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement, SingleChoiceChoice, SingleChoiceElement, AgreeDisagree, AgreeDisagreeRow, ImageDisplayElement
-from .forms import TextElementForm, QuizConfirmationForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm, SingleChoiceElementForm, SingleChoiceChoiceForm, AgreeDisagreeElementForm, AgreeDisagreeRowForm
+from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement, SingleChoiceChoice, SingleChoiceElement, AgreeDisagree, AgreeDisagreeRow, ImageDisplayElement, SatisfiedUnsatisfied, SatisfiedUnsatisfiedRow
+from .forms import TextElementForm, QuizConfirmationForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm, SingleChoiceElementForm, SingleChoiceChoiceForm, AgreeDisagreeElementForm, AgreeDisagreeRowForm, SatisfiedUnsatisfiedElementForm, SatisfiedUnsatisfiedRowForm
 from django.urls import reverse
 import os
 from uuid import uuid4
@@ -167,7 +167,14 @@ def quiz_page_element_add(request, quiz_id, page_id):
                 }
                 return render(request, 'element_forms/ImageDisplay.html', context=context)
 
-
+            elif element == "SatisfiedUnsatisfied":
+                form = SatisfiedUnsatisfiedElementForm()
+                context = {
+                    'user_quiz': user_quiz,
+                    'quiz_page': quiz_page,
+                    'form': form,
+                }
+                return render(request, 'element_forms/SatisfiedUnsatisfied.html', context=context)
         return HttpResponse("An error occured")
 
 
@@ -472,6 +479,50 @@ def add_agree_disagree_element(request, quiz_id, page_id):
 
                     # Here render the modal ability to add choices
                     return render(request, 'element_forms/AddRowAgreeDisagreeModal.html', context=context)
+
+
+@login_required
+def add_satisfied_unsatisfied_element(request, quiz_id, page_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
+        if quiz_page.exists():
+            if request.method == 'POST':
+                # Bind data from request.POST into a PostForm
+                form = SatisfiedUnsatisfiedElementForm(request.POST)
+                # If data is valid, proceeds to create a new post
+                if form.is_valid():
+                    quiz_page = quiz_page[0]
+                    element = form.save(commit=False)
+                    try:
+                        position = QuizPageElement.objects.filter(
+                            page=quiz_page).order_by('-position')[0].position
+                    except IndexError:
+                        position = 0
+                    position = position + 1
+                    quiz_page_element = QuizPageElement.objects.create(
+                        page=quiz_page, position=position)
+                    element.page_element = quiz_page_element
+                    element.save()
+                    print('saving agree disagree')
+                    # determine position and create element objects
+                    form = SatisfiedUnsatisfiedRowForm()
+                    choices = SatisfiedUnsatisfiedRow.objects.filter(
+                        satisfied_unsatisfied_element=element)
+
+                    context = {
+                        'user_quiz': user_quiz[0],
+                        'quiz_page': quiz_page,
+                        'element_added': True,
+                        'element': element,
+                        'form': form,
+                        'choices': choices,
+                    }
+
+                    # Here render the modal ability to add choices
+                    return render(request, 'element_forms/AddRowSatisfiedUnsatisfiedModal.html', context=context)
+
+
 
 @login_required
 def add_image_display_element(request, quiz_id, page_id):
@@ -789,6 +840,39 @@ def add_row_to_agree_disagree_element(request, quiz_id, page_id, element_id):
         # Here render the modal ability to add choices
         return render(request, 'element_forms/AddRowAgreeDisagreeModal.html', context=context)
 
+@login_required
+def add_row_to_satisfied_unsatisfied_element(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        element = SatisfiedUnsatisfied.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+
+        choice_name = request.POST['choice_name']
+        try:
+            position = SatisfiedUnsatisfiedRow.objects.filter(
+                satisfied_unsatisfied_element=element).order_by('-position')[0].position
+        except IndexError:
+            position = 0
+        position = position + 1
+
+        choice = SatisfiedUnsatisfiedRow.objects.create(
+            satisfied_unsatisfied_element=element, title=choice_name, position=position)
+        choices = SatisfiedUnsatisfiedRow.objects.filter(
+            satisfied_unsatisfied_element=element)
+        form = SatisfiedUnsatisfiedRowForm()
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
+        return render(request, 'element_forms/AddRowsatisfiedUnsatisfiedModal.html', context=context)
+
 
 
 @login_required
@@ -874,6 +958,39 @@ def delete_row_agree_disagree_row(request, quiz_id, page_id, element_id, choice_
         # Here render the modal ability to add choices
         return render(request, 'element_forms/AddRowAgreeDisagreeModal.html', context=context)
 
+
+@login_required
+def delete_satisfied_unsatisfied_row(request, quiz_id, page_id, element_id, choice_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        element = SatisfiedUnsatisfied.objects.get(
+            page_element__page=page_id, page_element__page__quiz=quiz_id, id=element_id)
+
+        choice = SatisfiedUnsatisfiedRow.objects.get(
+            satisfied_unsatisfied_element=element, id=choice_id)
+        
+        choices_above =  SatisfiedUnsatisfiedRow.objects.filter(
+                satisfied_unsatisfied_element=element, position__gt=choice.position)
+        
+        for c in choices_above:
+            c.position -= 1
+            c.save()
+        choice.delete()
+        choices = SatisfiedUnsatisfiedRow.objects.filter(
+            satisfied_unsatisfied_element=element)
+        form = SatisfiedUnsatisfiedRowForm()
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        context = {
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'element_added': False,
+            'element': element,
+            'form': form,
+            'choices': choices,
+        }
+        # Here render the modal ability to add choices
+        return render(request, 'element_forms/AddRowSatisfiedUnsatisfiedModal.html', context=context)
 
 
 

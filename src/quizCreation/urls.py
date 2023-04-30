@@ -30,6 +30,9 @@ urlpatterns = [
     path('add_multiple_choice_element/<quiz_id>/<page_id>', views_htmx.add_multiple_choice_element, name="add_multiple_choice_element"),
     path('add_single_choice_element/<quiz_id>/<page_id>', views_htmx.add_single_choice_element, name="add_single_choice_element"),
     path('add_agree_disagree_element/<quiz_id>/<page_id>', views_htmx.add_agree_disagree_element, name="add_agree_disagree_element"),
+    path('add_satisfied_unsatisfied_element/<quiz_id>/<page_id>', views_htmx.add_satisfied_unsatisfied_element, name="add_satisfied_unsatisfied_element"),
+
+    
     path('add_image_display_element/<quiz_id>/<page_id>', views_htmx.add_image_display_element, name="add_image_display_element"),
 
 
@@ -47,7 +50,7 @@ urlpatterns = [
     path('add_choice_to_multiple_choice_element/<quiz_id>/<page_id>/<element_id>', views_htmx.add_choice_to_multiple_choice_element, name="add_choice_to_multiple_choice_element"),
     path('add_choice_to_single_choice_element/<quiz_id>/<page_id>/<element_id>', views_htmx.add_choice_to_single_choice_element, name="add_choice_to_single_choice_element"),
     path('add_row_to_agree_disagree_element/<quiz_id>/<page_id>/<element_id>', views_htmx.add_row_to_agree_disagree_element, name="add_row_to_agree_disagree_element"),
-
+    path('add_row_to_satisfied_unsatisfied_element/<quiz_id>/<page_id>/<element_id>', views_htmx.add_row_to_satisfied_unsatisfied_element, name="add_row_to_satisfied_unsatisfied_element"),
 
     path('get_text_element_edit_form/<quiz_id>/<element_id>', views_htmx.get_text_element_edit_form, name="get_text_element_edit_form"),
 
@@ -58,7 +61,7 @@ urlpatterns = [
     path('delete_choice_single_choice_element/<quiz_id>/<page_id>/<element_id>/<choice_id>', views_htmx.delete_choice_single_choice_element, name="delete_choice_single_choice_element"),
     path('delete_row_agree_disagree_row/<quiz_id>/<page_id>/<element_id>/<choice_id>', views_htmx.delete_row_agree_disagree_row, name="delete_row_agree_disagree_row"),
 
-
+    path('delete_satisfied_unsatisfied_row/<quiz_id>/<page_id>/<element_id>/<choice_id>', views_htmx.delete_satisfied_unsatisfied_row, name="delete_satisfied_unsatisfied_row"),
 
 
     path('move_element_up/<quiz_id>/<page_id>/<element_id>', views_htmx.move_element_up, name="move_element_up"),

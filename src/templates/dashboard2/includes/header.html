@@ -191,7 +191,15 @@
                                     {% comment %} <a class="nav-link" href="javascript:void(0)" role="button" > {% endcomment %}
                                 <div class="header-info">
                                     <span class="text-black"><strong>{{user.email}}</strong></span>
-                                            {% comment %} <p class="fs-12 mb-0">Super Admin</p> {% endcomment %}
+                                    {% if user_payment_status and  user_payment_status.status == "active"  %}
+                                            <p class="fs-12 mb-0">Plan active</p>
+                                    {% elif user_payment_status and  user_payment_status.status == "free"  %}
+                                        <p class="fs-12 mb-0">Subscription expired</p>
+                                    {% elif user_payment_status and  user_payment_status.status == "free_trial"  %}
+
+                                        <p class="fs-12 mb-0">Free trial</p>
+
+                                    {% endif %}
                                 </div>
                                     {% comment %} </a> {% endcomment %}
 
@@ -322,28 +330,4 @@
                         {% endfor %}
                     {% endautoescape %}
                 {% endif %}
-                {% if user_payment_status and not user_payment_status.status == "active"  %}
-
-                    <div class="alert alert-warning alert-dismissible fade show mx-auto  text-dark no-print" role="alert"
-                         style="background-color:#f7f7f0;"
-                    >
-                        <center>
-                            <p>{% if user_payment_status.status == "free" %}
-                                Subscription expired. <a href='{{subscribe_url}}'>
-                                    <strong>
-                                        Subscribe
-                                    </strong>
-                                </a>
-                                today to activate more features
-
-
-                            {% elif user_payment_status.status == "free_trial" %}
-                                Free trial active. Expires on: {{expiry_date}}. <a href='{{subscribe_url}}'>Subscribe</a>
-                                today to activate more features
-                            {% endif %}
-                            </p>
-                        </center>
-                        <button type="button" class="close h-100" data-dismiss="alert" aria-label="Close"><span><i class="mdi mdi-close"></i></span>
-                        </div>
-
-                {% endif %}
+            
