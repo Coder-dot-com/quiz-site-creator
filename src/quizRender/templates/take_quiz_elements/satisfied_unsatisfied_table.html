@@ -1,0 +1,67 @@
+<style>
+    .table strong, .table {
+        color: #302929;
+    }
+</style>
+
+<div class="table-responsive" style="font-size:1.5rem; !important">
+
+
+    <table class="table header-border table-bordered table-responsive-sm" style="font-size:1.5rem; !important">
+        <thead class=>
+            <strong>
+
+                <tr>
+                    <td class="border-dark text-center" style="vertical-align:bottom;" >
+                        <strong>
+                            Question
+                        </strong>
+                    </td>
+                    <td class="border-dark text-center" style="vertical-align:bottom;" >
+                        <strong>
+                            Mostly satisfied
+                        </strong>
+                    </td>
+                    <td class="border-dark text-center" style="vertical-align:bottom;" >
+                        <strong>
+                            Satisfied
+                        </strong>
+                    </td>
+                    <td class="border-dark text-center" style="vertical-align:bottom;" >
+                        <strong>
+                            Not sure
+                        </strong>
+                    </td>
+                    <td class="border-dark text-center" style="vertical-align:bottom;" >
+                        <strong>
+                            Unsatisfied
+                        </strong>
+                    </td>
+                    <td class="border-dark text-center" style="vertical-align:bottom;" >
+                        <strong>
+                            Mostly unsatisfied
+                        </strong>
+                    </td>
+                </tr>
+            </strong>
+
+        </thead>
+
+
+        {% for question in  element.get_element_type.element.get_rows %}
+            {% include 'take_quiz_elements/satisfied_unsatisfied_row.html' %}
+        {% endfor %}
+
+
+    </table>
+
+</div>
+
+{% if answers %}
+
+    {% for answer in answers %}
+
+    {% endfor %}
+
+
+{% endif %}

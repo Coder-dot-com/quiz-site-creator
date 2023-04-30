@@ -90,7 +90,7 @@
                                     <td class="text-danger">
                                         <a type="button"
                                            hx-delete="{% url 'delete_response' r.quiz.id r.response_id %}"
-                                           hx-confirm="Are you sure you want to delete response with id: {{r.response_id}}"
+                                           hx-confirm="Are you sure you want to delete response created on {{r.time_added|localtime}} {% get_current_timezone as TIME_ZONE %} ({{TIME_ZONE}})"
                                            hx-target="#table"
                                         >
                                             Delete <i class="fa fa-trash"></i>

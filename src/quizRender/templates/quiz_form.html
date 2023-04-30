@@ -64,6 +64,8 @@
                     {% include 'take_quiz_elements/single_choice_input_element.html' %}
                 {% elif element.get_element_type.type == 'Agree disagree table'  %}
                     {% include 'take_quiz_elements/agree_disagree_table.html' %}
+                {% elif element.get_element_type.type == 'Satisfied unsatisfied table'  %}
+                    {% include 'take_quiz_elements/satisfied_unsatisfied_table.html' %}
                 {% elif element.get_element_type.type == 'Image'  %}
                     {% include 'take_quiz_elements/Image.html' %}
                 {% endif %}

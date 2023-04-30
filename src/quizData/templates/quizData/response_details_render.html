@@ -2,22 +2,21 @@
 
 {% for i in response.get_all_answers %}
     {% for x in i %}
+        {% if not x.question.get_element_type.type == "Text content" and not x.question.get_element_type.type == "Image" %}
 
         <li>
             <div class="timeline-panel p-0 m-0">
-
-                {% if not x.question.get_element_type.type == "Text content" and not x.question.get_element_type.type == "Image" %}
                     <div class="">
                         <div>
                             <small>Question:</small>
                             <br>
                             <strong class="">
                                 {% if x.question %}
-
-
                                     {{x.question.get_element_type.element.title}}
-                                {% else %}
+                                {% elif x.question_agree_disagree.title %}
                                     {{x.question_agree_disagree.title}}
+                                {% elif x.question_satisfied_unsatisfied.title %}
+                                    {{x.question_satisfied_unsatisfied.title}}
                                 {% endif %}
                             </strong>
                         </div>
@@ -61,15 +60,12 @@
                                         </strong>
                                     </div>
                                 {% endfor %}
-
                             {% endif %}
-
                             <hr class="border-dark w-100">
-
                         </div>
                     </div>
-                {% endif %}
-            </div>
-        </li>
+                </div>
+            </li>
+            {% endif %}
     {% endfor %}
 {% endfor %}

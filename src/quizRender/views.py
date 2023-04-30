@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse, redirect
-from quizCreation.models import UserQuiz, QuizPage, MultipleChoiceChoice, SingleChoiceChoice
+from quizCreation.models import UserQuiz, QuizPage, MultipleChoiceChoice, SingleChoiceChoice, AgreeDisagreeRow, SatisfiedUnsatisfiedRow
 from subscriptions.models import UserPaymentStatus
 from datetime import datetime
 from uuid import uuid4
@@ -147,47 +147,76 @@ def complete_quiz(request, quiz_id, number, response_id):
     if response_object.exists():
         response_object = response_object[0]
 
-        for q in elements:
-            answer_obj = Answer.objects.get_or_create(
-                response=response_object, question=q)[0]
+        for e in elements:
 
-            if q.get_element_type()['type'] == 'Multiple choice question':
-                answers_list = request.POST.getlist(str(q.id))
+            if e.get_element_type()['type'] == 'Multiple choice question':
+                answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
+                answers_list = request.POST.getlist(str(e.id))
                 answer = ", ".join(answers_list)
                 answer_obj.answer = answer
                 answer_obj.question_choice.clear()
                 answer_obj.save()
                 for i in answers_list:
-                    element = q.get_element_type()['element']
+                    element = e.get_element_type()['element']
                     question_choice = MultipleChoiceChoice.objects.get(
-                        id=i)
+                            id=i)
                     answer_obj.question_choice.add(question_choice)
-
+            
                 answer_obj.save()
-
-            elif q.get_element_type()['type'] == "Single choice question":
-                print("SINGLE CHOICE")
-                print(request.POST)
+            elif e.get_element_type()['type'] == "Single choice question":
+                answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
                 try:
                     answer = request.POST[str(q.id)]
                     single_choice = SingleChoiceChoice.objects.get(id=answer)
                     answer = single_choice.choice
                     answer_obj.single_question_choice = single_choice
                 except MultiValueDictKeyError:
-                    answer = ""
+                    answer = ""  
                 answer_obj.answer = answer
-                answer_obj.save()
+                answer_obj.save()  
+            elif e.get_element_type()['type'] == "Agree disagree table":
+                answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
+                questions = AgreeDisagreeRow.objects.filter(agree_disagree_element=e.get_element_type()['element'])
+                for q in questions:
+                    answer_obj = Answer.objects.get_or_create(response=response_object, question_agree_disagree=q)[0]
+                    print(q.id)
+                    try:
+                        answer = request.POST[str(q.id)]
+                        answer_obj.answer = answer
+                        answer_obj.save()
+                    except MultiValueDictKeyError:
+                        answer_obj.delete()
 
-            elif not q.get_element_type()['type'] == 'Text':
+            elif e.get_element_type()['type'] == "Satisfied unsatisfied table":
+                answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
+                questions = SatisfiedUnsatisfiedRow.objects.filter(satisfied_unsatisfied_element=e.get_element_type()['element'])
+                for q in questions:
+
+                    answer_obj = Answer.objects.get_or_create(response=response_object, question_satisfied_unsatisfied=q)[0]
+                    print(q.id)
+                    try:
+                        answer = request.POST[str(q.id)]
+                        answer_obj.answer = answer
+                        answer_obj.save()
+                    except MultiValueDictKeyError:
+                        answer_obj.delete()             
+            
+            elif not e.get_element_type()['type'] == 'Text':
+                answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
                 try:
-                    answer = request.POST[str(q.id)]
+                    answer = request.POST[str(e.id)]
                 except MultiValueDictKeyError:
-                    answer = ""
+                    answer = ""            
                 answer_obj.answer = answer
                 answer_obj.save()
+            
 
-            elif q.get_element_type()['type'] == 'Text':
-                answer_obj.delete()
+            if e.get_element_type()['type'] == 'Email input':
+                email = request.POST[str(e.id)]
+                session = _session(request)
+                session.email = email
+                session.save()
+    
 
         response_object.steps_completed = number
         response_object.save()
