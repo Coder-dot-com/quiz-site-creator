@@ -55,7 +55,11 @@
 
             <label class="btn btn-primary site-button" style="width:100%"
             >
-                Add an image
+            {% if element.image %}Change
+            {% else %}
+            Add an 
+            {% endif %}
+            image
 
 
                 <br>
@@ -73,6 +77,18 @@
                 </span>
 
             {% endif %}
+
+            {% if element.image %}
+            
+            <button type="button" class="btn btn-primary site-secondary-button w-100" data-dismiss="modal"
+            hx-trigger="click"
+            hx-target="#page_elements"
+            hx-swap=outerHTML
+            hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}>
+            
+            Save
+        </button>
+        {% endif %}
 
             <center id="spinner_{{user_quiz.id}}">
 
@@ -131,7 +147,10 @@
                 }
 
             </style>
+
         </form>
+
+
     </div>
 </div>
 

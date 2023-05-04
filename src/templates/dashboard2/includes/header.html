@@ -39,6 +39,12 @@
         <script src="https://js.stripe.com/v3/"></script>
         <script src="https://unpkg.com/htmx.org@1.7.0" integrity="sha384-EzBXYPt0/T6gxNp0nuPtLkmRpmDBbjg6WmCUZRLXBBwYYmwAUxzlSGej0ARHX0Bo" crossorigin="anonymous"></script>
 
+        {% if request.user.profile.new_user %}
+        
+        <link rel="stylesheet" href="https://unpkg.com/intro.js/introjs.css">
+        <script src="https://unpkg.com/intro.js/intro.js"> </script>
+        
+        {% endif %}
 
         {% autoescape off %}
             {% if site.site_meta_tags %}{{site_meta_tags}}{% endif %}
@@ -184,8 +190,7 @@
                             </div>
                         </div>
                         <ul class="navbar-nav header-right">
-
-
+                                
 
                             <li class="nav-item  header-profile">
                                     {% comment %} <a class="nav-link" href="javascript:void(0)" role="button" > {% endcomment %}

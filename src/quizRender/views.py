@@ -80,6 +80,7 @@ def take_quiz(request, quiz_id):
         if user_payment_status.status == "free_trial" or user_payment_status.status == "active":
 
             context = {}
+            context['quiz'] = quiz[0]
             context['quiz_page'] = quiz[0].first_quiz_page()
             context['first_page'] = True
 

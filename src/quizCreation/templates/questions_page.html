@@ -11,13 +11,14 @@
         <div class="card px-1">
 
             <div class="px-3 my-3">
-                <h5 class"my-3" >Editing quiz: {{user_quiz.name}}</h5>
+                <h5 class"my-3" >Editing: {{user_quiz.name}}</h5>
             </div>
-            <div class="px-3 text-center ">
+            <div class="px-3  ">
 
                 <button type="button" class="btn btn-primary site-button m-2" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus"></i>  Add quiz page</button>
                 {% comment %} <a target="_blank" href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'preview_quiz' user_quiz.id %}" type="button" class="btn  mb-2 mr-2">View quiz preview</a> {% endcomment %}
 
+    
 
                 <div class="modal fade" id="exampleModalCenter">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -33,7 +34,7 @@
                                 >
                                     {% csrf_token %}
                                     <div class="form-group">
-                                        <label class="">Enter a name for your quiz page<span class="required">*</span></label>
+                                        <label class="">Enter a name for your page<span class="required">*</span></label>
                                         <input type="text" class="form-control" name="name" required maxlength='300' placeholder="Enter name here">
                                         Note: Name is only shown to you and not displayed to users
                                     </div>
@@ -62,8 +63,8 @@
                                 </button>
                             </div>
                             <div class="modal-body">
-                                {% include 'quiz_conversion_tracking/conversion_api.html' %}
                                 {% include 'quiz_settings/logo_upload_form.html' %}
+                                {% include 'quiz_conversion_tracking/conversion_api.html' %}
                                 {% include 'quiz_settings/analytics_script_form.html' %}
                                 {% include 'quiz_settings/color_settings.html' %}
 
@@ -101,102 +102,121 @@
                     </div>
                 </div>
 
-                <a href="{% url 'add_product_quiz' user_quiz.id %}" type="button" class="btn btn-primary site-secondary-button mb-2 ">Add product </a>
+                <a href="{% url 'add_product_quiz' user_quiz.id %}" type="button" class="btn btn-primary site-secondary-button m-2 ">Add product </a>
 
+
+                
             </div>
-            <div class="card-body tab-content pt-2">
-                <div class="tab-pane active show fade" id="Unifinshed">
+            <div class="card-body my-5 pt-2">
+                <div class="" id="Unifinshed">
                     <h4>Quiz pages</h4>
-                    {% for page in quiz_pages %}
+                    {% if quiz_pages %}
+                        {% for page in quiz_pages %}
 
-                        <div class=" rounded shadow-lg my-5 border  border-3 " style="border-color:#1ea7c5 !important;
-                        border: 1px solid;
-                        border-radius: 1.25rem;
-                        -webkit-transition: all 0.5s;
-                        -ms-transition: all 0.5s;
-                        transition: all 0.5s;">
-
-
-                            <div  class="d-flex  flex-wrap py-3 list-row align-items-center mb-2">
-
-                                <div class="col-xl-5 col-xxl-8 col-lg-6 col-sm-8 d-flex align-items-center">
-                                    <div class="list-icon mr-3 mb-3">
-                                        <p type="button"
-                                           hx-get={% url 'move_page_up' user_quiz.id page.id %}
-                                           hx-target='#pagesList'
-                                           hx-swap=outerHTML
-                                           class="site-color fs-20 mb-0 mt-2"><i class="fa fa-chevron-up"></i></p>
-                                        <p type="button"
-                                           hx-get={% url 'move_page_down' user_quiz.id page.id %}
-                                           hx-target='#pagesList'
-                                           hx-swap=outerHTML
-                                           class="site-color fs-20 mb-0 mt-2"><i class="fa fa-chevron-down"></i></p>
+                            <div class=" rounded shadow-lg my-5 border  border-3 " style="border-color:#1ea7c5 !important;
+                            border: 1px solid;
+                            border-radius: 1.25rem;
+                            -webkit-transition: all 0.5s;
+                            -ms-transition: all 0.5s;
+                            transition: all 0.5s;">
 
 
+                                <div  class="d-flex  flex-wrap py-3 list-row align-items-center mb-2">
+
+                                    <div class="col-xl-5 col-xxl-8 col-lg-6 col-sm-8 d-flex align-items-center">
+                                        <div class="list-icon mr-3 mb-3">
+                                            <p type="button"
+                                            hx-get={% url 'move_page_up' user_quiz.id page.id %}
+                                            hx-target='#pagesList'
+                                            hx-swap=outerHTML
+                                            class="site-color fs-20 mb-0 mt-2"><i class="fa fa-chevron-up"></i></p>
+                                            <p type="button"
+                                            hx-get={% url 'move_page_down' user_quiz.id page.id %}
+                                            hx-target='#pagesList'
+                                            hx-swap=outerHTML
+                                            class="site-color fs-20 mb-0 mt-2"><i class="fa fa-chevron-down"></i></p>
+
+
+                                        </div>
+                                        <div class="info ">
+                                            <h4 class=""><p class="text-black">{{page.number}}. {{page.title}}</p></h4>
+                                            {% comment %} <p>This page will always be shown as it has no conditions attached</p> {% endcomment %}
+                                        </div>
                                     </div>
-                                    <div class="info ">
-                                        <h4 class=""><p class="text-black">{{page.number}}. {{page.title}}</p></h4>
-                                        {% comment %} <p>This page will always be shown as it has no conditions attached</p> {% endcomment %}
-                                    </div>
-                                </div>
-                                <div class="ml-auto pr-4">
+                                    <div class="ml-auto pr-4">
 
-                                    <a class=" btn btn-primary site-button mb-2" href="{% url 'quiz_page_edit' user_quiz.id page.id %}">
-                                        <span >Edit <i class="fa fa-edit"></i></span>
+                                        <a class=" btn btn-primary site-button mb-2" href="{% url 'quiz_page_edit' user_quiz.id page.id %}">
+                                            <span >Edit <i class="fa fa-edit"></i></span>
+                                        </a>
+
+                                        <a href="#" class="mt-3"
+                                        hx-delete={% url 'delete_quiz_page' user_quiz.id page.id %}
+                                        hx-target='#pagesList'
+                                        hx-swap=outerHTML
+                                        hx-confirm="Are you sure you wish to delete the page {{page.name}}"
+                                        >
+                                            <div class="  text-danger text-right" style="border:3px  solid transparent!important;"> Delete <i class="fa fa-trash"></i></div>
+                                        </div>
+
                                     </a>
 
-                                    <a href="#" class="mt-3"
-                                       hx-delete={% url 'delete_quiz_page' user_quiz.id page.id %}
-                                       hx-target='#pagesList'
-                                       hx-swap=outerHTML
-                                       hx-confirm="Are you sure you wish to delete the page {{page.name}}"
-                                    >
-                                        <div class="  text-danger text-right" style="border:3px  solid transparent!important;"> Delete <i class="fa fa-trash"></i></div>
-                                    </div>
-
-                                </a>
-
-                            </div>
+                                </div>
 
 
 
-                            <div id="accordion-{{page.id}}" class="accordion  mx-auto my-4 " >
-                                <div class="accordion__item">
-                                    <div class="accordion__header border-0 collapsed" data-toggle="collapse" data-target="#bordered_collapse{{page.id}}" > <span class="accordion__header--text">View details</span>
-                                        <span class="accordion__header--indicator"></span>
-                                    </div>
-                                    <div id="bordered_collapse{{page.id}}" class="accordion__body collapse" data-parent="#accordion-{{page.id}}" style="">
-                                        <div class="accordion__body--text pb-5">
+                                <div id="accordion-{{page.id}}" class="accordion  mx-auto my-4 " >
+                                    <div class="accordion__item">
+                                        <div class="accordion__header border-0 collapsed" data-toggle="collapse" data-target="#bordered_collapse{{page.id}}" > <span class="accordion__header--text">View details</span>
+                                            <span class="accordion__header--indicator"></span>
+                                        </div>
+                                        <div id="bordered_collapse{{page.id}}" class="accordion__body collapse" data-parent="#accordion-{{page.id}}" style="">
+                                            <div class="accordion__body--text pb-5">
 
-                                            {% if page.get_quiz_page_elements %}
-                                                {% for e in page.get_quiz_page_elements %}
-                                                    <br>
-                                                    {{e.position}}. <strong>
-                                                        {{e.get_element_type.type}}:
-                                                    </strong> 
-                                                    {% if e.get_element_type.element.title %}
-                                                        {{e.get_element_type.element.title}}
-                                                    {% else %}
-                                                        {% if e.get_element_type.type == 'Text' %}
-                                                        Custom HTML Text   
+                                                {% if page.get_quiz_page_elements %}
+                                                    {% for e in page.get_quiz_page_elements %}
+                                                        <br>
+                                                        {{e.position}}. <strong>
+                                                            {{e.get_element_type.type}}:
+                                                        </strong> 
+                                                        {% if e.get_element_type.element.title %}
+                                                            {{e.get_element_type.element.title}}
                                                         {% else %}
-                                                        No title added to page element
+                                                            {% if e.get_element_type.type == 'Text' %}
+                                                            Custom HTML Text   
+                                                            {% else %}
+                                                            No title added to page element
+                                                            {% endif %}
                                                         {% endif %}
-                                                    {% endif %}
-                                                    <br>
-                                                   
-                                                {% endfor %}
-                                            {% else %}
-                                                No page elements added. Click edit to add an element!
+                                                        <br>
+                                                    
+                                                    {% endfor %}
+                                                {% else %}
+                                                    No page elements added. Click edit to add an element!
 
-                                            {% endif %}
+                                                {% endif %}
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    {% endfor %}
+                        {% endfor %}
+                    
+                    {% else %}
+
+                    <p class="text-center">No pages added yet
+                        <br>
+
+
+                        <button type="button" class="btn btn-primary site-button m-2" data-toggle="modal" data-target="#exampleModalCenter"><i class="fa fa-plus"></i>  Add quiz page</button>
+                    </p>
+
+                    <span>
+                        Note:
+                        <strong> Each quiz/survey/form consists of pages which contain elements that you choose e.g. form fields</strong>
+                    </span>
+
+                    {% endif %}
 
 
                 </div>
@@ -207,15 +227,12 @@
                 <div class="card-header d-sm-flex flex-wrap d-block pb-0 border-0">
                     <div class="mr-auto pr-3 mb-3">
                         <h4 class="text-black fs-20"></h4>
-                        <p class="fs-13 mb-0 text-black">Editing quiz: {{user_quiz.name}}</p>
+                        <p class="fs-13 mb-0 text-black">Editing: {{user_quiz.name}}</p>
                     </div>
 
 
 
-                    <button type="button" class="btn btn-primary site-button " data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
-
-
-
+                    <button type="button"  class="btn btn-primary site-button " data-toggle="modal" data-target="#exampleModalCenter">Add quiz page</button>
                 </div>
             {% endif %}
         </div>

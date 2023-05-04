@@ -64,7 +64,6 @@ def register_view(request):
             # Create user emaillist object
             UserEmail.objects.create(user=user, email=email, promo_consent=promo_consent)
             
-            messages.success(request, "Welcome, get started by using the menu")
 
             context = {}
 
@@ -96,6 +95,7 @@ def register_view(request):
             #render dashboard home
 
             context['quizes'] = None
+            
 
             return render(request, "dashboard2/index.html", context=context)
 

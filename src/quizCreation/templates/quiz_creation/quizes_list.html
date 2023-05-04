@@ -1,8 +1,17 @@
 {% load static %}
+
+{% if quizes %}
+<div class="text-center">
+    <a style="" href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto float-right my-1">
+        Create <i class="fa fa-plus mx-1"></i>
+    </a>
+</div>
+{% endif %}
+
 <div id="quizesList">
 
     {% if quizes %}
-        <script src="{% static 'dashboard/assets/js/clipboard.min.js' %}"></script>
+
 
         <style>
 
@@ -37,25 +46,11 @@
 
                             <div class="info ">
                                 <a    href="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}" target="_blank"
-                                   type="button" class="mx-1"  >Open quiz in new tab</a> <br>
+                                   type="button" class="mx-1"  >Open in new tab</a> <br>
 
+                                   <script src={% static 'dashboard/assets/js/clipboard.min.js' %}></script>
 
-                                <a           id="copy-button{{quiz.id}}"          data-clipboard-target="#linkToQuiz{{quiz.id}}"
-                                   type="button" class=" dropdown-toggle mx-1" data-toggle="dropdown">Copy link to quiz</a> <br>
-                                <div class="dropdown-menu">
-                                    <span class="dropdown-item" href="javascript:void()">Link successfully copied!</span>
-                                </div>
-
-
-                                <input style="display:none;" type="hidden" id="linkToQuiz{{quiz.id}}" value="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}">
-
-                                <script>                                new ClipboardJS('#copy-button{{quiz.id}}');</script>
-
-
-
-                                <br>
-                                <h4 class="mt-5 pt-2">
-                                    <small>Quiz name:</small>
+                                <h4 class="mt-2 pt-2">
 
                                     <p class="">{{quiz.name}}</p></h4>
 
@@ -64,8 +59,11 @@
                             </div>
 
                         </div>
-                        <br>
-                        <div class="g-4 text-right">
+                        <strong for="" class="form-label w-100 text-dark">
+                            Link to take:
+                            <input class="form-control w-100 text-dark" id="linkToQuiz{{quiz.id}}" value="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}">
+                        </strong>
+                        <div class="g-4 text-right mt-3">
 
                             <a class="btn btn-primary site-button " href="{% url 'edit_quiz' quiz.id %}">
                                 <div class="float-right">Manage <i class="fa fa-edit"></i></div>
@@ -76,6 +74,8 @@
                                     <i class="fa fa-eye"></i></div>
                             </a>
                         </div>
+
+
 
                         <br>
                         <br>
@@ -93,7 +93,7 @@
 
                         <div class="text-center">
                             <a style="float:right;" href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-end my-1">
-                                Create quiz  <i class="fa fa-plus mx-1"></i>
+                                Create<i class="fa fa-plus mx-1"></i>
                             </a>
                         </div>
                     {% endif %}
@@ -104,15 +104,16 @@
         </div>
     {% else %}
 
-        <div class="card-body py-1 my-1 justify-content-center">
-            <div class="mx-auto justify-content-center text-center">
-                Get started by creating your first quiz
+        <div class="card-body py-1 my-1 ">
+            <div class="mx-auto text-center">
+                Get started by creating
             </div>
-            <div class="text-center">
-                <a href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto justify-content-center my-1">
-                    Create quiz  <i class="fa fa-plus mx-1"></i>
+            <div class="text-center" >
+                <a  href="{% url 'create_quiz' %}" class="btn btn-primary site-button mx-auto my-1">
+                    Create now <i class="fa fa-plus mx-1"></i>
                 </a>
             </div>
         </div>
+
     {% endif %}
 </div>
