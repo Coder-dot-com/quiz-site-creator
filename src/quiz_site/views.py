@@ -31,9 +31,9 @@ def home(request):
 
     event_source_url = request.META.get('HTTP_REFERER')
     session = _session(request)
-    category = Category.objects.all()[0]
 
     try:
+        category = Category.objects.all()[0]
         # Need to fix this to ensure different ids
         conversion_tracking.delay(event_name="PageView", event_id=purchase_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
         conversion_tracking.delay(event_name="ViewContent", event_id=vc_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
