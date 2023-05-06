@@ -1,11 +1,10 @@
-        |-Stripe: set up webhook url on stripe, 
+        -Stripe: set up webhook url on stripe, 
         |-create superuser 
-        |-Set up currency objects
+        -Set up currency objects
         |-Create tier
-        |-create category objects
-        |-Create subscriptions on site and stripe
+        -create category objects
+        -Create subscriptions on site and stripe
         |-Sitesettings
-        -Quiz
         -Pixels and analytics
             -add base for fb and google analytics
             -Or can be site wide via sitesettings (normally for google analytics)

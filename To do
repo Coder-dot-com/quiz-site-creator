@@ -8,7 +8,12 @@ To do:
     -deploy
     -finish email scraper
     -autoemail
-    -launch product hunt
+    -look at competitors landing pages and improve
+
+    -Add view question by question breakdown on response data analysis
+        -single choice, multiple choice, satisfied agree siagree show a graph
+        -otherwise say no graph available and show button with modal to view results and display all answers in modal
+    -launch product hunt as customer survey tool?
 
     -Create 1-5 star review 
     -Create 1-10 question with slider input
