@@ -40,7 +40,6 @@ urlpatterns = [
     path("", views.home, name="home"),
     path('admin/1a/', admin.site.urls),
     path('session/', include('session_management.urls')),
-    path('quiz/', include('quiz_backend.urls')),
 
 
     path('create_quiz/', include('quizCreation.urls')),

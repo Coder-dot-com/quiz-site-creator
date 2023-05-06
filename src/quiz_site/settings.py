@@ -192,7 +192,6 @@ INSTALLED_APPS = [
     'landing_page',
     'colorfield',
     'tiers',
-    'quiz_backend',
 
     'quizCreation',
     'quizRender',
@@ -230,7 +229,6 @@ TEMPLATES = [
                 'multicurrency.context_processors.currency',
                 'multicurrency.context_processors.user_current_currency',
                 'subscriptions.context_processors.user_subscription_valid',
-                'quiz_site.context_processors.main_quiz',
 
 
             ],

@@ -4,7 +4,6 @@ from django.urls import reverse
 import stripe
 from accounts.models import Profile
 from emails.tasks import subscription_cancelled, subscription_confirmed_email
-from quiz_backend.models import Response
 from session_management.models import Category
 from .models import UserPaymentStatus, UserSubscriptions, SubscriptionChoices, UserPaymentStatus, UserSubscriptions
 from quiz_site.settings import STRIPE_ENDPOINT_SECRET, STRIPE_PUBLIC_KEY, STRIPE_SECRET_KEY
@@ -25,7 +24,6 @@ import stripe
 from conversion_tracking.tasks import conversion_tracking
 
 from datetime import datetime, timedelta, timezone
-from quiz_backend.views import _post_quiz_payment_success
 
 
 stripe.api_key = STRIPE_SECRET_KEY

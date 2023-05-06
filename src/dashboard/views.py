@@ -10,7 +10,6 @@ from django.contrib.auth import get_user_model, authenticate, login
 import stripe
 from quiz_site.settings import STRIPE_SECRET_KEY
 from session_management.views import _session
-from quiz_backend.models import Answer, Quiz, Response
 from django.db.models import Q
 from quizCreation.models import UserQuiz
 
@@ -164,27 +163,3 @@ def billing_history(request):
     return render(request, 'dashboard2/billing_history.html', context=context)
 
 
-@login_required
-def dashboard_preferences(request):
-    user = request.user
-    current_user_response = Response.objects.filter(
-        Q(quiz__quiz_type="setUserPreferences") | Q(quiz__quiz_type="updateUserPreferences"),
-        completed=True, user=request.user).latest('last_modified')
-    
-    current_user_preferences = Answer.objects.all().exclude(question__user_preference_type__isnull=True).filter(
-        response=current_user_response)
-            
-    
-    #Get quiz  by updatepreferences quiz type, using this type add edit link on page
-    #  to quiz page
-    try:
-        update_preferences_quiz = Quiz.objects.filter(quiz_type="updateUserPreferences")[0]
-    except:
-        update_preferences_quiz = Quiz.objects.filter(quiz_type="setUserPreferences")[0]
-
-    context = {
-        'current_user_preferences': current_user_preferences,
-        'update_preferences_quiz': update_preferences_quiz,
-    }
-
-    return render(request, 'dashboard2/preferences.html', context=context)

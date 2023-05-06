@@ -4,7 +4,6 @@ from accounts.models import Profile, UserPreferenceType
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth.models import User
 from django.utils.safestring import mark_safe
-from quiz_backend.models import QuestionChoice
 
 from session_management.models import Referrer
 # Register your models here.

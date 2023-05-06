@@ -23,7 +23,6 @@ urlpatterns = [
     path('account_details/', views.account_details_dashboard, name="account_details_dashboard"),
     path('change_password/', views.change_password_dashboard, name="change_password_dashboard"),
     path('billing_history/', views.billing_history, name="billing_history"),
-    path('preferences/', views.dashboard_preferences, name="dashboard_preferences"),
     path('subscription_component/', views_htmx.subscription_component, name="subscription_component"),
     path('todays_overview/', views.todays_overview, name="todays_overview"),
 

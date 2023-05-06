@@ -2,7 +2,6 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from decouple import config
 from quiz_site.celery import app
-from quiz_backend.models import QuizOrder
 from subscriptions.models import UserSubscriptions 
 
 API_KEY = config('SENDBLUE_API_SECRET')
@@ -99,28 +98,3 @@ def subscription_cancelled(subscription_id, failed_payment=None):
 
 
 
-@app.task
-def quiz_order_confirmed(payment_intent_id):
-     
-    order = QuizOrder.objects.get(payment_intent_id=payment_intent_id)
-    context = {'order': order,}
-
-    if not order.email_sent:
-
-        message = render_to_string('emails/quiz_order_thank_you.html', context=context)
-
-        site_email = config('SITE_EMAIL')
-
-        send_mail(
-            subject=f'Thank you for your order',  
-            message=message, 
-            from_email=f'{site_email}', 
-            recipient_list=[order.email.email], 
-            fail_silently=False,
-            html_message=message,
-        )
-
-        order.email_sent = True 
-        order.save()
-    else:
-        print("Order confirmed Email already sent")
