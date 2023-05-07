@@ -1,5 +1,6 @@
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.3.0/chart.min.js" integrity="sha512-mlz/Fs1VtBou2TrUkGzX4VoGvybkD9nkeXWJm3rle0DPHssYYx4j+8kIS15T78ttGfmOjH0lLaBXGcShaVkdkg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
+
 <div>
     <canvas id="myChart{{question_id}}"></canvas>
   </div>
@@ -12,10 +13,10 @@
     new Chart(ctx{{question_id}}, {
       type: 'bar',
       data: {
-        labels: ['Mostly agree', 'Agree', 'Not sure', 'Disagree', 'Mostly disagree',],
+        labels: [{% for x in choices_count %}{% for key,value in x.items %}'{{key}}',{% endfor %}{% endfor %}],
         datasets: [{
           label: '# of responses',
-          data: [{{mostly_agree_count}}, {{agree_count}}, {{not_sure_count}}, {{disagree_count}}, {{mostly_disagree_count}}],
+          data: [{% for x in choices_count %}{% for key,value in x.items %}{{value}},{% endfor %}{% endfor %}],
           borderWidth: 1
         }]
       },

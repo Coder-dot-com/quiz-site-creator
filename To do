@@ -5,7 +5,7 @@
 
 To do:
     -Add view question by question breakdown on response data analysis
-        -single choice, multiple choice, satisfied agree siagree show a graph
+        -single choice, multiple choice, satisfied  show a graph
         -otherwise say no graph available and show button with modal to view results and display all answers in modal
 
     -deploy

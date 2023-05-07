@@ -169,7 +169,7 @@ def complete_quiz(request, quiz_id, number, response_id):
             elif e.get_element_type()['type'] == "Single choice question":
                 answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
                 try:
-                    answer = request.POST[str(q.id)]
+                    answer = request.POST[str(e.id)]
                     single_choice = SingleChoiceChoice.objects.get(id=answer)
                     answer = single_choice.choice
                     answer_obj.single_question_choice = single_choice

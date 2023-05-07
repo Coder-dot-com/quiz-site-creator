@@ -12,10 +12,10 @@
     new Chart(ctx{{question_id}}, {
       type: 'bar',
       data: {
-        labels: ['Mostly agree', 'Agree', 'Not sure', 'Disagree', 'Mostly disagree',],
+        labels: ['Mostly satisfied', 'Satisfied', 'Not sure', 'Unsatisfied', 'Mostly unsatisfied',],
         datasets: [{
           label: '# of responses',
-          data: [{{mostly_agree_count}}, {{agree_count}}, {{not_sure_count}}, {{disagree_count}}, {{mostly_disagree_count}}],
+          data: [{{mostly_satisfied_count}}, {{satisfied_count}}, {{not_sure_count}}, {{unsatisfied_count}}, {{mostly_unsatisfied_count}}],
           borderWidth: 1
         }]
       },

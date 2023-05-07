@@ -32,10 +32,9 @@ def get_question_answers(request, quiz_id, question_id):
     answers = Answer.objects.filter(question=question)
     context = {}
     context['answers']  = answers
+    context['question_id'] = question_id
 
-    if question.get_element_type()['type'] == 'Char input':
-        return render(request, 'quizData/answers/char_input.html', context=context)
-    elif question.get_element_type()['type'] == 'Agree disagree table':
+    if question.get_element_type()['type'] == 'Agree disagree table':
 
         context['mostly_agree_count'] = answers.filter(answer="Mostly agree").count()
         context['agree_count'] = answers.filter(answer="Agree").count()
@@ -45,6 +44,58 @@ def get_question_answers(request, quiz_id, question_id):
 
 
         return render(request, 'quizData/answers/agree_disagree.html', context=context)
+    
 
 
-    return HttpResponse(f"TEST {question_id}")
+    elif question.get_element_type()['type'] == 'Satisfied unsatisfied table':
+
+        context['mostly_satisfied_count'] = answers.filter(answer="Mostly satisfied").count()
+        context['satisfied_count'] = answers.filter(answer="satisfied").count()
+        context['not_sure_count'] = answers.filter(answer="Not sure").count()
+        context['unsatisfied_count'] = answers.filter(answer="Unsatisfied").count()
+        context['mostly_unsatisfied_count'] = answers.filter(answer="Mostly unsatisfied").count()
+
+
+        return render(request, 'quizData/answers/satisfied_unsatisfied.html', context=context)
+
+
+    elif question.get_element_type()['type'] == 'Multiple choice question':
+
+        multiple_choice = question.get_element_type()['element']
+
+        choices = multiple_choice.get_multiple_choice_choices()
+
+        choices_count = []
+
+        for choice in choices:
+            choice_dict = {
+                f'{choice.choice}': answers.filter(question_choice=choice.id).count()
+            }
+
+            choices_count.append(choice_dict)
+
+        context['choices_count'] = choices_count
+        return render(request, 'quizData/answers/multiple_choice.html', context=context)
+
+    elif question.get_element_type()['type'] == 'Single choice question':
+
+        single_choice = question.get_element_type()['element']
+
+        choices = single_choice.get_single_choice_choices()
+
+        choices_count = []
+
+        for choice in choices:
+            choice_dict = {
+                f'{choice.choice}': answers.filter(single_question_choice=choice.id).count()
+            }
+
+            choices_count.append(choice_dict)
+
+        context['choices_count'] = choices_count
+        return render(request, 'quizData/answers/single_choice.html', context=context)
+
+
+    else:
+        return render(request, 'quizData/answers/all_other_questions.html', context=context)
+

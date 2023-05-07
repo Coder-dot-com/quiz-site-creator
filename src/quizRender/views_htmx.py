@@ -73,7 +73,8 @@ def take_next_page(request, quiz_id, number, response_id):
             print("SINGLE CHOICE")
             print(request.POST)
             try:
-                answer = request.POST[str(q.id)]
+                answer = request.POST[str(e.id)]
+                print(answer)
                 single_choice = SingleChoiceChoice.objects.get(id=answer)
                 answer = single_choice.choice
                 answer_obj.single_question_choice = single_choice
