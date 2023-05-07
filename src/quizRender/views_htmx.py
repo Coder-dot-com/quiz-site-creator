@@ -85,7 +85,7 @@ def take_next_page(request, quiz_id, number, response_id):
             print(request.POST)
             questions = AgreeDisagreeRow.objects.filter(agree_disagree_element=e.get_element_type()['element'])
             for q in questions:
-                answer_obj = Answer.objects.get_or_create(response=response_object, question_agree_disagree=q)[0]
+                answer_obj = Answer.objects.get_or_create(response=response_object, question_agree_disagree=q, question=e)[0]
                 print(q.id)
                 try:
                     answer = request.POST[str(q.id)]
@@ -100,7 +100,7 @@ def take_next_page(request, quiz_id, number, response_id):
             questions = SatisfiedUnsatisfiedRow.objects.filter(satisfied_unsatisfied_element=e.get_element_type()['element'])
             for q in questions:
 
-                answer_obj = Answer.objects.get_or_create(response=response_object, question_satisfied_unsatisfied=q)[0]
+                answer_obj = Answer.objects.get_or_create(response=response_object, question_satisfied_unsatisfied=q, question=e)[0]
                 print(q.id)
                 try:
                     answer = request.POST[str(q.id)]

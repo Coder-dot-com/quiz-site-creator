@@ -1,7 +1,11 @@
 <div id="table" class="col-lg-9 mx-auto rounded my-5">
-    <a type="button" class="mb-2" href="{% url 'dashboard_home' %}">< Back</a>
-    <div class="bg-white p-5">
+    <div class="bg-white p-2">
+        <div class="row mb-3 p-3">
 
+            <a type="button" class="mb-2" href="{% url 'dashboard_home' %}">< Back</a>
+            
+            <a href="{% url 'question_by_question_breakdown' quiz.id %}" class="btn btn-primary site-button ml-auto">Question by question breakdown</a>
+        </div>
         <script src="https://code.jquery.com/jquery-3.6.4.slim.min.js" integrity="sha256-a2yjHM4jnF9f54xUQakjZGaqYs/V1CYvWpoqZzC2/Bw=" crossorigin="anonymous"></script>
 
 

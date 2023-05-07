@@ -129,3 +129,15 @@ def delete_response_detail(request, quiz_id, response_id):
     }
 
     return redirect('view_quiz_results', quiz_id=quiz_id)
+
+
+@login_required
+def question_by_question_breakdown(request,  quiz_id):
+    quiz = UserQuiz.objects.get(user=request.user, id=quiz_id)    
+
+    context = {
+        'quiz': quiz,
+    }
+
+    return render(request, 'quizData/question_by_question_breakdown.html', context=context)
+    

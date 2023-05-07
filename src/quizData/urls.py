@@ -12,4 +12,9 @@ urlpatterns = [
 
     path('download_csv_of_responses/<quiz_id>', views.download_csv_of_responses, name="download_csv_of_responses"),
 
+    path('question_by_question_breakdown/<quiz_id>', views.question_by_question_breakdown, name="question_by_question_breakdown"),
+    path('get_question_answers/<quiz_id>/<question_id>', views_htmx.get_question_answers, name="get_question_answers"),
+
+
+
 ]

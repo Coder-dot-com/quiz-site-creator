@@ -1,0 +1,74 @@
+{% extends 'dashboard2/base.html' %}
+
+{% load static %}
+{% block content %}
+
+    <div class="my-5 col-lg-9 mx-auto " id="createQuiz">
+
+        <div class="card ">
+            <div class="card-body">
+                <div class="my-3">
+
+                </div>
+
+                    {% for l in quiz.get_all_questions %}
+                        {% for q in l %}
+                            {% if not q.get_element_type.type == 'Text' and not q.get_element_type.type == 'Image' %}
+                            <div class="border border-dark  border-3 m-3    ">
+
+                                <h5 class="m-3">
+                                    <small class="mr-2">Question: </small>
+
+                                    {{q.get_element_type.element.title}}
+                                </h5>
+
+
+                                <div id="accordion-{{q.id}}" class="accordion accordion-header-bg accordion-bordered p-3 " >
+                                 
+                                    <div class="accordion__item">
+                                        <div class="accordion__header collapsed accordion__header--primary " 
+                                            data-toggle="collapse" data-target="#header-bg_collapse{{q.id}}">
+                                            <span class="accordion__header--icon"></span>
+                                            <span class="accordion__header--text">View detailed breakdown {{q.get_element_type.type}}</span>
+                                            <span class="accordion__header--indicator"></span>
+                                        </div>
+                                        <div id="header-bg_collapse{{q.id}}" class="collapse accordion__body" data-parent="#accordion-{{q.id}}">
+                                            <div class="accordion__body--text border border-3 rounded-bottom"  style="border-color:#0B2A97 !important; border-top:0px !important;">
+                                              
+
+                                            <div
+                                            hx-get={% url 'get_question_answers' q.page.quiz.id q.id %}
+                                            hx-trigger=load
+                                            
+            
+                                            
+                                            ></div>
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                </div>
+
+
+                            </div>
+                            {% endif %}
+                        {% endfor %}
+                    
+                    {% endfor %}
+      
+
+            </div>
+        </div>
+
+    </div>
+
+
+
+
+{% endblock content %}

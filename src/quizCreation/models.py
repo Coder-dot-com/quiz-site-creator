@@ -35,6 +35,21 @@ class UserQuiz(models.Model):
         return a.last()
     
 
+    def get_num_of_quiz_pages(self):
+        return int(QuizPage.objects.filter(quiz=self).order_by('-number')[0].number)
+    
+    def get_all_questions(self):
+
+        quiz_page_elements = []
+
+        for i in range(1, self.get_num_of_quiz_pages() + 1):
+            quiz_page =  QuizPage.objects.get(quiz=self, number=i)
+            quiz_page_elements.append(quiz_page.get_quiz_page_elements())
+        return quiz_page_elements
+
+        
+    
+
 
 class QuizPage(models.Model):
     quiz = models.ForeignKey(UserQuiz, on_delete=models.CASCADE)
@@ -60,7 +75,10 @@ class QuizPageElement(models.Model):
     def get_element_type(self):
         text_element = TextElement.objects.filter(page_element=self)
         if text_element.exists():
-            return {'type': 'Text', 'element': text_element[0]}
+            return {'type': 'Text', 'element': text_element[0]}  
+        image_display_element = ImageDisplayElement.objects.filter(page_element=self)
+        if image_display_element.exists():
+            return {'type': 'Image', 'element': image_display_element[0]}
         char_input_element = CharInputElement.objects.filter(page_element=self)
         if char_input_element.exists():
             return {'type': 'Char input', 'element': char_input_element[0]}
@@ -85,9 +103,7 @@ class QuizPageElement(models.Model):
         satisfied_unsatisfied = SatisfiedUnsatisfied.objects.filter(page_element=self)
         if satisfied_unsatisfied.exists():
             return {'type': 'Satisfied unsatisfied table', 'element': satisfied_unsatisfied[0]}        
-        image_display_element = ImageDisplayElement.objects.filter(page_element=self)
-        if image_display_element.exists():
-            return {'type': 'Image', 'element': image_display_element[0]}
+
 
 
 class ImageDisplayElement(models.Model):

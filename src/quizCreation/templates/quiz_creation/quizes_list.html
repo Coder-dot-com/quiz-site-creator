@@ -60,7 +60,7 @@
 
                         </div>
                         <strong for="" class="form-label w-100 text-dark">
-                            Link to take:
+                            Link:
                             <input class="form-control w-100 text-dark" id="linkToQuiz{{quiz.id}}" value="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}">
                         </strong>
                         <div class="g-4 text-right mt-3">
