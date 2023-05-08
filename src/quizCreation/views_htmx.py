@@ -1010,6 +1010,13 @@ def edit_element_title(request, quiz_id, page_id, element_id):
         element = element['element']
 
         element.title = request.POST['title']
+
+        try:
+            required = request.POST['required']
+            element.required = True
+        except MultiValueDictKeyError as e:
+            element.required = False
+
         element.save()
 
         quiz_page_elements = quiz_page.get_quiz_page_elements()

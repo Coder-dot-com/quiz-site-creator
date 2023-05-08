@@ -20,33 +20,34 @@ class CharInputElementForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['title'].widget = forms.TextInput(attrs={'field_title': "Enter a title for your question", 'maxlength': 100, 'class': 'w-100 form-control border-dark '},)
+        self.fields['required'].widget = forms.CheckboxInput(attrs={'field_title': "Tick to make this question required", 'class': ' border-dark ', 'checked': 'checked'},)
 
     class Meta:
         model = CharInputElement
-        fields = ['title', ]
+        fields = ['title',  'required']
 
 
 class TextInputElementForm(CharInputElementForm):
     class Meta:
         model = TextInputElement
-        fields = ['title', ]
+        fields = ['title',  'required']
 
 
 class EmailInputElementForm(CharInputElementForm):
     class Meta:
         model = EmailInputElement
-        fields = ['title', ]
+        fields = ['title',  'required']
 
 
 class NumberInputElementForm(CharInputElementForm):
     class Meta:
         model = NumberInputElement
-        fields = ['title', ]
+        fields = ['title',  'required']
 
 class MultipleChoiceElementForm(CharInputElementForm):
     class Meta:
         model = MultipleChoiceElement
-        fields = ['title', ]
+        fields = ['title',  'required']
 
 class MultipleChoiceChoiceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
@@ -60,7 +61,7 @@ class MultipleChoiceChoiceForm(forms.ModelForm):
 class SingleChoiceElementForm(CharInputElementForm):
     class Meta:
         model = SingleChoiceElement
-        fields = ['title', ]
+        fields = ['title',  'required']
 
 
 

@@ -81,6 +81,7 @@
                                 >
 
                                     <div class="modal-body">
+                                        <div class="text-center">
                                         <span >
 
                                             Editing {{element.type|lower}}
@@ -89,20 +90,32 @@
                                             {% endif %}
                                         </span>
 
-                                        {% if element.type == "Text" %}
-
+                                        {% if element.type == "Text" or element.type == "Image" %}
 
 
 
                                         {% else %}
 
 
+    
+    <Input
+    name="title"
+    type="text" value="{% if element.element.title %}{{element.element.title}}{% endif %}" placeholder="Enter a new title here"
+    class="form-control border-dark text-dark mx-auto w-75 mt-1" required maxlength="1000">
+    <div class="my-1">
 
-                                            <Input
-                                                name="title"
-                                                type="text" value="{% if element.element.title %}{{element.element.title}}{% endif %}" placeholder="Enter a new title here"
-                                                class="form-control border-dark text-dark mx-auto w-75 mt-4" required maxlength="1000">
-                                        {% endif %}
+        Tick to make this question required
+        <input type="checkbox" name="required" field_title="Tick to make this question required" class=" border-dark " 
+        
+        {% if element.element.required %}
+        checked="checked" 
+        {% endif %}
+        
+        id="">
+    </div>
+    
+    {% endif %}
+</div>
                                     </div>
 
 
@@ -167,7 +180,7 @@
                     <div class="{% if element.type == "Image" %}mx-auto{% endif %}">
                         <br><br>
                         {% if not element.type == "Text" and element.element.title %}
-                            {% if element.type == "Agree disagree table" %}
+                            {% if element.type == "Agree disagree table" or element.type == "Satisfied unsatisfied table" %}
                                 Section
                             {% else %}
                                 Question
@@ -177,6 +190,18 @@
                             <ul class=" list-group-horizontal-sm">
                                 <li class="my-4">
                                     <strong>{{element.element.title}}</strong>
+
+                                    {% if element.element.title  %}
+                                        <small>
+                                        {% if element.element.required %}*
+                                        {% elif not element.type == 'Agree disagree table' and not element.type == 'Satisfied unsatisfied table' %}
+                                        
+                                            (optional)
+                                        {% endif %}
+                                        </small>
+                                    
+                                    {% endif %}
+
                                 </li>
                             </ul>
                         {% endif %}

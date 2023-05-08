@@ -119,22 +119,31 @@ class TextElement(models.Model):
 class CharInputElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
+    required = models.BooleanField(default=False)
 
 class TextInputElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
+    required = models.BooleanField(default=False)
 
 class EmailInputElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
+    required = models.BooleanField(default=False)
+
     use_as_email_for_conversion_tracking = models.BooleanField(default=False)  
+
 class NumberInputElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
+    required = models.BooleanField(default=False)
+
 
 class MultipleChoiceElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
+    required = models.BooleanField(default=False)
+
 
     def get_multiple_choice_choices(self):
         return MultipleChoiceChoice.objects.filter(multiple_choice_element=self)
@@ -148,6 +157,7 @@ class MultipleChoiceChoice(models.Model):
 class SingleChoiceElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
+    required = models.BooleanField(default=False)
 
 
     def get_single_choice_choices(self):

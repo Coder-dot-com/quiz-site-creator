@@ -29,17 +29,22 @@
             {% for element in quiz_page.get_quiz_page_elements %}
                 <br>
                 {% if element.get_element_type.element.title  %}
-                    <h3>{{element.get_element_type.element.title}}</h3>
+                    <h3>{{element.get_element_type.element.title}} 
+                        <small>
+                        {% if element.get_element_type.element.required %}*
+                        {% elif not element.get_element_type.type == 'Agree disagree table' and not element.get_element_type.type == 'Satisfied unsatisfied table' %}
+                        
+                            (optional)
+                            {% endif %}
+                        </small>
+                    
+                    </h3>
                 {% endif %}
+
+
                 {% autoescape off %}
                     {{element.get_element_type.element.content}}
                 {% endautoescape %}
-
-
-
-
-
-
 
                 {% if element.get_element_type.type == 'Char input'  %}
                     {% include 'take_quiz_elements/char_input_element.html' %}
@@ -59,6 +64,20 @@
                     {% include 'take_quiz_elements/satisfied_unsatisfied_table.html' %}
                 {% elif element.get_element_type.type == 'Image'  %}
                     {% include 'take_quiz_elements/Image.html' %}
+                {% endif %}
+
+
+                {% if element.get_element_type.element.required %}
+                <script>
+                    function setRequired{{element.id}}(){
+                        document.getElementById('question_{{element.id}}').required = true
+                        clearInterval(setRequired{{element.id}}Interval)
+
+                    }
+                    
+                    setRequired{{element.id}}Interval = setInterval(setRequired{{element.id}}, 100);
+
+                </script>
                 {% endif %}
 
             {% endfor %}
