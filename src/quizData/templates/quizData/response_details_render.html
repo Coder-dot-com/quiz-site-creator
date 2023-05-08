@@ -11,12 +11,12 @@
                             <small>Question:</small>
                             <br>
                             <strong class="">
-                                {% if x.question %}
-                                    {{x.question.get_element_type.element.title}}
-                                {% elif x.question_agree_disagree.title %}
+                                {% if x.question_agree_disagree.title %}
                                     {{x.question_agree_disagree.title}}
                                 {% elif x.question_satisfied_unsatisfied.title %}
                                     {{x.question_satisfied_unsatisfied.title}}
+                                {% else %}
+                                    {{x.question.get_element_type.element.title}}
                                 {% endif %}
                             </strong>
                         </div>

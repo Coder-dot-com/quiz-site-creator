@@ -14,6 +14,7 @@
                         <tr>
                             <th>Question number</th>
                             <th>Question title</th>
+                            <th>Required?</th>
                             <th>Delete</th>
                         </tr>
                     </thead>
@@ -26,6 +27,7 @@
 
                                 <td><div class="d-flex align-items-left">{{choice.title}}</div></td>
 
+                                <td>{% if choice.required %}Yes {% else %}No{% endif %}</td>
                                 <td style="justify-content: right;" class="d-flex">
                                     <div class="d-flex align-items-right">
                                         <a type="button"
@@ -56,6 +58,11 @@
                 <div class="input-group-append">
                     <button style="top:-3px" class="btn btn-primary site-button" type="submit">Add</button>
                 </div>
+            </div>
+            <div class="my-1">
+
+                Tick to make this question required
+                <input type="checkbox" name="required" field_title="Tick to make this question required" class=" border-dark " id="">
             </div>
 
             <div class="my-2">
