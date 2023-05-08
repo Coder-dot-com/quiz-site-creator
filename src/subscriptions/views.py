@@ -335,14 +335,6 @@ def _post_subscription_success(subscription_id=None, request=None, stripe_custom
 
     user = user_subscription.user_payment_status.user
 
-    try:
-        response = Response.objects.filter(user=user).latest('last_modified')
-        response.purchased = True
-        response.save()
-        context['quiz'] = response.quiz
-
-    except Response.DoesNotExist:
-        print("no response found to set response.purchased to true")
 
     #Conversion tracking
     event_unique_id = uuid4()

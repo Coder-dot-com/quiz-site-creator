@@ -4,48 +4,49 @@
 -take our feedback survey
 
 To do:
-    -Add view question by question breakdown on response data analysis
-        -single choice, multiple choice, satisfied  show a graph
-        -otherwise say no graph available and show button with modal to view results and display all answers in modal
+    -fix subscribe frontend
+    -rewrite subscribe and cancellation emails
 
+    -make questions required or not add underneath title
+    -look at competitors landing pages and improve/make longer
+    -change bg color quiz and font color (started as color settings.html)
+    -Go through everything and plan
+    -Improve frontend design
+
+    -Create 1-5 star review 
+    -User image upload 
+    
     -deploy
     -finish email scraper
     -autoemail
-    -look at competitors landing pages and improve
+
+    -user licks create quiz -> select your goal -> select a template (or no template) -> quiz name -> tailored swatch order
 
     -launch product hunt as customer survey tool?
 
-    -Create 1-5 star review 
     -Create 1-10 question with slider input
 
-    -color settings bg and text
 
     -email results/response_data on completion from separate domain email?
     
 
-    -pre made templates modal short and long customer feedback survey
+    -pre made templates ideas:  short and long customer feedback survey
     
-    -redo stripe webhook and post subscription success
+    -redo stripe webhook and post subscription success/emails
 
-    -User image upload 
+    Store:
 
-    -Select a fair price
-
-    -Image carousel element
+        -Image carousel element
 
         -set product price to be in user chosen currency for quiz add to product model for now default is gbp
         -open image in new tab if clicked
 
         -Create address component
 
-        -templates (useful for seo purposes aswell create new app? template/xyzurl no s)
+    -templates (useful for seo purposes aswell create new app? template/xyzurl no s)
         -Select quiz goal on creation name > quiz goal (swatch)
 
-        -introjs onboarding tutorial
-            -different tutorial for each audience
 
-
-        -change bg color quiz and font color (started as color settings.html)
         -video element
 
 

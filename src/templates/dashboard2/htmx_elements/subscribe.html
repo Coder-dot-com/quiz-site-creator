@@ -1,3 +1,5 @@
+<div class="card col-lg-9 mx-auto">
+
 {% if user.is_authenticated %}
 
   {% if not existing_higher_tier_subscription %}
@@ -68,16 +70,16 @@
 
       </div>
 
-      <div class="col-lg-6 col-md-8 mx-auto p-4  mt-2">
+      <div class="col-12 col-lg-8 col-md-9 mx-auto p-4  mt-2">
+        <h5>Subscribe now</h5>
         <form id="payment-form" data-secret="{{ client_secret }}">
           <div id="payment-element">
           <!-- Elements will create form elements here -->
           </div>
-          <br>
           <div id="error-message">
           <!-- Display error message to your customers here -->
           </div>
-          <div class="text-center plan-btn mt-4 pt-2">
+          <div class="text-center plan-btn  pt-1">
             <button class="btn btn-primary site-button waves-effect waves-light w-100" id="submit_payment">Subscribe</button>
           </div>
           <br>
@@ -168,4 +170,15 @@
   </div>
 
 
+
+
+
 {% endif %}
+
+</div>
+
+
+
+<script>
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+</script>

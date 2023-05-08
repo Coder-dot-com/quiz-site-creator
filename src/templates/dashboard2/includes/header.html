@@ -199,10 +199,31 @@
                                     {% if user_payment_status and  user_payment_status.status == "active"  %}
                                             <p class="fs-12 mb-0">Plan active</p>
                                     {% elif user_payment_status and  user_payment_status.status == "free"  %}
-                                        <p class="fs-12 mb-0">Subscription expired</p>
+                                        <p class="fs-12 mb-0 px-1">Subscription expired</p>
+                                        <a href="{% url 'subscription_page_dashboard' %}"
+                                        class="btn btn-primary site-button py-0 px-1" style="font-size:0.9rem;"
+                                        >
+                                            <div>
+                                            Subscribe now    
+                                            </div>
+                                        </a>
+                                        
                                     {% elif user_payment_status and  user_payment_status.status == "free_trial"  %}
 
-                                        <p class="fs-12 mb-0">Free trial</p>
+                                        <p class="fs-12 mb-0 px-1">Free trial {% if expiry_date %}
+                                            (expires {{expiry_date}})
+                                            {% endif %}
+                                            
+
+                                        </p>
+
+                                        <a href="{% url 'subscription_page_dashboard' %}"
+                                        class="btn btn-primary site-button py-0 px-1" style="font-size:0.9rem;"
+                                        >
+                                            <div>
+                                            Subscribe now    
+                                            </div>
+                                        </a>
 
                                     {% endif %}
                                 </div>

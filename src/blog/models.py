@@ -6,7 +6,7 @@ from django.db import models
 
 from wagtail.models import Page
 from wagtail.fields import RichTextField, StreamField
-from wagtail.admin.panels import FieldPanel, StreamFieldPanel, MultiFieldPanel
+from wagtail.admin.panels import FieldPanel, FieldPanel, MultiFieldPanel
 from wagtail.search import index
 from wagtail import blocks
 from wagtail.snippets.models import register_snippet
@@ -169,12 +169,14 @@ class BlogPage(Page):
     date = models.DateField("Post date", default=default_date_time)
     intro = StreamField(
         [("article_section", ContentBlock())],
+        use_json_field=False, 
         null=True,
         blank=True,
     )
     title_image = models.ImageField(upload_to="blog_images/title", null=True, blank=True)
     second_intro = StreamField(
         [("article_section", ContentBlock())],
+        use_json_field=False, 
         null=True,
         blank=True,
     )
@@ -183,11 +185,13 @@ class BlogPage(Page):
     secondary_title_image = models.ImageField(upload_to="blog_images/secondary", null=True, blank=True)
     text_before_content = StreamField(
         [("article_section", ContentBlock())],
+        use_json_field=False, 
         null=True,
         blank=True,
     )
     content = StreamField(
         [("article_section", ArticleSectionBlock())],
+        use_json_field=False, 
         null=False,
         blank=False,
     )
@@ -201,14 +205,14 @@ class BlogPage(Page):
 
     content_panels = Page.content_panels + [
         FieldPanel('date'),
-        StreamFieldPanel('intro'),
+        FieldPanel('intro'),
         FieldPanel('title_image'),
-        StreamFieldPanel('second_intro'),
+        FieldPanel('second_intro'),
         FieldPanel('secondary_title'),
         FieldPanel('secondary_title_image'),
-        StreamFieldPanel('text_before_content'),
+        FieldPanel('text_before_content'),
 
-        StreamFieldPanel("content"),
+        FieldPanel("content"),
         MultiFieldPanel(
             [
                 FieldPanel("categories", widget=forms.CheckboxSelectMultiple)

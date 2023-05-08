@@ -46,10 +46,7 @@ def subscription_confirmed_email(subscription_id):
     context = {}
 
     if not subscription.subscription_confirmation_email_sent:
-        print("FINISH LOGIC FOR EMAIL SUBSCRIPTION CONFS")
         context['user_subscription'] = subscription
-
-
 
         message = render_to_string('emails/subscription_confirmed.html', context=context)
 
