@@ -825,6 +825,16 @@ def add_row_to_agree_disagree_element(request, quiz_id, page_id, element_id):
 
         choice = AgreeDisagreeRow.objects.create(
             agree_disagree_element=element, title=choice_name, position=position)
+        
+        
+        try:
+            required = request.POST['required']
+            choice.required = True
+        except MultiValueDictKeyError:
+            choice.required = False
+
+        choice.save()
+        
         choices = AgreeDisagreeRow.objects.filter(
             agree_disagree_element=element)
         form = AgreeDisagreeRowForm()
@@ -858,6 +868,15 @@ def add_row_to_satisfied_unsatisfied_element(request, quiz_id, page_id, element_
 
         choice = SatisfiedUnsatisfiedRow.objects.create(
             satisfied_unsatisfied_element=element, title=choice_name, position=position)
+        
+        try:
+            required = request.POST['required']
+            choice.required = True
+        except MultiValueDictKeyError:
+            choice.required = False
+
+        choice.save()
+
         choices = SatisfiedUnsatisfiedRow.objects.filter(
             satisfied_unsatisfied_element=element)
         form = SatisfiedUnsatisfiedRowForm()

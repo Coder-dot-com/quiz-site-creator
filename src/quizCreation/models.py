@@ -183,6 +183,7 @@ class AgreeDisagreeRow(models.Model):
     agree_disagree_element = models.ForeignKey(AgreeDisagree, on_delete=models.CASCADE)
     position = models.IntegerField()
     title = models.TextField(max_length=10000)
+    required = models.BooleanField(default=False)
 
   
 
@@ -198,3 +199,4 @@ class SatisfiedUnsatisfiedRow(models.Model):
     satisfied_unsatisfied_element = models.ForeignKey(SatisfiedUnsatisfied, on_delete=models.CASCADE)
     position = models.IntegerField()
     title = models.TextField(max_length=10000)
+    required = models.BooleanField(default=False)

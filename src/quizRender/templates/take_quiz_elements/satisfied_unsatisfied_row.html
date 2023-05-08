@@ -11,23 +11,30 @@
         {% endif %}
     >
         <td class="border-dark text-center" onclick="(this).querySelector('input').click()"  class="py-5">
-            {{question.title}}
+            {{question.title}} 
+            <small>
+                {% if question.required  %}
+                *
+                {% else %}
+                (optional)
+                {% endif %}
+            </small>
         </td>
         <td class="border-dark text-center" onclick="(this).querySelector('input').click()"  class="py-5"
         >
-            <label class="radio-inline"><input type="radio" required  name="{{question.id}}" value="Mostly satisfied" ></label>
+            <label class="radio-inline"><input type="radio" {% if question.required %} required {% endif %}  name="{{question.id}}" value="Mostly satisfied" ></label>
         </td>
         <td class="border-dark text-center" onclick="(this).querySelector('input').click()"  class="py-5">
-            <label class="radio-inline"><input type="radio" required  name="{{question.id}}" value="Satisfied"></label>
+            <label class="radio-inline"><input type="radio" {% if question.required %} required {% endif %}  name="{{question.id}}" value="Satisfied"></label>
         </td>
         <td class="border-dark text-center" onclick="(this).querySelector('input').click()"  class="py-5">
-            <label class="radio-inline"><input type="radio" required  name="{{question.id}}" value="Not sure"></label>
+            <label class="radio-inline"><input type="radio" {% if question.required %} required {% endif %}  name="{{question.id}}" value="Not sure"></label>
         </td>
         <td class="border-dark text-center" onclick="(this).querySelector('input').click()"  class="py-5">
-            <label class="radio-inline"><input type="radio" required  name="{{question.id}}" value="Unsatisfied"></label>
+            <label class="radio-inline"><input type="radio" {% if question.required %} required {% endif %}  name="{{question.id}}" value="Unsatisfied"></label>
         </td>
         <td class="border-dark text-center" onclick="(this).querySelector('input').click()"  class="py-5">
-            <label class="radio-inline"><input type="radio" required  name="{{question.id}}" value="Mostly unsatisfied"></label>
+            <label class="radio-inline"><input type="radio" {% if question.required %} required {% endif %}  name="{{question.id}}" value="Mostly unsatisfied"></label>
         </td>
     </tr>
 </div>

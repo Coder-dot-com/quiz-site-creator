@@ -75,7 +75,7 @@ class SingleChoiceChoiceForm(forms.ModelForm):
         fields = ['choice', ]
 
 
-class AgreeDisagreeElementForm(CharInputElementForm):
+class AgreeDisagreeElementForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -90,10 +90,11 @@ class AgreeDisagreeRowForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['title'].widget = forms.TextInput(attrs={'field_title': "Enter your question here", 'maxlength': 10000, 'class': 'w-100 form-control border-dark'},)
+        self.fields['required'].widget = forms.CheckboxInput(attrs={'field_title': "Tick to make this question required", 'class': ' border-dark ', 'checked': 'checked'},)
 
     class Meta:
         model = AgreeDisagreeRow
-        fields = ['title', ]
+        fields = ['title', 'required']
 
 
 class QuizConfirmationForm(forms.ModelForm):
@@ -108,7 +109,7 @@ class QuizConfirmationForm(forms.ModelForm):
         fields = ['quiz_confirmation_content', ]
 
 
-class SatisfiedUnsatisfiedElementForm(CharInputElementForm):
+class SatisfiedUnsatisfiedElementForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
@@ -123,7 +124,8 @@ class SatisfiedUnsatisfiedRowForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.fields['title'].widget = forms.TextInput(attrs={'field_title': "Enter your question here", 'maxlength': 10000, 'class': 'w-100 form-control border-dark'},)
+        self.fields['required'].widget = forms.CheckboxInput(attrs={'field_title': "Tick to make this question required", 'class': ' border-dark ', 'checked': 'checked'},)
 
     class Meta:
         model = SatisfiedUnsatisfiedRow
-        fields = ['title', ]
+        fields = ['title', 'required']

@@ -98,24 +98,29 @@
 
 
     
-    <Input
-    name="title"
-    type="text" value="{% if element.element.title %}{{element.element.title}}{% endif %}" placeholder="Enter a new title here"
-    class="form-control border-dark text-dark mx-auto w-75 mt-1" required maxlength="1000">
-    <div class="my-1">
+                                        <Input
+                                        name="title"
+                                        type="text" value="{% if element.element.title %}{{element.element.title}}{% endif %}" placeholder="Enter a new title here"
+                                        class="form-control border-dark text-dark mx-auto w-75 mt-1" required maxlength="1000">
+                                        
+                                            {% if element.type == "Agree disagree table"  or element.type == "Satisfied unsatisfied table" %}
 
-        Tick to make this question required
-        <input type="checkbox" name="required" field_title="Tick to make this question required" class=" border-dark " 
-        
-        {% if element.element.required %}
-        checked="checked" 
-        {% endif %}
-        
-        id="">
-    </div>
-    
-    {% endif %}
-</div>
+                                            {% else %}
+                                            <div class="my-1">
+
+                                                Tick to make this question required
+                                                <input type="checkbox" name="required" field_title="Tick to make this question required" class=" border-dark " 
+                                                
+                                                {% if element.element.required %}
+                                                checked="checked" 
+                                                {% endif %}
+                                                
+                                                id="">
+                                            </div>
+                                            {% endif %}
+                                        
+                                        {% endif %}
+                                    </div>
                                     </div>
 
 
@@ -267,9 +272,11 @@
 
                                             <br>
                                             <strong>
-
-                                                {{e.position}}. {{e.title}}
+                                                {{e.position}}. {{e.title}} 
                                             </strong>
+                                            <small>
+                                                {% if e.required %}(required){% else %}(optional){% endif %}
+                                            </small>
                                             <br>
                                             {% if e.is_correct_choice %}(Correct <i class="fa fa-check"></i>){% endif %}
                                         </div>
