@@ -11,11 +11,6 @@ from quiz_site.settings import BASE_DIR
 def conversion_tracking(event_name, event_id, session_id=None, category_id=None, order_number=None, event_source_url=None):
 
 
-    print("source url is")
-    print(event_source_url)
-
-    print("Setting event source url to https version")
-
     try:
 
         if event_source_url.__contains__("http"):
@@ -48,47 +43,33 @@ def conversion_tracking(event_name, event_id, session_id=None, category_id=None,
     if user_agent:
 
         if user_agent == 'Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0':
-            print("user agent is one of own not firing...")
             return
         
         elif ConversionExclusionsList.objects.filter(user_agent=user_agent):
-            print(f"user agent is on exclusion list not firing... {user_agent}")
             return
         elif 'bot.html' in user_agent:
-            print(f"user agent contains bot.html not firing... {user_agent}")
             return
         elif UserSession.objects.filter(user_agent=user_agent,add_user_agent_to_exclusion_list=True):
-            print(f"user agent has usersession with exclusion boolean... {user_agent}")
             return
 
     #Check for session fbp
-    print("Attempting to get fbp")
     latest_fbp_loop_count = 0
 
     if not event_name == "PageView" or not event_name =="ViewContent":
 
-        while (not session.latest_fbp or not session.email) and latest_fbp_loop_count < 30: 
+        while (not session.latest_fbp or not session.email) and latest_fbp_loop_count < 10: 
             #Need to get session.email before increasing loop count
-            print("attempt:", latest_fbp_loop_count)
             latest_fbp_loop_count += 1
             session = UserSession.objects.get(session_id=session_id)
 
-            time.sleep(5)
-    print("fbp gotten", session.latest_fbp)
+            time.sleep(1)
 
     # check for session email
     hashed_email =  None
     
 
     if session.email:
-        print('session email')
-        print(session.email)
         hashed_email = str(hashlib.sha256((str(session.email).lower()).encode('utf-8')).hexdigest())
-    print(hashed_email)
-            
-    print('session gotten id')
-    print(session.session_id)
-
             
 
     user_ip = session.ip
@@ -155,12 +136,7 @@ def conversion_tracking(event_name, event_id, session_id=None, category_id=None,
 
 
 
-                    print("fb request data is")
-                    print(data)
                     response = requests.post(endpoint, json=data)
-                    print("Facebook conv api response")
-                    response.raise_for_status()
-                    print(response.text)
 
                 elif pixel.pixel_type == "tiktok":
                     endpoint = "https://business-api.tiktok.com/open_api/v1.2/pixel/track/"
@@ -214,9 +190,7 @@ def conversion_tracking(event_name, event_id, session_id=None, category_id=None,
                     
                     response = requests.post(endpoint, headers=headers, json=data)
 
-                    print("Tiktok pixel response")
-                    print("Status Code", response.status_code)
-                    print("JSON Response ", response.json())
+
 
             except Exception as e:
                 print("Error when sending event")
@@ -232,26 +206,6 @@ def conversion_tracking(event_name, event_id, session_id=None, category_id=None,
     elif event_name == "Purchase":
 
  
-        #Removed order as no longer applicable
-
-        # order = Order.objects.get(order_number=order_number)
-        
-        #Hash the order email, first name last name here
-
-        # hashed_email = hashlib.sha256((str(order.email).lower()).encode('utf-8')).hexdigest()
-        # hashed_first_name = hashlib.sha256((str(order.billing_first_name).lower()).encode('utf-8')).hexdigest()
-        # hashed_last_name = hashlib.sha256((str(order.billing_last_name).lower()).encode('utf-8')).hexdigest()
-
-
-
-
-
-
-
-
-
-
-
         if category_object.enable_pixels:
             
                 pixels = Pixel.objects.filter(category=category_object)
@@ -314,15 +268,8 @@ def conversion_tracking(event_name, event_id, session_id=None, category_id=None,
                             data['data'][0]['user_data']["country"] = hashed_country_code
 
 
-
-                        print("fb request data is")
-                        print(data)
                         response = requests.post(endpoint, json=data)
 
-
-                        print("Facebook conv api response")
-                        response.raise_for_status()
-                        print(response.text)
 
                     elif pixel.pixel_type == "tiktok":
                         endpoint = "https://business-api.tiktok.com/open_api/v1.2/pixel/track/"
@@ -376,21 +323,6 @@ def conversion_tracking(event_name, event_id, session_id=None, category_id=None,
                             }
                         
                         response = requests.post(endpoint, headers=headers, json=data)
-
-                        print("Tiktok pixel response")
-                        print("Status Code", response.status_code)
-                        print("JSON Response ", response.json())
-
-                        
-
-                    
-
-
-                    #For loop the order products with category and get the pixels then for loop these
-                    #Use if statement to seperate out pixels for tiktok and fb
-                    #Change the endpoints accordingly
-                    #Fire this for each product with for loop if multiple
-                    #Get the category from the orderproduct not the one passed into this func
 
 
 
