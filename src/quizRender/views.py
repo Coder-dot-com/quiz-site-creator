@@ -122,6 +122,9 @@ def take_quiz(request, quiz_id):
         else:
             return HttpResponse("The quiz owners subscription has expired. Quiz is currently unavailable")
 
+from django.views.decorators.csrf import csrf_exempt
+
+@csrf_exempt
 @xframe_options_exempt
 def complete_quiz(request, quiz_id, number, response_id):
     context = {}
