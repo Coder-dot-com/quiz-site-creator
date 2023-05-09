@@ -21,7 +21,7 @@
         {{form.media}}
         {% for field in form %}
             {{field.field.widget.attrs.field_title}}
-            <input type="text" class="form-control border-dark " name="{{field.name}}" placeholder="Enter your text here">
+            {{field}}        
         {% endfor %}
 
         <div class="my-3 text-center">
