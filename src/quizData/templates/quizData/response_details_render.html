@@ -1,71 +1,46 @@
 <hr class="border-dark w-100">
 
-{% for i in response.get_all_answers %}
-    {% for x in i %}
-        {% if not x.question.get_element_type.type == "Text content" and not x.question.get_element_type.type == "Image" %}
+    {% for i in response.quiz.get_all_questions %}
 
-        <li>
-            <div class="timeline-panel p-0 m-0">
-                    <div class="">
-                        <div>
-                            <small>Question:</small>
-                            <br>
-                            <strong class="">
-                                {% if x.question_agree_disagree.title %}
-                                    {{x.question_agree_disagree.title}}
-                                {% elif x.question_satisfied_unsatisfied.title %}
-                                    {{x.question_satisfied_unsatisfied.title}}
-                                {% else %}
-                                    {{x.question.get_element_type.element.title}}
-                                {% endif %}
-                            </strong>
-                        </div>
-                        <br>
+        {% for x in i %}
+            {% if not x.get_element_type.type == "Text" and not x.get_element_type.type == "Image" and not x.get_element_type.type == "Satisfied unsatisfied table" and not x.get_element_type.type == "Agree disagree table" %}
 
 
-                        <div >
-
-                            {% if not x.question.get_element_type.type == 'Multiple choice question' and not x.question.get_element_type.type == 'Single choice question' %}
-                                <small>Answer:</small>
-                                <br>
-                                <strong>
-
-                                    {{x.answer}}
-                                </strong>
-                            {% elif x.question.get_element_type.type == 'Single choice question' %}
-                                <small>Answer:</small>
-                                <br>
-                                <div class="">
-
-                                    {% if x.single_question_choice.image %}
-                                        <img src="{{x.single_question_choice.image.url}}" style="max-height:3rem;mx-auto">
-                                        <br>
-                                    {% endif %}
-                                    <strong>
-                                        {{x.answer}}
-                                    </strong>
-                                </div>
-                                </strong>
-                            {% else %}
-                                <small>Answers:</small>
-                                <br>
-                                {% for i in x.question_choice.all %}
-                                    <div class="">
-                                        {% if i.image %}
-                                            <img src="{{i.image.url}}" style="max-height:3rem;mx-auto">
-                                            <br>
-                                        {% endif %}
-                                        <strong>
-                                            {{i.choice}}
-                                        </strong>
-                                    </div>
-                                {% endfor %}
-                            {% endif %}
-                            <hr class="border-dark w-100">
-                        </div>
+                    <small>
+                        Question: 
+                    </small>
+                    <strong>
+                        {{x.get_element_type.element.title}}
+                    </strong>
+                    <div hx-get={% url 'get_answer_individual_question_response_admin' response.quiz.id response.response_id x.id %}
+                    hx-trigger="load"
+                    >
                     </div>
-                </div>
-            </li>
+            
+            {% elif  x.get_element_type.type == "Satisfied unsatisfied table" or x.get_element_type.type == "Agree disagree table" %}
+
+                    {% for row in x.get_element_type.element.get_rows %}
+                    
+                    <small>
+                        Question: 
+                    </small>
+                    <strong>
+                        {{row.title}}
+                    </strong>
+                    <br>
+                    <div
+                    {% if x.get_element_type.type == "Satisfied unsatisfied table" %}
+                    hx-get={% url 'get_answer_individual_question_satisfied_unsatisfied_response_admin' response.quiz.id response.response_id row.id %}
+                    {% else %}
+                    hx-get={% url 'get_answer_individual_question_agree_disagree_response_admin' response.quiz.id response.response_id row.id %}
+                    {% endif %}
+                    hx-trigger=load
+                    >
+
+                    </div>
+                    {% endfor %}
+
+
             {% endif %}
-    {% endfor %}
-{% endfor %}
+        {% endfor %}
+    {% endfor %}      

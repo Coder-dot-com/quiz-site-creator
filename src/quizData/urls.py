@@ -16,5 +16,9 @@ urlpatterns = [
     path('get_question_answers/<quiz_id>/<question_id>', views_htmx.get_question_answers, name="get_question_answers"),
 
 
+    path('get_answer_individual_question_response_admin/<quiz_id>/<response_id>/<question_id>', views_htmx.get_answer_individual_question_response_admin, name="get_answer_individual_question_response_admin"),
+    path('get_answer_individual_question_satisfied_unsatisfied_response_admin/<quiz_id>/<response_id>/<row_id>', views_htmx.get_answer_individual_question_satisfied_unsatisfied_response_admin, name="get_answer_individual_question_satisfied_unsatisfied_response_admin"),
+
+    path('get_answer_individual_question_agree_disagree_response_admin/<quiz_id>/<response_id>/<row_id>', views_htmx.get_answer_individual_question_agree_disagree_response_admin, name="get_answer_individual_question_agree_disagree_response_admin"),
 
 ]

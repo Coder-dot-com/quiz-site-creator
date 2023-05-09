@@ -73,7 +73,7 @@
                             {% load tz %}
                             {% for r in responses %}
                                 <tr>
-                                    <td>{{r.time_added|localtime}} {% get_current_timezone as TIME_ZONE %} ({{TIME_ZONE}})</td>
+                                    <td>{{r.time_added|localtime|date:'Y-m-d H:i'}} {% get_current_timezone as TIME_ZONE %} ({{TIME_ZONE}})</td>
                                     <td>
                                         {% if r.completed %}
                                             <i style="display:none">C</i>
@@ -122,7 +122,7 @@
                             setTimeout(location.reload(), 750)
                         {% else %}
                             window.$('#table_id').dataTable( {
-                                {% comment %} "order": [[ 0, 'desc' ],], {% endcomment %}
+                                "order": [[ 0, 'desc' ],],
                             } );
                         {% endif %}
 

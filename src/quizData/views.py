@@ -52,13 +52,7 @@ def detailed_results(request, quiz_id, response_id):
 
     return render(request, 'quizData/response_details.html', context=context)
 
-class Echo:
-    """An object that implements just the write method of the file-like
-    interface.
-    """
-    def write(self, value):
-        """Write the value by returning it, instead of storing in a buffer."""
-        return value
+
 
 @login_required
 def download_csv_of_responses(request, quiz_id):

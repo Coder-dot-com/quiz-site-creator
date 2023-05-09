@@ -1,6 +1,6 @@
 from django.shortcuts import render, HttpResponse
 from django.contrib.auth.decorators import login_required
-from quizCreation.models import UserQuiz, QuizPageElement
+from quizCreation.models import UserQuiz, QuizPageElement, SatisfiedUnsatisfiedRow, AgreeDisagreeRow
 from quizRender.models import Response, Answer
 
 @login_required
@@ -99,3 +99,43 @@ def get_question_answers(request, quiz_id, question_id):
     else:
         return render(request, 'quizData/answers/all_other_questions.html', context=context)
 
+
+@login_required
+def get_answer_individual_question_response_admin(request, quiz_id, response_id, question_id):
+    quiz = UserQuiz.objects.get(user=request.user, id=quiz_id)
+    question =  QuizPageElement.objects.get(page__quiz=quiz, id=question_id)
+    
+    answer = Answer.objects.get(question=question, response__response_id=response_id)
+    context = {}
+    context['answer']  = answer
+
+    return render(request, 'quizData/answer/all_questions.html', context=context)
+
+@login_required
+def get_answer_individual_question_satisfied_unsatisfied_response_admin(request, quiz_id, response_id, row_id):
+    quiz = UserQuiz.objects.get(user=request.user, id=quiz_id)
+    row = SatisfiedUnsatisfiedRow.objects.get(id=row_id)
+    print('response_id', response_id)
+    try:
+        answer = Answer.objects.get(response__response_id=response_id, response__quiz=quiz, question_satisfied_unsatisfied__id=row_id)
+    except Answer.DoesNotExist:
+        answer = ""
+    context = {}
+    context['answer']  = answer
+
+    return render(request, 'quizData/answer/all_questions.html', context=context)
+
+
+@login_required
+def get_answer_individual_question_agree_disagree_response_admin(request, quiz_id, response_id, row_id):
+    quiz = UserQuiz.objects.get(user=request.user, id=quiz_id)
+    row = AgreeDisagreeRow.objects.get(id=row_id)
+    print('response_id', response_id)
+    try:
+        answer = Answer.objects.get(response__response_id=response_id, response__quiz=quiz, question_agree_disagree=row_id)
+    except Answer.DoesNotExist:
+        answer = ""
+    context = {}
+    context['answer']  = answer
+
+    return render(request, 'quizData/answer/all_questions.html', context=context)
