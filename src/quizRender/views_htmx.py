@@ -43,7 +43,9 @@ def previous_page_preview(request, quiz_id, number):
     if request.user == quiz.user: #is preview
         
         return render(request, 'quiz_form.html', context=context)
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def take_next_page(request, quiz_id, number, response_id):
     quiz = UserQuiz.objects.get(id=quiz_id)
     current_quiz_page = QuizPage.objects.get(number=number, quiz=quiz)
