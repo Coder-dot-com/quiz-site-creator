@@ -134,7 +134,7 @@ def complete_quiz(request, quiz_id, number, response_id):
     elements = current_quiz_page.get_quiz_page_elements()
 
     response_object = Response.objects.filter(
-        response_id=response_id, session=_session(request), quiz=quiz)
+        response_id=response_id, quiz=quiz)
     
     print(response_object)
 
@@ -247,13 +247,12 @@ def complete_quiz(request, quiz_id, number, response_id):
             print("failed conv tracking")
             print(q)
 
-    else:
-        response_object = response_object[0]
 
     
     context['user_quiz'] = quiz
     context['response_id'] = response_id
-    context['response'] = response_object
+
+    
     try:
         product = Product.objects.get(quiz=quiz)
         context['product'] = product
