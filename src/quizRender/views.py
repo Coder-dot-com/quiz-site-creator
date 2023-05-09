@@ -32,7 +32,8 @@ def preview_quiz(request, quiz_id):
         context['first_page'] = True
         return render(request, 'preview_quiz.html', context=context)
 
-
+from django.views.decorators.clickjacking import xframe_options_exempt
+@xframe_options_exempt
 def take_quiz(request, quiz_id):
 
     quiz = UserQuiz.objects.filter(id=quiz_id)

@@ -4,14 +4,25 @@
 -take our feedback survey
 
 To do:
-    -add refresh to elements page
-    -make questions required or not add underneath title
-        -agree disagree left
-    
-    -fix glitch if answer is left blank then its not shown on response details
+    -To do:
+        embed survey via iframe
+            -Create frontend to copy code
+            -For now just embed then options to choose embed or as a popup, exit intent etc..
+
+        -hardcode demo via db id later
 
     -look at competitors landing pages and improve/make longer
+        -make video about product
+
     -Go through everything and plan
+
+    -Display summary on quiz completion
+        -user summary
+            -all questions
+            -agree satis questions
+
+    -change csv download to get all questions then answers so blank answers not missing
+
 
     -change bg color quiz and font color (started as color settings.html)
 

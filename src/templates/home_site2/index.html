@@ -21,7 +21,7 @@
         <div class="col-lg-6">
             <h1 class="display-5 fw-bold lh-1 mb-3">
 
-                Surveys that generate responses
+                Customer surveys that generate responses
 
             </h1>
             <h2 class="lead fs-3">
@@ -44,14 +44,16 @@
         </div>
     </div>
 
-			{% comment %} End main section {% endcomment %}
+			{% comment %} End main section {% endcomment %} 
 
+
+    
 
     <div class="row my-5">
         <div class="col-lg-4">
             <div class="p-1 w-100 rounded my-3" style="background:  linear-gradient(90deg, rgba(30,167,197,1) 1%, rgba(18,90,169,1) 20%, rgba(11,42,151,1) 50%, rgba(22,120,180,1) 80%, rgba(22,117,179,1) 80%, rgba(30,167,197,1) 100%, rgba(30,167,197,1) 100%); !important">
             </div>
-            <h2 class="text-center">10+ elements</h2>
+            <h2 class="text-center">10+ quizElements™</h2>
             <div class="img-fluid mx-auto justify-content-center d-flex">
                 <img src="{% static 'images/elements.png' %}" alt="" class="">
             </div>
@@ -80,7 +82,12 @@
         </div><!-- /.col-lg-4 -->
     </div>
 
-
+    <div class="row p-3 ">
+        <h2>Example quiz</h2>        
+        {% autoescape off %}
+        <iframe src="http://127.0.0.1:8000/render_quiz/take_quiz/37" title="description" width="100%" height="800px"></iframe> 
+        {% endautoescape %}
+    </div>
 
     <div class="row" >
         <div class="bootstrap-media w-100">
