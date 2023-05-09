@@ -10,9 +10,6 @@ from .models import Pixel
 @app.task
 def conversion_tracking_user_quiz(event_name, event_id, session_id, quiz_id, event_source_url=None):
 
-    print("source url is")
-    print(event_source_url)
-    print("Setting event source url to https version")
     if event_source_url:
         try:
 
@@ -33,43 +30,33 @@ def conversion_tracking_user_quiz(event_name, event_id, session_id, quiz_id, eve
 
     if user_agent:
         if user_agent == 'Mozilla/5.0 (X11; Linux x86_64; rv:91.0) Gecko/20100101 Firefox/91.0':
-            print("user agent is one of own not firing...")
             return
         elif 'bot' in user_agent:
-            print(f"user agent contains bot not firing pixel for quiz with id: {quiz_id}... {user_agent}")
             return
-        
+
     if session.email == "usman.shabir1@outlook.com":
-            print(f"{session.email}... not firing pixel")
             return     
 
     #Check for session fbp
-    print("Attempting to get fbp")
     latest_fbp_loop_count = 0
 
-    print(event_name)
 
     if not str(event_name) == "PageView" and not event_name == "ViewContent":
 
-        while (not session.latest_fbp or not session.email) and latest_fbp_loop_count < 20: 
+        while (not session.latest_fbp or not session.email) and latest_fbp_loop_count < 10: 
             #Need to get session.email before increasing loop count
-            print("attempt:", latest_fbp_loop_count)
             latest_fbp_loop_count += 1
             session = UserSession.objects.get(session_id=session_id)
 
-            time.sleep(5)
-    print("fbp gotten", session.latest_fbp)
+            time.sleep(1)
 
     # check for session email
     hashed_email =  None
 
     if session.email:
-        print('session email')
-        print(session.email)
+
         hashed_email = str(hashlib.sha256((str(session.email).lower()).encode('utf-8')).hexdigest())
-            
-    print('session gotten id')
-    print(session.session_id)
+    
 
     user_ip = session.ip
     #Get the country code and hash
@@ -132,12 +119,9 @@ def conversion_tracking_user_quiz(event_name, event_id, session_id, quiz_id, eve
                         data['data'][0]['event_source_url'] = event_source_url
 
 
-                    print("fb request data is")
-                    print(data)
+                 
                     response = requests.post(endpoint, json=data)
-                    print("Facebook conv api response")
-                    response.raise_for_status()
-                    print(response.text)
+
 
                 elif pixel.integration_type == "tiktok":
                     endpoint = "https://business-api.tiktok.com/open_api/v1.2/pixel/track/"
@@ -193,10 +177,6 @@ def conversion_tracking_user_quiz(event_name, event_id, session_id, quiz_id, eve
                         data['context']['page']['url'] = event_source_url
      
                     response = requests.post(endpoint, headers=headers, json=data)
-
-                    print("Tiktok pixel response")
-                    print("Status Code", response.status_code)
-                    print("JSON Response ", response.json())
 
             except Exception as e:
                 print("Error when sending event")
