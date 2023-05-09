@@ -890,7 +890,7 @@ def add_row_to_satisfied_unsatisfied_element(request, quiz_id, page_id, element_
             'choices': choices,
         }
         # Here render the modal ability to add choices
-        return render(request, 'element_forms/AddRowsatisfiedUnsatisfiedModal.html', context=context)
+        return render(request, 'element_forms/AddRowSatisfiedUnsatisfiedModal.html', context=context)
 
 
 
