@@ -8,8 +8,9 @@ To do:
     -To do:
     -Create 1-5 star review  Review stars
                                 ****
+        -get value stored in db and render       
+        -response quesiton by quesiton breakdown calculate average median and mode
 
-                                
     -in quizcreation element forms can remove if edit? 
     -singup email flow
     -switch to sendgrid?

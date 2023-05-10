@@ -6,10 +6,15 @@
 <div class="modal-body">
     <form
 
+        {% if edit %}
+            hx-post={% url 'edit_number_input_element' user_quiz.id quiz_page.id quiz_page_element.id %}
+            hx-target='#page_elements'
+            hx-swap=outerHTML
+        {% else %}
             hx-post={% url 'add_review_stars_element' user_quiz.id quiz_page.id %}
             hx-target='#modalContent'
             hx-swap=outerHTML
-
+        {% endif %}
         hx-sync="closest form:abort"
 
     >

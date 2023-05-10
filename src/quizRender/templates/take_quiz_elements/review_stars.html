@@ -1,0 +1,59 @@
+
+       <style>
+        div.stars {
+            width: 270px;
+            display: inline-block;
+          }
+          
+          input.star { display: none; }
+          
+          label.star {
+            float: right;
+            padding: 10px;
+            font-size: 36px;
+            color: #444;
+            transition: all .2s;
+            display: block;
+          }
+          
+          input.star:checked ~ label.star:before {
+            content: '\f005';
+            color: #FD4;
+            transition: all .25s;
+          }
+          
+          input.star-5:checked ~ label.star:before {
+            color: #FE7;
+          }
+          
+          input.star-1:checked ~ label.star:before { color: #F62; }
+          
+          label.star:hover { transform: rotate(-5deg) scale(1.1); }
+          
+          label.star:before {
+            content: '\f006';
+            font-family: FontAwesome;
+          }
+          
+       </style>
+       <div class="row" style="  flex-direction: row-reverse;justify-content: left;">
+
+           <input name="{{element.id}}" value="1"  class="star star-1" id="star-1" type="radio" name="star"/>
+           <label class="star star-1" for="star-1"></label>
+           <input name="{{element.id}}" value="2"  class="star star-2" id="star-2" type="radio" name="star"/>
+           <label class="star star-2" for="star-2"></label>
+           <input name="{{element.id}}" value="3"  class="star star-3" id="star-3" type="radio" name="star"/>
+           <label class="star star-3" for="star-3"></label>
+           <input name="{{element.id}}" value="4"  class="star star-4" id="star-4" type="radio" name="star"/>
+           <label class="star star-4" for="star-4"></label>
+           <input name="{{element.id}}" value="5"  class="star star-5" id="star-5" type="radio" name="star"/>
+           <label class="star star-5" for="star-5"></label>
+        </div>
+
+
+        {% if not checked_db %}
+        hx-trigger = 'load'
+        hx-swap=outerHTML
+        hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id%}
+    {% endif %}
+    {% if answer %}value="{{answer.answer}}"{% endif %}

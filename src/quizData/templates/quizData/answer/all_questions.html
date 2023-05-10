@@ -3,7 +3,7 @@
         Answer:
     </small>
     <strong>
-        {{answer.answer}}
+        {{answer.answer}} {% if answer.question.get_element_type.type == "Review stars" %}stars{% endif %}
     </strong>
 </div>
 <hr>

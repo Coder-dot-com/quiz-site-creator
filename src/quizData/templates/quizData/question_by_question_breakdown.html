@@ -15,7 +15,9 @@
                         {% for q in l %}
                             {% if not q.get_element_type.type == 'Text' and not q.get_element_type.type == 'Image' %}
                             <div class="border border-dark  border-3 m-3    ">
-
+                                <small class="m-2 float-right">
+                                    {{q.get_element_type.type}}
+                                </small>
                                 <h5 class="m-3">
                                     <small class="mr-2">Question: </small>
 
@@ -29,7 +31,7 @@
                                         <div class="accordion__header collapsed accordion__header--primary " 
                                             data-toggle="collapse" data-target="#header-bg_collapse{{q.id}}">
                                             <span class="accordion__header--icon"></span>
-                                            <span class="accordion__header--text">View detailed breakdown {{q.get_element_type.type}}</span>
+                                            <span class="accordion__header--text">View detailed breakdown </span>
                                             <span class="accordion__header--indicator"></span>
                                         </div>
                                         <div id="header-bg_collapse{{q.id}}" class="collapse accordion__body" data-parent="#accordion-{{q.id}}">
