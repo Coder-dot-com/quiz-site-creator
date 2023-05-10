@@ -70,7 +70,7 @@
                 {% endif %}
 
 
-                {% if element.get_element_type.element.required %}
+                {% if element.get_element_type.element.required and not element.get_element_type.type == "Review stars" %}
                 <script>
                     function setRequired{{element.id}}(){
                         document.getElementById('question_{{element.id}}').required = true
@@ -81,6 +81,25 @@
                     setRequired{{element.id}}Interval = setInterval(setRequired{{element.id}}, 100);
 
                 </script>
+
+                {% elif element.get_element_type.element.required and element.get_element_type.type == "Review stars" %}
+
+                <script>
+                    function setRequired{{element.id}}(){
+                        question = document.getElementById('question_{{element.id}}')
+                        inputs = question.querySelectorAll('input')
+                        console.log(inputs)
+                        for (let i = 0; i < inputs.length; i++) {
+                            inputs[i].required = true
+                          } 
+                        clearInterval(setRequired{{element.id}}Interval)
+
+                    }
+                    
+                    setRequired{{element.id}}Interval = setInterval(setRequired{{element.id}}, 100);
+
+                </script>         
+
                 {% endif %}
 
             {% endfor %}
