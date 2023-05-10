@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
 from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement, SingleChoiceChoice, SingleChoiceElement, AgreeDisagree, AgreeDisagreeRow, ImageDisplayElement, SatisfiedUnsatisfied, SatisfiedUnsatisfiedRow
-from .forms import TextElementForm, QuizConfirmationForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm, SingleChoiceElementForm, SingleChoiceChoiceForm, AgreeDisagreeElementForm, AgreeDisagreeRowForm, SatisfiedUnsatisfiedElementForm, SatisfiedUnsatisfiedRowForm
+from .forms import TextElementForm, QuizConfirmationForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm, SingleChoiceElementForm, SingleChoiceChoiceForm, AgreeDisagreeElementForm, AgreeDisagreeRowForm, SatisfiedUnsatisfiedElementForm, SatisfiedUnsatisfiedRowForm, ReviewStarsForm
 from django.urls import reverse
 import os
 from uuid import uuid4
@@ -133,6 +133,16 @@ def quiz_page_element_add(request, quiz_id, page_id):
                 }
                 return render(request, 'element_forms/NumberInput.html', context=context)
 
+
+            elif element == "ReviewStars":
+                form = ReviewStarsForm()
+                context = {
+                    'user_quiz': user_quiz,
+                    'quiz_page': quiz_page,
+                    'form': form,
+                }
+                return render(request, 'element_forms/ReviewStars.html', context=context)
+            
             elif element == "MultipleChoice":
                 form = MultipleChoiceElementForm()
                 context = {
@@ -357,6 +367,37 @@ def add_number_input_element(request, quiz_id, page_id):
                     }
                     return render(request, 'element_forms/all_elements_swatches.html', context=context)
 
+
+@login_required
+def add_review_stars_element(request, quiz_id, page_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
+        if quiz_page.exists():
+            if request.method == 'POST':
+                # Bind data from request.POST into a PostForm
+                form = ReviewStarsForm(request.POST)
+                # If data is valid, proceeds to create a new post
+                if form.is_valid():
+                    quiz_page = quiz_page[0]
+                    element = form.save(commit=False)
+                    try:
+                        position = QuizPageElement.objects.filter(
+                            page=quiz_page).order_by('-position')[0].position
+                    except IndexError:
+                        position = 0
+                    position = position + 1
+                    quiz_page_element = QuizPageElement.objects.create(
+                        page=quiz_page, position=position)
+                    element.page_element = quiz_page_element
+                    element.save()
+                    # determine position and create element objects
+                    context = {
+                        'user_quiz': user_quiz[0],
+                        'quiz_page': quiz_page,
+                        'element_added': True,
+                    }
+                    return render(request, 'element_forms/all_elements_swatches.html', context=context)
 
 @login_required
 def add_multiple_choice_element(request, quiz_id, page_id):

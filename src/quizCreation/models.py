@@ -88,9 +88,15 @@ class QuizPageElement(models.Model):
         email_input_element = EmailInputElement.objects.filter(page_element=self)
         if email_input_element.exists():
             return {'type': 'Email input', 'element': email_input_element[0]}
+        
         number_input_element = NumberInputElement.objects.filter(page_element=self)
         if number_input_element.exists():
             return {'type': 'Number input', 'element': number_input_element[0]}
+        
+        review_stars_element = ReviewStars.objects.filter(page_element=self)
+        if review_stars_element.exists():
+            return {'type': 'Review stars', 'element': review_stars_element[0]}
+        
         multiple_choice = MultipleChoiceElement.objects.filter(page_element=self)
         if multiple_choice.exists():
             return {'type': 'Multiple choice question', 'element': multiple_choice[0]}
@@ -199,4 +205,10 @@ class SatisfiedUnsatisfiedRow(models.Model):
     satisfied_unsatisfied_element = models.ForeignKey(SatisfiedUnsatisfied, on_delete=models.CASCADE)
     position = models.IntegerField()
     title = models.TextField(max_length=10000)
+    required = models.BooleanField(default=False)
+
+
+class ReviewStars(models.Model):
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    title = models.CharField(max_length=300)
     required = models.BooleanField(default=False)

@@ -4,42 +4,43 @@
 -take our feedback survey
 
 To do:
-    fix text input make required
+
     -To do:
-        embed survey via iframe
-            -Create frontend to copy code
-            -For now just embed then options to choose embed or as a popup, exit intent etc..
+    -Create 1-5 star review  Review stars
+                                ****
 
-        -hardcode demo via db id later
+                                
+    -in quizcreation element forms can remove if edit? 
+    -singup email flow
+    -switch to sendgrid?
+    -sendinblue setup
+    
 
-    -look at competitors landing pages and improve/make longer
-        -make video about product
-
+    -launch product hunt as customer survey tool?
     -Go through everything and plan
 
 
 
-    -change csv download to get all questions then answers so blank answers not missing
 
 
     -change bg color quiz and font color (started as color settings.html)
 
-    -Create 1-5 star review 
     -User image upload 
     
     -deploy
     -finish email scraper
     -autoemail
 
-    -user licks create quiz -> select your goal -> select a template (or no template) -> quiz name -> tailored swatch order
+    -user clicks create quiz -> select your goal -> select a template (or no template) -> quiz name -> tailored swatch order
+        embed survey via iframe
+            -options to choose embed or as a popup, exit intent etc..
 
-    -launch product hunt as customer survey tool?
 
     -Create 1-10 question with slider input
 
 
     -email results/response_data on completion from separate domain email?
-    
+    -csv download
 
     -pre made templates ideas:  short and long customer feedback survey
     

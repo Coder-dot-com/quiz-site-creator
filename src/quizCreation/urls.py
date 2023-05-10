@@ -27,6 +27,10 @@ urlpatterns = [
     path('add_char_input_element/<quiz_id>/<page_id>', views_htmx.add_char_input_element, name="add_char_input_element"),
     path('add_email_input_element/<quiz_id>/<page_id>', views_htmx.add_email_input_element, name="add_email_input_element"),
     path('add_number_input_element/<quiz_id>/<page_id>', views_htmx.add_number_input_element, name="add_number_input_element"),
+    path('add_review_stars_element/<quiz_id>/<page_id>', views_htmx.add_review_stars_element, name="add_review_stars_element"),
+
+    
+    
     path('add_multiple_choice_element/<quiz_id>/<page_id>', views_htmx.add_multiple_choice_element, name="add_multiple_choice_element"),
     path('add_single_choice_element/<quiz_id>/<page_id>', views_htmx.add_single_choice_element, name="add_single_choice_element"),
     path('add_agree_disagree_element/<quiz_id>/<page_id>', views_htmx.add_agree_disagree_element, name="add_agree_disagree_element"),
