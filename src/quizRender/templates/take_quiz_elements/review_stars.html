@@ -61,8 +61,12 @@
 <script>
 
     review_star{{element.id}} = document.querySelector('.rating_star{{element.id}}')
+    review_stars = review_star{{element.id}}.querySelectorAll('input')
+    for (let i = 0; i < review_stars.length; i++) {
+        if (review_stars[i].value == "{{answer.answer}}") {
+            review_stars[i].click()
+        }
 
-    console.log(review_star{{element.id}})
+        } 
 </script>
-{{answer.answer}}
 {% endif %}
