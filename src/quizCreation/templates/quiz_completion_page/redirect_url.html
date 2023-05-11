@@ -3,10 +3,10 @@
 
     <label for="" class="form-label my-4">
         <strong>
-            Redirect after quiz completion? (leave blank to not redirect)
+            Redirect after completion? (leave blank to not redirect)
         </strong>
         <br>
-        Note: If a URL is saved your quiz will redirect and any custom HTML text entered won't show
+        Note: If a URL is saved this will redirect and any custom HTML text entered won't show
     </label>
     <form class="input-group mb-3"
           hx-post={% url 'update_url_quiz_complete' user_quiz.id %}

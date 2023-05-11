@@ -1,27 +1,74 @@
 -Charge £10 for now once start running paid ads charge £30+
 -Before running ads everything has to be perfect and set up
 
--take our feedback survey
+-take our feedback survey 
 
 To do:
 
+-QR code
+
+-Allow editing of quiz title htmx
+
+
+Customer survey:
+    ranking scale questionnaire
+        1-10 element radio input
+        1-5 radio input
+
+Add swatch to select goal on start of quiz creation (after added most elements)
+    Csutomer survey
+    Lead capture
+    Trivia quiz?
+    form
+    Other
+
+-Eventual flow==================
+    create -> swatch to select goal -> enter name for quiz -> templates based on goal/skip -> automatically create quiz page 
+
+
+
+
+Exit intent survey:
+    modal embed with exit intent 
+    -use a pure css modal  
+
+
+Trivia quiz:
+    -
+
+Before ads
+    -setup new site with database   
+
     -To do:
-    -Create 1-5 star review  Review stars
-                                ****
-        -set required
-        -get value stored in db and render       
-        -response quesiton by quesiton breakdown calculate average median and mode
 
-    -in quizcreation element forms can remove if edit? 
     -singup email flow
-    -switch to sendgrid?
-    -sendinblue setup
-    
+        -sendblue day 5 and day 7
 
-    -launch product hunt as customer survey tool?
+
+    
+    -cold email scale up to 40 a day
+
+    -keyword research
+    
+    -main landing page with cards to
+        -custom landing pages for each goal
+            -customer survey tool (done)
+
+
+    -launch product hunt as survey builder
     -Go through everything and plan
 
+    -increase price to £15/mo
 
+    -After first user:
+        -SEO (programmatic)
+
+After first paying user:
+    -create documentation for adding new elements
+After ads
+
+        -response quesiton by quesiton breakdown calculate average median and mode for 5 star reviews
+    -in quizcreation element forms can remove if edit? 
 
 
 

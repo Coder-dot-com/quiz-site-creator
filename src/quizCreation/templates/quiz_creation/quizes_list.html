@@ -52,6 +52,9 @@
 
                                 <h4 class="mt-2 pt-2">
 
+                                    <small>
+                                        Name:
+                                    </small>
                                     <p class="">{{quiz.name}}</p></h4>
 
 
@@ -59,18 +62,18 @@
                             </div>
 
                         </div>
-                        <strong for="" class="form-label w-100 text-dark">
-                            Link:
-                            <input class="form-control w-100 text-dark" id="linkToQuiz{{quiz.id}}" value="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}">
-                        </strong>
-                        <div class="g-4 text-right mt-3">
+                        <small for="" class="form-label w-100 ">
+                            Copy link:
+                            <input class="form-control w-100" id="linkToQuiz{{quiz.id}}" value="{% if request.is_secure %}https://{% else %}http://{% endif %}{{request.get_host}}{% url 'take_quiz' quiz.id %}">
+                        </small>
+                        <div class=" text-center mt-3 ">
 
-                            <a class="btn btn-primary site-button " href="{% url 'edit_quiz' quiz.id %}">
-                                <div class="float-right">Manage <i class="fa fa-edit"></i></div>
+                            <a class="btn btn-primary site-button m-1" href="{% url 'edit_quiz' quiz.id %}">
+                                <div class="float-right mx-2">Manage <i class="fa fa-edit"></i></div>
                             </a>
 
-                            <a class="btn btn-primary site-secondary-button  " href="{% url 'view_quiz_results' quiz.id %}">
-                                <div class="float-right">View responses
+                            <a class="btn btn-primary site-secondary-button m-1" href="{% url 'view_quiz_results' quiz.id %}">
+                                <div class="float-right mx-2">View responses
                                     <i class="fa fa-eye"></i></div>
                             </a>
                         </div>

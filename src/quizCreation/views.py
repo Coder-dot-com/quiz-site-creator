@@ -54,7 +54,7 @@ def quiz_page_add(request, quiz_id):
             quiz_page_number = quiz_page_number[0].number
         else:
             quiz_page_number = 0
-        quiz_page =  QuizPage.objects.create(quiz=user_quiz, number=(quiz_page_number+1), title=request.POST['name'])
+        quiz_page =  QuizPage.objects.create(quiz=user_quiz, number=(quiz_page_number+1))
         quiz_page_elements = quiz_page.get_quiz_page_elements()
         print('quiz_page_elements', quiz_page_elements)
         quiz_page_elements = [element.get_element_type() for element in quiz_page_elements]
