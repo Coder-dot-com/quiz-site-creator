@@ -62,6 +62,9 @@ urlpatterns = [
     path('add_row_to_agree_disagree_element/<quiz_id>/<page_id>/<element_id>', views_htmx.add_row_to_agree_disagree_element, name="add_row_to_agree_disagree_element"),
     path('add_row_to_satisfied_unsatisfied_element/<quiz_id>/<page_id>/<element_id>', views_htmx.add_row_to_satisfied_unsatisfied_element, name="add_row_to_satisfied_unsatisfied_element"),
 
+    path('add_choice_to_dropdown_element/<quiz_id>/<page_id>/<element_id>', views_htmx.add_choice_to_dropdown_element, name="add_choice_to_dropdown_element"),
+
+
     path('get_text_element_edit_form/<quiz_id>/<element_id>', views_htmx.get_text_element_edit_form, name="get_text_element_edit_form"),
 
     path('edit_text_element/<quiz_id>/<element_id>', views.edit_text_element, name="edit_text_element"),
@@ -91,9 +94,6 @@ urlpatterns = [
     path('upload_image_for_single_choice/<quiz_id>/<page_id>/<element_id>/<choice_id>/', views_htmx.upload_image_for_single_choice, name="upload_image_for_single_choice"),
 
 
-    path('mark_as_correct_multiple_choice/<quiz_id>/<page_id>/<element_id>/<choice_id>/', views_htmx.mark_as_correct_multiple_choice, name="mark_as_correct_multiple_choice"),
-    path('mark_as_correct_single_choice/<quiz_id>/<page_id>/<element_id>/<choice_id>/', views_htmx.mark_as_correct_single_choice, name="mark_as_correct_single_choice"),
-    
     path('delete_image_from_multiple_choice/<quiz_id>/<page_id>/<element_id>/<choice_id>/', views_htmx.delete_image_from_multiple_choice, name="delete_image_from_multiple_choice"),
     path('delete_image_from_single_choice/<quiz_id>/<page_id>/<element_id>/<choice_id>/', views_htmx.delete_image_from_single_choice, name="delete_image_from_single_choice"),
 

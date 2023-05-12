@@ -52,6 +52,8 @@
                     {% include 'take_quiz_elements/text_input_element.html' %}
                 {% elif element.get_element_type.type == 'Email input'  %}
                     {% include 'take_quiz_elements/email_input_element.html' %}
+                {% elif element.get_element_type.type == 'Dropdown'  %}
+                    {% include 'take_quiz_elements/dropdown.html' %}
                 {% elif element.get_element_type.type == 'Number input'  %}
                     {% include 'take_quiz_elements/number_input_element.html' %}
                 {% elif element.get_element_type.type == 'Review stars'  %}
@@ -67,6 +69,8 @@
                     {% include 'take_quiz_elements/satisfied_unsatisfied_table.html' %}
                 {% elif element.get_element_type.type == 'Image'  %}
                     {% include 'take_quiz_elements/Image.html' %}
+
+
                 {% endif %}
 
 

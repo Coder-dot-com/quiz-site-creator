@@ -138,10 +138,6 @@ class TextInputElement(models.Model):
     required = models.BooleanField(default=False)
 
 
-class Dropdown(models.Model):
-    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
-    title = models.CharField(max_length=300)
-    required = models.BooleanField(default=False)
 
 class EmailInputElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
@@ -186,6 +182,19 @@ class SingleChoiceChoice(models.Model):
     is_correct_choice = models.BooleanField(default=False)
     image = models.ImageField(upload_to="choice_images/", null=True, blank=True)
 
+
+class Dropdown(models.Model):
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    title = models.CharField(max_length=300)
+    required = models.BooleanField(default=False)
+    
+    def get_dropdown_choices(self):
+        return DropdownChoice.objects.filter(dropdown=self)
+
+class DropdownChoice(models.Model):
+    dropdown = models.ForeignKey(Dropdown, on_delete=models.CASCADE)
+    choice = models.CharField(max_length=300)
+    is_correct_choice = models.BooleanField(default=False)
 
 
 class AgreeDisagree(models.Model):

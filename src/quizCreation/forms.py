@@ -32,10 +32,6 @@ class TextInputElementForm(CharInputElementForm):
         model = TextInputElement
         fields = ['title',  'required']
 
-class DropdownForm(CharInputElementForm):
-    class Meta:
-        model = Dropdown
-        fields = ['title',  'required']
 
 
 class EmailInputElementForm(CharInputElementForm):
@@ -83,6 +79,22 @@ class SingleChoiceChoiceForm(forms.ModelForm):
     class Meta:
         model = SingleChoiceChoice
         fields = ['choice', ]
+
+
+class DropdownForm(CharInputElementForm):
+    class Meta:
+        model = Dropdown
+        fields = ['title',  'required']
+
+class DropdownChoiceForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['choice'].widget = forms.TextInput(attrs={'field_title': "Enter a name for your choice", 'maxlength': 100, 'class': 'w-100 form-control border-dark'},)
+
+    class Meta:
+        model = SingleChoiceChoice
+        fields = ['choice', ]
+
 
 
 class AgreeDisagreeElementForm(forms.ModelForm):
