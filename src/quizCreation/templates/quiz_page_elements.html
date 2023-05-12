@@ -55,10 +55,7 @@
                                 <div class="modal-header">
                                     <h5 class="modal-title">Editing {{element.type|lower}}</h5>
                                     <button type="button" class="close" data-dismiss="modal"
-                                            hx-trigger="click"
-                                            hx-target="#page_elements"
-                                            hx-swap=outerHTML
-                                            hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+                                     
                                     ><span>×</span>
                                     </button>
                                 </div>
@@ -71,10 +68,6 @@
                                       {% else %}
                                           hx-target="#page_elements"
                                       {% endif %}
-
-
-
-                                      hx-swap="outerHTML"
                                       hx-encoding="multipart/form-data"
 
 
@@ -127,10 +120,7 @@
 
                                     <div class="modal-footer">
                                         <a type="button" class="btn btn-danger light" style="border-radius:0 !important;" data-dismiss="modal"
-                                           hx-trigger="click"
-                                           hx-target="#page_elements"
-                                           hx-swap=outerHTML
-                                           hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+                                      
                                         >Cancel</a>
                                         <button
 
@@ -308,5 +298,7 @@
         </div>
     {% endfor %}
 </div>
+
+
 
 

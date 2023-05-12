@@ -49,7 +49,6 @@ def htmx_create_quiz(request):
 
     context = {
         'user_quiz': user_quiz,
-        'hx_url': f"/create_quiz/edit/{user_quiz.id}",
     }
 
     return render(request, 'questions_page.html', context=context)
@@ -1176,6 +1175,7 @@ def edit_element_title(request, quiz_id, page_id, element_id):
         else:
             print("NOT MULTIPLE CHOICE")
             print(element_type)
+            context['edit'] = True
             return render(request, 'quiz_page_elements.html', context=context)
   
 @login_required
