@@ -6,7 +6,7 @@
 <div class="modal-body">
     <form
 
-   
+
             hx-post={% url 'add_agree_disagree_element' user_quiz.id quiz_page.id %}
             hx-target='#modalContent'
             hx-swap=outerHTML

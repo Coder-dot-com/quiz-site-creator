@@ -6,15 +6,9 @@
 <div class="modal-body">
     <form
 
-        {% if edit %}
-            hx-post={% url 'edit_single_choice_element' user_quiz.id quiz_page.id quiz_page_element.id %}
-            hx-target='#modalContent'
-            hx-swap=outerHTML
-        {% else %}
             hx-post={% url 'add_single_choice_element' user_quiz.id quiz_page.id %}
             hx-target='#modalContent'
             hx-swap=outerHTML
-        {% endif %}
 
     >
         {{form.media}}

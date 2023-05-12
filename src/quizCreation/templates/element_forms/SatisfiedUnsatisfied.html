@@ -6,16 +6,9 @@
 <div class="modal-body">
     <form
 
-        {% if edit %}
-            hx-post={% url 'edit_satisfied_unsatisfied_element' user_quiz.id quiz_page.id quiz_page_element.id %}
-            hx-target='#modalContent'
-            hx-swap=outerHTML
-        {% else %}
             hx-post={% url 'add_satisfied_unsatisfied_element' user_quiz.id quiz_page.id %}
             hx-target='#modalContent'
             hx-swap=outerHTML
-        {% endif %}
-
     >
         {{form.media}}
         {% for field in form %}

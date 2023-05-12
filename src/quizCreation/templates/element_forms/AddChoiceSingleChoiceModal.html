@@ -1,7 +1,13 @@
 <div id="modalContent" class="modal-content">
     <div class="modal-header">
         <h5 class="modal-title">Add choices to your single choice question</h5>
-        <button type="button" id="closeModalElement" class="close" data-dismiss="modal"><span>×</span>
+        <button type="button" id="closeModalElement" class="close" data-dismiss="modal"
+                
+        hx-trigger="click"
+        hx-target="#page_elements"
+        hx-swap=outerHTML
+        hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+        ><span>×</span>
         </button>
     </div>
     <div class="modal-body">
