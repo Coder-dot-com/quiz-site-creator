@@ -5,10 +5,11 @@
 
 To do:
 
+-dropdown check db for previous answr
 
 
--add simple drop down element
 -similar to single choice element
+
 
 
 Customer survey:
@@ -29,6 +30,9 @@ Link to them from home page
     create -> swatch to select goal -> enter name for quiz -> templates based on goal/skip -> automatically create quiz page 
 
 
+Detailed breakdown:
+    -review avg, median and mode
+    -graph for dropdown choice
 
 
 Exit intent survey:
