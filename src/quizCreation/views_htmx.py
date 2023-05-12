@@ -7,6 +7,17 @@ import os
 from uuid import uuid4
 from django.utils.datastructures import MultiValueDictKeyError
 
+
+@login_required
+def get_list_of_quizes(request):  
+
+    user_quizes_list = UserQuiz.objects.filter(user=request.user)
+    context = {
+        'quizes': user_quizes_list,
+    }
+    return render(request, 'quiz_creation/quizes_list.html', context=context)
+
+
 @login_required
 def htmx_create_quiz(request):
     quiz_name = request.POST['quiz_name']
@@ -19,6 +30,21 @@ def htmx_create_quiz(request):
 
     return render(request, 'questions_page.html', context=context)
 
+
+@login_required
+def edit_quiz_name(request, quiz_id):
+
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():    
+        user_quiz = user_quiz[0] 
+        user_quiz.name = request.POST['name']
+        user_quiz.save()
+    user_quizes_list = UserQuiz.objects.filter(user=request.user)
+    context = {
+        'quizes': user_quizes_list,
+        
+    }
+    return render(request, 'quiz_creation/quizes_list.html', context=context)
 
 @login_required
 def htmx_quiz_delete(request, quiz_id):
@@ -201,6 +227,8 @@ def all_element_swatches(request, quiz_id, page_id):
                 'quiz_page': quiz_page[0],
             }
             return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
+
 
 
 @login_required

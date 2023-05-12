@@ -5,11 +5,11 @@
 
 To do:
 
+-Allow editing of quiz title htmx
 -QR code
 
--Allow editing of quiz title htmx
 
-
+-add simple drop down element
 Customer survey:
     ranking scale questionnaire
         1-10 element radio input

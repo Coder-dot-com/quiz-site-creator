@@ -3,6 +3,7 @@ from . import views, views_htmx
 
 urlpatterns = [
     path('', views.create_quiz, name="create_quiz"),
+    path('get_list_of_quizes', views_htmx.get_list_of_quizes, name="get_list_of_quizes"),
     path('edit/<quiz_id>/', views.quiz_edit, name="edit_quiz"),
     path('delete/<quiz_id>/', views_htmx.htmx_quiz_delete, name="htmx_quiz_delete"),
     # path('duplicate_quiz/<quiz_id>/', views_htmx.duplicate_quiz, name="duplicate_quiz"),
@@ -12,6 +13,8 @@ urlpatterns = [
 
 
     path('quiz_page_add/<quiz_id>/', views.quiz_page_add, name="quiz_page_add"),
+    path('edit_quiz_name/<quiz_id>/', views_htmx.edit_quiz_name, name="edit_quiz_name"),
+
 
     path('update_url_quiz_complete/<quiz_id>/', views_htmx.update_url_quiz_complete, name="update_url_quiz_complete"),
     path('update_text_content_quiz_complete/<quiz_id>/', views_htmx.update_text_content_quiz_complete, name="update_text_content_quiz_complete"),

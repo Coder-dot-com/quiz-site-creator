@@ -9,10 +9,13 @@
 
             <div class="card col-lg-9 mx-auto justify-content-center mt-5 mb-1" >
               
+                <div
+                hx-get={% url 'get_list_of_quizes' %}
+                hx-trigger="load">
 
+                </div>
                
   
-                {% include 'quiz_creation/quizes_list.html' %}
             </div>
         </div>
 
