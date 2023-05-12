@@ -21,11 +21,10 @@ def home(request):
     context = {
     }
 
-
-    purchase_event_unique_id = event_id()
+    page_view_event_unique_id = event_id()
     vc_event_unique_id = event_id()
 
-    context['pv_event_unique_id'] = purchase_event_unique_id
+    context['pv_event_unique_id'] = page_view_event_unique_id
     context['vc_event_unique_id'] = vc_event_unique_id
 
 
@@ -35,7 +34,7 @@ def home(request):
     try:
         category = Category.objects.all()[0]
         # Need to fix this to ensure different ids
-        conversion_tracking.delay(event_name="PageView", event_id=purchase_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
+        conversion_tracking.delay(event_name="PageView", event_id=page_view_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
         conversion_tracking.delay(event_name="ViewContent", event_id=vc_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
 
         print("tracking conversion")
@@ -43,14 +42,12 @@ def home(request):
         print("failed conv tracking")
         print(e)
 
-
     if request.GET.get('payment_intent', None):
         
         payment_intent = stripe.PaymentIntent.retrieve(
         request.GET.get('payment_intent'),
         )   
 
-        print(payment_intent) 
         if payment_intent['status'] == "succeeded":
             order = Order.objects.get(payment_intent_id=request.GET.get('payment_intent'))
             order.is_paid = True
@@ -58,9 +55,6 @@ def home(request):
 
 
             messages.success(request, f"Order placed, you should receive an email with your order details soon! Your order number is {order.number}.")
-    
-    
-    
     
             print("TAKE UQUIZ")
             
@@ -82,14 +76,57 @@ def home(request):
                 print(e)
 
     
-    
-    
-    
-    
-    
-    
     return render(request, 'home_site2/index.html', context=context)
 
+def customer_survey(request):
+    context = {
+    }
+    page_view_event_unique_id = event_id()
+    vc_event_unique_id = event_id()
+
+    context['pv_event_unique_id'] = page_view_event_unique_id
+    context['vc_event_unique_id'] = vc_event_unique_id
+
+    event_source_url = request.META.get('HTTP_REFERER')
+    session = _session(request)
+
+    try:
+        category = Category.objects.all()[0]
+        # Need to fix this to ensure different ids
+        conversion_tracking.delay(event_name="PageView", event_id=page_view_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
+        conversion_tracking.delay(event_name="ViewContent", event_id=vc_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
+
+        print("tracking conversion")
+    except Exception as e:
+        print("failed conv tracking")
+        print(e)
+    return render(request, 'home_site2/landing_pages/customer_survey.html', context=context)
+    
+
+def lead_capture(request):
+    context = {
+    }
+    page_view_event_unique_id = event_id()
+    vc_event_unique_id = event_id()
+
+    context['pv_event_unique_id'] = page_view_event_unique_id
+    context['vc_event_unique_id'] = vc_event_unique_id
+
+    event_source_url = request.META.get('HTTP_REFERER')
+    session = _session(request)
+
+    try:
+        category = Category.objects.all()[0]
+        # Need to fix this to ensure different ids
+        conversion_tracking.delay(event_name="PageView", event_id=page_view_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
+        conversion_tracking.delay(event_name="ViewContent", event_id=vc_event_unique_id, event_source_url=event_source_url, category_id=category.id, session_id=session.session_id)  
+
+        print("tracking conversion")
+    except Exception as e:
+        print("failed conv tracking")
+        print(e)
+    return render(request, 'home_site2/landing_pages/lead_capture.html', context=context)
+    
 
 
 def robots_txt(request):

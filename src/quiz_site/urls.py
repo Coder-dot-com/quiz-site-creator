@@ -38,6 +38,13 @@ urlpatterns = [
     path('sitemap.xml', sitemap, {'sitemaps': sitemaps}, name='django.contrib.sitemaps.views.sitemap'),  
     path('tinymce/', include('tinymce.urls')),
     path("", views.home, name="home"),
+
+    path("customer_survey/", views.customer_survey, name="customer_survey"),
+    path("lead_capture/", views.lead_capture, name="lead_capture"),
+    path("", views.home, name="home"),
+    path("", views.home, name="home"),
+
+
     path('admin/1a/', admin.site.urls),
     path('session/', include('session_management.urls')),
 

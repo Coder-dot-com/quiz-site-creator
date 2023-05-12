@@ -21,7 +21,7 @@
         <div class="col-lg-6">
             <h1 class="display-5 fw-bold lh-1 mb-3">
 
-                Customer surveys that generate responses
+                Create, share and analyze forms, quizes and surveys
 
             </h1>
             <h2 class="lead fs-3">
@@ -49,136 +49,35 @@
 
     
 
-    <div class="row my-5">
-        <div class="col-lg-4">
-            <div class="p-1 w-100 rounded my-3" style="background:  linear-gradient(90deg, rgba(30,167,197,1) 1%, rgba(18,90,169,1) 20%, rgba(11,42,151,1) 50%, rgba(22,120,180,1) 80%, rgba(22,117,179,1) 80%, rgba(30,167,197,1) 100%, rgba(30,167,197,1) 100%); !important">
-            </div>
-            <h2 class="text-center">10+ quizElements™</h2>
-            <div class="img-fluid mx-auto justify-content-center d-flex">
-                <img src="{% static 'images/elements.png' %}" alt="" class="">
-            </div>
-            <p>Create your survey the way ypu want with ease.</p>
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-            <div class="p-1 w-100 rounded my-3" style="background:  linear-gradient(90deg, rgba(30,167,197,1) 1%, rgba(18,90,169,1) 20%, rgba(11,42,151,1) 50%, rgba(22,120,180,1) 80%, rgba(22,117,179,1) 80%, rgba(30,167,197,1) 100%, rgba(30,167,197,1) 100%); !important">
-            </div>
+            <div class="row col-10 mx-auto">
+                <div class="col-xl-6">
+                    <a href="{% url 'customer_survey' %}">
+                    <div class="card text-center border border-3 border-dark">
+                        <div class="card-body">
 
-            <h2 class="text-center  ">Fully white-labelled</h2>
-            <div class="img-fluid mx-auto justify-content-center d-flex">
-                <img src="{% static 'images/your_logo_here.png' %}" alt="" class="">
-            </div>
-            <p>Maintain your brand image by adding your logo</p>
-            
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-            <div class="p-1 w-100 rounded my-3" style="background:  linear-gradient(90deg, rgba(30,167,197,1) 1%, rgba(18,90,169,1) 20%, rgba(11,42,151,1) 50%, rgba(22,120,180,1) 80%, rgba(22,117,179,1) 80%, rgba(30,167,197,1) 100%, rgba(30,167,197,1) 100%); !important">
-            </div>
-
-            <h2 class="text-center">Unlimited responses</h2>
-            <div class="img-fluid mx-auto justify-content-center d-flex">
-                <img src="{% static 'images/unlimited.png' %}" alt="" class="">
-            </div>
-            <p>Collect as much data as you require without any extra charges</p>
-        </div><!-- /.col-lg-4 -->
-    </div>
-
-    <div class="row p-3 ">
-        <h2>Example quiz</h2>        
-        {% autoescape off %}
-        
-        <iframe src="https://www.quizelements.com/render_quiz/take_quiz/2/" title="example quiz" width="100%" height="800px"></iframe> 
-        {% endautoescape %}
-    </div>
-
-    <div class="row" >
-        <div class="bootstrap-media w-100">
-            <ul class="list-unstyled">
-                <div class="media-body">
-                    <h2 class="mt-0 ">Step 1. Create</h2>
-        
-                    <div class="p-1 w-100 rounded my-3" style="background:  linear-gradient(90deg, rgba(30,167,197,1) 1%, rgba(18,90,169,1) 20%, rgba(11,42,151,1) 50%, rgba(22,120,180,1) 80%, rgba(22,117,179,1) 80%, rgba(30,167,197,1) 100%, rgba(30,167,197,1) 100%); !important">
+                            <p class="card-text">Create the perfect customer survey with fully customizable quizElements. Fully-white labelled.</p>
+                            <a href="javascript:void()" class="btn btn-primary site-secondary-button my-3">Customer surveys</a>
+                        </div>
+                       
                     </div>
-               
-               
-               
-               
-                    <li class="media">
+                    </a>
 
-                        <p class="mb-0 display-4">
-                            <ul class="list-group">
+                </div>
+                <div class="col-xl-6">
+                    <a href="{% url 'lead_capture' %}">
+                    <div class="card text-center border border-3 border-dark">
+                        <div class="card-body">
 
-                                <li class="list-group-item">
-                                    With over 10+ elements to choose from easily create the perfect customer survey
-                                </li class="list-group-item">
-
-                                <li class="list-group-item">
-                                    Control how many questions there are per page
-                                </li class="list-group-item">
-
-                                <li class="list-group-item">
-                                    Maintain your brand identity by adding your logo 
-                                </li class="list-group-item">
-                                
-                                
-                            </ul>
-
-                        </p>
+                            <p class="card-text">Create amazing lead generation forms with facebook and Tiktok conversion API integration</p>
+                            <a href="javascript:void()" class="btn btn-primary site-secondary-button my-3">Lead generation</a>
+                        </div>
+                    
                     </div>
-                </li>
-                <h2 class="mt-0">Step 2. Generate responses</h2>
+                    </a>
 
-                <div class="p-1 w-100 rounded my-3" style="background:  linear-gradient(90deg, rgba(30,167,197,1) 1%, rgba(18,90,169,1) 20%, rgba(11,42,151,1) 50%, rgba(22,120,180,1) 80%, rgba(22,117,179,1) 80%, rgba(30,167,197,1) 100%, rgba(30,167,197,1) 100%); !important">
                 </div>
-                <li class="media my-4">
-                    <div class="media-body">
-                        <p class="mb-0 display-4">
-                            <ul class="list-group">
-
-                                <li class="list-group-item">
-                                   Send your survey to others by a shareable link
-                                </li class="list-group-item">
-
-                                <li class="list-group-item">
-                                    Collect unlimited responses
-                                </li class="list-group-item">
-
-                                <li class="list-group-item">
-                                    Coming soon: QR code link to survey
-                                </li class="list-group-item">
-                                
-                                
-                            </ul>
-
-                        </p>                    </div>
-                </li>
-                <h2 class="mt-0">Step 3. Analyze</h2>
-
-                <div class="p-1 w-100 rounded my-3" style="background:  linear-gradient(90deg, rgba(30,167,197,1) 1%, rgba(18,90,169,1) 20%, rgba(11,42,151,1) 50%, rgba(22,120,180,1) 80%, rgba(22,117,179,1) 80%, rgba(30,167,197,1) 100%, rgba(30,167,197,1) 100%); !important">
-                </div>
-                <li class="media">
-                    <div class="media-body">
-                        <p class="mb-0 display-4">
-                            <ul class="list-group">
-
-                                <li class="list-group-item">
-                                    View each survey response including partially completed responses
-                                </li class="list-group-item">
-
-                                <li class="list-group-item">
-                                    Detailed question by question breakdown with graphs
-                                </li class="list-group-item">
-
-                                <li class="list-group-item">
-                                    Analyze data from all sources including partial completions
-                                </li class="list-group-item">      
-                                
-                            </ul>
-
-                        </p>                    </div>
-                </li>
-            </ul>
-        </div>
-    </div>
+           
+            </div>
 
 
 
