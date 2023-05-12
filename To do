@@ -5,21 +5,22 @@
 
 To do:
 
--QR code create qr code on quiz creation as url is same
 
 
 -add simple drop down element
 Customer survey:
     ranking scale questionnaire
         1-10 element radio input
-        1-5 radio input
 
-Add swatch to select goal on start of quiz creation (after added most elements)
+
+
+Add landing pages for
     Csutomer survey
     Lead capture
     Trivia quiz?
     form
-    Other
+
+Link to them from home page
 
 -Eventual flow==================
     create -> swatch to select goal -> enter name for quiz -> templates based on goal/skip -> automatically create quiz page 

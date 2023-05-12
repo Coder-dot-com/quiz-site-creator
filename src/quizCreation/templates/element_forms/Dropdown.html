@@ -1,21 +1,27 @@
 <div class="modal-header">
-    <h5 class="modal-title">{% if edit %}Edit {% else %} Add {% endif %}agree disagree table</h5>
+    <h5 class="modal-title">{% if edit %}Edit {% else %} Add {% endif %} dropdown field</h5>
     <button type="button" class="close" data-dismiss="modal"><span>×</span>
     </button>
 </div>
 <div class="modal-body">
     <form
 
-   
-            hx-post={% url 'add_agree_disagree_element' user_quiz.id quiz_page.id %}
+        {% if edit %}
+            hx-post={% url 'edit_text_input_element' user_quiz.id  quiz_page_element.id %}
+            hx-target='#page_elements'
+            hx-swap=outerHTML
+        {% else %}
+            hx-post={% url 'add_dropdown_element' user_quiz.id quiz_page.id %}
             hx-target='#modalContent'
             hx-swap=outerHTML
+        {% endif %}
+        hx-sync="closest form:abort"
 
     >
         {{form.media}}
         {% for field in form %}
             {{field.field.widget.attrs.field_title}}
-            {{field}}
+            {{field}}        
         {% endfor %}
 
         <div class="my-3 text-center">
@@ -38,6 +44,7 @@
             <script>
                 document.querySelector('#addQuestion').focus()
             </script>
+
         </div>
     </form>
 

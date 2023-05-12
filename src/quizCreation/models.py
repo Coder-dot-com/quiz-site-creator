@@ -111,6 +111,9 @@ class QuizPageElement(models.Model):
         satisfied_unsatisfied = SatisfiedUnsatisfied.objects.filter(page_element=self)
         if satisfied_unsatisfied.exists():
             return {'type': 'Satisfied unsatisfied table', 'element': satisfied_unsatisfied[0]}        
+        dropdown = Dropdown.objects.filter(page_element=self)
+        if dropdown.exists():
+            return {'type': 'Dropdown', 'element': dropdown[0]}        
 
 
 
@@ -130,6 +133,12 @@ class CharInputElement(models.Model):
     required = models.BooleanField(default=False)
 
 class TextInputElement(models.Model):
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    title = models.CharField(max_length=300)
+    required = models.BooleanField(default=False)
+
+
+class Dropdown(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
     required = models.BooleanField(default=False)

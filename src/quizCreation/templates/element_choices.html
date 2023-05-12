@@ -11,6 +11,7 @@
     <option value="ImageDisplay" id="option_ImageDisplay"></option>
     <option value="SatisfiedUnsatisfied" id="option_SatisfiedUnsatisfied"></option>
     <option value="ReviewStars" id="option_ReviewStars"></option>
+    <option value="Dropdown" id="option_Dropdown"></option>
 
 
 </select>
@@ -133,6 +134,16 @@
             <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
         </div>
     </div>
+
+    <div role="button" onclick="SelectDeselect(this);" id="card_Dropdown"
+    class="card  mb-0 card_choice border-3 border-white col-12 col-sm-5 " data-option=Dropdown style="min-width:8rem;border:3px solid white;">
+   <div class="text-center py-2">
+       <h4 class="card-title border border-dark border-3 p-3" style="border-color: #1ea7c5 !important">Add dropdown</h4>
+       <p class="text-small">Add a simple dropdown</p>
+
+       <img class="rounded" style="max-width:4rem;max-height:4rem;" src="{{option.option_image_icon.url}}" alt="">
+   </div>
+</div>
 
 </div>
 
