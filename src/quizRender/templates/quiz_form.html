@@ -27,6 +27,7 @@
         <div >
 
             {% for element in quiz_page.get_quiz_page_elements %}
+            <div class="my-2">
                 <br>
                 {% if element.get_element_type.element.title  %}
                     <h3>{{element.get_element_type.element.title}} 
@@ -105,6 +106,8 @@
                 </script>         
 
                 {% endif %}
+
+            </div>
 
             {% endfor %}
 

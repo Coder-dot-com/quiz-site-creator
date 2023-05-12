@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, HttpResponse
-from quizCreation.models import UserQuiz, QuizPage, QuizPageElement, MultipleChoiceChoice, SingleChoiceChoice, AgreeDisagreeRow, SatisfiedUnsatisfied, SatisfiedUnsatisfiedRow
+from quizCreation.models import UserQuiz, QuizPage, QuizPageElement, MultipleChoiceChoice, SingleChoiceChoice, AgreeDisagreeRow, SatisfiedUnsatisfied, SatisfiedUnsatisfiedRow, DropdownChoice
 from uuid import uuid4
 from .models import Response, Answer
 from session_management.views import _session
@@ -72,8 +72,6 @@ def take_next_page(request, quiz_id, number, response_id):
             answer_obj.save()
         elif e.get_element_type()['type'] == "Single choice question":
             answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
-            print("SINGLE CHOICE")
-            print(request.POST)
             try:
                 answer = request.POST[str(e.id)]
                 print(answer)
@@ -83,7 +81,20 @@ def take_next_page(request, quiz_id, number, response_id):
             except MultiValueDictKeyError:
                 answer = ""  
             answer_obj.answer = answer
-            answer_obj.save()  
+            answer_obj.save() 
+
+        elif e.get_element_type()['type'] == "Dropdown":
+            answer_obj = Answer.objects.get_or_create(response=response_object, question=e)[0]
+            try:
+                answer = request.POST[str(e.id)]
+                print(answer)
+                dropdown_choice = DropdownChoice.objects.get(id=answer)
+                answer = dropdown_choice.choice
+                answer_obj.dropdown_choice = dropdown_choice
+            except MultiValueDictKeyError:
+                answer = ""  
+            answer_obj.answer = answer
+            answer_obj.save()   
         elif e.get_element_type()['type'] == "Agree disagree table":
             print(request.POST)
             questions = AgreeDisagreeRow.objects.filter(agree_disagree_element=e.get_element_type()['element'])
