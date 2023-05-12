@@ -228,3 +228,5 @@ def get_value_stored_in_db(request, quiz_id, element_id, response_id, question_i
         return render(request, 'take_quiz_elements/single_choice_input_element.html', context=context)
     elif element.get_element_type()['type'] == "Agree disagree table":
         return render(request, 'take_quiz_elements/agree_disagree_row.html', context=context)
+    elif element.get_element_type()['type'] == "Dropdown":
+        return render(request, 'take_quiz_elements/dropdown.html', context=context)
