@@ -10,7 +10,10 @@ hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id
 >
 
     <select id="select{{element.id}}" name="{{element.id}}"  class="w-100 border-dark" >
-        
+      {% if not element.get_element_type.element.required %}
+      <option value=""> </option>
+      {% endif %}
+
         {% for choice in element.get_element_type.element.get_dropdown_choices %}
         
         <option value="{{choice.id}}">{{choice.choice}} {{choice.id}}</option>
