@@ -17,6 +17,9 @@ class UserQuiz(models.Model):
     quiz_confirmation_content = RichTextUploadingField(null=True, blank=True)
     stripe_public_key = models.CharField(max_length=10000, null=True, blank=True)
     stripe_secret_key = models.CharField(max_length=10000, null=True, blank=True)
+    qr_code = models.ImageField(upload_to='qr_code/', null=True, blank=True)
+
+
 
 
 #html field with image ckeditor

@@ -5,8 +5,7 @@
 
 To do:
 
--Allow editing of quiz title htmx
--QR code
+-QR code create qr code on quiz creation as url is same
 
 
 -add simple drop down element

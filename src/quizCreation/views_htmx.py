@@ -6,7 +6,9 @@ from django.urls import reverse
 import os
 from uuid import uuid4
 from django.utils.datastructures import MultiValueDictKeyError
-
+import qrcode
+from io import BytesIO
+from django.core.files import File
 
 @login_required
 def get_list_of_quizes(request):  
@@ -22,6 +24,28 @@ def get_list_of_quizes(request):
 def htmx_create_quiz(request):
     quiz_name = request.POST['quiz_name']
     user_quiz = UserQuiz.objects.create(name=quiz_name, user=request.user)
+
+
+    quiz_link = request.build_absolute_uri(reverse('take_quiz', kwargs={
+            "quiz_id": user_quiz.id,
+
+        }))
+    
+
+    qr = qrcode.QRCode(version = 1,
+                    box_size = 10,
+                    border = 5)
+     
+    qr.add_data(quiz_link)
+    qr.make(fit = True)
+    img = qr.make_image(fill_color = 'black',
+                        back_color = 'white')
+    img_io = BytesIO() # create a BytesIO object
+
+    img.save(img_io, 'JPEG', quality=99) # save image to BytesIO object
+    image = File(img_io, name=f"{uuid4()}.jpg") # create a django friendly File object
+    user_quiz.qr_code = image 
+    user_quiz.save()
 
     context = {
         'user_quiz': user_quiz,
