@@ -1,0 +1,285 @@
+
+<div class="modal-content" id="editModalContent{{element.page_element.id}}">
+
+    <div class="modal-header">
+        <h5 class="modal-title">{% if edit %}Edit {% else %} Add {% endif %}video</h5>
+        <button type="button" class="close" data-dismiss="modal"
+                hx-trigger="click"
+                hx-target="#page_elements"
+                hx-swap=outerHTML
+                hx-get={% url 'get_quiz_page_elements' user_quiz.id quiz_page.id %}
+
+        ><span>×</span>
+        </button>
+    </div>
+    <div class="modal-body">
+
+        <form id="user_image_{{user_quiz.id}}"
+              hx-encoding='multipart/form-data'
+
+              {% if edit %}
+                  hx-post="{% url 'edit_video_display_element' user_quiz.id quiz_page.id element.id %}"
+
+              {% else %}
+                  hx-post="{% url 'add_video_display_element' user_quiz.id quiz_page.id %}"
+              {% endif %}
+              hx-target="#editModalContent{{element.page_element.id}}"
+
+              hx-trigger="submit"
+              hx-swap="outerHTML"
+              class="my-5"
+              hx-indicator="#spinner_{{user_quiz.id}}"
+
+        >
+        
+        <select name="type" id="" class="select mx-auto mb-3" required onchange="showInputFields(this)">
+            <option value="Upload">Upload</option>
+            <option value="Youtube">Youtube</option>
+            <option value="Vimeo">Vimeo</option>
+
+        </select>
+
+            {% if element.video and element.type == "Upload" %} 
+                <div class="col-12 my-2">
+                    <h5 class="text-center">Current video</h5>
+                </div>
+                <div class="row">
+                    <div class=" mx-auto">
+                        <center>
+                            <div class="userImageUpload">
+                                <video src="{{element.video.url}}" style="width:100%;height:auto"  controls></video>
+                            </div>
+
+                        </center>
+                    </div>
+                </div>
+
+            {% elif element.type == "Youtube" %}
+            TEST
+
+            {% endif %}
+
+            <label id="urlField" for="" class="w-100 my-2 d-none">
+                Enter URL here
+                <input type="text" name="url"  class="form-control border border-3 border-dark w-100" >
+            </label>
+
+            <label id="uploadVideo" class=" border border-3 border-dark rounded p-4" style="width:100%"
+            >
+            {% if element.video %}Change
+            {% else %}
+            Add 
+            {% endif %}
+            Video
+                <br>
+                <input name="video"
+                       class=""  type="file" accept="video/*" required
+                />
+
+            
+            </label>
+
+            <center id="spinner_{{user_quiz.id}}">
+
+                <div  class="spinner-border text-dark my-4" role="status">
+                </div>
+
+            </center>
+            <style>
+                #spinner_{{user_quiz.id}}{
+                    opacity:0;
+                    transition: all 500ms ease-in;
+                    display:none;
+
+
+                }
+
+                .htmx-request #spinner_{{user_quiz.id}}{
+                    opacity:1;
+                    display: block;
+
+
+                }
+                .htmx-request#spinner_{{user_quiz.id}}{
+                    opacity:1;
+                    display: block;
+                }
+
+
+            </style>
+
+
+            <style>
+                @media (min-width: 600px){
+                    .userImageUpload {
+                        max-width: 80%; /*set max width*/
+                        max-height: 40%;
+                    }
+                    .userImageUpload img{
+                        width:100%;
+                        object-fit:contain;
+                    }
+
+
+                }
+                @media (max-width: 600px){
+                    .userImageUpload {
+                        max-width: 70%; /*set max width*/
+                        max-height: 50%;
+                    }
+                    .userImageUpload img{
+                        width:100%;
+                        object-fit:contain;
+                    }
+
+
+                }
+
+            </style>
+
+  
+            <button type="submit" class="btn btn-primary site-button">Save</button>
+
+        </form>
+
+
+    </div>
+</div>
+
+<script>
+    function showInputFields(e){
+        console.log(e.value)
+        upload_field = document.querySelector('#uploadVideo')
+        url_field = document.querySelector('#urlField')
+        if (e.value == "Upload"){
+            upload_field.querySelector('input').required =  true
+            upload_field.classList.remove('d-none')
+            url_field.classList.add('d-none')
+            url_field.querySelector('input').required =  false
+
+
+
+        } else {
+            upload_field.querySelector('input').required =  false
+            upload_field.classList.add('d-none')
+            url_field.classList.remove('d-none')
+            url_field.querySelector('input').required =  true
+
+        }
+
+    }
+</script>
+
+
+<style>
+    // Learn about this solution to creating custom select styles:
+// @link https://moderncss.dev/custom-select-styles-with-pure-css/
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --select-border: #777;
+  --select-focus: blue;
+  --select-arrow: var(--select-border);
+}
+
+select {
+  // A reset of styles, including removing the default dropdown arrow
+  appearance: none;
+  background-color: transparent;
+  border: none;
+  padding: 0 1em 0 0;
+  margin: 0;
+  width: 100%;
+  font-family: inherit;
+  font-size: inherit;
+  cursor: inherit;
+  line-height: inherit;
+
+  // Stack above custom arrow
+  z-index: 1;
+
+  // Remove dropdown arrow in IE10 & IE11
+  // @link https://www.filamentgroup.com/lab/select-css.html
+  &::-ms-expand {
+    display: none;
+  }
+
+  // Remove focus outline, will add on alternate element
+  outline: none;
+}
+
+.select {
+  display: grid;
+  grid-template-areas: "select";
+  align-items: center;
+  position: relative;
+
+  select,
+  &::after {
+    grid-area: select;
+  }
+
+  min-width: 15ch;
+  max-width: 30ch;
+
+  border: 1px solid var(--select-border);
+  border-radius: 0.25em;
+  padding: 0.25em 0.5em;
+
+  font-size: 1.25rem;
+  cursor: pointer;
+  line-height: 1.1;
+
+  // Optional styles
+  // remove for transparency
+  background-color: #fff;
+  background-image: linear-gradient(to top, #f9f9f9, #fff 33%);
+
+  // Custom arrow
+  &:not(.select--multiple)::after {
+    content: "";
+    justify-self: end;
+    width: 0.8em;
+    height: 0.5em;
+    background-color: var(--select-arrow);
+    clip-path: polygon(100% 0%, 0 0%, 50% 100%);
+  }
+}
+
+// Interim solution until :focus-within has better support
+select:focus + .focus {
+  position: absolute;
+  top: -1px;
+  left: -1px;
+  right: -1px;
+  bottom: -1px;
+  border: 2px solid var(--select-focus);
+  border-radius: inherit;
+}
+
+ 
+.select--disabled {
+  cursor: not-allowed;
+  background-color: #eee;
+  background-image: linear-gradient(to top, #ddd, #eee 33%);
+}
+
+label {
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.select + label {
+  margin-top: 2rem;
+}
+
+
+
+</style>
+
+

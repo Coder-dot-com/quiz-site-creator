@@ -46,6 +46,7 @@ urlpatterns = [
     
     path('add_image_display_element/<quiz_id>/<page_id>', views_htmx.add_image_display_element, name="add_image_display_element"),
 
+    path('add_video_display_element/<quiz_id>/<page_id>', views_htmx.add_video_display_element, name="add_video_display_element"),
 
 
     path('move_page_up/<quiz_id>/<page_id>', views_htmx.move_page_up, name="move_page_up"),
@@ -85,6 +86,7 @@ urlpatterns = [
     
     path('edit_image_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_image_element, name="edit_image_element"),
 
+    path('edit_video_display_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_video_element, name="edit_video_display_element"),
 
 
     path('upload_quiz_logo/<quiz_id>/', views_htmx.upload_quiz_logo, name="upload_quiz_logo"),

@@ -1,6 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
-from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement, SingleChoiceChoice, SingleChoiceElement, AgreeDisagree, AgreeDisagreeRow, ImageDisplayElement, SatisfiedUnsatisfied, SatisfiedUnsatisfiedRow, DropdownChoice, Dropdown, OneToTenElement
+from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement, SingleChoiceChoice, SingleChoiceElement, AgreeDisagree, AgreeDisagreeRow, ImageDisplayElement, SatisfiedUnsatisfied, SatisfiedUnsatisfiedRow, DropdownChoice, Dropdown, OneToTenElement, VideoElement
 from .forms import TextElementForm, QuizConfirmationForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm, SingleChoiceElementForm, SingleChoiceChoiceForm, AgreeDisagreeElementForm, AgreeDisagreeRowForm, SatisfiedUnsatisfiedElementForm, SatisfiedUnsatisfiedRowForm, ReviewStarsForm, DropdownForm, DropdownChoiceForm, OneToTenForm
 from django.urls import reverse
 import os
@@ -225,6 +225,13 @@ def quiz_page_element_add(request, quiz_id, page_id):
                     'quiz_page': quiz_page,
                 }
                 return render(request, 'element_forms/ImageDisplay.html', context=context)
+            
+            elif element == "Video":
+                context = {
+                    'user_quiz': user_quiz,
+                    'quiz_page': quiz_page,
+                }
+                return render(request, 'element_forms/Video.html', context=context)
 
             elif element == "SatisfiedUnsatisfied":
                 form = SatisfiedUnsatisfiedElementForm()
@@ -787,7 +794,53 @@ def add_image_display_element(request, quiz_id, page_id):
                 # Here render the modal ability to add choices
                 return render(request, 'element_forms/ImageDisplay.html', context=context)
 
+@login_required
+def add_video_display_element(request, quiz_id, page_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
+        if quiz_page.exists():
+            if request.method == 'POST':
+                element = VideoElement()
+                quiz_page = quiz_page[0]
+                element.type = request.POST['type']
 
+                if request.POST['type'] == "Upload":
+                    videos = request.FILES.getlist('video')
+                    print('videos', videos)
+                    for video in videos:
+                        if video.size < 200000000:
+                            file_name = video.name
+                            file_ext = os.path.splitext(file_name)[1]
+                    
+                            video.name = f"{uuid4()}{file_ext}"
+                            element.video = video
+                        else:
+                            return HttpResponse("Video too big, refresh too try again, max size 200mb")
+                else:
+                    element.url = request.POST['url']
+
+                try:
+                    position = QuizPageElement.objects.filter(
+                        page=quiz_page).order_by('-position')[0].position
+                except IndexError:
+                    position = 0
+                position = position + 1
+                quiz_page_element = QuizPageElement.objects.create(
+                    page=quiz_page, position=position)
+                element.page_element = quiz_page_element
+                element.save()
+
+                context = {
+                    'user_quiz': user_quiz[0],
+                    'quiz_page': quiz_page,
+                    'element_added': True,
+                    'element': element,
+                    'edit': True,
+                }
+
+                # Here render the modal ability to add choices
+                return render(request, 'element_forms/Video.html', context=context)
 
 
 @login_required
@@ -1370,6 +1423,45 @@ def edit_image_element(request, quiz_id, page_id, element_id):
         return render(request, 'element_forms/ImageDisplay.html', context=context)
 
 @login_required
+def edit_video_element(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    success = False
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+        element = VideoElement.objects.get(id=element_id, page_element__page=quiz_page)
+        if request.method == 'POST':
+            element.type = request.POST['type']
+
+            if request.POST['type'] == "Upload":
+                    videos = request.FILES.getlist('video')
+                    print('videos', videos)
+                    for video in videos:
+                        if video.size < 200000000:
+                            file_name = video.name
+                            file_ext = os.path.splitext(file_name)[1]
+                    
+                            video.name = f"{uuid4()}{file_ext}"
+                            element.video = video
+                        else:
+                            return HttpResponse("Video too big, refresh too try again, max size 200mb")
+            else:
+                    element.url = request.POST['url']
+        
+        element.save()
+        element = VideoElement.objects.get(id=element_id, page_element__page=quiz_page)
+       
+        context = {
+            'element': element,
+            'user_quiz': user_quiz,
+            'quiz_page': quiz_page,
+            'edit': True,
+            'success': success,
+        }
+        
+        return render(request, 'element_forms/Video.html', context=context)
+
+@login_required
 def upload_quiz_logo(request, quiz_id):
     print(request)
     print(request.POST)
@@ -1431,20 +1523,6 @@ def get_text_element_edit_form(request, quiz_id, element_id):
     }
 
     return render(request, 'element_forms/edit_text_element_page.html', context=context)
-
-
-
-# @login_required
-# def duplicate_quiz(request, quiz_id):
-#     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
-
-#     context = {
-#         'quiz': user_quiz
-#     }
-
-#     return render(request, 'quiz_creation/quizes_list.html', context=context)
-
-
 
 
 

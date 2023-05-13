@@ -81,6 +81,9 @@ class QuizPageElement(models.Model):
         image_display_element = ImageDisplayElement.objects.filter(page_element=self)
         if image_display_element.exists():
             return {'type': 'Image', 'element': image_display_element[0]}
+        video_display_element = VideoElement.objects.filter(page_element=self)
+        if video_display_element.exists():
+            return {'type': 'Video', 'element': video_display_element[0]}        
         char_input_element = CharInputElement.objects.filter(page_element=self)
         if char_input_element.exists():
             return {'type': 'Char input', 'element': char_input_element[0]}
@@ -122,6 +125,18 @@ class QuizPageElement(models.Model):
 class ImageDisplayElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     image = models.ImageField(upload_to='user_quiz_images/')
+
+class VideoElement(models.Model):
+    choices = (
+        ('Upload', 'Upload'),
+        ('Youtube', 'Youtube'),
+        ('Vimeo', 'Vimeo'),
+               )
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    type = models.CharField(choices=choices, null=True, blank=True, max_length=1000)
+    url = models.CharField(max_length=1000, null=True, blank=True)
+    video = models.FileField(upload_to='user_quiz_videos/', null=True, blank=True)
+
 
 class TextElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
