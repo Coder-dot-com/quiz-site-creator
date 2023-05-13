@@ -137,6 +137,14 @@ class VideoElement(models.Model):
     url = models.CharField(max_length=1000, null=True, blank=True)
     video = models.FileField(upload_to='user_quiz_videos/', null=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        if self.url and self.type == "Youtube":
+            self.url = f"https://www.youtube.com/embed/{self.url.split('?v=')[-1]}"
+
+        super(VideoElement, self).save(*args, **kwargs)
+
+
+
 
 class TextElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
