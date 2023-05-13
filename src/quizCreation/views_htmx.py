@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect, HttpResponse
-from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement, SingleChoiceChoice, SingleChoiceElement, AgreeDisagree, AgreeDisagreeRow, ImageDisplayElement, SatisfiedUnsatisfied, SatisfiedUnsatisfiedRow, DropdownChoice, Dropdown
-from .forms import TextElementForm, QuizConfirmationForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm, SingleChoiceElementForm, SingleChoiceChoiceForm, AgreeDisagreeElementForm, AgreeDisagreeRowForm, SatisfiedUnsatisfiedElementForm, SatisfiedUnsatisfiedRowForm, ReviewStarsForm, DropdownForm, DropdownChoiceForm
+from .models import UserQuiz, QuizPage, QuizPageElement, TextElement, MultipleChoiceChoice, MultipleChoiceElement, SingleChoiceChoice, SingleChoiceElement, AgreeDisagree, AgreeDisagreeRow, ImageDisplayElement, SatisfiedUnsatisfied, SatisfiedUnsatisfiedRow, DropdownChoice, Dropdown, OneToTenElement
+from .forms import TextElementForm, QuizConfirmationForm, CharInputElementForm, TextInputElementForm, EmailInputElementForm, NumberInputElementForm, MultipleChoiceElementForm, MultipleChoiceChoiceForm, SingleChoiceElementForm, SingleChoiceChoiceForm, AgreeDisagreeElementForm, AgreeDisagreeRowForm, SatisfiedUnsatisfiedElementForm, SatisfiedUnsatisfiedRowForm, ReviewStarsForm, DropdownForm, DropdownChoiceForm, OneToTenForm
 from django.urls import reverse
 import os
 from uuid import uuid4
@@ -243,6 +243,16 @@ def quiz_page_element_add(request, quiz_id, page_id):
                     'form': form,
                 }
                 return render(request, 'element_forms/Dropdown.html', context=context)
+            
+
+            elif element == "OneToTen":
+                form = OneToTenForm()
+                context = {
+                    'user_quiz': user_quiz,
+                    'quiz_page': quiz_page,
+                    'form': form,
+                }
+                return render(request, 'element_forms/OneToTen.html', context=context)
         return HttpResponse("An error occured")
 
 
@@ -489,6 +499,39 @@ def add_review_stars_element(request, quiz_id, page_id):
                         'element_added': True,
                     }
                     return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
+
+@login_required
+def add_one_to_ten_element(request, quiz_id, page_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        quiz_page = QuizPage.objects.filter(quiz=user_quiz[0], id=page_id)
+        if quiz_page.exists():
+            if request.method == 'POST':
+                # Bind data from request.POST into a PostForm
+                form = OneToTenForm(request.POST)
+                # If data is valid, proceeds to create a new post
+                if form.is_valid():
+                    quiz_page = quiz_page[0]
+                    element = form.save(commit=False)
+                    try:
+                        position = QuizPageElement.objects.filter(
+                            page=quiz_page).order_by('-position')[0].position
+                    except IndexError:
+                        position = 0
+                    position = position + 1
+                    quiz_page_element = QuizPageElement.objects.create(
+                        page=quiz_page, position=position)
+                    element.page_element = quiz_page_element
+                    element.save()
+                    # determine position and create element objects
+                    context = {
+                        'user_quiz': user_quiz[0],
+                        'quiz_page': quiz_page,
+                        'element_added': True,
+                    }
+                    return render(request, 'element_forms/all_elements_swatches.html', context=context)
+
 
 @login_required
 def add_multiple_choice_element(request, quiz_id, page_id):

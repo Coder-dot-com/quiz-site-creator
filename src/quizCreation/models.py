@@ -115,7 +115,9 @@ class QuizPageElement(models.Model):
         if dropdown.exists():
             return {'type': 'Dropdown', 'element': dropdown[0]}        
 
-
+        onetotenelement = OneToTenElement.objects.filter(page_element=self)
+        if onetotenelement.exists():
+            return {'type': 'One to ten', 'element': onetotenelement[0]}   
 
 class ImageDisplayElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
@@ -147,6 +149,13 @@ class EmailInputElement(models.Model):
     use_as_email_for_conversion_tracking = models.BooleanField(default=False)  
 
 class NumberInputElement(models.Model):
+    page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
+    title = models.CharField(max_length=300)
+    required = models.BooleanField(default=False)
+
+
+
+class OneToTenElement(models.Model):
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
     required = models.BooleanField(default=False)

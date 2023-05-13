@@ -34,6 +34,7 @@ urlpatterns = [
     path('add_email_input_element/<quiz_id>/<page_id>', views_htmx.add_email_input_element, name="add_email_input_element"),
     path('add_number_input_element/<quiz_id>/<page_id>', views_htmx.add_number_input_element, name="add_number_input_element"),
     path('add_review_stars_element/<quiz_id>/<page_id>', views_htmx.add_review_stars_element, name="add_review_stars_element"),
+    path('add_one_to_ten_element/<quiz_id>/<page_id>', views_htmx.add_one_to_ten_element, name="add_one_to_ten_element"),
 
     
     

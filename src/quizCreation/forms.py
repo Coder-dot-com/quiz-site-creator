@@ -1,7 +1,7 @@
 from django import forms
 from uuid import uuid4
 
-from .models import TextElement, CharInputElement, TextInputElement, EmailInputElement, NumberInputElement, MultipleChoiceElement, MultipleChoiceChoice, SingleChoiceElement, SingleChoiceChoice, AgreeDisagree, AgreeDisagreeRow, UserQuiz, SatisfiedUnsatisfied, SatisfiedUnsatisfiedRow, ReviewStars, Dropdown
+from .models import TextElement, CharInputElement, TextInputElement, EmailInputElement, NumberInputElement, MultipleChoiceElement, MultipleChoiceChoice, SingleChoiceElement, SingleChoiceChoice, AgreeDisagree, AgreeDisagreeRow, UserQuiz, SatisfiedUnsatisfied, SatisfiedUnsatisfiedRow, ReviewStars, Dropdown, OneToTenElement
 from ckeditor_uploader.widgets import CKEditorUploadingWidget
 
 class TextElementForm(forms.ModelForm):
@@ -49,6 +49,12 @@ class ReviewStarsForm(CharInputElementForm):
     class Meta:
         model = ReviewStars
         fields = ['title',  'required']
+
+class OneToTenForm(CharInputElementForm):
+    class Meta:
+        model = OneToTenElement
+        fields = ['title',  'required']
+
 
 class MultipleChoiceElementForm(CharInputElementForm):
     class Meta:

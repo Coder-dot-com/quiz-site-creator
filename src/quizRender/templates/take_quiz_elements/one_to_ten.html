@@ -1,0 +1,36 @@
+
+<div class="form-group mb-0" id="question_{{element.id}}"
+{% if not checked_db %}
+hx-trigger = 'load'
+hx-swap=outerHTML
+hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id%}
+{% endif %}
+>
+    {% for a in "aaaaaaaaaa" %}
+    <label class="radio-inline mr-3" >
+        <input type="radio" name="{{element.id}}" value="{{forloop.counter}}"  {% if element.get_element_type.element.required %}required="required"{% endif %}>
+         {{forloop.counter}} 
+    </label>
+    {% endfor %}
+</div>
+
+
+
+{% if answer %}
+
+<script>
+inputs = document.getElementById('question_{{element.id}}').querySelectorAll('input')
+
+for (let i = 0; i < inputs.length; i++) {
+    if (inputs[i].value == "{{answer.answer}}"){
+        inputs[i].click()
+      }
+
+  } 
+
+
+</script>
+
+
+
+{% endif %}

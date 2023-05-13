@@ -5,23 +5,24 @@
 
 To do:
 
-
-Add landing pages for
-    Csutomer survey
-    Lead capture
-    Trivia quiz?
-    form
-
-
-
 Customer survey:
     ranking scale questionnaire
         1-10 element radio input
 
+-video element
+    -with dropdown to upload, select from youtube, vimeo
+    
+
+-hide multiple choice single choice and dropdopwn choice if no choice added yet from quiz render same with agree disagree and satisfied uynsatisfied
+
+-add interactiv quiz to landing page instead of image move iframe up
 
 
+  -singup email flow
+        -sendblue day 1, 5 and day 7
+        -sign up and test
 
-Link to them from home page
+
 
 -Eventual flow==================
     create -> swatch to select goal -> enter name for quiz -> templates based on goal/skip -> automatically create quiz page 
@@ -45,9 +46,7 @@ Before ads
 
     -To do:
 
-    -singup email flow
-        -sendblue day 5 and day 7
-
+  
 
     
     -cold email scale up to 40 a day
