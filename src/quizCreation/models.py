@@ -130,7 +130,6 @@ class VideoElement(models.Model):
     choices = (
         ('Upload', 'Upload'),
         ('Youtube', 'Youtube'),
-        ('Vimeo', 'Vimeo'),
                )
     page_element = models.OneToOneField(QuizPageElement, on_delete=models.CASCADE)
     type = models.CharField(choices=choices, null=True, blank=True, max_length=1000)

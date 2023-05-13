@@ -86,6 +86,9 @@ urlpatterns = [
     
     path('edit_image_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_image_element, name="edit_image_element"),
 
+
+    path('get_video_edit_modal/<quiz_id>/<page_id>/<element_id>', views_htmx.get_video_edit_modal, name="get_video_edit_modal"),
+
     path('edit_video_display_element/<quiz_id>/<page_id>/<element_id>', views_htmx.edit_video_element, name="edit_video_display_element"),
 
 

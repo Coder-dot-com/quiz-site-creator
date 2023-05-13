@@ -41,7 +41,16 @@
                     {% endif %}
                     type="button" class="btn btn-primary site-button float-right text-right"
                 >
-                    <span type="button" class="">
+                    <span type="button" class=""
+                    {% if element.type == "Video" %}
+                    hx-get={% url 'get_video_edit_modal' element.element.page_element.page.quiz.id element.element.page_element.page.id element.element.id %}
+                    hx-trigger="click"
+                    hx-target="#editModalContent{{element.element.page_element.id}}"
+                    hx-swap="innerHTML"
+                    {% endif %}
+
+                    
+                    >
                         Edit <i class="fa fa-edit"></i>
                     </span>
                 </a>
@@ -71,19 +80,13 @@
 
                                 >
 
-                                    <div class="modal-body">
-                                        <div class="text-center">
-                                        <span >
-
-                                            Editing {{element.type|lower}}
-                                            {% if element.element.title %}
-                                                : {{element.element.title}}
-                                            {% endif %}
-                                        </span>
+                                    <div  class="modal-body">
+                                   
 
                                         {% if element.type == "Text" or element.type == "Image" %}
 
-
+                                        {% elif element.type == "Video" %}
+                                 
 
                                         {% else %}
 
@@ -111,7 +114,6 @@
                                             {% endif %}
                                         
                                         {% endif %}
-                                    </div>
                                     </div>
 
 

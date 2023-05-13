@@ -1423,6 +1423,24 @@ def edit_image_element(request, quiz_id, page_id, element_id):
         return render(request, 'element_forms/ImageDisplay.html', context=context)
 
 @login_required
+def get_video_edit_modal(request, quiz_id, page_id, element_id):
+    user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
+    if user_quiz.exists():
+        user_quiz = user_quiz[0]
+        quiz_page = QuizPage.objects.get(quiz=user_quiz, id=page_id)
+
+    context = {}
+
+    context['edit'] = True
+    context['element'] = VideoElement.objects.get(id=element_id, page_element__page=quiz_page)
+    context['user_quiz'] = user_quiz
+    context['quiz_page'] = quiz_page
+    
+    return render(request, 'element_forms/Video.html', context=context)
+
+
+
+@login_required
 def edit_video_element(request, quiz_id, page_id, element_id):
     user_quiz = UserQuiz.objects.filter(user=request.user, id=quiz_id)
     success = False
