@@ -5,18 +5,12 @@
 
 To do:
 
-Customer survey:
 
-
--Use ai and add more content to landing pages e.g. Why exit interview surveys are important
-
--work on landing page template
-
--Create landing apge for:
-    -event feedback survey
-    -exit interview survey
 
 -create file upload element
+    -ability to download file add warning via htmx hx-confirm
+
+-Create job application form template
 
 -setup blog
 
