@@ -9,9 +9,8 @@ Customer survey:
 
 
 -video element
-    -with dropdown to upload, select from youtube, vimeo
+    -render on take_quiz
     
--add go back to image element and also video element
 
 -hide multiple choice single choice and dropdopwn choice if no choice added yet from quiz render same with agree disagree and satisfied uynsatisfied
 

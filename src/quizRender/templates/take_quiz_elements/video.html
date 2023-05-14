@@ -1,0 +1,23 @@
+
+
+{% if element.get_element_type.element.type ==  "Upload" and element.get_element_type.element.video %} 
+<div class="col-12 mb-4">
+</div>
+<div class="row">
+    <div class=" mx-auto">
+        <center>
+            <div class="">
+                <video src="{{element.get_element_type.element.video.url}}" style="width:60%;height:auto%" controls></video>
+            </div>
+TEST
+        </center>
+    </div>
+</div>
+
+{% elif element.get_element_type.element.type ==  "Youtube" %}
+<center>
+
+    <iframe class="mx-auto" style="width:72%;height:48%" src="{{element.get_element_type.element.url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+</center>
+
+{% endif %}

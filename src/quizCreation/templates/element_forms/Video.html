@@ -27,44 +27,47 @@
 
               hx-trigger="submit"
               hx-swap="outerHTML"
-              class="my-5"
+              class="my-2"
               hx-indicator="#spinner_{{user_quiz.id}}"
 
         >
+        {% if element.video and element.type == "Upload" %} 
+            <div class="col-12 mb-4">
+                <h5 class="text-center">Current video</h5>
+            </div>
+            <div class="row">
+                <div class=" mx-auto">
+                    <center>
+                        <div class="userImageUpload">
+                            <video src="{{element.video.url}}" style="width:100%;height:auto"  controls></video>
+                        </div>
+
+                    </center>
+                </div>
+            </div>
+
+        {% elif element.type == "Youtube" %}
+        Current video
+        <iframe style="width:100%;height:auto" src="{{element.url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+
+        {% endif %}
         
-        <select name="type" id="" class="select mx-auto mb-3" required onchange="showInputFields(this)">
-            <option value="Upload">Upload</option>
-            <option value="Youtube">Youtube</option>
+        <label for="" class="my-3">
+            Select a video type
+        </label>
+            <select name="type" id="" class="select mx-auto mb-3 w-100" required onchange="showInputFields{{element.page_element.id}}(this)">
+                <option class="w-100" value="Upload">Upload</option>
+                <option class="w-100" value="Youtube">Youtube</option>
+                
+            </select>
 
-        </select>
 
-            {% if element.video and element.type == "Upload" %} 
-                <div class="col-12 my-2">
-                    <h5 class="text-center">Current video</h5>
-                </div>
-                <div class="row">
-                    <div class=" mx-auto">
-                        <center>
-                            <div class="userImageUpload">
-                                <video src="{{element.video.url}}" style="width:100%;height:auto"  controls></video>
-                            </div>
-
-                        </center>
-                    </div>
-                </div>
-
-            {% elif element.type == "Youtube" %}
-            Current video
-            <iframe style="width:100%;height:auto" src="{{element.url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-
-            {% endif %}
-
-            <label id="urlField" for="" class="w-100 my-2 d-none">
+            <label id="urlField{{element.page_element.id}}" for="" class="w-100 my-2 d-none">
                 Enter URL here
                 <input type="text" name="url"  class="form-control border border-3 border-dark w-100" >
             </label>
 
-            <label id="uploadVideo" class=" border border-3 border-dark rounded p-4" style="width:100%"
+            <label id="uploadVideo{{element.page_element.id}}" class=" border border-3 border-dark rounded p-4" style="width:100%"
             >
             {% if element.video %}Change
             {% else %}
@@ -137,8 +140,11 @@
 
             </style>
 
-  
-            <button type="submit" class="btn btn-primary site-button">Save</button>
+
+
+            <div class="text-center">
+                <button type="submit" class="btn btn-primary site-button mx-auto">Save</button>
+            </div>
 
         </form>
 
@@ -147,10 +153,10 @@
 </div>
 
 <script>
-    function showInputFields(e){
+    function showInputFields{{element.page_element.id}}(e){
         console.log(e.value)
-        upload_field = document.querySelector('#uploadVideo')
-        url_field = document.querySelector('#urlField')
+        upload_field = document.querySelector('#uploadVideo{{element.page_element.id}}')
+        url_field = document.querySelector('#urlField{{element.page_element.id}}')
         if (e.value == "Upload"){
             upload_field.querySelector('input').required =  true
             upload_field.classList.remove('d-none')
@@ -160,6 +166,7 @@
 
 
         } else {
+            console.log('removing d none')
             upload_field.querySelector('input').required =  false
             upload_field.classList.add('d-none')
             url_field.classList.remove('d-none')

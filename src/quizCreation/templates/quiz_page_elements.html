@@ -44,7 +44,7 @@
                     <span type="button" class=""
                     {% if element.type == "Video" %}
                     hx-get={% url 'get_video_edit_modal' element.element.page_element.page.quiz.id element.element.page_element.page.id element.element.id %}
-                    hx-trigger="click"
+                    hx-trigger="load"
                     hx-target="#editModalContent{{element.element.page_element.id}}"
                     hx-swap="innerHTML"
                     {% endif %}
@@ -305,9 +305,13 @@
 
                         {% elif element.type == "Video" %}
 
-                        {% if element.element.video %}
-                        <video src="{{element.element.video.url}}" style="width:100%;height:auto" controls></video>
-                        {% endif %}
+                            {% if element.element.video and element.element.type == "Upload" %}
+                            <video src="{{element.element.video.url}}" style="width:100%;height:auto" controls></video>
+                            {% elif element.element.type == "Youtube" %}
+                            <iframe style="width:100%;height:auto" src="{{element.element.url}}" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                
+                            {% endif %}
+
                         
                         {% endif %}
 

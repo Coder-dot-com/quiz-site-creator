@@ -72,6 +72,10 @@
                     {% include 'take_quiz_elements/Image.html' %}
                 {% elif element.get_element_type.type == 'One to ten'  %}
                     {% include 'take_quiz_elements/one_to_ten.html' %}
+                {% elif element.get_element_type.type == 'Video'  %}
+                    {% include 'take_quiz_elements/video.html' %}
+
+
 
 
                 {% endif %}
