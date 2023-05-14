@@ -203,7 +203,7 @@
                                     </li>
 
                                     <li class="nav-item ">
-                                        <a class="nav-link" href="{% url 'register_user' %}" >
+                                        <a class="btn btn-primary site-button " href="{% url 'register_user' %}" >
                                             Register
                                         </a>
                                     </li>
@@ -247,11 +247,11 @@
                                 <span class="nav-text">Home</span>
                             </a>
                         </li>
-                        {% comment %} <li>
+                         <li>
                             <a href="{% url 'wagtail_serve' '' %}category/all" class="ai-icon" aria-expanded="false">
                                 <span class="nav-text">Blog</span>
                             </a>
-                        </li> {% endcomment %}
+                        </li> 
 
                         {% if not user.is_authenticated %}
                             <li>
@@ -260,7 +260,7 @@
                                 </a>
                             </li>
                             <li>
-                                <a href="{% url 'register_user' %}" class="ai-icon" aria-expanded="false">
+                                <a href="{% url 'register_user' %}" class="btn btn-primary site-button mx-5 my-2" aria-expanded="false">
                                     <span class="nav-text">Register</span>
                                 </a>
                             </li>

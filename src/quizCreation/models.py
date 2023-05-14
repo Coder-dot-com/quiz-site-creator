@@ -3,11 +3,13 @@ from django.contrib.auth import get_user_model
 from ckeditor.fields import RichTextField
 from ckeditor_uploader.fields import RichTextUploadingField
 from ckeditor.widgets import CKEditorWidget
+import uuid
 
 User = get_user_model() 
 # Create your models here.
 
 class UserQuiz(models.Model):
+    id = models.UUIDField(primary_key=True, default=uuid.uuid4)    
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=300)
     time_created = models.DateTimeField(auto_now_add=True)

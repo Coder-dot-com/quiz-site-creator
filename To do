@@ -5,22 +5,27 @@
 
 To do:
 
+-deploy
 
+-create blog posts back date timestamps
+-send cold emails (warmup to 40 a day)
 
--create file upload element
-    -ability to download file add warning via htmx hx-confirm
+-request indexing from google
 
-    -Create job application form template
+-test signup email flow
 
 
 -Review pexels api image add security
 
 
--singup email flow
-        -sendblue day 1, 5 and day 7
-        -sign up and test
 
 
+
+-create file upload element
+    -ability to download file add warning via htmx hx-confirm
+    -Create job application form template
+
+-make element swatches smaller and stack up nicely like sendinblue
 -complete accept payments/display this in response if user orders also add back button to add product page
 
 -Eventual flow==================
