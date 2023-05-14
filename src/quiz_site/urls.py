@@ -82,7 +82,7 @@ urlpatterns = [
     path('cms/', include(wagtailadmin_urls)),
     path('documents/', include(wagtaildocs_urls)),
     path('blog/<slug>/', views.redirect_old_blog, name="redirect_old_blog"),
-    path('', include(wagtail_urls)),
+    path('/', include(wagtail_urls)),
     #end wagtail
 
     

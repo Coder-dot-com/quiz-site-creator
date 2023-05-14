@@ -301,17 +301,18 @@ class BlogPage(Page):
             endpoint = f"https://api.pexels.com/v1/search?query={query}&per_page=5"
 
             response = requests.get(url=endpoint, headers=headers)
+            print(response)
 
             image_chosen = randint(0, (len(response.json()['photos'])-1))
             print(response.json())
             url = f"{(response.json()['photos'][image_chosen]['src']['large'])}"
             
             r = requests.get(url, stream=True)
-            img_temp = NamedTemporaryFile(delete=True)
+            img_temp = NamedTemporaryFile()
             img_temp.write(r.content)
-            img_temp.flush()
 
             self.secondary_title_image.save(f"{uuid4()}.jpg", File(img_temp))
+            img_temp.flush()
 
 
 

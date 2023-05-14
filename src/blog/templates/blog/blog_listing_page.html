@@ -48,7 +48,9 @@
       {% for page in posts %}
         <div class="p-0 mx-4 my-1 cardPost" style="width: 18rem;">
           <a href="{{page.url}}">
+            {% if page.title_image %}
             <img src="{{page.title_image.url}}" class="card-img-top" alt="">
+            {% endif %}
             <div class="card-body">
               <h3 class="mx-auto">{{page.title}} </h3>
             </div>

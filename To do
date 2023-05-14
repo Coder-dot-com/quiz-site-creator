@@ -10,12 +10,13 @@ To do:
 -create file upload element
     -ability to download file add warning via htmx hx-confirm
 
--Create job application form template
-
--setup blog
+    -Create job application form template
 
 
-  -singup email flow
+-Review pexels api image add security
+
+
+-singup email flow
         -sendblue day 1, 5 and day 7
         -sign up and test
 
