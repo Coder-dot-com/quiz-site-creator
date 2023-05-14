@@ -8,16 +8,17 @@ To do:
 Customer survey:
 
 
+-Use ai and add more content to landing pages e.g. Why exit interview surveys are important
 
--hide multiple choice single choice and dropdopwn choice if no choice added yet from quiz render same with agree disagree and satisfied uynsatisfied
+-work on landing page template
 
 -Create landing apge for:
     -event feedback survey
     -exit interview survey
 
--Use ai and add more content to landing pages e.g. Why exit interview surveys are important
+-create file upload element
 
--add interactiv quiz to landing page instead of image move iframe up
+-setup blog
 
 
   -singup email flow
@@ -25,6 +26,7 @@ Customer survey:
         -sign up and test
 
 
+-complete accept payments/display this in response if user orders also add back button to add product page
 
 -Eventual flow==================
     create -> swatch to select goal -> enter name for quiz -> templates based on goal/skip -> automatically create quiz page 

@@ -49,7 +49,7 @@
                 </div>
 
 
-                <button type="button" class="btn btn-primary site-secondary-button m-2" data-toggle="modal" data-target="#quizPaymentSettings">Accept payments</button>
+                {% comment %} <button type="button" class="btn btn-primary site-secondary-button m-2" data-toggle="modal" data-target="#quizPaymentSettings">Accept payments</button>
 
                 <div class="modal fade" id="quizPaymentSettings">
                     <div class="modal-dialog modal-dialog-centered" role="document">
@@ -71,9 +71,9 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div> {% endcomment %}
 
-                <a href="{% url 'add_product_quiz' user_quiz.id %}" type="button" class="btn btn-primary site-secondary-button m-2 ">Add product </a>
+                {% comment %} <a href="{% url 'add_product_quiz' user_quiz.id %}" type="button" class="btn btn-primary site-secondary-button m-2 ">Add product </a> {% endcomment %}
                 <button type="button" class="btn btn-primary site-secondary-button m-2" data-toggle="modal" data-target="#qrCode">QR Code link</button>
 
                 <div class="modal fade" id="qrCode">
