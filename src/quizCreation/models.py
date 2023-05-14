@@ -220,7 +220,7 @@ class Dropdown(models.Model):
     required = models.BooleanField(default=False)
     
     def get_dropdown_choices(self):
-        return DropdownChoice.objects.filter(dropdown=self)
+        dropdown_choices  = DropdownChoice.objects.filter(dropdown=self)
 
 class DropdownChoice(models.Model):
     dropdown = models.ForeignKey(Dropdown, on_delete=models.CASCADE)

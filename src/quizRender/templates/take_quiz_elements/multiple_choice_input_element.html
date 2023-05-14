@@ -1,12 +1,12 @@
+{% if element.get_element_type.element.get_multiple_choice_choices %}
+
 <div
     {% if not checked_db %}
         hx-trigger = 'load'
         hx-swap=outerHTML
         hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id%}
     {% endif %}
->
-
-
+    >
 
     <select  style="opacity:0; position:fixed;"
 
@@ -117,3 +117,4 @@
     {% endif %}
 </div>
 
+{% endif %}

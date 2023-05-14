@@ -1,13 +1,16 @@
 
+{% if  element.get_element_type.element.get_dropdown_choices %}
+
+
 <div class="select" id="question_{{element.id}}"          
 
-{% if not checked_db %}
-hx-trigger = 'load'
-hx-swap=outerHTML
-hx-target="#question_{{element.id}}"
-hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id %}
-{% endif %}
->
+  {% if not checked_db %}
+  hx-trigger = 'load'
+  hx-swap=outerHTML
+  hx-target="#question_{{element.id}}"
+  hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id %}
+  {% endif %}
+  >
 
     <select id="select{{element.id}}" name="{{element.id}}"  class="w-100 border-dark" >
       {% if not element.get_element_type.element.required %}
@@ -144,6 +147,9 @@ hx-get={% url 'get_value_stored_in_db'  quiz_page.quiz.id element.id response_id
     
     </style>
 </div>
+
+
+{% endif %}
     
 
 

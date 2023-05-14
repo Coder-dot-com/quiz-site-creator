@@ -53,17 +53,20 @@
                     {% include 'take_quiz_elements/text_input_element.html' %}
                 {% elif element.get_element_type.type == 'Email input'  %}
                     {% include 'take_quiz_elements/email_input_element.html' %}
-                {% elif element.get_element_type.type == 'Dropdown'  %}
-                    {% include 'take_quiz_elements/dropdown.html' %}
-                {% elif element.get_element_type.type == 'Number input'  %}
-                    {% include 'take_quiz_elements/number_input_element.html' %}
-                {% elif element.get_element_type.type == 'Review stars'  %}
-                    {% include 'take_quiz_elements/review_stars.html' %}
 
+
+                {% elif element.get_element_type.type == 'Dropdown'  %}
+                    {% include 'take_quiz_elements/dropdown.html' %} 
                 {% elif element.get_element_type.type == 'Multiple choice question'  %}
                     {% include 'take_quiz_elements/multiple_choice_input_element.html' %}
                 {% elif element.get_element_type.type == 'Single choice question'  %}
                     {% include 'take_quiz_elements/single_choice_input_element.html' %}
+
+
+                {% elif element.get_element_type.type == 'Number input'  %}
+                    {% include 'take_quiz_elements/number_input_element.html' %}
+                {% elif element.get_element_type.type == 'Review stars'  %}
+                    {% include 'take_quiz_elements/review_stars.html' %}
                 {% elif element.get_element_type.type == 'Agree disagree table'  %}
                     {% include 'take_quiz_elements/agree_disagree_table.html' %}
                 {% elif element.get_element_type.type == 'Satisfied unsatisfied table'  %}
