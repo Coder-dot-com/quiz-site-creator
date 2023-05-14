@@ -41,8 +41,8 @@ urlpatterns = [
 
     path("customer_survey/", views.customer_survey, name="customer_survey"),
     path("lead_capture/", views.lead_capture, name="lead_capture"),
-    path("", views.home, name="home"),
-    path("", views.home, name="home"),
+    path("exit_interview_surveys/", views.exit_interview_surveys, name="exit_interview_surveys"),
+    path("event_surveys/", views.event_surveys, name="event_surveys"),
 
 
     path('admin/1a/', admin.site.urls),
