@@ -14,7 +14,7 @@
         xmls which contain more data e.g. for specific paths )
         -Update robots.txt
         -Money keywords e.g. specific niche landing pages under / (e.g. XYZ for shopify/wordpress etc...)
-            and ranking/traffic under /blog
+            and ranking/traffic under 
 
 With blog categories only add 1
 
