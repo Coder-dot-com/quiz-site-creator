@@ -289,30 +289,30 @@ class BlogPage(Page):
             image = File(img_io, name=f"{uuid4()}.jpg") # create a django friendly File object
             self.title_image = image
         
-        if not self.secondary_title_image:
+        # if not self.secondary_title_image:
 
-            headers = {
-                'Authorization': config('PEXELS_API_KEY')
-            }
+        #     headers = {
+        #         'Authorization': config('PEXELS_API_KEY')
+        #     }
 
-            #Change query to try except with decreasing num of words
-            query = self.title
+        #     #Change query to try except with decreasing num of words
+        #     query = self.title
 
-            endpoint = f"https://api.pexels.com/v1/search?query={query}&per_page=5"
+        #     endpoint = f"https://api.pexels.com/v1/search?query={query}&per_page=5"
 
-            response = requests.get(url=endpoint, headers=headers)
-            print(response)
+        #     response = requests.get(url=endpoint, headers=headers)
+        #     print(response)
 
-            image_chosen = randint(0, (len(response.json()['photos'])-1))
-            print(response.json())
-            url = f"{(response.json()['photos'][image_chosen]['src']['large'])}"
+        #     image_chosen = randint(0, (len(response.json()['photos'])-1))
+        #     print(response.json())
+        #     url = f"{(response.json()['photos'][image_chosen]['src']['large'])}"
             
-            r = requests.get(url, stream=True)
-            img_temp = NamedTemporaryFile()
-            img_temp.write(r.content)
+        #     r = requests.get(url, stream=True)
+        #     img_temp = NamedTemporaryFile()
+        #     img_temp.write(r.content)
 
-            self.secondary_title_image.save(f"{uuid4()}.jpg", File(img_temp))
-            img_temp.flush()
+        #     self.secondary_title_image.save(f"{uuid4()}.jpg", File(img_temp))
+        #     img_temp.flush()
 
 
 
