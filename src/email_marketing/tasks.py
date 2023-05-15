@@ -35,7 +35,7 @@ def sync_email_with_sendinblue(email):
                     # "LATEST_PREVIEW_IMAGE": preview_url,
 
                 },
-                "listIds": ['5'],
+                "listIds": [5],
                 "updateEnabled": True,
                 "email": email,
             }
