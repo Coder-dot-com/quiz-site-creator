@@ -229,65 +229,65 @@ class BlogPage(Page):
         else:
             pass
 
-    def save(self, *args, **kwargs):
-        if not self.title_image:
-            title = self.title
+    # def save(self, *args, **kwargs):
+    #     if not self.title_image:
+    #         title = self.title
 
-            gradient_path = f'{BASE_DIR}/blog/utils/blog_page/gradient.jpg'
-            create_gradient()
-            img = Image.open(gradient_path)
+    #         gradient_path = f'{BASE_DIR}/blog/utils/blog_page/gradient.jpg'
+    #         create_gradient()
+    #         img = Image.open(gradient_path)
 
-            W = int(img.size[0])
-            H = int(img.size[1])
-            draw = ImageDraw.Draw(img)
+    #         W = int(img.size[0])
+    #         H = int(img.size[1])
+    #         draw = ImageDraw.Draw(img)
             
-            def text_wrapped(font_size):
-                font_path = f'{BASE_DIR}/blog/utils/blog_page/Montserrat-Bold.ttf'
-                font2 = ImageFont.truetype(font_path, font_size)
-                msg2 = wrap_text(text=title, width=600, font=font2)
-                line_spacing = (draw.textsize("A", font2)[1]) * 1.5
-                total_text_height = len(msg2)*line_spacing
+    #         def text_wrapped(font_size):
+    #             font_path = f'{BASE_DIR}/blog/utils/blog_page/Montserrat-Bold.ttf'
+    #             font2 = ImageFont.truetype(font_path, font_size)
+    #             msg2 = wrap_text(text=title, width=600, font=font2)
+    #             line_spacing = (draw.textsize("A", font2)[1]) * 1.5
+    #             total_text_height = len(msg2)*line_spacing
 
-                return locals()
-            starting_font = 200
-            text_wrapped_vars = text_wrapped(starting_font) 
-            msg2 = text_wrapped_vars['msg2']
-            line_spacing = text_wrapped_vars['line_spacing']
-            font2 = text_wrapped_vars['font2']
-            h_title=0
-            total_text_height = text_wrapped_vars['total_text_height']
+    #             return locals()
+    #         starting_font = 200
+    #         text_wrapped_vars = text_wrapped(starting_font) 
+    #         msg2 = text_wrapped_vars['msg2']
+    #         line_spacing = text_wrapped_vars['line_spacing']
+    #         font2 = text_wrapped_vars['font2']
+    #         h_title=0
+    #         total_text_height = text_wrapped_vars['total_text_height']
 
-            longest_line = 0
-            for x in msg2:
-                line_length = draw.textsize( x, font=font2)[0]
-                if line_length > longest_line:
-                    longest_line = line_length
+    #         longest_line = 0
+    #         for x in msg2:
+    #             line_length = draw.textsize( x, font=font2)[0]
+    #             if line_length > longest_line:
+    #                 longest_line = line_length
 
-            while total_text_height > 600 or longest_line > 600:
-                starting_font -= 5
-                print('starting_font', starting_font)
-                text_wrapped_vars = text_wrapped(starting_font) 
-                msg2 = text_wrapped_vars['msg2']
-                line_spacing = text_wrapped_vars['line_spacing']
-                font2 = text_wrapped_vars['font2']
-                h_title=0
-                total_text_height = text_wrapped_vars['total_text_height'] 
+    #         while total_text_height > 600 or longest_line > 600:
+    #             starting_font -= 5
+    #             print('starting_font', starting_font)
+    #             text_wrapped_vars = text_wrapped(starting_font) 
+    #             msg2 = text_wrapped_vars['msg2']
+    #             line_spacing = text_wrapped_vars['line_spacing']
+    #             font2 = text_wrapped_vars['font2']
+    #             h_title=0
+    #             total_text_height = text_wrapped_vars['total_text_height'] 
             
-                longest_line = 0
-                for x in msg2:
-                    line_length = draw.textsize( x, font=font2)[0]
-                    if line_length > longest_line:
-                        longest_line = line_length
+    #             longest_line = 0
+    #             for x in msg2:
+    #                 line_length = draw.textsize( x, font=font2)[0]
+    #                 if line_length > longest_line:
+    #                     longest_line = line_length
 
-            for x in msg2:
-                draw.text(((W-longest_line)/2, (h_title+((H-total_text_height)/2))), x , (255, 255, 255), font=font2)
-                h_title += line_spacing
+    #         for x in msg2:
+    #             draw.text(((W-longest_line)/2, (h_title+((H-total_text_height)/2))), x , (255, 255, 255), font=font2)
+    #             h_title += line_spacing
 
-            img_io = BytesIO() # create a BytesIO object
+    #         img_io = BytesIO() # create a BytesIO object
 
-            img.save(img_io, 'JPEG', quality=85) # save image to BytesIO object
-            image = File(img_io, name=f"{uuid4()}.jpg") # create a django friendly File object
-            self.title_image = image
+    #         img.save(img_io, 'JPEG', quality=85) # save image to BytesIO object
+    #         image = File(img_io, name=f"{uuid4()}.jpg") # create a django friendly File object
+    #         self.title_image = image
         
         # if not self.secondary_title_image:
 
@@ -316,7 +316,7 @@ class BlogPage(Page):
 
 
 
-        return super().save(*args, **kwargs)
+        # return super().save(*args, **kwargs)
 
     def get_next_article(self):
         try:
